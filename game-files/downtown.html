@@ -1119,10 +1119,7 @@
             `;
         }
         
-        // Проверяем, есть ли в описании таблица
         let descriptionHtml = trial.description;
-        // Если в описании есть <table>, то она уже встроена, и её не нужно оборачивать в <p>
-        // Иначе оборачиваем в <p>
         if (!descriptionHtml.includes('<table')) {
             descriptionHtml = `<p>${descriptionHtml}</p>`;
         }
