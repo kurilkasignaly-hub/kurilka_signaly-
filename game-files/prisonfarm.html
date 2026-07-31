@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Prison Farm — Trial | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes smokePulse {
+            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
+            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.4);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== БЛОК УПРАВЛЕНИЯ МУЗЫКОЙ ===== */
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 0.5rem;
+            position: relative;
+        }
+
+        .music-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .music-toggle.playing {
+            border-color: rgba(220, 90, 50, 0.3);
+            color: #e25d32;
+        }
+
+        .music-toggle .icon {
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .music-toggle .icon.pulse {
+            animation: musicPulse 1.2s ease-in-out infinite;
+        }
+
+        .music-toggle .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .volume-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.7rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .volume-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .volume-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .volume-toggle-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .volume-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .volume-dropdown.open {
+            display: block;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .volume-dropdown .volume-label {
+            font-size: 0.7rem;
+            color: #8a7a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        .volume-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .volume-slider-wrapper .vol-icon {
+            color: #7a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider-wrapper .vol-icon.active {
+            color: #e25d32;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .volume-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e25d32;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .music-controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== КАРТА ===== */
+        .map-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 1.5rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .map-image {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .map-image img {
+            width: 100%;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .map-info {
+            flex: 1;
+        }
+
+        .map-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .map-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #d1cce6;
+            margin-bottom: 0.8rem;
+        }
+
+        /* ===== ИСПЫТАНИЯ ===== */
+        .trials-section {
+            margin-bottom: 2rem;
+            animation: fadeInScale 0.6s ease-out 0.15s backwards;
+        }
+
+        .trials-section h2 {
+            font-size: 1.5rem;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #e16d48;
+            padding-left: 15px;
+        }
+
+        .trials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+        }
+
+        .trial-card {
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .trial-card:hover {
+            transform: translateY(-6px);
+            border-color: #e16d48;
+            box-shadow: 0 15px 30px rgba(220, 90, 50, 0.2);
+        }
+
+        .trial-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+            background: linear-gradient(135deg, #2a2a3e, #1a1a2e);
+        }
+
+        .trial-name {
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e16d48;
+            border-top: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        /* ===== МОДАЛКИ ===== */
+        .trial-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .trial-modal.active {
+            display: flex;
+        }
+
+        .trial-modal-content {
+            max-width: 1000px;
+            width: 90%;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.4);
+            cursor: default;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .trial-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+        }
+
+        .trial-modal-header h3 {
+            font-size: 1.5rem;
+            color: #e16d48;
+        }
+
+        .trial-modal-close {
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .trial-modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        .trial-modal-body {
+            padding: 1.5rem;
+        }
+
+        .trial-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .trial-info-image {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .trial-info-image img {
+            width: 100%;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+        }
+
+        .trial-info-text {
+            flex: 2;
+        }
+
+        .trial-info-text p {
+            color: #d1cce6;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            white-space: pre-line;
+        }
+
+        .trial-gallery {
+            margin-top: 1rem;
+        }
+
+        .trial-gallery h4 {
+            font-size: 1.2rem;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid #e16d48;
+            padding-left: 12px;
+        }
+
+        .gallery-slider-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .gallery-slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 0;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+            display: flex;
+            gap: 1rem;
+            padding: 0.2rem;
+        }
+
+        .gallery-slide .gallery-item {
+            flex: 0 0 calc(33.333% - 0.7rem);
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 16/10;
+        }
+
+        .gallery-slide .gallery-item:hover {
+            transform: translateY(-3px);
+            border-color: #e16d48;
+        }
+
+        .gallery-slide .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-size: 1.2rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .gallery-nav-btn:hover {
+            background: rgba(220, 90, 50, 0.3);
+            border-color: #e16d48;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .gallery-nav-btn.prev {
+            left: 10px;
+        }
+
+        .gallery-nav-btn.next {
+            right: 10px;
+        }
+
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .gallery-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-dot.active {
+            background: #e16d48;
+            width: 24px;
+            border-radius: 10px;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .image-modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 20001;
+        }
+
+        .image-modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        .footer-logo {
+            max-height: 32px;
+            width: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 0.8rem; }
+            .header { flex-direction: column; padding: 0.8rem 1rem; border-radius: 40px; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 0.3rem; }
+            .nav-btn { padding: 0.35rem 0.7rem; font-size: 0.7rem; }
+            .logo .logo-img { max-height: 40px; }
+            .logo .logo-text { font-size: 1.1rem; }
+            .map-container { flex-direction: column; }
+            .map-title { font-size: 1.4rem; text-align: center; }
+            .trials-grid { grid-template-columns: repeat(2, 1fr); }
+            .music-controls-wrapper { margin-top: 0.5rem; width: 100%; justify-content: center; }
+            .volume-dropdown { right: auto; left: 50%; transform: translateX(-50%); }
+            .volume-dropdown.open { transform: translateX(-50%) scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .trials-grid { grid-template-columns: 1fr; }
+            .nav-btn { padding: 0.25rem 0.5rem; font-size: 0.6rem; gap: 3px; }
+            .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+            .music-toggle .label { font-size: 0.6rem; }
+            .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+            .logo .logo-img { max-height: 32px; }
+            .logo .logo-text { font-size: 0.9rem; }
+            .logo { gap: 0.4rem; }
+            .trial-modal-header h3 { font-size: 1.2rem; }
+            .trial-info { flex-direction: column; }
+            .gallery-slide .gallery-item { flex: 0 0 calc(100% - 0rem); }
+            .gallery-nav-btn { width: 32px; height: 32px; font-size: 0.8rem; }
+            .volume-slider { width: 100px; }
+            .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="../images/об игре фон.mp4" type="video/mp4">
+</video>
+
+<!-- Аудио для фона -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio" preload="auto" loop>
+        <source src="../images/prisonfarm music.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+<div class="container">
+
+    <!-- ===== НАВИГАЦИЯ ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
+            <a href="achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+
+            <!-- ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== -->
+            <div class="music-controls-wrapper">
+                <div class="music-controls">
+                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                        <span class="icon fa-solid fa-volume-xmark"></span>
+                        <span class="label">Выкл</span>
+                    </button>
+
+                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
+                        <span class="arrow">▼</span>
+                    </div>
+                </div>
+
+                <!-- Выпадающий регулятор громкости -->
+                <div class="volume-dropdown" id="volumeDropdown">
+                    <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
+                    <div class="volume-slider-wrapper">
+                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
+                        <span class="volume-value" id="volumeValue">40%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="genesis.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к программе «Генезис»</a>
+    </div>
+
+    <!-- ===== КАРТА ===== -->
+    <div class="map-container">
+        <div class="map-image">
+            <img src="../images/Тюремная ферма.webp" alt="Prison Farm" onerror="this.src='https://placehold.co/600x400/1a1a2e/e16d48?text=Prison+Farm'">
+        </div>
+        <div class="map-info">
+            <h1 class="map-title">Тюремная ферма</h1>
+            <p class="map-description">Тюремная ферма (ориг. Prison Farm) — место в игре The Outlast Trials, испытательный полигон главного актива Франсуа Барбера на объекте Синьяла. Огромный испытательный полигон внутри ангара объекта Синьяла в пустыне Аризоны, построенный в виде тюремной фермы, символизирующей духовную среду обитания главного актива Франсуа Барбера.</p>
+            <p class="map-description">Испытуемые реагенты должны проходить различные испытания на тюремной ферме и противостоять агрессивным экс-попам во главе с жестоким Франсуа Барбером.</p>
+        </div>
+    </div>
+
+    <!-- ===== ИСПЫТАНИЯ ===== -->
+    <div class="trials-section">
+        <h2><i class="fas fa-clipboard-list"></i> Испытания полигона</h2>
+        <div class="trials-grid" id="trialsGrid"></div>
+    </div>
+
+    <footer>
+        <img src="../images/лого.png" alt="Курилка Синьялы" class="footer-logo" onerror="this.style.display='none'">
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials.<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛКИ ===== -->
+<div id="trialModal" class="trial-modal">
+    <div class="trial-modal-content">
+        <div class="trial-modal-header">
+            <h3 id="modalTitle">Название испытания</h3>
+            <span class="trial-modal-close">&times;</span>
+        </div>
+        <div class="trial-modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+<div id="imageModal" class="image-modal">
+    <span class="image-modal-close">&times;</span>
+    <div class="image-modal-content">
+        <img id="fullImage" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+
+<script>
+    // ===== ДАННЫЕ ИСПЫТАНИЙ =====
+    var trialsData = [
+        {
+            id: "hit-the-boss",
+            name: "Ударьте начальника",
+            image: "../images/Генезис-Начальник.webp",
+            description: "Реагенты начинают испытание на тюремной ферме, прибывая на шаттле к главным воротам. Их задача — проникнуть на территорию фермы и устранить <b>начальника</b> тюрьмы, который является главным активом Франсуа Барбера на этом полигоне.\n\nПроникнув через главные ворота, Реагенты оказываются на территории фермы, где их встречают многочисленные манекены-заключённые, патрулирующие территорию. Им необходимо пробраться через <b>тюремный блок</b>, где содержатся самые опасные заключённые.\n\nВ тюремном блоке Реагенты находят <b>начальника</b>, который находится в своей кабинете на втором этаже. Чтобы добраться до него, необходимо активировать <b>три рычага</b>, разбросанных по территории тюремного блока, которые открывают доступ к кабинету.\n\nПосле активации всех рычагов Реагенты проникают в кабинет начальника. Он оказывается заперт в стеклянной кабине, которую можно открыть только с помощью <b>кода</b>, скрытого в ультрафиолетовом освещении. Подсказки к коду разбросаны по всему тюремному блоку.\n\nКогда код будет введён, начальник выходит из кабины и направляется к месту казни — <b>электрическому стулу</b>, установленному в центре тюремного блока. Реагенты должны сопровождать его до стула и зафиксировать.\n\nПосле того как начальник будет зафиксирован на электрическом стуле, Реагенты активируют рычаг, и начальник погибает от удара током. После завершения казни Реагенты должны добраться до эвакуационного шаттла и покинуть испытание.",
+            gallery: ["../images/начальник-1.png", "../images/начальник-2.png", "../images/начальник-3.png", "../images/начальник-4.png", "../images/начальник-5.png", "../images/начальник-6.png", "../images/начальник-7.png", "../images/начальник-8.png"]
+        }
+    ];
+
+    // ===== МУЗЫКА =====
+    var mainAudioStarted = false;
+    var mainAudioElement = null;
+
+    function initMainAudio() {
+        var container = document.getElementById('mainAudioContainer');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        var audio = document.createElement('audio');
+        audio.id = 'mainAudio';
+        audio.preload = 'auto';
+        audio.volume = 0.4;
+        audio.loop = true;
+        var source = document.createElement('source');
+        source.src = '../images/prisonfarm music.mp3';
+        source.type = 'audio/mpeg';
+        audio.appendChild(source);
+        container.appendChild(audio);
+        mainAudioElement = audio;
+    }
+
+    function startMainMusic() {
+        if (mainAudioStarted) return;
+
+        initMainAudio();
+        
+        if (!mainAudioElement) {
+            setTimeout(startMainMusic, 500);
+            return;
+        }
+
+        mainAudioStarted = true;
+        var slider = document.getElementById('volumeSlider');
+        mainAudioElement.volume = parseFloat(slider ? slider.value : 40) / 100;
+        mainAudioElement.currentTime = 0;
+        mainAudioElement.play().catch(function() {});
+        
+        updateMusicButton(true);
+        updateVolumeDisplay();
+    }
+
+    function updateMusicButton(state) {
+        var btn = document.getElementById('musicToggleBtn');
+        if (!btn) return;
+        
+        var icon = btn.querySelector('.icon');
+        var label = btn.querySelector('.label');
+        
+        if (state) {
+            btn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high', 'pulse');
+            }
+            if (label) label.textContent = 'Вкл';
+        } else {
+            btn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-high', 'pulse');
+                icon.classList.add('fa-volume-xmark');
+            }
+            if (label) label.textContent = 'Выкл';
+        }
+    }
+
+    function toggleMainMusic() {
+        if (mainAudioStarted) {
+            mainAudioStarted = false;
+            
+            if (mainAudioElement) {
+                mainAudioElement.pause();
+                mainAudioElement.currentTime = 0;
+            }
+            
+            updateMusicButton(false);
+        } else {
+            mainAudioStarted = true;
+            
+            initMainAudio();
+            
+            if (!mainAudioElement) {
+                mainAudioStarted = false;
+                return;
+            }
+            
+            var slider = document.getElementById('volumeSlider');
+            mainAudioElement.volume = parseFloat(slider ? slider.value : 40) / 100;
+            mainAudioElement.currentTime = 0;
+            mainAudioElement.play().catch(function() {});
+            
+            updateMusicButton(true);
+            updateVolumeDisplay();
+        }
+    }
+
+    // ===== УПРАВЛЕНИЕ ГРОМКОСТЬЮ =====
+    var volumeDropdownOpen = false;
+
+    function toggleVolumeDropdown() {
+        volumeDropdownOpen = !volumeDropdownOpen;
+        var dropdown = document.getElementById('volumeDropdown');
+        var arrow = document.querySelector('.volume-toggle-btn .arrow');
+        
+        if (volumeDropdownOpen) {
+            if (dropdown) dropdown.classList.add('open');
+            if (arrow) arrow.classList.add('open');
+        } else {
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+        }
+    }
+
+    function updateVolumeDisplay() {
+        var slider = document.getElementById('volumeSlider');
+        var valueDisplay = document.getElementById('volumeValue');
+        if (!slider || !valueDisplay) return;
+        var val = parseInt(slider.value, 10);
+        valueDisplay.textContent = val + '%';
+    }
+
+    document.addEventListener('click', function(e) {
+        var wrapper = document.querySelector('.music-controls-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            var dropdown = document.getElementById('volumeDropdown');
+            var arrow = document.querySelector('.volume-toggle-btn .arrow');
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            volumeDropdownOpen = false;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.getElementById('volumeSlider');
+        var valueDisplay = document.getElementById('volumeValue');
+        
+        if (slider) {
+            slider.addEventListener('input', function() {
+                var val = parseInt(this.value, 10);
+                if (valueDisplay) valueDisplay.textContent = val + '%';
+                
+                if (mainAudioElement && mainAudioStarted) {
+                    mainAudioElement.volume = val / 100;
+                }
+                
+                var percent = val;
+                slider.style.background = 'linear-gradient(to right, #e25d32 0%, #e25d32 ' + percent + '%, rgba(255,255,255,0.15) ' + percent + '%, rgba(255,255,255,0.15) 100%)';
+            });
+            
+            var initialVal = parseInt(slider.value, 10);
+            slider.style.background = 'linear-gradient(to right, #e25d32 0%, #e25d32 ' + initialVal + '%, rgba(255,255,255,0.15) ' + initialVal + '%, rgba(255,255,255,0.15) 100%)';
+            updateVolumeDisplay();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(startMainMusic, 1500);
+    });
+
+    document.addEventListener('click', function initAudioOnClick() {
+        if (!mainAudioStarted) {
+            startMainMusic();
+            document.removeEventListener('click', initAudioOnClick);
+        }
+    }, { once: true });
+
+    window.toggleMainMusic = toggleMainMusic;
+    window.toggleVolumeDropdown = toggleVolumeDropdown;
+
+    // ===== МОДАЛКИ =====
+    var trialModal = document.getElementById('trialModal');
+    var modalTitle = document.getElementById('modalTitle');
+    var modalBody = document.getElementById('modalBody');
+    var modalClose = document.querySelector('.trial-modal-close');
+    var imageModal = document.getElementById('imageModal');
+    var fullImage = document.getElementById('fullImage');
+    var imageModalClose = document.querySelector('.image-modal-close');
+
+    function openTrialModal(trial) {
+        modalTitle.textContent = trial.name;
+        
+        var galleryHtml = '';
+        if (trial.gallery && trial.gallery.length > 0) {
+            var itemsPerSlide = window.innerWidth < 600 ? 1 : window.innerWidth < 900 ? 2 : 3;
+            var totalSlides = Math.ceil(trial.gallery.length / itemsPerSlide);
+            var slidesHtml = '';
+            
+            for (var i = 0; i < totalSlides; i++) {
+                var start = i * itemsPerSlide;
+                var end = Math.min(start + itemsPerSlide, trial.gallery.length);
+                var items = trial.gallery.slice(start, end);
+                
+                slidesHtml += '<div class="gallery-slide" data-slide-index="' + i + '">';
+                for (var j = 0; j < items.length; j++) {
+                    var img = items[j];
+                    slidesHtml += '<div class="gallery-item" data-img="' + img + '"><img src="' + img + '" alt="Изображение" onerror="this.src=\'https://placehold.co/300x200/1a1a2e/e16d48?text=Фото\'"></div>';
+                }
+                slidesHtml += '</div>';
+            }
+            
+            var dotsHtml = '';
+            for (var k = 0; k < totalSlides; k++) {
+                dotsHtml += '<span class="gallery-dot ' + (k === 0 ? 'active' : '') + '" data-dot-index="' + k + '"></span>';
+            }
+            
+            galleryHtml = '<div class="trial-gallery"><h4><i class="fas fa-images"></i> Галерея</h4><div class="gallery-slider-wrapper"><div class="gallery-slider-track" id="galleryTrack">' + slidesHtml + '</div>';
+            if (totalSlides > 1) {
+                galleryHtml += '<button class="gallery-nav-btn prev" id="galleryPrev"><i class="fas fa-chevron-left"></i></button><button class="gallery-nav-btn next" id="galleryNext"><i class="fas fa-chevron-right"></i></button>';
+            }
+            galleryHtml += '</div>';
+            if (totalSlides > 1) {
+                galleryHtml += '<div class="gallery-dots">' + dotsHtml + '</div>';
+            }
+            galleryHtml += '</div>';
+        }
+        
+        var descriptionHtml = trial.description;
+        if (descriptionHtml.indexOf('<table') === -1) {
+            descriptionHtml = '<p>' + descriptionHtml + '</p>';
+        }
+        
+        modalBody.innerHTML = '<div class="trial-info"><div class="trial-info-image"><img src="' + trial.image + '" alt="' + trial.name + '" onerror="this.src=\'https://placehold.co/400x300/1a1a2e/e16d48?text=' + trial.name + '\'"></div><div class="trial-info-text">' + descriptionHtml + '</div></div>' + galleryHtml;
+        
+        trialModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        setTimeout(function() {
+            initGallery(trial.gallery);
+            
+            var items = document.querySelectorAll('.gallery-item');
+            for (var m = 0; m < items.length; m++) {
+                items[m].addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var imgSrc = this.getAttribute('data-img');
+                    if (imgSrc) {
+                        fullImage.src = imgSrc;
+                        imageModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            }
+        }, 100);
+    }
+
+    var currentSlideIndex = 0;
+    var totalSlides = 0;
+
+    function initGallery(gallery) {
+        var track = document.getElementById('galleryTrack');
+        if (!track) return;
+        
+        var slides = track.querySelectorAll('.gallery-slide');
+        totalSlides = slides.length;
+        
+        if (totalSlides <= 1) return;
+        
+        var prevBtn = document.getElementById('galleryPrev');
+        var nextBtn = document.getElementById('galleryNext');
+        var dots = document.querySelectorAll('.gallery-dot');
+        
+        currentSlideIndex = 0;
+        
+        function goToSlide(index) {
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+            currentSlideIndex = index;
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+            
+            for (var d = 0; d < dots.length; d++) {
+                dots[d].classList.toggle('active', d === index);
+            }
+        }
+        
+        if (prevBtn) prevBtn.addEventListener('click', function() { goToSlide(currentSlideIndex - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function() { goToSlide(currentSlideIndex + 1); });
+        for (var d = 0; d < dots.length; d++) {
+            dots[d].addEventListener('click', function(index) {
+                return function() { goToSlide(index); };
+            }(d));
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (!trialModal.classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') goToSlide(currentSlideIndex - 1);
+            if (e.key === 'ArrowRight') goToSlide(currentSlideIndex + 1);
+        });
+    }
+
+    function closeModal() {
+        trialModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function closeImageModal() {
+        imageModal.classList.remove('active');
+        fullImage.src = '';
+        document.body.style.overflow = '';
+    }
+
+    function displayTrials() {
+        var container = document.getElementById('trialsGrid');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        for (var t = 0; t < trialsData.length; t++) {
+            var trial = trialsData[t];
+            var card = document.createElement('div');
+            card.className = 'trial-card';
+            card.addEventListener('click', (function(trialData) {
+                return function() { openTrialModal(trialData); };
+            })(trial));
+            card.innerHTML = '<img src="' + trial.image + '" class="trial-image" alt="' + trial.name + '" onerror="this.style.background=\'linear-gradient(135deg, #2a2a3e, #1a1a2e)\'; this.src=\'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%232a2a3e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23e16d48\' font-size=\'14\' font-family=\'Arial\'%3E' + trial.name + '%3C/text%3E%3C/svg%3E\';"><div class="trial-name">' + trial.name + '</div>';
+            container.appendChild(card);
+        }
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    trialModal.addEventListener('click', function(e) { if (e.target === trialModal) closeModal(); });
+    imageModalClose.addEventListener('click', closeImageModal);
+    imageModal.addEventListener('click', function(e) { if (e.target === imageModal) closeImageModal(); });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && trialModal.classList.contains('active')) closeModal();
+        if (e.key === 'Escape' && imageModal.classList.contains('active')) closeImageModal();
+    });
+
+    function initScrollAnimation() {
+        var observer = new IntersectionObserver(function(entries) {
+            for (var i = 0; i < entries.length; i++) {
+                var entry = entries[i];
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            }
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        var elements = document.querySelectorAll('.map-container, .trials-section');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.opacity = '0';
+            elements[i].style.transform = 'translateY(20px)';
+            elements[i].style.transition = 'all 0.6s ease-out';
+            observer.observe(elements[i]);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        displayTrials();
+        initScrollAnimation();
+        console.log('Страница Prison Farm загружена');
+    });
+</script>
+
+</body>
+</html>
