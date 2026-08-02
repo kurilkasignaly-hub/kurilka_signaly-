@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>🎰 Рулетка испытаний — Курилка Синьялы</title>
+    <title>Рулетка испытаний — Курилка Синьялы</title>
     <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
     <link rel="shortcut icon" href="../images/лого.png" type="image/png">
     <link rel="apple-touch-icon" href="../images/лого.png">
@@ -684,63 +684,140 @@
             background: rgba(220, 90, 50, 0.1);
         }
 
-        /* ===== КНОПКИ ЭСКАЛАЦИИ ===== */
-        .escalation-buttons {
-            display: flex;
+        /* ===== КАРТОЧКИ ПРАВИЛ ЭСКАЛАЦИИ ===== */
+        .escalation-rules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
-            justify-content: center;
             margin-top: 1.5rem;
-            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
         }
 
-        .escalation-btn {
-            background: rgba(18, 12, 28, 0.6);
+        .escalation-rule-card {
+            background: rgba(18, 12, 28, 0.5);
             backdrop-filter: blur(12px);
-            border: 2px solid rgba(220, 90, 50, 0.3);
             border-radius: 28px;
-            padding: 1.5rem 3rem;
-            text-align: center;
+            padding: 1.8rem 1.8rem 1.5rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
             transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            min-width: 220px;
-            flex: 1;
-            max-width: 350px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .escalation-btn:hover {
-            transform: translateY(-6px);
+        .escalation-rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e25d32, #ffbc9a);
+            opacity: 0.6;
+        }
+
+        .escalation-rule-card:hover {
+            transform: translateY(-4px);
             border-color: #e16d48;
-            box-shadow: 0 15px 35px rgba(220, 90, 50, 0.2);
-            background: rgba(220, 90, 50, 0.08);
+            box-shadow: 0 15px 35px rgba(220, 90, 50, 0.12);
         }
 
-        .escalation-btn .icon {
-            font-size: 2.5rem;
+        .escalation-rule-card .rule-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .escalation-rule-card .rule-header .rule-icon {
+            font-size: 2rem;
             color: #e16d48;
-            margin-bottom: 0.5rem;
+            flex-shrink: 0;
         }
 
-        .escalation-btn h3 {
+        .escalation-rule-card .rule-header h3 {
             font-size: 1.2rem;
             color: #fff;
-            margin-bottom: 0.3rem;
+            font-weight: 700;
         }
 
-        .escalation-btn p {
-            font-size: 0.8rem;
-            color: #c2b9d4;
-        }
-
-        .escalation-btn .tag {
-            display: inline-block;
-            background: rgba(220, 90, 50, 0.2);
+        .escalation-rule-card .rule-header .rule-badge {
+            font-size: 0.6rem;
             padding: 0.2rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: auto;
+        }
+
+        .rule-badge-weekly {
+            background: rgba(76, 154, 255, 0.2);
+            color: #4c9aff;
+            border: 1px solid rgba(76, 154, 255, 0.3);
+        }
+
+        .rule-badge-infinite {
+            background: rgba(255, 51, 51, 0.2);
+            color: #ff6666;
+            border: 1px solid rgba(255, 51, 51, 0.3);
+        }
+
+        .escalation-rule-card .rule-body {
+            color: #c2b9d4;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .escalation-rule-card .rule-body .rule-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .escalation-rule-card .rule-body .rule-point .point-icon {
             color: #e16d48;
-            margin-top: 0.5rem;
+            font-size: 0.7rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .escalation-rule-card .rule-body strong {
+            color: #ffbc9a;
+        }
+
+        .escalation-rule-card .rule-footer {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .escalation-rule-card .rule-footer .btn-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            text-decoration: none;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .escalation-rule-card .rule-footer .btn-start:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
+        }
+
+        .escalation-rule-card .rule-footer .btn-start i {
+            font-size: 0.85rem;
         }
 
         /* ===== ОСОБЫЕ ИСПЫТАНИЯ ===== */
@@ -931,6 +1008,182 @@
             box-shadow: 0 4px 15px rgba(76, 154, 255, 0.2);
         }
 
+        /* ===== КОНСТРУКТОР ===== */
+        .constructor-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .constructor-section h2 {
+            font-size: 1.5rem;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #e16d48;
+            padding-left: 15px;
+        }
+
+        .constructor-wrapper {
+            background: rgba(18, 12, 28, 0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 2rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .constructor-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            color: #c2b9d4;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group select,
+        .form-group input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            border-radius: 16px;
+            padding: 0.7rem 1rem;
+            color: #f0eef7;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            border-color: #e16d48;
+        }
+
+        .form-group select option {
+            background: #1a1a2e;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group textarea {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            border-radius: 16px;
+            padding: 0.7rem 1rem;
+            color: #f0eef7;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group textarea:focus {
+            border-color: #e16d48;
+        }
+
+        .submit-btn {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
+        }
+
+        .created-tasks {
+            margin-top: 1.5rem;
+        }
+
+        .created-tasks h3 {
+            font-size: 1.1rem;
+            color: #c2b9d4;
+            margin-bottom: 1rem;
+        }
+
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .task-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s;
+        }
+
+        .task-item:hover {
+            border-color: #e16d48;
+            transform: translateY(-3px);
+        }
+
+        .task-item .task-name {
+            font-weight: 600;
+            color: #e16d48;
+        }
+
+        .task-item .task-meta {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 0.3rem;
+        }
+
+        .task-item .task-actions {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .task-item .task-actions button {
+            background: rgba(220, 90, 50, 0.2);
+            border: none;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            color: #c2b9d4;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .task-item .task-actions button:hover {
+            background: rgba(220, 90, 50, 0.4);
+            color: white;
+        }
+
+        .empty-tasks {
+            color: #888;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
         /* ===== ФУТЕР ===== */
         footer {
             margin-top: 3rem;
@@ -959,6 +1212,7 @@
             .page-header h1 { font-size: 1.8rem; }
             .modes-grid { flex-direction: column; align-items: center; }
             .mode-card { max-width: 100%; }
+            .escalation-rules { grid-template-columns: 1fr; }
             .daily-mission .mission-content { flex-direction: column; align-items: center; }
             .daily-mission .mission-trial { text-align: center; max-width: 100%; min-width: unset; }
             .daily-mission .mission-map { flex: 0 0 160px; max-width: 160px; }
@@ -970,8 +1224,6 @@
             .timer-unit .number { font-size: 1.8rem; min-width: 35px; }
             .timer-separator { font-size: 1.5rem; }
             .special-trials .trials-grid { grid-template-columns: 1fr; }
-            .escalation-buttons { flex-direction: column; align-items: center; }
-            .escalation-btn { max-width: 100%; width: 100%; }
             .music-controls-wrapper { margin-top: 0.5rem; width: 100%; justify-content: center; }
             .volume-dropdown { right: auto; left: 50%; transform: translateX(-50%); }
             .volume-dropdown.open { transform: translateX(-50%) scale(1); }
@@ -987,6 +1239,8 @@
             .logo { gap: 0.4rem; }
             .page-header h1 { font-size: 1.4rem; }
             .mode-card { padding: 1.2rem; }
+            .escalation-rule-card { padding: 1.2rem; }
+            .escalation-rule-card .rule-header h3 { font-size: 1rem; }
             .daily-mission .mission-map { flex: 0 0 120px; max-width: 120px; }
             .daily-mission .mission-map .map-image-wrap { width: 120px; height: 120px; }
             .daily-mission .variator-items { grid-template-columns: repeat(4, 1fr); gap: 0.3rem; }
@@ -998,9 +1252,6 @@
             .daily-mission .mission-trial .trial-name { font-size: 1rem; }
             .special-trials .trials-grid { grid-template-columns: 1fr; }
             .trial-card .trial-body .trial-status { flex-direction: column; align-items: flex-start; }
-            .escalation-btn { padding: 1rem 1.5rem; }
-            .escalation-btn .icon { font-size: 2rem; }
-            .escalation-btn h3 { font-size: 1rem; }
             .volume-slider { width: 100px; }
             .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
         }
@@ -1008,12 +1259,11 @@
 </head>
 <body>
 
-<!-- ===== ФОНОВОЕ ВИДЕО ===== -->
 <video class="background-video" autoplay muted loop playsinline>
     <source src="../images/об игре фон.mp4" type="video/mp4">
 </video>
 
-<!-- ===== АУДИО ДЛЯ ФОНА ===== -->
+<!-- Аудио для фона -->
 <div id="mainAudioContainer" style="display:none;">
     <audio id="mainAudio" preload="auto" loop>
         <source src="../images/комната отдыха 1.mp3" type="audio/mpeg">
@@ -1053,7 +1303,7 @@
                     </div>
                 </div>
 
-                <!-- ===== ВЫПАДАЮЩИЙ РЕГУЛЯТОР ГРОМКОСТИ ===== -->
+                <!-- Выпадающий регулятор громкости -->
                 <div class="volume-dropdown" id="volumeDropdown">
                     <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
                     <div class="volume-slider-wrapper">
@@ -1115,23 +1365,73 @@
             </div>
         </div>
 
-        <!-- Эскалация с двумя кнопками -->
-        <div style="text-align: center; margin-top: 2rem; margin-bottom: 0.5rem;">
-            <h3 style="color: #e16d48; font-size: 1.1rem; margin-bottom: 0.5rem;">Эскалация</h3>
+        <!-- Эскалация с карточками правил -->
+        <div style="text-align: center; margin-top: 2.5rem; margin-bottom: 1rem;">
+            <h3 style="color: #e16d48; font-size: 1.2rem; margin-bottom: 0.5rem;">⚡ Режим Эскалации</h3>
+            <p style="color: #888; font-size: 0.85rem;">Постепенное усложнение с каждым новым уровнем</p>
         </div>
-        <div class="escalation-buttons">
-            <a href="escalation-weekly.html" class="escalation-btn">
-                <div class="icon"><i class="fas fa-calendar-week"></i></div>
-                <h3>Еженедельная</h3>
-                <p>Постепенное усложнение каждую неделю</p>
-                <span class="tag">📅 7 дней</span>
-            </a>
-            <a href="escalation-infinite.html" class="escalation-btn">
-                <div class="icon"><i class="fas fa-infinity"></i></div>
-                <h3>Бесконечная</h3>
-                <p>Бесконечное усложнение до предела</p>
-                <span class="tag">♾️ Безлимит</span>
-            </a>
+
+        <!-- Карточки правил -->
+        <div class="escalation-rules">
+            <!-- Еженедельная -->
+            <div class="escalation-rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon"><i class="fas fa-calendar-week"></i></span>
+                    <h3>Еженедельная</h3>
+                    <span class="rule-badge rule-badge-weekly">📅 7 дней</span>
+                </div>
+                <div class="rule-body">
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>7 уровней</strong> — каждую неделю обновляется набор испытаний</span>
+                    </div>
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>Постепенное усложнение</strong> — каждый уровень добавляет новый вариатор</span>
+                    </div>
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>Еженедельный сброс</strong> — каждый понедельник начинается новый цикл</span>
+                    </div>
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>Награды</strong> — уникальные достижения за прохождение недели</span>
+                    </div>
+                </div>
+                <div class="rule-footer">
+                    <a href="escalation-weekly.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
+                </div>
+            </div>
+
+            <!-- Бесконечная -->
+            <div class="escalation-rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon"><i class="fas fa-infinity"></i></span>
+                    <h3>Бесконечная</h3>
+                    <span class="rule-badge rule-badge-infinite">♾️ Безлимит</span>
+                </div>
+                <div class="rule-body">
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>Бесконечные уровни</strong> — пока вы не проиграете или не решите выйти</span>
+                    </div>
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>Каждый уровень</strong> добавляет новый вариатор, усложняя испытание</span>
+                    </div>
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>Сложность растёт</strong> — от начальной до психохирургии</span>
+                    </div>
+                    <div class="rule-point">
+                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                        <span><strong>Рекорд</strong> — сколько уровней вы сможете пройти?</span>
+                    </div>
+                </div>
+                <div class="rule-footer">
+                    <a href="escalation-infinite.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1139,6 +1439,57 @@
     <div class="special-trials">
         <h2><i class="fas fa-star"></i> Особые испытания</h2>
         <div class="trials-grid" id="specialTrialsGrid"></div>
+    </div>
+
+    <!-- ===== КОНСТРУКТОР ===== -->
+    <div class="constructor-section">
+        <h2><i class="fas fa-tools"></i> Конструктор испытаний</h2>
+        <div class="constructor-wrapper">
+            <form class="constructor-form" id="taskForm">
+                <div class="form-group">
+                    <label><i class="fas fa-map"></i> Карта</label>
+                    <select id="taskMap" required></select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-dice"></i> Количество вариаторов</label>
+                    <select id="taskVariators" required>
+                        <option value="1">1 вариатор</option>
+                        <option value="2">2 вариатора</option>
+                        <option value="3" selected>3 вариатора</option>
+                        <option value="4">4 вариатора</option>
+                        <option value="5">5 вариаторов</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Режим</label>
+                    <select id="taskMode" required>
+                        <option value="Рулетка">Рулетка</option>
+                        <option value="Эскалация">Эскалация</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-star"></i> Сложность</label>
+                    <select id="taskDifficulty" required>
+                        <option value="Вводный">Вводный</option>
+                        <option value="Стандартный" selected>Стандартный</option>
+                        <option value="Интенсивный">Интенсивный</option>
+                        <option value="Психохирургия">Психохирургия</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label><i class="fas fa-align-left"></i> Описание задания</label>
+                    <textarea id="taskDescription" placeholder="Опишите задание для игроков..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-plus"></i> Создать задание</button>
+            </form>
+        </div>
+
+        <div class="created-tasks">
+            <h3><i class="fas fa-list"></i> Созданные задания</h3>
+            <div class="tasks-grid" id="tasksGrid">
+                <div class="empty-tasks">Пока нет созданных заданий. Будьте первым!</div>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -1248,9 +1599,7 @@
         }
     }
 
-    // ================================================================
-    //  УПРАВЛЕНИЕ ГРОМКОСТЬЮ
-    // ================================================================
+    // ===== УПРАВЛЕНИЕ ГРОМКОСТЬЮ =====
     var volumeDropdownOpen = false;
 
     function toggleVolumeDropdown() {
@@ -1694,6 +2043,87 @@
     } else {
         renderSpecialTrials();
     }
+
+    // ================================================================
+    //  КОНСТРУКТОР
+    // ================================================================
+    function populateMapSelect() {
+        var select = document.getElementById('taskMap');
+        if (!select) return;
+        var mapNames = Object.keys(trialsData);
+        var options = '';
+        for (var i = 0; i < mapNames.length; i++) {
+            options += '<option value="' + mapNames[i] + '">' + mapNames[i] + '</option>';
+        }
+        select.innerHTML = options;
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', populateMapSelect);
+    } else {
+        populateMapSelect();
+    }
+
+    var taskForm = document.getElementById('taskForm');
+    var tasksGrid = document.getElementById('tasksGrid');
+    var tasks = [];
+
+    if (taskForm) {
+        taskForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var map = document.getElementById('taskMap').value;
+            var variators = document.getElementById('taskVariators').value;
+            var mode = document.getElementById('taskMode').value;
+            var difficulty = document.getElementById('taskDifficulty').value;
+            var description = document.getElementById('taskDescription').value || 'Без описания';
+
+            var task = {
+                id: Date.now(),
+                map: map,
+                variators: parseInt(variators),
+                mode: mode,
+                difficulty: difficulty,
+                description: description,
+                created: new Date().toLocaleString()
+            };
+
+            tasks.unshift(task);
+            renderTasks();
+            taskForm.reset();
+            populateMapSelect();
+            document.getElementById('taskDescription').value = '';
+        });
+    }
+
+    function renderTasks() {
+        if (!tasksGrid) return;
+        if (tasks.length === 0) {
+            tasksGrid.innerHTML = '<div class="empty-tasks">Пока нет созданных заданий. Будьте первым!</div>';
+            return;
+        }
+
+        var html = '';
+        for (var i = 0; i < tasks.length; i++) {
+            var task = tasks[i];
+            html += '<div class="task-item"><div class="task-name">' + task.map + '</div><div class="task-meta">' + task.mode + ' · ' + task.difficulty + ' · ' + task.variators + ' вариаторов</div><div class="task-meta" style="font-size:0.7rem;color:#666;">' + task.description + '</div><div class="task-meta" style="font-size:0.6rem;color:#555;">' + task.created + '</div><div class="task-actions"><button onclick="completeTask(' + task.id + ')">✅ Выполнить</button><button onclick="deleteTask(' + task.id + ')">🗑️ Удалить</button></div></div>';
+        }
+        tasksGrid.innerHTML = html;
+    }
+
+    window.completeTask = function(id) {
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i].id === id) {
+                alert('🎯 Задание выполнено!\nКарта: ' + tasks[i].map + '\nСложность: ' + tasks[i].difficulty);
+                deleteTask(id);
+                break;
+            }
+        }
+    };
+
+    window.deleteTask = function(id) {
+        tasks = tasks.filter(function(t) { return t.id !== id; });
+        renderTasks();
+    };
 
     console.log('✅ Рулетка загружена!');
     console.log('📊 Карт:', Object.keys(trialsData).length);
