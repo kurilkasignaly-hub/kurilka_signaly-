@@ -384,22 +384,85 @@
         .selection-wrapper {
             display: flex;
             justify-content: center;
+            width: 100%;
         }
 
+        /* ===== РАЗНЫЕ СЕТКИ В ЗАВИСИМОСТИ ОТ КОЛИЧЕСТВА ИГРОКОВ ===== */
         .selection-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             max-width: 600px;
             width: 100%;
             margin: 0 auto;
         }
 
+        /* 1 игрок — по центру */
+        .selection-grid.players-1 {
+            grid-template-columns: 1fr;
+            max-width: 300px;
+        }
+
+        /* 2 игрока — слева и справа */
+        .selection-grid.players-2 {
+            grid-template-columns: 1fr 1fr;
+            max-width: 500px;
+        }
+
+        /* 3 игрока — два сверху, один снизу по центру */
+        .selection-grid.players-3 {
+            grid-template-columns: 1fr 1fr;
+            max-width: 500px;
+        }
+
+        .selection-grid.players-3 .player-block:last-child {
+            grid-column: 1 / -1;
+            max-width: 50%;
+            justify-self: center;
+            width: 100%;
+        }
+
+        /* 4 игрока — 2x2 */
+        .selection-grid.players-4 {
+            grid-template-columns: 1fr 1fr;
+            max-width: 550px;
+        }
+
+        .selection-grid .player-block {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+            transition: border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .selection-grid .player-block:hover {
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        .selection-grid .player-block .block-title {
+            font-size: 0.9rem;
+            color: #e16d48;
+            font-weight: 700;
+            text-align: center;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.1);
+        }
+
+        /* ===== ВЫБОР ВНУТРИ БЛОКА ===== */
+        .selection-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
         .selection-item {
             background: rgba(0, 0, 0, 0.3);
             border: 2px solid rgba(220, 90, 50, 0.2);
-            border-radius: 20px;
-            padding: 1.2rem 0.8rem;
+            border-radius: 16px;
+            padding: 0.8rem 0.6rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -411,7 +474,7 @@
 
         .selection-item:hover {
             border-color: #e16d48;
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
@@ -422,13 +485,13 @@
         }
 
         .selection-item img {
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
             object-fit: contain;
-            margin-bottom: 0.5rem;
-            border-radius: 14px;
+            margin-bottom: 0.3rem;
+            border-radius: 12px;
             background: rgba(0, 0, 0, 0.2);
-            padding: 8px;
+            padding: 6px;
             transition: transform 0.3s;
         }
 
@@ -437,18 +500,26 @@
         }
 
         .selection-item .item-name {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #c2b9d4;
             font-weight: 500;
             line-height: 1.2;
         }
 
+        .selection-item .item-category {
+            font-size: 0.55rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.1rem;
+        }
+
         .selection-item .check-mark {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 6px;
+            right: 8px;
             color: #4c9aff;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             display: none;
         }
 
@@ -1191,12 +1262,12 @@
             
             .player-count-btn { padding: 1rem 2rem; font-size: 1.3rem; min-width: 70px; }
             
-            .selection-grid { 
-                grid-template-columns: repeat(3, 1fr); 
-                gap: 1rem;
-                max-width: 100%;
-            }
-            .selection-item img { width: 70px; height: 70px; }
+            .selection-grid.players-1 { max-width: 100%; }
+            .selection-grid.players-2 { max-width: 100%; }
+            .selection-grid.players-3 { max-width: 100%; }
+            .selection-grid.players-4 { max-width: 100%; }
+            .selection-grid.players-3 .player-block:last-child { max-width: 80%; }
+            .selection-item img { width: 60px; height: 60px; }
             
             .result-map-row { flex-direction: column; text-align: left; }
             .result-map-row .map-image { width: 130px; height: 130px; }
@@ -1221,12 +1292,9 @@
             .player-count-btn { padding: 0.8rem 1.2rem; font-size: 1.1rem; min-width: 55px; }
             .player-count-options { gap: 0.5rem; }
             
-            .selection-grid { 
-                grid-template-columns: repeat(3, 1fr); 
-                gap: 0.8rem;
-            }
-            .selection-item { padding: 0.8rem 0.5rem; }
-            .selection-item img { width: 60px; height: 60px; }
+            .selection-grid.players-3 .player-block:last-child { max-width: 100%; }
+            .selection-grid { gap: 1rem; }
+            .selection-item img { width: 50px; height: 50px; }
             .selection-item .item-name { font-size: 0.7rem; }
             
             .result-map-row .map-image { width: 100px; height: 100px; }
