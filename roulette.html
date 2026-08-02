@@ -1976,71 +1976,76 @@
     //  ОСОБЫЕ ИСПЫТАНИЯ
     // ================================================================
     function renderSpecialTrials() {
-        var grid = document.getElementById('specialTrialsGrid');
-        if (!grid) return;
+    var grid = document.getElementById('specialTrialsGrid');
+    if (!grid) return;
 
-        var specials = [
-            {
-                id: "special_1",
-                name: "ИСПЫТАНИЕ №1",
-                desc: "Пройти испытание ОПРАВДАТЬ ВИНОВНОГО, не нанося урон врагам метательными предметами (БУТЫЛКИ, КИРПИЧИ, СНАРЯЖЕНИЕ)",
-                icon: "images/Иконка задание.webp"
-            },
-            {
-                id: "special_2",
-                name: "ИСПЫТАНИЕ №2",
-                desc: "Пройдите испытание ЛИКВИДИРУЙТЕ ПРОФСОЮЗ используя снаряжение РЕНТГЕН",
-                icon: "images/Иконка задание.webp"
-            },
-            {
-                id: "special_3",
-                name: "ИСПЫТАНИЕ №3",
-                desc: "Пройдите испытание РАЗДАВИТЕ СЕКС-ИГРУШКИ не получая урон от главного актива",
-                icon: "images/Иконка задание.webp"
-            }
-        ];
+    var specials = [
+        {
+            id: "special_1",
+            name: "ИСПЫТАНИЕ №1",
+            desc: "Пройти испытание ОПРАВДАТЬ ВИНОВНОГО, не нанося урон врагам метательными предметами (БУТЫЛКИ, КИРПИЧИ, СНАРЯЖЕНИЕ)",
+            icon: "images/Иконка задание.webp"
+        },
+        {
+            id: "special_2",
+            name: "ИСПЫТАНИЕ №2",
+            desc: "Пройдите испытание ЛИКВИДИРУЙТЕ ПРОФСОЮЗ используя снаряжение РЕНТГЕН",
+            icon: "images/Иконка задание.webp"
+        },
+        {
+            id: "special_3",
+            name: "ИСПЫТАНИЕ №3",
+            desc: "Пройдите испытание РАЗДАВИТЕ СЕКС-ИГРУШКИ не получая урон от главного актива",
+            icon: "images/Иконка задание.webp"
+        }
+    ];
 
-        var statusData = {};
-        try {
-            var saved = localStorage.getItem('specialTrialsStatus');
-            if (saved) {
-                statusData = JSON.parse(saved);
-            }
-        } catch (e) {}
+    var statusData = {};
+    try {
+        var saved = localStorage.getItem('specialTrialsStatus');
+        if (saved) {
+            statusData = JSON.parse(saved);
+        }
+    } catch (e) {}
 
-        var html = '';
-        for (var i = 0; i < specials.length; i++) {
-            var s = specials[i];
-            var status = statusData[s.id] || 'pending';
+    var html = '';
+    for (var i = 0; i < specials.length; i++) {
+        var s = specials[i];
+        var status = statusData[s.id] || 'pending';
 
-            var statusBadge = '';
-            var btnHTML = '';
+        var statusBadge = '';
+        var btnHTML = '';
 
-            if (status === 'completed') {
-                statusBadge = '<span class="status-badge completed">✅ Выполнено</span>';
-                btnHTML = '<button class="complete-btn completed" disabled>✅ Помечено как выполненное</button>';
-            } else if (status === 'accepted') {
-                statusBadge = '<span class="status-badge accepted">📌 Принято</span>';
-                btnHTML = '<button class="complete-btn accepted" onclick="markTrialComplete(\'' + s.id + '\')">📋 Пометить как выполненное</button>';
-            } else {
-                statusBadge = '<span class="status-badge in-progress">⏳ В ожидании</span>';
-                btnHTML = '<button class="complete-btn" onclick="acceptTrial(\'' + s.id + '\')">📌 Принять вызов</button>';
-            }
-
-            html += '<div class="trial-card" data-id="' + s.id + '">';
-            html += '<div class="trial-header">';
-            html += '<div class="trial-icon"><img src="' + s.icon + '" alt="' + s.name + '" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<i class=\\"fas fa-star\\" style=\\"font-size: 1.8rem; color: #e16d48;\\"></i>\'"></div>';
-            html += '<div class="trial-title"><h3>' + s.name + '</h3></div>';
-            html += '</div>';
-            html += '<div class="trial-body">';
-            html += '<div class="trial-desc-label">ОПИСАНИЕ ЗАДАНИЯ:</div>';
-            html += '<div class="trial-desc">' + s.desc + '</div>';
-            html += '<div class="trial-status">' + statusBadge + '<div class="trial-actions">' + btnHTML + '</div></div>';
-            html += '</div></div>';
+        if (status === 'completed') {
+            statusBadge = '<span class="status-badge completed">✅ Выполнено</span>';
+            btnHTML = '<button class="complete-btn completed" disabled>✅ Помечено как выполненное</button>';
+        } else if (status === 'accepted') {
+            statusBadge = '<span class="status-badge accepted">📌 Принято</span>';
+            btnHTML = '<button class="complete-btn accepted" onclick="markTrialComplete(\'' + s.id + '\')">📋 Пометить как выполненное</button>';
+        } else {
+            statusBadge = '<span class="status-badge in-progress">⏳ В ожидании</span>';
+            btnHTML = '<button class="complete-btn" onclick="acceptTrial(\'' + s.id + '\')">📌 Принять вызов</button>';
         }
 
-        grid.innerHTML = html;
+        // ИСПРАВЛЕННАЯ СТРОКА - правильная экранировка кавычек
+        var iconHtml = '<div class="trial-icon">';
+        iconHtml += '<img src="' + s.icon + '" alt="' + s.name + '" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<i class=\'fas fa-star\' style=\'font-size: 1.8rem; color: #e16d48;\'></i>\'">';
+        iconHtml += '</div>';
+
+        html += '<div class="trial-card" data-id="' + s.id + '">';
+        html += '<div class="trial-header">';
+        html += iconHtml;
+        html += '<div class="trial-title"><h3>' + s.name + '</h3></div>';
+        html += '</div>';
+        html += '<div class="trial-body">';
+        html += '<div class="trial-desc-label">ОПИСАНИЕ ЗАДАНИЯ:</div>';
+        html += '<div class="trial-desc">' + s.desc + '</div>';
+        html += '<div class="trial-status">' + statusBadge + '<div class="trial-actions">' + btnHTML + '</div></div>';
+        html += '</div></div>';
     }
+
+    grid.innerHTML = html;
+}
 
     window.acceptTrial = function(id) {
         var statusData = {};
