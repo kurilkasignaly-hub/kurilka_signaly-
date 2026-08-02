@@ -32,6 +32,7 @@ const allVariatorsData = [
     { name: "Расшифруйте Вещание", image: "images/вариатор-вещание.webp", category: "collection" },
     { name: "Потушите Огонь", image: "images/вариатор-потушите-огонь.webp", category: "collection" },
     { name: "Соберите плакаты", image: "images/вариатор-соберите-плакаты.webp", category: "collection" },
+    { name: "Экстракция крови", image: "images/вариатор-экстракция-крови.webp", category: "collection" },
     
     // ===== СПЕЦИАЛЬНЫЕ ПОБОЧНЫЕ ЗАДАНИЯ =====
     // Эти вариаторы блокируют все остальные из категории collection
@@ -72,6 +73,7 @@ const allVariatorsData = [
     { name: "Ограниченное Снаряжение", image: "images/вариатор-ограниченное-снаряжение.webp", category: "reagent" },
     { name: "Урон Перезапускает Снаряжение", image: "images/вариатор-урон-п-снаряжения.webp", category: "reagent" },
     { name: "Урон Отключает Снаряжение", image: "images/вариатор-урон-о-снаряжение.webp", category: "reagent" },
+    { name: "Трофейное Снаряжение", image: "images/вариатор-трофейное-снаряжение.webp", category: "reagent" },
     
     // ===== ПРЕДМЕТЫ И ИНВЕНТАРЬ =====
     { name: "Ограниченные Предметы", image: "images/вариатор-ограниченные-предметы.webp", category: "items" },
