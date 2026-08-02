@@ -1036,182 +1036,6 @@
             box-shadow: 0 4px 15px rgba(76, 154, 255, 0.2);
         }
 
-        /* ===== КОНСТРУКТОР ===== */
-        .constructor-section {
-            margin-bottom: 2.5rem;
-        }
-
-        .constructor-section h2 {
-            font-size: 1.5rem;
-            color: #e16d48;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 3px solid #e16d48;
-            padding-left: 15px;
-        }
-
-        .constructor-wrapper {
-            background: rgba(18, 12, 28, 0.5);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 2rem;
-            border: 1px solid rgba(220, 90, 50, 0.25);
-        }
-
-        .constructor-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .form-group label {
-            font-size: 0.8rem;
-            color: #c2b9d4;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group select,
-        .form-group input {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(220, 90, 50, 0.3);
-            border-radius: 16px;
-            padding: 0.7rem 1rem;
-            color: #f0eef7;
-            font-size: 0.9rem;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus {
-            border-color: #e16d48;
-        }
-
-        .form-group select option {
-            background: #1a1a2e;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-group textarea {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(220, 90, 50, 0.3);
-            border-radius: 16px;
-            padding: 0.7rem 1rem;
-            color: #f0eef7;
-            font-size: 0.9rem;
-            font-family: inherit;
-            outline: none;
-            resize: vertical;
-            min-height: 80px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group textarea:focus {
-            border-color: #e16d48;
-        }
-
-        .submit-btn {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #bc4627, #e25d32);
-            border: none;
-            padding: 0.8rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-            margin-top: 0.5rem;
-        }
-
-        .submit-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
-        }
-
-        .created-tasks {
-            margin-top: 1.5rem;
-        }
-
-        .created-tasks h3 {
-            font-size: 1.1rem;
-            color: #c2b9d4;
-            margin-bottom: 1rem;
-        }
-
-        .tasks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .task-item {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 1rem;
-            border: 1px solid rgba(220, 90, 50, 0.2);
-            transition: all 0.3s;
-        }
-
-        .task-item:hover {
-            border-color: #e16d48;
-            transform: translateY(-3px);
-        }
-
-        .task-item .task-name {
-            font-weight: 600;
-            color: #e16d48;
-        }
-
-        .task-item .task-meta {
-            font-size: 0.75rem;
-            color: #888;
-            margin-top: 0.3rem;
-        }
-
-        .task-item .task-actions {
-            margin-top: 0.5rem;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .task-item .task-actions button {
-            background: rgba(220, 90, 50, 0.2);
-            border: none;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            color: #c2b9d4;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .task-item .task-actions button:hover {
-            background: rgba(220, 90, 50, 0.4);
-            color: white;
-        }
-
-        .empty-tasks {
-            color: #888;
-            text-align: center;
-            padding: 1rem;
-            font-size: 0.9rem;
-        }
-
         /* ===== ФУТЕР ===== */
         footer {
             margin-top: 3rem;
@@ -1460,7 +1284,7 @@
                         </div>
                     </div>
                     <div class="rule-footer">
-                        <a href="escalation-infinite.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
+                        <a href="escalation.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
                     </div>
                 </div>
             </div>
@@ -1471,57 +1295,6 @@
     <div class="special-trials">
         <h2><i class="fas fa-star"></i> Особые испытания</h2>
         <div class="trials-grid" id="specialTrialsGrid"></div>
-    </div>
-
-    <!-- ===== КОНСТРУКТОР ===== -->
-    <div class="constructor-section">
-        <h2><i class="fas fa-tools"></i> Конструктор испытаний</h2>
-        <div class="constructor-wrapper">
-            <form class="constructor-form" id="taskForm">
-                <div class="form-group">
-                    <label><i class="fas fa-map"></i> Карта</label>
-                    <select id="taskMap" required></select>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-dice"></i> Количество вариаторов</label>
-                    <select id="taskVariators" required>
-                        <option value="1">1 вариатор</option>
-                        <option value="2">2 вариатора</option>
-                        <option value="3" selected>3 вариатора</option>
-                        <option value="4">4 вариатора</option>
-                        <option value="5">5 вариаторов</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-tag"></i> Режим</label>
-                    <select id="taskMode" required>
-                        <option value="Рулетка">Рулетка</option>
-                        <option value="Эскалация">Эскалация</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-star"></i> Сложность</label>
-                    <select id="taskDifficulty" required>
-                        <option value="Вводный">Вводный</option>
-                        <option value="Стандартный" selected>Стандартный</option>
-                        <option value="Интенсивный">Интенсивный</option>
-                        <option value="Психохирургия">Психохирургия</option>
-                    </select>
-                </div>
-                <div class="form-group full-width">
-                    <label><i class="fas fa-align-left"></i> Описание задания</label>
-                    <textarea id="taskDescription" placeholder="Опишите задание для игроков..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn"><i class="fas fa-plus"></i> Создать задание</button>
-            </form>
-        </div>
-
-        <div class="created-tasks">
-            <h3><i class="fas fa-list"></i> Созданные задания</h3>
-            <div class="tasks-grid" id="tasksGrid">
-                <div class="empty-tasks">Пока нет созданных заданий. Будьте первым!</div>
-            </div>
-        </div>
     </div>
 
     <footer>
@@ -1973,79 +1746,79 @@
     setInterval(updateTimer, 1000);
 
     // ================================================================
-    //  ОСОБЫЕ ИСПЫТАНИЯ
+    //  ОСОБЫЕ ИСПЫТАНИЯ (ИСПРАВЛЕННАЯ ЭКРАНИРОВКА)
     // ================================================================
     function renderSpecialTrials() {
-    var grid = document.getElementById('specialTrialsGrid');
-    if (!grid) return;
+        var grid = document.getElementById('specialTrialsGrid');
+        if (!grid) return;
 
-    var specials = [
-        {
-            id: "special_1",
-            name: "ИСПЫТАНИЕ №1",
-            desc: "Пройти испытание ОПРАВДАТЬ ВИНОВНОГО, не нанося урон врагам метательными предметами (БУТЫЛКИ, КИРПИЧИ, СНАРЯЖЕНИЕ)",
-            icon: "images/Иконка задание.webp"
-        },
-        {
-            id: "special_2",
-            name: "ИСПЫТАНИЕ №2",
-            desc: "Пройдите испытание ЛИКВИДИРУЙТЕ ПРОФСОЮЗ используя снаряжение РЕНТГЕН",
-            icon: "images/Иконка задание.webp"
-        },
-        {
-            id: "special_3",
-            name: "ИСПЫТАНИЕ №3",
-            desc: "Пройдите испытание РАЗДАВИТЕ СЕКС-ИГРУШКИ не получая урон от главного актива",
-            icon: "images/Иконка задание.webp"
+        var specials = [
+            {
+                id: "special_1",
+                name: "ИСПЫТАНИЕ №1",
+                desc: "Пройти испытание ОПРАВДАТЬ ВИНОВНОГО, не нанося урон врагам метательными предметами (БУТЫЛКИ, КИРПИЧИ, СНАРЯЖЕНИЕ)",
+                icon: "images/Иконка задание.webp"
+            },
+            {
+                id: "special_2",
+                name: "ИСПЫТАНИЕ №2",
+                desc: "Пройдите испытание ЛИКВИДИРУЙТЕ ПРОФСОЮЗ используя снаряжение РЕНТГЕН",
+                icon: "images/Иконка задание.webp"
+            },
+            {
+                id: "special_3",
+                name: "ИСПЫТАНИЕ №3",
+                desc: "Пройдите испытание РАЗДАВИТЕ СЕКС-ИГРУШКИ не получая урон от главного актива",
+                icon: "images/Иконка задание.webp"
+            }
+        ];
+
+        var statusData = {};
+        try {
+            var saved = localStorage.getItem('specialTrialsStatus');
+            if (saved) {
+                statusData = JSON.parse(saved);
+            }
+        } catch (e) {}
+
+        var html = '';
+        for (var i = 0; i < specials.length; i++) {
+            var s = specials[i];
+            var status = statusData[s.id] || 'pending';
+
+            var statusBadge = '';
+            var btnHTML = '';
+
+            if (status === 'completed') {
+                statusBadge = '<span class="status-badge completed">✅ Выполнено</span>';
+                btnHTML = '<button class="complete-btn completed" disabled>✅ Помечено как выполненное</button>';
+            } else if (status === 'accepted') {
+                statusBadge = '<span class="status-badge accepted">📌 Принято</span>';
+                btnHTML = '<button class="complete-btn accepted" onclick="markTrialComplete(\'' + s.id + '\')">📋 Пометить как выполненное</button>';
+            } else {
+                statusBadge = '<span class="status-badge in-progress">⏳ В ожидании</span>';
+                btnHTML = '<button class="complete-btn" onclick="acceptTrial(\'' + s.id + '\')">📌 Принять вызов</button>';
+            }
+
+            // ИСПРАВЛЕННАЯ СТРОКА — правильная экранировка кавычек для onerror
+            var iconHtml = '<div class="trial-icon">';
+            iconHtml += '<img src="' + s.icon + '" alt="' + s.name + '" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<i class=\'fas fa-star\' style=\'font-size: 1.8rem; color: #e16d48;\'></i>\'">';
+            iconHtml += '</div>';
+
+            html += '<div class="trial-card" data-id="' + s.id + '">';
+            html += '<div class="trial-header">';
+            html += iconHtml;
+            html += '<div class="trial-title"><h3>' + s.name + '</h3></div>';
+            html += '</div>';
+            html += '<div class="trial-body">';
+            html += '<div class="trial-desc-label">ОПИСАНИЕ ЗАДАНИЯ:</div>';
+            html += '<div class="trial-desc">' + s.desc + '</div>';
+            html += '<div class="trial-status">' + statusBadge + '<div class="trial-actions">' + btnHTML + '</div></div>';
+            html += '</div></div>';
         }
-    ];
 
-    var statusData = {};
-    try {
-        var saved = localStorage.getItem('specialTrialsStatus');
-        if (saved) {
-            statusData = JSON.parse(saved);
-        }
-    } catch (e) {}
-
-    var html = '';
-    for (var i = 0; i < specials.length; i++) {
-        var s = specials[i];
-        var status = statusData[s.id] || 'pending';
-
-        var statusBadge = '';
-        var btnHTML = '';
-
-        if (status === 'completed') {
-            statusBadge = '<span class="status-badge completed">✅ Выполнено</span>';
-            btnHTML = '<button class="complete-btn completed" disabled>✅ Помечено как выполненное</button>';
-        } else if (status === 'accepted') {
-            statusBadge = '<span class="status-badge accepted">📌 Принято</span>';
-            btnHTML = '<button class="complete-btn accepted" onclick="markTrialComplete(\'' + s.id + '\')">📋 Пометить как выполненное</button>';
-        } else {
-            statusBadge = '<span class="status-badge in-progress">⏳ В ожидании</span>';
-            btnHTML = '<button class="complete-btn" onclick="acceptTrial(\'' + s.id + '\')">📌 Принять вызов</button>';
-        }
-
-        // ИСПРАВЛЕННАЯ СТРОКА - правильная экранировка кавычек
-        var iconHtml = '<div class="trial-icon">';
-        iconHtml += '<img src="' + s.icon + '" alt="' + s.name + '" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<i class=\'fas fa-star\' style=\'font-size: 1.8rem; color: #e16d48;\'></i>\'">';
-        iconHtml += '</div>';
-
-        html += '<div class="trial-card" data-id="' + s.id + '">';
-        html += '<div class="trial-header">';
-        html += iconHtml;
-        html += '<div class="trial-title"><h3>' + s.name + '</h3></div>';
-        html += '</div>';
-        html += '<div class="trial-body">';
-        html += '<div class="trial-desc-label">ОПИСАНИЕ ЗАДАНИЯ:</div>';
-        html += '<div class="trial-desc">' + s.desc + '</div>';
-        html += '<div class="trial-status">' + statusBadge + '<div class="trial-actions">' + btnHTML + '</div></div>';
-        html += '</div></div>';
+        grid.innerHTML = html;
     }
-
-    grid.innerHTML = html;
-}
 
     window.acceptTrial = function(id) {
         var statusData = {};
@@ -2080,87 +1853,6 @@
     } else {
         renderSpecialTrials();
     }
-
-    // ================================================================
-    //  КОНСТРУКТОР
-    // ================================================================
-    function populateMapSelect() {
-        var select = document.getElementById('taskMap');
-        if (!select) return;
-        var mapNames = Object.keys(trialsData);
-        var options = '';
-        for (var i = 0; i < mapNames.length; i++) {
-            options += '<option value="' + mapNames[i] + '">' + mapNames[i] + '</option>';
-        }
-        select.innerHTML = options;
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', populateMapSelect);
-    } else {
-        populateMapSelect();
-    }
-
-    var taskForm = document.getElementById('taskForm');
-    var tasksGrid = document.getElementById('tasksGrid');
-    var tasks = [];
-
-    if (taskForm) {
-        taskForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            var map = document.getElementById('taskMap').value;
-            var variators = document.getElementById('taskVariators').value;
-            var mode = document.getElementById('taskMode').value;
-            var difficulty = document.getElementById('taskDifficulty').value;
-            var description = document.getElementById('taskDescription').value || 'Без описания';
-
-            var task = {
-                id: Date.now(),
-                map: map,
-                variators: parseInt(variators),
-                mode: mode,
-                difficulty: difficulty,
-                description: description,
-                created: new Date().toLocaleString()
-            };
-
-            tasks.unshift(task);
-            renderTasks();
-            taskForm.reset();
-            populateMapSelect();
-            document.getElementById('taskDescription').value = '';
-        });
-    }
-
-    function renderTasks() {
-        if (!tasksGrid) return;
-        if (tasks.length === 0) {
-            tasksGrid.innerHTML = '<div class="empty-tasks">Пока нет созданных заданий. Будьте первым!</div>';
-            return;
-        }
-
-        var html = '';
-        for (var i = 0; i < tasks.length; i++) {
-            var task = tasks[i];
-            html += '<div class="task-item"><div class="task-name">' + task.map + '</div><div class="task-meta">' + task.mode + ' · ' + task.difficulty + ' · ' + task.variators + ' вариаторов</div><div class="task-meta" style="font-size:0.7rem;color:#666;">' + task.description + '</div><div class="task-meta" style="font-size:0.6rem;color:#555;">' + task.created + '</div><div class="task-actions"><button onclick="completeTask(' + task.id + ')">✅ Выполнить</button><button onclick="deleteTask(' + task.id + ')">🗑️ Удалить</button></div></div>';
-        }
-        tasksGrid.innerHTML = html;
-    }
-
-    window.completeTask = function(id) {
-        for (var i = 0; i < tasks.length; i++) {
-            if (tasks[i].id === id) {
-                alert('🎯 Задание выполнено!\nКарта: ' + tasks[i].map + '\nСложность: ' + tasks[i].difficulty);
-                deleteTask(id);
-                break;
-            }
-        }
-    };
-
-    window.deleteTask = function(id) {
-        tasks = tasks.filter(function(t) { return t.id !== id; });
-        renderTasks();
-    };
 
     console.log('✅ Рулетка загружена!');
     console.log('📊 Карт:', Object.keys(trialsData).length);
