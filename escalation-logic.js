@@ -100,12 +100,13 @@ function unlockAmpForPlayer(playerIndex, ampName) {
 }
 
 // ============================================================
-// ПРОВЕРКА СОВМЕСТИМОСТИ ВАРИАТОРОВ
+// ПРОВЕРКА СОВМЕСТИМОСТИ ВАРИАТОРОВ (С НОВЫМИ ПРАВИЛАМИ)
 // ============================================================
 
 function isVariatorCompatible(variator, selectedVariators, trialName, playerCount, level) {
     var variatorName = variator.name;
     var selectedNames = selectedVariators.map(function(v) { return v.name; });
+    var mapName = escState.map ? escState.map.name : '';
     
     // Проверка на дубликаты
     if (selectedNames.indexOf(variatorName) !== -1) {
@@ -113,7 +114,120 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     }
     
     // ============================================================
-    // НОВЫЕ ПРАВИЛА СОВМЕСТИМОСТИ
+    // 1. ЭКСТРАКЦИЯ КРОВИ — блокирует коллекции и другие вариаторы
+    // ============================================================
+    var extractionBloodBlocked = [
+        'Сбор Подарков', 'Сбор Крыс', 'Сбор Амулетов', 'Доставьте Компоненты',
+        'Извлеките Образцы Органов', 'Разбейте Телевизоры', 'Находите Радиопередатчики',
+        'Собирайте Схемы', 'Найдите Трансляцию', 'Соберите Коробки С Уликами',
+        'Расшифруйте Вещание', 'Потушите Огонь', 'Соберите плакаты', 'Нехватка Здоровья'
+    ];
+    
+    if (variatorName === 'Экстракция Крови') {
+        for (var ek = 0; ek < extractionBloodBlocked.length; ek++) {
+            if (selectedNames.indexOf(extractionBloodBlocked[ek]) !== -1) {
+                return false;
+            }
+        }
+        // Блокирует все категории collection и collection_special
+        for (var ec = 0; ec < selectedVariators.length; ec++) {
+            if (selectedVariators[ec].category === 'collection' || selectedVariators[ec].category === 'collection_special') {
+                return false;
+            }
+        }
+    }
+    if (selectedNames.indexOf('Экстракция Крови') !== -1) {
+        if (extractionBloodBlocked.indexOf(variatorName) !== -1) {
+            return false;
+        }
+        if (variator.category === 'collection' || variator.category === 'collection_special') {
+            return false;
+        }
+    }
+    
+    // ============================================================
+    // 2. ТРОФЕЙНОЕ СНАРЯЖЕНИЕ — блокирует реагенты и другие вариаторы
+    // ============================================================
+    var trophyEquipmentBlocked = [
+        'Первый Уровень', 'Сломанный Реагент', 'Без Снаряжения',
+        'Без Улучшения Снаряжения', 'Увеличенная Перезарядка Снаряжения',
+        'Ограниченное Снаряжение', 'Урон Перезапускает Снаряжение',
+        'Урон Отключает Снаряжение'
+    ];
+    
+    if (variatorName === 'Трофейное Снаряжение') {
+        for (var ts = 0; ts < trophyEquipmentBlocked.length; ts++) {
+            if (selectedNames.indexOf(trophyEquipmentBlocked[ts]) !== -1) {
+                return false;
+            }
+        }
+        for (var tr = 0; tr < selectedVariators.length; tr++) {
+            if (selectedVariators[tr].category === 'reagent') {
+                return false;
+            }
+        }
+    }
+    if (selectedNames.indexOf('Трофейное Снаряжение') !== -1) {
+        if (trophyEquipmentBlocked.indexOf(variatorName) !== -1) {
+            return false;
+        }
+        if (variator.category === 'reagent') {
+            return false;
+        }
+    }
+    
+    // ============================================================
+    // 3. ОГРАНИЧЕНИЯ БОССОВ ПО КАРТАМ
+    // ============================================================
+    var bossMapRestrictions = {
+        'Лиланд Койл': ['Полицейский участок', 'Здание суда', 'Тюремная ферма'],
+        'Матушка Гуссбери': ['Детский дом', 'Парк развлечений', 'Фабрика игрушек'],
+        'Франко Барби': ['Центр города', 'Пригород', 'Пристань'],
+        'Близнецы Кресс': ['Торговый центр', 'Телестудия'],
+        'Лилия Богомолова': ['Курорт']
+    };
+    
+    var bossNames = Object.keys(bossMapRestrictions);
+    
+    // Проверка ограничений боссов по картам
+    if (bossNames.indexOf(variatorName) !== -1) {
+        var allowedMaps = bossMapRestrictions[variatorName] || [];
+        var isMapAllowed = allowedMaps.some(function(allowedMap) {
+            return mapName.indexOf(allowedMap) !== -1 || mapName === allowedMap;
+        });
+        if (!isMapAllowed && allowedMaps.length > 0) {
+            return false;
+        }
+    }
+    
+    // ============================================================
+    // 4. БОССЫ НЕ МОГУТ ВЫПАДАТЬ ВМЕСТЕ С ГЛАВНАЯ РУЛЕТКА И САМОЕ ГЛАВНОЕ
+    // ============================================================
+    var selectedBosses = selectedNames.filter(function(name) { return bossNames.indexOf(name) !== -1; });
+    
+    // Если текущий вариатор — босс, проверяем наличие Главная Рулетка и Самое Главное
+    if (bossNames.indexOf(variatorName) !== -1) {
+        if (selectedNames.indexOf('Главная Рулетка') !== -1 || selectedNames.indexOf('Самое Главное') !== -1) {
+            return false;
+        }
+    }
+    
+    // Если в выбранных есть босс, проверяем что текущий вариатор не Главная Рулетка и не Самое Главное
+    if (selectedBosses.length > 0) {
+        if (variatorName === 'Главная Рулетка' || variatorName === 'Самое Главное') {
+            return false;
+        }
+    }
+    
+    // ============================================================
+    // 5. ДВА БОССА НЕ МОГУТ ВЫПАДАТЬ ВМЕСТЕ
+    // ============================================================
+    if (bossNames.indexOf(variatorName) !== -1 && selectedBosses.length > 0) {
+        return false;
+    }
+    
+    // ============================================================
+    // ДАЛЕЕ СЛЕДУЮТ ОСТАЛЬНЫЕ ПРАВИЛА (СОХРАНЕНЫ)
     // ============================================================
     
     // ПРАВИЛО: Все на выход не может попадаться на испытании "Устранение устаревшего оборудования"
@@ -247,13 +361,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         return false;
     }
     
-    // ============================================================
-    // СТАРЫЕ ПРАВИЛА (СОХРАНЕНЫ)
-    // ============================================================
-    
-    // ============================================================
-    // НОВОЕ ПРАВИЛО: ВАРИАТОРЫ С ДВЕРЬМИ И ПРОХОДАМИ НЕ МОГУТ БЫТЬ ВМЕСТЕ
-    // ============================================================
+    // ПРАВИЛО: Вариаторы с дверьми и проходами не могут быть вместе
     var doorsAndPassages = [
         'Ненадежные Двери',
         'Заблокированные Проходы',
@@ -271,7 +379,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ===== ПРАВИЛО: Психохирургия несовместима с некоторыми вариаторами =====
+    // ПРАВИЛО: Психохирургия несовместима с некоторыми вариаторами
     var psychoBlocked = [
         'Повышенная Угроза', 'Повышенная Угроза II', 'Низкая Плотность Врагов',
         'Много Противников', 'Враги Сильнее', 'Враги Сильнее II',
@@ -295,14 +403,14 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         return false;
     }
     
-    // Правило 2: Ностофобия и Психохирургия не выпадают до 20 уровня
+    // Правило: Ностофобия и Психохирургия не выпадают до 20 уровня
     if (level < 21) {
         if (variatorName === 'Ностофобия' || variatorName === 'Психохирургия') {
             return false;
         }
     }
     
-    // Правило 8: Ностофобия выпадает с очень маленьким шансом после 20
+    // Правило: Ностофобия выпадает с очень маленьким шансом после 20
     if (variatorName === 'Ностофобия' && level >= 21) {
         if (Math.random() > 0.02) {
             return false;
@@ -320,7 +428,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         return true;
     }
     
-    // Правило 1: Вариаторы из одной категории не могут быть вместе
+    // Правило: Вариаторы из одной категории не могут быть вместе
     var category = variator.category;
     var exclusiveCategories = [
         'collection', 'collection_special', 'hunters', 'boss', 'traps',
@@ -351,7 +459,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Правило 2: Боссы не могут быть вместе с охотниками
+    // Правило: Боссы не могут быть вместе с охотниками
     if (variator.category === 'boss') {
         for (var h = 0; h < selectedVariators.length; h++) {
             if (selectedVariators[h].category === 'hunters') {
@@ -367,7 +475,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Правило 4: Боссы блокируют special
+    // Правило: Боссы блокируют special
     if (variator.category === 'boss') {
         for (var sp = 0; sp < selectedVariators.length; sp++) {
             if (selectedVariators[sp].category === 'special') {
@@ -383,7 +491,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Правило 3: Сломанный Реагент блокирует определенные вариаторы
+    // Правило: Сломанный Реагент блокирует определенные вариаторы
     var brokenReagentBlocked = [
         'Без Рецептов', 'Без Амф', 'Без Снаряжения', 'Увеличенная Перезарядка Снаряжения',
         'Урон Отключает Снаряжения', 'Без Улучшения Снаряжения', 'Урон Перезапускает Снаряжения',
@@ -417,7 +525,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ===== НОВЫЕ ПРАВИЛА ДЛЯ МИН =====
+    // ===== ПРАВИЛА ДЛЯ МИН =====
     
     // Группа мин: только одна из них может выпасть
     var mineGroup = ['Взрывчатка', 'Ледяные Мины', 'Огненные Мины'];
@@ -515,9 +623,7 @@ function getVariatorsForLevel(level, mapName, playerCount) {
     
     var availableVariators = allVariatorsData.slice();
     
-    // ============================================================
     // ИСКЛЮЧЕННЫЕ ВАРИАТОРЫ (НИКОГДА НЕ ВЫПАДАЮТ)
-    // ============================================================
     var excludedVariators = [
         'Ворота С Детектором Звука',
         'Дистанционные Ворота',
@@ -736,6 +842,7 @@ function getMapAndTrial(level) {
     
     // Сохраняем название испытания в escState для проверок совместимости
     escState.currentTrialName = selected.trial.name;
+    escState.map = { name: selected.mapName, image: selected.mapImage };
     
     if (selected.trial.name === selected.trial.name.toUpperCase()) {
         escState.usedBigTrials.push(selected.trial.name);
@@ -952,13 +1059,10 @@ function renderEscPlayerNames() {
     
     var grid = document.createElement('div');
     
-    // Определяем класс сетки в зависимости от количества игроков
     var playerCount = escState.playerCount;
-    var gridClass = 'players-' + playerCount;
-    grid.className = 'selection-grid ' + gridClass;
+    grid.className = 'selection-grid players-' + playerCount;
     grid.style.cssText = 'display: grid; gap: 12px 20px; max-width: 600px; margin: 0 auto;';
     
-    // Применяем правильную сетку в зависимости от количества игроков
     if (playerCount === 1) {
         grid.style.gridTemplateColumns = '1fr';
         grid.style.maxWidth = '300px';
@@ -986,7 +1090,6 @@ function renderEscPlayerNames() {
         `;
         grid.appendChild(row);
         
-        // Для 3 игроков — третий блок по центру снизу
         if (playerCount === 3 && i === 2) {
             row.style.gridColumn = '1 / -1';
             row.style.maxWidth = '50%';
@@ -996,13 +1099,10 @@ function renderEscPlayerNames() {
     }
     
     container.appendChild(grid);
-    
-    var firstInput = container.querySelector('input');
-    if (firstInput) setTimeout(function() { firstInput.focus(); }, 300);
 }
 
 // ============================================================
-// ОТРИСОВКА СНАРЯЖЕНИЯ (С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ)
+// ОТРИСОВКА СНАРЯЖЕНИЯ
 // ============================================================
 
 function renderEscEquipment() {
@@ -1026,8 +1126,7 @@ function renderEscEquipment() {
     
     var playerCount = escState.players.length;
     var gridWrapper = document.createElement('div');
-    var gridClass = 'players-' + playerCount;
-    gridWrapper.className = 'selection-grid ' + gridClass;
+    gridWrapper.className = 'selection-grid players-' + playerCount;
     gridWrapper.style.cssText = 'display: grid; gap: 16px 24px; max-width: 600px; margin: 0 auto;';
     
     if (playerCount === 1) {
@@ -1108,7 +1207,6 @@ function renderEscEquipment() {
         section.appendChild(wrapper);
         gridWrapper.appendChild(section);
         
-        // Для 3 игроков — третий блок по центру снизу
         if (playerCount === 3 && idx === 2) {
             section.style.gridColumn = '1 / -1';
             section.style.maxWidth = '60%';
@@ -1130,7 +1228,7 @@ function checkEscEquipReady() {
 }
 
 // ============================================================
-// ОТРИСОВКА АМФ (С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ)
+// ОТРИСОВКА АМФ
 // ============================================================
 
 function renderEscAmps() {
@@ -1159,8 +1257,7 @@ function renderEscAmps() {
     
     var playerCount = escState.players.length;
     var gridWrapper = document.createElement('div');
-    var gridClass = 'players-' + playerCount;
-    gridWrapper.className = 'selection-grid ' + gridClass;
+    gridWrapper.className = 'selection-grid players-' + playerCount;
     gridWrapper.style.cssText = 'display: grid; gap: 16px 24px; max-width: 600px; margin: 0 auto;';
     
     if (playerCount === 1) {
@@ -1216,7 +1313,6 @@ function renderEscAmps() {
         
         var availableAmps = getAvailableAmpsByCategory(idx, randomCategory);
         var shuffled = availableAmps.slice().sort(function() { return Math.random() - 0.5; });
-        
         var ampCount = Math.min(shuffled.length, 3);
         var selectedAmps = shuffled.slice(0, ampCount);
         
@@ -1292,7 +1388,6 @@ function renderEscAmps() {
         section.appendChild(wrapper);
         gridWrapper.appendChild(section);
         
-        // Для 3 игроков — третий блок по центру снизу
         if (playerCount === 3 && idx === 2) {
             section.style.gridColumn = '1 / -1';
             section.style.maxWidth = '60%';
@@ -1741,7 +1836,6 @@ function renderEscResultPlayers() {
     `;
     container.appendChild(header);
     
-    // Каждый игрок в отдельном блоке вертикально
     escState.players.forEach(function(player, idx) {
         var equip = escState.equipSelections[idx] || 'Не выбрано';
         var equipData = typeof equipmentData !== 'undefined' ? equipmentData.find(function(e) { return e.name === equip; }) : null;
@@ -1750,7 +1844,6 @@ function renderEscResultPlayers() {
         var section = document.createElement('div');
         section.style.cssText = 'background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(220,90,50,0.1); overflow: hidden; margin-bottom: 12px;';
         
-        // Определяем размер шрифта для ника в зависимости от длины
         var playerNameFontSize = '1rem';
         if (player.length > 15) {
             playerNameFontSize = '0.8rem';
@@ -1758,7 +1851,6 @@ function renderEscResultPlayers() {
             playerNameFontSize = '0.85rem';
         }
         
-        // Шапка-шторка (всегда видима)
         var toggleBtn = document.createElement('div');
         toggleBtn.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; cursor: pointer; transition: background 0.3s; background: rgba(0,0,0,0.15);';
         toggleBtn.innerHTML = `
@@ -1777,7 +1869,6 @@ function renderEscResultPlayers() {
         `;
         section.appendChild(toggleBtn);
         
-        // Контент (разворачивается)
         var content = document.createElement('div');
         content.style.cssText = 'padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease;';
         content.id = 'resultContent_' + idx;
@@ -1786,7 +1877,6 @@ function renderEscResultPlayers() {
         var innerContent = document.createElement('div');
         innerContent.style.cssText = 'padding: 6px 0 16px 0;';
         
-        // Снаряжение
         var equipBlock = document.createElement('div');
         equipBlock.style.cssText = 'display: flex; align-items: center; gap: 14px; padding: 10px 14px; background: rgba(255,255,255,0.04); border-radius: 12px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05);';
         equipBlock.innerHTML = `
@@ -1798,7 +1888,6 @@ function renderEscResultPlayers() {
         `;
         innerContent.appendChild(equipBlock);
         
-        // Улучшения
         var ampsLabel = document.createElement('div');
         ampsLabel.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 4px;';
         ampsLabel.innerHTML = `
@@ -1860,7 +1949,6 @@ function renderEscResultPlayers() {
         content.appendChild(innerContent);
         container.appendChild(section);
         
-        // Функция сворачивания/разворачивания
         function toggleResultContent(idx) {
             var contentEl = document.getElementById('resultContent_' + idx);
             var sectionEl = contentEl.closest('div');
@@ -1878,7 +1966,6 @@ function renderEscResultPlayers() {
         
         toggleBtn.onclick = function() { toggleResultContent(idx); };
         
-        // По умолчанию разворачиваем если есть выборы или все амфы
         var hasSelections = false;
         for (var c = 0; c < ampCategories.length; c++) {
             if (getAmpForCategory(idx, ampCategories[c])) {
@@ -2135,7 +2222,7 @@ function renderAmpModalGrid(playerIndex, category) {
 }
 
 // ============================================================
-// ПЕРЕРЫВ (выбор амф) С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ
+// ПЕРЕРЫВ (выбор амф)
 // ============================================================
 
 function showBreakModal() {
@@ -2185,9 +2272,7 @@ function showBreakModal() {
     var breakSelections = {};
     
     var playerCount = escState.players.length;
-    var gridClass = 'players-' + playerCount;
     
-    // Применяем правильную сетку
     if (playerCount === 1) {
         content.style.gridTemplateColumns = '1fr';
         content.style.maxWidth = '350px';
@@ -2219,7 +2304,6 @@ function showBreakModal() {
             section.appendChild(completeMsg);
             content.appendChild(section);
             
-            // Для 3 игроков — третий блок по центру снизу
             if (playerCount === 3 && idx === 2) {
                 section.style.gridColumn = '1 / -1';
                 section.style.maxWidth = '60%';
@@ -2306,7 +2390,6 @@ function showBreakModal() {
         section.appendChild(wrapper);
         content.appendChild(section);
         
-        // Для 3 игроков — третий блок по центру снизу
         if (playerCount === 3 && idx === 2) {
             section.style.gridColumn = '1 / -1';
             section.style.maxWidth = '60%';
