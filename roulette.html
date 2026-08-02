@@ -684,7 +684,168 @@
             background: rgba(220, 90, 50, 0.1);
         }
 
-/* ===== КАРТОЧКИ ПРАВИЛ ЭСКАЛАЦИИ С ФОНОМ ===== */
+        /* ===== КАРТОЧКИ ПРАВИЛ ЭСКАЛАЦИИ С ФОНОМ ===== */
+        .escalation-rules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .escalation-rule-card {
+            border-radius: 28px;
+            padding: 1.8rem 1.8rem 1.5rem;
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .escalation-rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(1px);
+            z-index: 0;
+            transition: background 0.3s;
+        }
+
+        .escalation-rule-card:hover::before {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .escalation-rule-card:hover {
+            transform: translateY(-4px);
+            border-color: #e16d48;
+            box-shadow: 0 15px 35px rgba(220, 90, 50, 0.2);
+        }
+
+        .escalation-rule-card .rule-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .escalation-rule-card .rule-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .escalation-rule-card .rule-header .rule-icon {
+            font-size: 2rem;
+            color: #e16d48;
+            flex-shrink: 0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .escalation-rule-card .rule-header h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .escalation-rule-card .rule-header .rule-badge {
+            font-size: 0.6rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: auto;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .rule-badge-weekly {
+            background: rgba(76, 154, 255, 0.2);
+            color: #7ab8ff;
+            border: 1px solid rgba(76, 154, 255, 0.25);
+        }
+
+        .rule-badge-infinite {
+            background: rgba(255, 51, 51, 0.2);
+            color: #ff8888;
+            border: 1px solid rgba(255, 51, 51, 0.25);
+        }
+
+        .escalation-rule-card .rule-body {
+            color: #e8e0f0;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            flex: 1;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+        }
+
+        .escalation-rule-card .rule-body .rule-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .escalation-rule-card .rule-body .rule-point .point-icon {
+            color: #ffbc9a;
+            font-size: 0.7rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .escalation-rule-card .rule-body strong {
+            color: #ffbc9a;
+        }
+
+        .escalation-rule-card .rule-footer {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .escalation-rule-card .rule-footer .btn-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            text-decoration: none;
+            width: 100%;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(188, 74, 40, 0.3);
+        }
+
+        .escalation-rule-card .rule-footer .btn-start:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 30px rgba(188, 74, 40, 0.5);
+        }
+
+        .escalation-rule-card .rule-footer .btn-start i {
+            font-size: 0.85rem;
+        }
 
         /* ===== ОСОБЫЕ ИСПЫТАНИЯ ===== */
         .special-trials {
@@ -749,6 +910,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .trial-card .trial-header .trial-title {
