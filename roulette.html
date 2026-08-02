@@ -165,7 +165,15 @@
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
-        /* ===== МУЗЫКА ===== */
+        /* ===== БЛОК УПРАВЛЕНИЯ МУЗЫКОЙ ===== */
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 0.5rem;
+            position: relative;
+        }
+
         .music-toggle {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -208,9 +216,133 @@
             letter-spacing: 0.5px;
         }
 
-        .music-controls-wrapper {
+        .volume-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.7rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
             display: inline-flex;
             align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .volume-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .volume-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .volume-toggle-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .volume-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .volume-dropdown.open {
+            display: block;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .volume-dropdown .volume-label {
+            font-size: 0.7rem;
+            color: #8a7a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        .volume-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .volume-slider-wrapper .vol-icon {
+            color: #7a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider-wrapper .vol-icon.active {
+            color: #e25d32;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .volume-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e25d32;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .music-controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
         }
 
         /* ===== ЗАГОЛОВОК СТРАНИЦЫ ===== */
@@ -840,12 +972,16 @@
             .special-trials .trials-grid { grid-template-columns: 1fr; }
             .escalation-buttons { flex-direction: column; align-items: center; }
             .escalation-btn { max-width: 100%; width: 100%; }
+            .music-controls-wrapper { margin-top: 0.5rem; width: 100%; justify-content: center; }
+            .volume-dropdown { right: auto; left: 50%; transform: translateX(-50%); }
+            .volume-dropdown.open { transform: translateX(-50%) scale(1); }
         }
 
         @media (max-width: 600px) {
             .nav-btn { padding: 0.25rem 0.5rem; font-size: 0.6rem; gap: 3px; }
             .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
             .music-toggle .label { font-size: 0.6rem; }
+            .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
             .logo .logo-img { max-height: 32px; }
             .logo .logo-text { font-size: 0.9rem; }
             .logo { gap: 0.4rem; }
@@ -865,16 +1001,19 @@
             .escalation-btn { padding: 1rem 1.5rem; }
             .escalation-btn .icon { font-size: 2rem; }
             .escalation-btn h3 { font-size: 1rem; }
+            .volume-slider { width: 100px; }
+            .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
         }
     </style>
 </head>
 <body>
 
+<!-- ===== ФОНОВОЕ ВИДЕО ===== -->
 <video class="background-video" autoplay muted loop playsinline>
     <source src="../images/об игре фон.mp4" type="video/mp4">
 </video>
 
-<!-- Аудио для фона -->
+<!-- ===== АУДИО ДЛЯ ФОНА ===== -->
 <div id="mainAudioContainer" style="display:none;">
     <audio id="mainAudio" preload="auto" loop>
         <source src="../images/комната отдыха 1.mp3" type="audio/mpeg">
@@ -901,12 +1040,29 @@
             <a href="achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
 
-            <!-- ===== МУЗЫКА ===== -->
+            <!-- ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== -->
             <div class="music-controls-wrapper">
-                <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
-                    <span class="icon fa-solid fa-volume-xmark"></span>
-                    <span class="label">Выкл</span>
-                </button>
+                <div class="music-controls">
+                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                        <span class="icon fa-solid fa-volume-xmark"></span>
+                        <span class="label">Выкл</span>
+                    </button>
+
+                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
+                        <span class="arrow">▼</span>
+                    </div>
+                </div>
+
+                <!-- ===== ВЫПАДАЮЩИЙ РЕГУЛЯТОР ГРОМКОСТИ ===== -->
+                <div class="volume-dropdown" id="volumeDropdown">
+                    <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
+                    <div class="volume-slider-wrapper">
+                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
+                        <span class="volume-value" id="volumeValue">40%</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1029,11 +1185,13 @@
         }
 
         mainAudioStarted = true;
-        mainAudioElement.volume = 0.4;
+        var slider = document.getElementById('volumeSlider');
+        mainAudioElement.volume = parseFloat(slider ? slider.value : 40) / 100;
         mainAudioElement.currentTime = 0;
         mainAudioElement.play().catch(function() {});
         
         updateMusicButton(true);
+        updateVolumeDisplay();
     }
 
     function updateMusicButton(state) {
@@ -1080,13 +1238,76 @@
                 return;
             }
             
-            mainAudioElement.volume = 0.4;
+            var slider = document.getElementById('volumeSlider');
+            mainAudioElement.volume = parseFloat(slider ? slider.value : 40) / 100;
             mainAudioElement.currentTime = 0;
             mainAudioElement.play().catch(function() {});
             
             updateMusicButton(true);
+            updateVolumeDisplay();
         }
     }
+
+    // ================================================================
+    //  УПРАВЛЕНИЕ ГРОМКОСТЬЮ
+    // ================================================================
+    var volumeDropdownOpen = false;
+
+    function toggleVolumeDropdown() {
+        volumeDropdownOpen = !volumeDropdownOpen;
+        var dropdown = document.getElementById('volumeDropdown');
+        var arrow = document.querySelector('.volume-toggle-btn .arrow');
+        
+        if (volumeDropdownOpen) {
+            if (dropdown) dropdown.classList.add('open');
+            if (arrow) arrow.classList.add('open');
+        } else {
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+        }
+    }
+
+    function updateVolumeDisplay() {
+        var slider = document.getElementById('volumeSlider');
+        var valueDisplay = document.getElementById('volumeValue');
+        if (!slider || !valueDisplay) return;
+        var val = parseInt(slider.value, 10);
+        valueDisplay.textContent = val + '%';
+    }
+
+    document.addEventListener('click', function(e) {
+        var wrapper = document.querySelector('.music-controls-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            var dropdown = document.getElementById('volumeDropdown');
+            var arrow = document.querySelector('.volume-toggle-btn .arrow');
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            volumeDropdownOpen = false;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var slider = document.getElementById('volumeSlider');
+        var valueDisplay = document.getElementById('volumeValue');
+        
+        if (slider) {
+            slider.addEventListener('input', function() {
+                var val = parseInt(this.value, 10);
+                if (valueDisplay) valueDisplay.textContent = val + '%';
+                
+                if (mainAudioElement && mainAudioStarted) {
+                    mainAudioElement.volume = val / 100;
+                }
+                
+                var percent = val;
+                slider.style.background = 'linear-gradient(to right, #e25d32 0%, #e25d32 ' + percent + '%, rgba(255,255,255,0.15) ' + percent + '%, rgba(255,255,255,0.15) 100%)';
+            });
+            
+            var initialVal = parseInt(slider.value, 10);
+            slider.style.background = 'linear-gradient(to right, #e25d32 0%, #e25d32 ' + initialVal + '%, rgba(255,255,255,0.15) ' + initialVal + '%, rgba(255,255,255,0.15) 100%)';
+            updateVolumeDisplay();
+        }
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(startMainMusic, 1500);
@@ -1100,6 +1321,7 @@
     }, { once: true });
 
     window.toggleMainMusic = toggleMainMusic;
+    window.toggleVolumeDropdown = toggleVolumeDropdown;
 
     // ================================================================
     //  ДАННЫЕ КАРТ
@@ -1370,7 +1592,7 @@
     setInterval(updateTimer, 1000);
 
     // ================================================================
-    //  ОСОБЫЕ ИСПЫТАНИЯ (упрощенные)
+    //  ОСОБЫЕ ИСПЫТАНИЯ
     // ================================================================
     function renderSpecialTrials() {
         var grid = document.getElementById('specialTrialsGrid');
