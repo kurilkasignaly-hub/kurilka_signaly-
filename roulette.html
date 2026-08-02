@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Рулетка испытаний — Курилка Синьялы</title>
+    <title>🎰 Рулетка испытаний — Курилка Синьялы</title>
     <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
     <link rel="shortcut icon" href="../images/лого.png" type="image/png">
     <link rel="apple-touch-icon" href="../images/лого.png">
@@ -684,7 +684,7 @@
             background: rgba(220, 90, 50, 0.1);
         }
 
-        /* ===== КАРТОЧКИ ПРАВИЛ ЭСКАЛАЦИИ ===== */
+        /* ===== КАРТОЧКИ ПРАВИЛ ЭСКАЛАЦИИ С ФОНОМ ===== */
         .escalation-rules {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -694,14 +694,19 @@
         }
 
         .escalation-rule-card {
-            background: rgba(18, 12, 28, 0.5);
-            backdrop-filter: blur(12px);
             border-radius: 28px;
             padding: 1.8rem 1.8rem 1.5rem;
-            border: 1px solid rgba(220, 90, 50, 0.25);
+            border: 1px solid rgba(220, 90, 50, 0.3);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            min-height: 280px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .escalation-rule-card::before {
@@ -710,15 +715,29 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #e25d32, #ffbc9a);
-            opacity: 0.6;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(2px);
+            z-index: 0;
+            transition: background 0.3s;
+        }
+
+        .escalation-rule-card:hover::before {
+            background: rgba(0, 0, 0, 0.45);
         }
 
         .escalation-rule-card:hover {
             transform: translateY(-4px);
             border-color: #e16d48;
-            box-shadow: 0 15px 35px rgba(220, 90, 50, 0.12);
+            box-shadow: 0 15px 35px rgba(220, 90, 50, 0.2);
+        }
+
+        .escalation-rule-card .rule-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .escalation-rule-card .rule-header {
@@ -732,12 +751,14 @@
             font-size: 2rem;
             color: #e16d48;
             flex-shrink: 0;
+            text-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
         .escalation-rule-card .rule-header h3 {
             font-size: 1.2rem;
             color: #fff;
             font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .escalation-rule-card .rule-header .rule-badge {
@@ -748,24 +769,27 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-left: auto;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
 
         .rule-badge-weekly {
-            background: rgba(76, 154, 255, 0.2);
-            color: #4c9aff;
+            background: rgba(76, 154, 255, 0.25);
+            color: #7ab8ff;
             border: 1px solid rgba(76, 154, 255, 0.3);
         }
 
         .rule-badge-infinite {
-            background: rgba(255, 51, 51, 0.2);
-            color: #ff6666;
+            background: rgba(255, 51, 51, 0.25);
+            color: #ff8888;
             border: 1px solid rgba(255, 51, 51, 0.3);
         }
 
         .escalation-rule-card .rule-body {
-            color: #c2b9d4;
+            color: #d1cce6;
             font-size: 0.88rem;
             line-height: 1.6;
+            flex: 1;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.6);
         }
 
         .escalation-rule-card .rule-body .rule-point {
@@ -776,7 +800,7 @@
         }
 
         .escalation-rule-card .rule-body .rule-point .point-icon {
-            color: #e16d48;
+            color: #ffbc9a;
             font-size: 0.7rem;
             margin-top: 0.25rem;
             flex-shrink: 0;
@@ -789,7 +813,9 @@
         .escalation-rule-card .rule-footer {
             margin-top: 1rem;
             padding-top: 0.8rem;
-            border-top: 1px solid rgba(220, 90, 50, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .escalation-rule-card .rule-footer .btn-start {
@@ -809,11 +835,12 @@
             text-decoration: none;
             width: 100%;
             justify-content: center;
+            box-shadow: 0 4px 20px rgba(188, 74, 40, 0.3);
         }
 
         .escalation-rule-card .rule-footer .btn-start:hover {
             transform: scale(1.03);
-            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
+            box-shadow: 0 6px 30px rgba(188, 74, 40, 0.5);
         }
 
         .escalation-rule-card .rule-footer .btn-start i {
@@ -1239,7 +1266,7 @@
             .logo { gap: 0.4rem; }
             .page-header h1 { font-size: 1.4rem; }
             .mode-card { padding: 1.2rem; }
-            .escalation-rule-card { padding: 1.2rem; }
+            .escalation-rule-card { padding: 1.2rem; min-height: 200px; }
             .escalation-rule-card .rule-header h3 { font-size: 1rem; }
             .daily-mission .mission-map { flex: 0 0 120px; max-width: 120px; }
             .daily-mission .mission-map .map-image-wrap { width: 120px; height: 120px; }
@@ -1371,65 +1398,69 @@
             <p style="color: #888; font-size: 0.85rem;">Постепенное усложнение с каждым новым уровнем</p>
         </div>
 
-        <!-- Карточки правил -->
+        <!-- Карточки правил с фоновыми картинками -->
         <div class="escalation-rules">
             <!-- Еженедельная -->
-            <div class="escalation-rule-card">
-                <div class="rule-header">
-                    <span class="rule-icon"><i class="fas fa-calendar-week"></i></span>
-                    <h3>Еженедельная</h3>
-                    <span class="rule-badge rule-badge-weekly">📅 7 дней</span>
-                </div>
-                <div class="rule-body">
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>7 уровней</strong> — каждую неделю обновляется набор испытаний</span>
+            <div class="escalation-rule-card" style="background-image: url('../images/еженедельная эскалация баннер.webp');">
+                <div class="rule-content">
+                    <div class="rule-header">
+                        <span class="rule-icon"><i class="fas fa-calendar-week"></i></span>
+                        <h3>Еженедельная</h3>
+                        <span class="rule-badge rule-badge-weekly">📅 7 дней</span>
                     </div>
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>Постепенное усложнение</strong> — каждый уровень добавляет новый вариатор</span>
+                    <div class="rule-body">
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>7 уровней</strong> — каждую неделю обновляется набор испытаний</span>
+                        </div>
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>Постепенное усложнение</strong> — каждый уровень добавляет новый вариатор</span>
+                        </div>
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>Еженедельный сброс</strong> — каждый понедельник начинается новый цикл</span>
+                        </div>
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>Награды</strong> — уникальные достижения за прохождение недели</span>
+                        </div>
                     </div>
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>Еженедельный сброс</strong> — каждый понедельник начинается новый цикл</span>
+                    <div class="rule-footer">
+                        <a href="escalation-weekly.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
                     </div>
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>Награды</strong> — уникальные достижения за прохождение недели</span>
-                    </div>
-                </div>
-                <div class="rule-footer">
-                    <a href="escalation-weekly.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
                 </div>
             </div>
 
             <!-- Бесконечная -->
-            <div class="escalation-rule-card">
-                <div class="rule-header">
-                    <span class="rule-icon"><i class="fas fa-infinity"></i></span>
-                    <h3>Бесконечная</h3>
-                    <span class="rule-badge rule-badge-infinite">♾️ Безлимит</span>
-                </div>
-                <div class="rule-body">
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>Бесконечные уровни</strong> — пока вы не проиграете или не решите выйти</span>
+            <div class="escalation-rule-card" style="background-image: url('../images/бесконечная эскалация баннер.webp');">
+                <div class="rule-content">
+                    <div class="rule-header">
+                        <span class="rule-icon"><i class="fas fa-infinity"></i></span>
+                        <h3>Бесконечная</h3>
+                        <span class="rule-badge rule-badge-infinite">♾️ Безлимит</span>
                     </div>
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>Каждый уровень</strong> добавляет новый вариатор, усложняя испытание</span>
+                    <div class="rule-body">
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>Бесконечные уровни</strong> — пока вы не проиграете или не решите выйти</span>
+                        </div>
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>Каждый уровень</strong> добавляет новый вариатор, усложняя испытание</span>
+                        </div>
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>Сложность растёт</strong> — от начальной до психохирургии</span>
+                        </div>
+                        <div class="rule-point">
+                            <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span><strong>Рекорд</strong> — сколько уровней вы сможете пройти?</span>
+                        </div>
                     </div>
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>Сложность растёт</strong> — от начальной до психохирургии</span>
+                    <div class="rule-footer">
+                        <a href="escalation-infinite.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
                     </div>
-                    <div class="rule-point">
-                        <span class="point-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span><strong>Рекорд</strong> — сколько уровней вы сможете пройти?</span>
-                    </div>
-                </div>
-                <div class="rule-footer">
-                    <a href="escalation-infinite.html" class="btn-start"><i class="fas fa-play"></i> Начать эскалацию</a>
                 </div>
             </div>
         </div>
@@ -1673,7 +1704,7 @@
     window.toggleVolumeDropdown = toggleVolumeDropdown;
 
     // ================================================================
-    //  ДАННЫЕ КАРТ
+    //  ДАННЫЕ КАРТ (СОКРАЩЕННЫЙ СПИСОК)
     // ================================================================
     var trialsData = {
         "Полицейский участок": {
