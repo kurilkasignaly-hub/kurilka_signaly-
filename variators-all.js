@@ -32,7 +32,7 @@ const allVariatorsData = [
     { name: "Расшифруйте Вещание", image: "images/вариатор-вещание.webp", category: "collection" },
     { name: "Потушите Огонь", image: "images/вариатор-потушите-огонь.webp", category: "collection" },
     { name: "Соберите плакаты", image: "images/вариатор-соберите-плакаты.webp", category: "collection" },
-    { name: "Экстракция крови", image: "images/вариатор-экстракция-крови.webp", category: "collection" },
+    { name: "Экстракция Крови", image: "images/вариатор-экстракция-крови.webp", category: "collection" },
     
     // ===== СПЕЦИАЛЬНЫЕ ПОБОЧНЫЕ ЗАДАНИЯ =====
     // Эти вариаторы блокируют все остальные из категории collection
