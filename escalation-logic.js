@@ -942,7 +942,7 @@ function initEscalation() {
 }
 
 // ============================================================
-// ОТРИСОВКА ШАГОВ
+// ОТРИСОВКА ШАГОВ С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ БЛОКОВ
 // ============================================================
 
 function renderEscPlayerNames() {
@@ -951,11 +951,32 @@ function renderEscPlayerNames() {
     container.innerHTML = '';
     
     var grid = document.createElement('div');
-    grid.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; max-width: 600px; margin: 0 auto;';
     
-    for (var i = 0; i < escState.playerCount; i++) {
+    // Определяем класс сетки в зависимости от количества игроков
+    var playerCount = escState.playerCount;
+    var gridClass = 'players-' + playerCount;
+    grid.className = 'selection-grid ' + gridClass;
+    grid.style.cssText = 'display: grid; gap: 12px 20px; max-width: 600px; margin: 0 auto;';
+    
+    // Применяем правильную сетку в зависимости от количества игроков
+    if (playerCount === 1) {
+        grid.style.gridTemplateColumns = '1fr';
+        grid.style.maxWidth = '300px';
+    } else if (playerCount === 2) {
+        grid.style.gridTemplateColumns = '1fr 1fr';
+        grid.style.maxWidth = '500px';
+    } else if (playerCount === 3) {
+        grid.style.gridTemplateColumns = '1fr 1fr';
+        grid.style.maxWidth = '500px';
+    } else if (playerCount === 4) {
+        grid.style.gridTemplateColumns = '1fr 1fr';
+        grid.style.maxWidth = '550px';
+    }
+    
+    for (var i = 0; i < playerCount; i++) {
         var row = document.createElement('div');
-        row.style.cssText = 'display: flex; flex-direction: column; gap: 4px;';
+        row.className = 'player-block';
+        row.style.cssText = 'display: flex; flex-direction: column; gap: 4px; background: rgba(0,0,0,0.15); border-radius: 12px; padding: 12px 16px; border: 1px solid rgba(220,90,50,0.08);';
         row.innerHTML = `
             <label style="font-size: 0.8rem; color: #888; font-weight: 500; letter-spacing: 0.5px;">
                 <i class="fas fa-user" style="color: #e16d48; margin-right: 6px;"></i>
@@ -964,6 +985,14 @@ function renderEscPlayerNames() {
             <input type="text" placeholder="Введите ник..." id="escPlayerName_${i}" value="${escState.players[i] || ''}" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(220,90,50,0.2); background: rgba(255,255,255,0.05); color: #ffbc9a; font-size: 0.95rem; outline: none; transition: border-color 0.3s; box-sizing: border-box;">
         `;
         grid.appendChild(row);
+        
+        // Для 3 игроков — третий блок по центру снизу
+        if (playerCount === 3 && i === 2) {
+            row.style.gridColumn = '1 / -1';
+            row.style.maxWidth = '50%';
+            row.style.justifySelf = 'center';
+            row.style.width = '100%';
+        }
     }
     
     container.appendChild(grid);
@@ -973,7 +1002,7 @@ function renderEscPlayerNames() {
 }
 
 // ============================================================
-// ОТРИСОВКА СНАРЯЖЕНИЯ (БЕЗ ШТОРОК)
+// ОТРИСОВКА СНАРЯЖЕНИЯ (С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ)
 // ============================================================
 
 function renderEscEquipment() {
@@ -995,11 +1024,29 @@ function renderEscEquipment() {
     `;
     container.appendChild(header);
     
+    var playerCount = escState.players.length;
     var gridWrapper = document.createElement('div');
-    gridWrapper.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px;';
+    var gridClass = 'players-' + playerCount;
+    gridWrapper.className = 'selection-grid ' + gridClass;
+    gridWrapper.style.cssText = 'display: grid; gap: 16px 24px; max-width: 600px; margin: 0 auto;';
+    
+    if (playerCount === 1) {
+        gridWrapper.style.gridTemplateColumns = '1fr';
+        gridWrapper.style.maxWidth = '350px';
+    } else if (playerCount === 2) {
+        gridWrapper.style.gridTemplateColumns = '1fr 1fr';
+        gridWrapper.style.maxWidth = '550px';
+    } else if (playerCount === 3) {
+        gridWrapper.style.gridTemplateColumns = '1fr 1fr';
+        gridWrapper.style.maxWidth = '550px';
+    } else if (playerCount === 4) {
+        gridWrapper.style.gridTemplateColumns = '1fr 1fr';
+        gridWrapper.style.maxWidth = '600px';
+    }
     
     escState.players.forEach(function(player, idx) {
         var section = document.createElement('div');
+        section.className = 'player-block';
         section.style.cssText = 'background: rgba(0,0,0,0.2); border-radius: 16px; padding: 16px; border: 1px solid rgba(220,90,50,0.08);';
         
         var title = document.createElement('div');
@@ -1060,6 +1107,14 @@ function renderEscEquipment() {
         wrapper.appendChild(grid);
         section.appendChild(wrapper);
         gridWrapper.appendChild(section);
+        
+        // Для 3 игроков — третий блок по центру снизу
+        if (playerCount === 3 && idx === 2) {
+            section.style.gridColumn = '1 / -1';
+            section.style.maxWidth = '60%';
+            section.style.justifySelf = 'center';
+            section.style.width = '100%';
+        }
     });
     
     container.appendChild(gridWrapper);
@@ -1075,7 +1130,7 @@ function checkEscEquipReady() {
 }
 
 // ============================================================
-// ОТРИСОВКА АМФ (БЕЗ ШТОРОК)
+// ОТРИСОВКА АМФ (С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ)
 // ============================================================
 
 function renderEscAmps() {
@@ -1102,11 +1157,29 @@ function renderEscAmps() {
     `;
     container.appendChild(header);
     
+    var playerCount = escState.players.length;
     var gridWrapper = document.createElement('div');
-    gridWrapper.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px;';
+    var gridClass = 'players-' + playerCount;
+    gridWrapper.className = 'selection-grid ' + gridClass;
+    gridWrapper.style.cssText = 'display: grid; gap: 16px 24px; max-width: 600px; margin: 0 auto;';
+    
+    if (playerCount === 1) {
+        gridWrapper.style.gridTemplateColumns = '1fr';
+        gridWrapper.style.maxWidth = '350px';
+    } else if (playerCount === 2) {
+        gridWrapper.style.gridTemplateColumns = '1fr 1fr';
+        gridWrapper.style.maxWidth = '550px';
+    } else if (playerCount === 3) {
+        gridWrapper.style.gridTemplateColumns = '1fr 1fr';
+        gridWrapper.style.maxWidth = '550px';
+    } else if (playerCount === 4) {
+        gridWrapper.style.gridTemplateColumns = '1fr 1fr';
+        gridWrapper.style.maxWidth = '600px';
+    }
     
     escState.players.forEach(function(player, idx) {
         var section = document.createElement('div');
+        section.className = 'player-block';
         section.style.cssText = 'background: rgba(0,0,0,0.2); border-radius: 16px; padding: 16px; border: 1px solid rgba(220,90,50,0.08);';
         
         var title = document.createElement('div');
@@ -1218,6 +1291,14 @@ function renderEscAmps() {
         wrapper.appendChild(grid);
         section.appendChild(wrapper);
         gridWrapper.appendChild(section);
+        
+        // Для 3 игроков — третий блок по центру снизу
+        if (playerCount === 3 && idx === 2) {
+            section.style.gridColumn = '1 / -1';
+            section.style.maxWidth = '60%';
+            section.style.justifySelf = 'center';
+            section.style.width = '100%';
+        }
     });
     
     container.appendChild(gridWrapper);
@@ -1642,7 +1723,7 @@ function prepareFullResult(mapName, mapImage, trial, difficulty) {
 }
 
 // ============================================================
-// ОТРИСОВКА РЕЗУЛЬТАТА С ИНФОРМАЦИЕЙ О ИГРОКАХ (С ШТОРКАМИ)
+// ОТРИСОВКА РЕЗУЛЬТАТА С ИНФОРМАЦИЕЙ О ИГРОКАХ
 // ============================================================
 
 function renderEscResultPlayers() {
@@ -1669,7 +1750,7 @@ function renderEscResultPlayers() {
         var section = document.createElement('div');
         section.style.cssText = 'background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(220,90,50,0.1); overflow: hidden; margin-bottom: 12px;';
         
-        // Определяем размер шрифта для ника в зависимости от длины (без сокращения, просто уменьшаем шрифт)
+        // Определяем размер шрифта для ника в зависимости от длины
         var playerNameFontSize = '1rem';
         if (player.length > 15) {
             playerNameFontSize = '0.8rem';
@@ -2054,7 +2135,7 @@ function renderAmpModalGrid(playerIndex, category) {
 }
 
 // ============================================================
-// ПЕРЕРЫВ (выбор амф) БЕЗ ШТОРОК
+// ПЕРЕРЫВ (выбор амф) С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ
 // ============================================================
 
 function showBreakModal() {
@@ -2091,7 +2172,7 @@ function showBreakModal() {
             <div style="font-size: 1.5rem; font-weight: 700; color: #ffbc9a; margin-top: 2px;">Выбор АМФ</div>
             <div style="font-size: 0.85rem; color: #888; margin-top: 4px;">Каждому игроку нужно выбрать 1 амфу из доступной категории</div>
         </div>
-        <div id="breakModalContent" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px;"></div>
+        <div id="breakModalContent" style="display: grid; gap: 16px 24px; max-width: 700px; margin: 0 auto;"></div>
         <div style="text-align: center; margin-top: 20px;">
             <button id="breakModalConfirm" disabled style="padding: 12px 40px; border-radius: 30px; border: none; background: rgba(220,90,50,0.2); color: #888; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; letter-spacing: 1px;">Продолжить →</button>
         </div>
@@ -2102,9 +2183,28 @@ function showBreakModal() {
 
     var content = document.getElementById('breakModalContent');
     var breakSelections = {};
+    
+    var playerCount = escState.players.length;
+    var gridClass = 'players-' + playerCount;
+    
+    // Применяем правильную сетку
+    if (playerCount === 1) {
+        content.style.gridTemplateColumns = '1fr';
+        content.style.maxWidth = '350px';
+    } else if (playerCount === 2) {
+        content.style.gridTemplateColumns = '1fr 1fr';
+        content.style.maxWidth = '550px';
+    } else if (playerCount === 3) {
+        content.style.gridTemplateColumns = '1fr 1fr';
+        content.style.maxWidth = '550px';
+    } else if (playerCount === 4) {
+        content.style.gridTemplateColumns = '1fr 1fr';
+        content.style.maxWidth = '600px';
+    }
 
     escState.players.forEach(function(player, idx) {
         var section = document.createElement('div');
+        section.className = 'player-block';
         section.style.cssText = 'background: rgba(0,0,0,0.2); border-radius: 16px; padding: 16px; border: 1px solid rgba(220,90,50,0.08);';
         
         var title = document.createElement('div');
@@ -2118,6 +2218,15 @@ function showBreakModal() {
             completeMsg.innerHTML = '<i class="fas fa-check-circle"></i> Все улучшения применены';
             section.appendChild(completeMsg);
             content.appendChild(section);
+            
+            // Для 3 игроков — третий блок по центру снизу
+            if (playerCount === 3 && idx === 2) {
+                section.style.gridColumn = '1 / -1';
+                section.style.maxWidth = '60%';
+                section.style.justifySelf = 'center';
+                section.style.width = '100%';
+            }
+            
             breakSelections[idx] = null;
             return;
         }
@@ -2196,6 +2305,14 @@ function showBreakModal() {
         wrapper.appendChild(grid);
         section.appendChild(wrapper);
         content.appendChild(section);
+        
+        // Для 3 игроков — третий блок по центру снизу
+        if (playerCount === 3 && idx === 2) {
+            section.style.gridColumn = '1 / -1';
+            section.style.maxWidth = '60%';
+            section.style.justifySelf = 'center';
+            section.style.width = '100%';
+        }
     });
 
     function checkBreakReady() {
