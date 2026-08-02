@@ -189,7 +189,7 @@
             right: 0;
             bottom: 0;
             background: url('images/фон эскалация.webp') center/cover no-repeat;
-            opacity: 0.25;
+            opacity: 0.3;
             z-index: 0;
         }
 
@@ -547,30 +547,6 @@
             border-radius: 24px;
             padding: 1.5rem;
             border: 1px solid rgba(220, 90, 50, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* ===== ФОН ДЛЯ ВАРИАТОРОВ ===== */
-        .result-card.variators-card {
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .result-card.variators-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/вариаторы фон.webp') center/cover no-repeat;
-            opacity: 0.2;
-            z-index: 0;
-        }
-
-        .result-card.variators-card > * {
-            position: relative;
-            z-index: 1;
         }
 
         .result-card h3 {
@@ -582,8 +558,6 @@
             gap: 10px;
             border-bottom: 1px solid rgba(220, 90, 50, 0.15);
             padding-bottom: 0.8rem;
-            position: relative;
-            z-index: 1;
         }
 
         /* Карта в результате */
@@ -654,38 +628,77 @@
             font-weight: 600;
         }
 
-        /* Вариаторы в результате */
+        /* ===== ВАРИАТОРЫ С ИНДИВИДУАЛЬНЫМ ФОНОМ ===== */
         .variator-list {
             display: flex;
-            gap: 1rem;
             flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .var-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            width: 85px;
+            padding: 0.6rem 0.4rem;
+            border-radius: 14px;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        /* Фон для каждого вариатора */
+        .var-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/вариаторы фон.webp') center/cover no-repeat;
+            opacity: 0.25;
+            z-index: 0;
+            transition: opacity 0.3s;
+        }
+
+        .var-item:hover::before {
+            opacity: 0.4;
+        }
+
+        .var-item:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .var-item > * {
             position: relative;
             z-index: 1;
         }
 
-        .variator-list .var-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .variator-list .var-item img {
-            width: 60px;
-            height: 60px;
+        .var-item img {
+            width: 48px;
+            height: 48px;
             object-fit: contain;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 6px;
-            border: 1px solid rgba(220, 90, 50, 0.15);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
         }
 
-        .variator-list .var-item .var-name {
-            font-size: 0.65rem;
+        .var-item .var-name {
+            font-size: 0.55rem;
             color: #c2b9d4;
             text-align: center;
-            max-width: 75px;
             line-height: 1.2;
+            max-width: 75px;
+            font-weight: 500;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
         /* ===== ИГРОКИ В РЕЗУЛЬТАТЕ ===== */
@@ -1258,8 +1271,10 @@
             .selection-item .item-name { font-size: 0.7rem; }
             
             .result-map-row .map-image { width: 100px; height: 100px; }
-            .variator-list .var-item img { width: 50px; height: 50px; }
-            .variator-list .var-item .var-name { font-size: 0.55rem; max-width: 60px; }
+            .variator-list { gap: 0.5rem; }
+            .var-item { width: 70px; padding: 0.4rem 0.3rem; }
+            .var-item img { width: 38px; height: 38px; }
+            .var-item .var-name { font-size: 0.45rem; max-width: 60px; }
             
             .step-actions { flex-direction: column; align-items: center; }
             .next-btn, .back-btn, .exit-btn { width: 100%; justify-content: center; }
@@ -1391,7 +1406,7 @@
                         <h3><i class="fas fa-map"></i> Испытание</h3>
                         <div class="result-map-row" id="escResultMap"></div>
                     </div>
-                    <div class="result-card variators-card" style="margin-top: 1.5rem;">
+                    <div class="result-card" style="margin-top: 1.5rem;">
                         <h3><i class="fas fa-skull"></i> Вариаторы</h3>
                         <div class="variator-list" id="escResultVariators"></div>
                     </div>
@@ -1447,7 +1462,7 @@
     </div>
 </div>
 
-<!-- ===== ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ (логика и данные остаются без изменений) ===== -->
+<!-- ===== ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ (вся логика и данные остаются без изменений) ===== -->
 <script src="maps.js"></script>
 <script src="variators.js"></script>
 <script src="variators-all.js"></script>
