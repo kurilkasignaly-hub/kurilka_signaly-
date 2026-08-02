@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Эскалация — Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -66,12 +69,11 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes checkmarkAppear {
-            0% { opacity: 0; transform: scale(0.5) rotate(-30deg); }
-            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
         }
 
-        /* ===== КОНТЕЙНЕР ===== */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -80,91 +82,141 @@
             z-index: 10;
         }
 
-        /* ===== ХЕДЕР ===== */
+        /* ===== НАВИГАЦИЯ (как на главной) ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            padding: 1.2rem 2rem;
-            background: rgba(8, 6, 15, 0.5);
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.6);
             backdrop-filter: blur(16px);
             border-radius: 80px;
             margin-bottom: 2rem;
             gap: 1rem;
-            border: 1px solid rgba(220, 90, 50, 0.25);
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s;
             animation: fadeInScale 0.6s ease-out;
         }
 
         .header:hover {
-            border-color: rgba(220, 90, 50, 0.5);
-            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+            border-color: rgba(220, 90, 50, 0.4);
         }
 
-        .logo h1 {
-            font-size: 2rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #fbc2a0, #e25d32, #ff9f6e);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: smokePulse 3s ease-in-out infinite;
+            white-space: nowrap;
         }
 
         .logo p {
-            font-size: 0.75rem;
-            color: #c2b9d4;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .logo p i {
-            color: #e16d48;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
         }
 
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.7rem;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(15, 10, 20, 0.4);
-            backdrop-filter: blur(12px);
-            padding: 0.6rem 1.3rem;
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
             border-radius: 60px;
-            border: 1px solid rgba(210, 100, 55, 0.25);
+            border: 1px solid rgba(210, 100, 55, 0.15);
         }
 
         .nav-btn {
             background: transparent;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 0.9rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: #e2d9f0;
+            color: #b5a8c8;
+            transition: all 0.3s;
             font-family: inherit;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             text-decoration: none;
         }
 
         .nav-btn:hover {
             color: white;
-            transform: translateY(-2px);
-            text-shadow: 0 0 6px rgba(220, 90, 50, 0.4);
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
-            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.3);
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== МУЗЫКА ===== */
+        .music-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .music-toggle.playing {
+            border-color: rgba(220, 90, 50, 0.3);
+            color: #e25d32;
+        }
+
+        .music-toggle .icon {
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .music-toggle .icon.pulse {
+            animation: musicPulse 1.2s ease-in-out infinite;
+        }
+
+        .music-toggle .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .music-controls-wrapper {
+            display: inline-flex;
+            align-items: center;
         }
 
         /* ===== ОСНОВНОЙ КОНТЕЙНЕР ЭСКАЛАЦИИ ===== */
@@ -195,6 +247,154 @@
 
         .escalation-wrapper h1 i {
             color: #e16d48;
+        }
+
+        /* ===== ПРАВИЛА ===== */
+        .rules-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(15px);
+        }
+
+        .rules-overlay.active {
+            display: flex;
+        }
+
+        .rules-container {
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            border-radius: 40px;
+            padding: 2.5rem 3rem;
+            max-width: 780px;
+            width: 92%;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.5s ease-out;
+        }
+
+        .rules-container .rules-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .rules-container .rules-header .icon {
+            font-size: 3.5rem;
+            color: #e16d48;
+            margin-bottom: 0.5rem;
+        }
+
+        .rules-container .rules-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .rules-container .rules-header p {
+            color: #c2b9d4;
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        .rules-container .rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .rules-container .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        .rules-container .rule-item:hover {
+            border-color: rgba(220, 90, 50, 0.25);
+        }
+
+        .rules-container .rule-item .num {
+            background: rgba(220, 90, 50, 0.2);
+            color: #e16d48;
+            font-weight: 800;
+            font-size: 0.9rem;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rules-container .rule-item .text {
+            color: #d1cce6;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .rules-container .rule-item .text strong {
+            color: #ffbc9a;
+        }
+
+        .rules-container .rules-footer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .rules-container .rules-footer .btn-accept {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.8rem 3rem;
+            border-radius: 40px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .rules-container .rules-footer .btn-accept:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 35px rgba(188, 74, 40, 0.4);
+        }
+
+        .rules-container .rules-footer .btn-decline {
+            background: rgba(220, 90, 50, 0.15);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #c2b9d4;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .rules-container .rules-footer .btn-decline:hover {
+            background: rgba(220, 90, 50, 0.25);
+            color: white;
         }
 
         /* ===== СЧЕТЧИК УРОВНЯ ===== */
@@ -541,7 +741,6 @@
             padding-bottom: 0.8rem;
         }
 
-        /* Карта в результате */
         .result-map-row {
             display: flex;
             gap: 1.5rem;
@@ -609,7 +808,6 @@
             font-weight: 600;
         }
 
-        /* Вариаторы в результате */
         .variator-list {
             display: flex;
             gap: 1rem;
@@ -641,7 +839,6 @@
             line-height: 1.2;
         }
 
-        /* ===== ИГРОКИ В РЕЗУЛЬТАТЕ С КАТЕГОРИЯМИ ===== */
         .player-result {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 16px;
@@ -705,7 +902,6 @@
             font-weight: 500;
         }
 
-        /* ===== КАТЕГОРИИ АМП В КАРТОЧКЕ ===== */
         .player-amps-categories {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -784,7 +980,6 @@
             text-align: center;
         }
 
-        /* ===== КНОПКИ В РЕЗУЛЬТАТЕ ===== */
         .result-actions {
             display: flex;
             justify-content: center;
@@ -797,319 +992,6 @@
             min-width: 200px;
         }
 
-        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ СМЕНЫ АМФЫ ===== */
-        .amp-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .amp-modal-overlay.active {
-            display: flex;
-        }
-
-        .amp-modal {
-            background: rgba(18, 12, 28, 0.95);
-            backdrop-filter: blur(16px);
-            border-radius: 30px;
-            border: 2px solid rgba(220, 90, 50, 0.4);
-            padding: 2rem;
-            max-width: 700px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        .amp-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(220, 90, 50, 0.2);
-        }
-
-        .amp-modal-header h2 {
-            font-size: 1.3rem;
-            color: #e16d48;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .amp-modal-close {
-            background: none;
-            border: none;
-            color: #c2b9d4;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .amp-modal-close:hover {
-            color: #e16d48;
-        }
-
-        .amp-modal-category-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .amp-modal-category-tabs button {
-            background: rgba(220, 90, 50, 0.15);
-            border: 1px solid rgba(220, 90, 50, 0.25);
-            border-radius: 30px;
-            padding: 0.5rem 1.5rem;
-            color: #c2b9d4;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .amp-modal-category-tabs button:hover {
-            background: rgba(220, 90, 50, 0.25);
-            color: white;
-        }
-
-        .amp-modal-category-tabs button.active {
-            background: rgba(220, 90, 50, 0.3);
-            border-color: #e16d48;
-            color: #e16d48;
-        }
-
-        .amp-modal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .amp-modal-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(220, 90, 50, 0.2);
-            border-radius: 16px;
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .amp-modal-item:hover:not(.locked) {
-            border-color: #e16d48;
-            transform: scale(1.05);
-        }
-
-        .amp-modal-item.selected {
-            border-color: #4c9aff;
-            background: rgba(76, 154, 255, 0.1);
-        }
-
-        .amp-modal-item.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .amp-modal-item.locked:hover {
-            transform: none;
-            border-color: rgba(220, 90, 50, 0.2);
-        }
-
-        .amp-modal-item img {
-            width: 65px;
-            height: 65px;
-            object-fit: contain;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 6px;
-        }
-
-        .amp-modal-item .amp-name {
-            font-size: 0.85rem;
-            color: #c2b9d4;
-            margin-top: 0.3rem;
-            font-weight: 500;
-        }
-
-        .amp-modal-item .amp-category-label {
-            font-size: 0.6rem;
-            color: #666;
-            margin-top: 0.1rem;
-        }
-
-        .amp-modal-item .amp-status {
-            font-size: 0.6rem;
-            margin-top: 0.2rem;
-        }
-
-        .amp-modal-item .amp-status.available {
-            color: #4c9aff;
-        }
-
-        .amp-modal-item .amp-status.locked {
-            color: #888;
-        }
-
-        .amp-modal-item .amp-status.current {
-            color: #2ecc71;
-        }
-
-        .amp-modal-item .lock-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 14px;
-        }
-
-        .amp-modal-item .lock-overlay i {
-            font-size: 2rem;
-            color: #888;
-        }
-
-        .amp-modal-item .lock-overlay span {
-            font-size: 0.7rem;
-            color: #888;
-            margin-top: 0.3rem;
-        }
-
-        .amp-modal-confirm {
-            margin-top: 1.5rem;
-            text-align: center;
-        }
-
-        .amp-modal-confirm button {
-            background: linear-gradient(135deg, #bc4627, #e25d32);
-            border: none;
-            padding: 0.7rem 2.5rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .amp-modal-confirm button:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
-        }
-
-        .amp-modal-confirm button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        /* ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== */
-        .confirm-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .confirm-modal-overlay.active {
-            display: flex;
-        }
-
-        .confirm-modal {
-            background: rgba(18, 12, 28, 0.95);
-            backdrop-filter: blur(16px);
-            border-radius: 30px;
-            border: 2px solid rgba(255, 51, 51, 0.4);
-            padding: 2.5rem;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        .confirm-modal .icon {
-            font-size: 3rem;
-            color: #ff3333;
-            margin-bottom: 1rem;
-        }
-
-        .confirm-modal h2 {
-            color: #ff3333;
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .confirm-modal p {
-            color: #c2b9d4;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .confirm-modal .confirm-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .confirm-modal .confirm-actions button {
-            padding: 0.7rem 2rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-            border: none;
-        }
-
-        .confirm-modal .confirm-actions .btn-confirm {
-            background: linear-gradient(135deg, #bc4627, #e25d32);
-            color: white;
-        }
-
-        .confirm-modal .confirm-actions .btn-confirm:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
-        }
-
-        .confirm-modal .confirm-actions .btn-cancel {
-            background: rgba(220, 90, 50, 0.15);
-            border: 1px solid rgba(220, 90, 50, 0.25);
-            color: #c2b9d4;
-        }
-
-        .confirm-modal .confirm-actions .btn-cancel:hover {
-            background: rgba(220, 90, 50, 0.25);
-            color: white;
-        }
-
-        /* ===== КНОПКА НАЗАД ===== */
         .back-to-roulette {
             display: inline-flex;
             align-items: center;
@@ -1132,7 +1014,6 @@
             transform: translateX(-5px);
         }
 
-        /* ===== ФУТЕР ===== */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -1144,6 +1025,12 @@
             border-radius: 50px;
         }
 
+        .footer-logo {
+            max-height: 32px;
+            width: auto;
+            margin-bottom: 0.5rem;
+        }
+
         /* ===== АДАПТИВ ===== */
         @media (max-width: 992px) {
             .result-grid {
@@ -1152,11 +1039,12 @@
         }
 
         @media (max-width: 850px) {
-            .container { padding: 1rem; }
-            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
-            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
-            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
-            .logo h1 { font-size: 1.5rem; }
+            .container { padding: 0.8rem; }
+            .header { flex-direction: column; padding: 0.8rem 1rem; border-radius: 40px; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 0.3rem; }
+            .nav-btn { padding: 0.35rem 0.7rem; font-size: 0.7rem; }
+            .logo .logo-img { max-height: 40px; }
+            .logo .logo-text { font-size: 1.1rem; }
             
             .escalation-wrapper { padding: 1.5rem; margin: 0 0.5rem; }
             .escalation-wrapper h1 { font-size: 1.6rem; }
@@ -1183,9 +1071,12 @@
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
             }
+
+            .rules-container { padding: 1.5rem 1.5rem; }
+            .rules-container .rules-header h2 { font-size: 1.5rem; }
         }
 
-        @media (max-width: 550px) {
+        @media (max-width: 600px) {
             .escalation-wrapper { padding: 1rem; }
             .escalation-wrapper h1 { font-size: 1.3rem; flex-wrap: wrap; }
             
@@ -1213,47 +1104,109 @@
             
             .back-to-roulette { font-size: 0.85rem; padding: 0.5rem 1rem; }
             
-            .amp-modal { padding: 1rem; }
-            .amp-modal-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-            .amp-modal-item img { width: 50px; height: 50px; }
-            .amp-modal-item .amp-name { font-size: 0.7rem; }
-            
             .player-amps-categories {
                 grid-template-columns: 1fr;
                 gap: 0.4rem;
             }
             .amp-category-block .category-name { font-size: 0.6rem; }
             .amp-category-block .category-amp-name { font-size: 0.7rem; }
+
+            .rules-container { padding: 1rem; }
+            .rules-container .rules-header .icon { font-size: 2.5rem; }
+            .rules-container .rules-header h2 { font-size: 1.3rem; }
+            .rules-container .rule-item .text { font-size: 0.82rem; }
+            .rules-container .rules-footer .btn-accept { padding: 0.6rem 2rem; font-size: 0.9rem; }
+            .rules-container .rules-footer .btn-decline { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
 <video class="background-video" autoplay muted loop playsinline>
-    <source src="images/об игре фон.mp4" type="video/mp4">
+    <source src="../images/об игре фон.mp4" type="video/mp4">
 </video>
 
+<!-- Аудио для фона -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio" preload="auto" loop>
+        <source src="../images/комната отдыха 1.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
 <div class="container">
-    <!-- ХЕДЕР -->
+
+    <!-- ===== НАВИГАЦИЯ (как на главной) ===== -->
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-smoking"></i> Курилка Синьялы</h1>
-            <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
+            </div>
         </div>
         <div class="nav-links">
             <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
-            <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Справочник ролей</a>
-            <a href="server-news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости сервера</a>
-            <a href="game-news.html" class="nav-btn"><i class="fas fa-gamepad"></i> Новости игры</a>
-            <a href="site-news.html" class="nav-btn"><i class="fas fa-code"></i> Новости сайта</a>
-            <a href="roulette.html" class="nav-btn active"><i class="fas fa-dice-d6"></i> Рулетка</a>
-            <a href="invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
             <a href="achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+
+            <!-- ===== МУЗЫКА ===== -->
+            <div class="music-controls-wrapper">
+                <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                    <span class="icon fa-solid fa-volume-xmark"></span>
+                    <span class="label">Выкл</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ ЭСКАЛАЦИИ -->
+    <!-- ===== ОКНО С ПРАВИЛАМИ ===== -->
+    <div class="rules-overlay" id="rulesOverlay">
+        <div class="rules-container">
+            <div class="rules-header">
+                <div class="icon"><i class="fas fa-scroll"></i></div>
+                <h2>Правила Эскалации</h2>
+                <p>Прежде чем начать, ознакомьтесь с правилами режима</p>
+            </div>
+
+            <div class="rules-list">
+                <div class="rule-item">
+                    <span class="num">1</span>
+                    <span class="text"><strong>Цель режима</strong> — пройти как можно больше уровней подряд. С каждым новым уровнем сложность возрастает.</span>
+                </div>
+                <div class="rule-item">
+                    <span class="num">2</span>
+                    <span class="text"><strong>Уровень 1</strong> — начальный. С каждым следующим уровнем добавляется <strong>один новый вариатор</strong> к испытанию.</span>
+                </div>
+                <div class="rule-item">
+                    <span class="num">3</span>
+                    <span class="text"><strong>На каждом уровне</strong> игроки выбирают снаряжение и ампы. Выбор влияет на прохождение.</span>
+                </div>
+                <div class="rule-item">
+                    <span class="num">4</span>
+                    <span class="text"><strong>Поражение</strong> — если все игроки погибают, эскалация завершается. Прогресс сбрасывается.</span>
+                </div>
+                <div class="rule-item">
+                    <span class="num">5</span>
+                    <span class="text"><strong>Сложность</strong> делится на 4 этапа: <strong style="color:#6c757d;">Начальная</strong> → <strong style="color:#ff9f4a;">Стандартная</strong> → <strong style="color:#2ecc71;">Интенсивная</strong> → <strong style="color:#ff3333;">Психохирургия</strong></span>
+                </div>
+                <div class="rule-item">
+                    <span class="num">6</span>
+                    <span class="text"><strong>Бесконечный режим</strong> — уровни продолжаются бесконечно, пока вы не проиграете или не решите выйти.</span>
+                </div>
+            </div>
+
+            <div class="rules-footer">
+                <a href="roulette.html" class="btn-decline"><i class="fas fa-arrow-left"></i> Вернуться</a>
+                <button class="btn-accept" id="rulesAcceptBtn"><i class="fas fa-check"></i> Принять и начать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ЭСКАЛАЦИИ ===== -->
     <div class="escalation-wrapper" id="escalationWrapper">
         <h1><i class="fas fa-chart-line"></i> Режим Эскалации</h1>
 
@@ -1296,7 +1249,7 @@
             </div>
         </div>
 
-        <!-- ШАГ 3: Снаряжение (3 иконки на выбор) -->
+        <!-- ШАГ 3: Снаряжение -->
         <div class="step-container hidden" id="escStep3">
             <div class="step-title">
                 <span class="step-number">Шаг 3</span>
@@ -1310,7 +1263,7 @@
             </div>
         </div>
 
-        <!-- ШАГ 4: Ампы (выбор 1 из 3) -->
+        <!-- ШАГ 4: Ампы -->
         <div class="step-container hidden" id="escStep4">
             <div class="step-title">
                 <span class="step-number">Шаг 4</span>
@@ -1324,7 +1277,7 @@
             </div>
         </div>
 
-        <!-- РЕЗУЛЬТАТ ИСПЫТАНИЯ -->
+        <!-- РЕЗУЛЬТАТ -->
         <div class="escalation-result" id="escResult">
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <span style="background: rgba(220,90,50,0.2); padding: 0.3rem 1.5rem; border-radius: 30px; color: #e16d48; font-size: 0.85rem; font-weight: 600;">
@@ -1350,8 +1303,8 @@
                 </div>
             </div>
             <div class="result-actions">
-                <button class="exit-btn" id="escExitBtn"><i class="fas fa-sign-out-alt"></i> Покинуть Эскалацию</button>
-                <button class="next-btn" id="escNextLevelBtn">Далее →</button>
+                <button class="exit-btn" id="escExitBtn"><i class="fas fa-sign-out-alt"></i> Покинуть</button>
+                <button class="next-btn" id="escNextLevelBtn">Следующий уровень →</button>
             </div>
         </div>
 
@@ -1359,24 +1312,10 @@
     </div>
 
     <footer>
+        <img src="../images/лого.png" alt="Курилка Синьялы" class="footer-logo" onerror="this.style.display='none'">
         <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
         <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
     </footer>
-</div>
-
-<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ СМЕНЫ АМФЫ ===== -->
-<div class="amp-modal-overlay" id="ampModal">
-    <div class="amp-modal">
-        <div class="amp-modal-header">
-            <h2><i class="fas fa-capsules"></i> <span id="ampModalPlayerName">Игрок</span> — выбор ампы</h2>
-            <button class="amp-modal-close" id="ampModalClose">&times;</button>
-        </div>
-        <div class="amp-modal-category-tabs" id="ampCategoryTabs"></div>
-        <div class="amp-modal-grid" id="ampModalGrid"></div>
-        <div class="amp-modal-confirm">
-            <button id="ampModalConfirm">Выбрать</button>
-        </div>
-    </div>
 </div>
 
 <!-- ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== -->
@@ -1392,14 +1331,593 @@
     </div>
 </div>
 
-<!-- ===== ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ ===== -->
-<script src="maps.js"></script>
-<script src="variators.js"></script>
-<script src="variators-all.js"></script>
-<script src="amps.js"></script>
-<script src="equipment.js"></script>
-<script src="trials.js"></script>
-<script src="escalation-logic.js"></script>
+<script>
+    // ================================================================
+    //  МУЗЫКА (как на главной)
+    // ================================================================
+    var mainAudioStarted = false;
+    var mainAudioElement = null;
+
+    function initMainAudio() {
+        var container = document.getElementById('mainAudioContainer');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        var audio = document.createElement('audio');
+        audio.id = 'mainAudio';
+        audio.preload = 'auto';
+        audio.volume = 0.4;
+        audio.loop = true;
+        var source = document.createElement('source');
+        source.src = '../images/комната отдыха 1.mp3';
+        source.type = 'audio/mpeg';
+        audio.appendChild(source);
+        container.appendChild(audio);
+        mainAudioElement = audio;
+    }
+
+    function startMainMusic() {
+        if (mainAudioStarted) return;
+
+        initMainAudio();
+        
+        if (!mainAudioElement) {
+            setTimeout(startMainMusic, 500);
+            return;
+        }
+
+        mainAudioStarted = true;
+        mainAudioElement.volume = 0.4;
+        mainAudioElement.currentTime = 0;
+        mainAudioElement.play().catch(function() {});
+        
+        updateMusicButton(true);
+    }
+
+    function updateMusicButton(state) {
+        var btn = document.getElementById('musicToggleBtn');
+        if (!btn) return;
+        
+        var icon = btn.querySelector('.icon');
+        var label = btn.querySelector('.label');
+        
+        if (state) {
+            btn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high', 'pulse');
+            }
+            if (label) label.textContent = 'Вкл';
+        } else {
+            btn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-high', 'pulse');
+                icon.classList.add('fa-volume-xmark');
+            }
+            if (label) label.textContent = 'Выкл';
+        }
+    }
+
+    function toggleMainMusic() {
+        if (mainAudioStarted) {
+            mainAudioStarted = false;
+            
+            if (mainAudioElement) {
+                mainAudioElement.pause();
+                mainAudioElement.currentTime = 0;
+            }
+            
+            updateMusicButton(false);
+        } else {
+            mainAudioStarted = true;
+            
+            initMainAudio();
+            
+            if (!mainAudioElement) {
+                mainAudioStarted = false;
+                return;
+            }
+            
+            mainAudioElement.volume = 0.4;
+            mainAudioElement.currentTime = 0;
+            mainAudioElement.play().catch(function() {});
+            
+            updateMusicButton(true);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(startMainMusic, 1500);
+    });
+
+    document.addEventListener('click', function initAudioOnClick() {
+        if (!mainAudioStarted) {
+            startMainMusic();
+            document.removeEventListener('click', initAudioOnClick);
+        }
+    }, { once: true });
+
+    window.toggleMainMusic = toggleMainMusic;
+
+    // ================================================================
+    //  ЛОГИКА ПРАВИЛ
+    // ================================================================
+    (function() {
+        var rulesOverlay = document.getElementById('rulesOverlay');
+        var rulesAcceptBtn = document.getElementById('rulesAcceptBtn');
+
+        // Проверяем, были ли уже показаны правила в этой сессии
+        var rulesShown = sessionStorage.getItem('escalationRulesShown');
+
+        if (!rulesShown) {
+            // Показываем правила
+            rulesOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Правила уже были показаны — скрываем оверлей
+            rulesOverlay.style.display = 'none';
+        }
+
+        // Принятие правил
+        rulesAcceptBtn.addEventListener('click', function() {
+            // Сохраняем в sessionStorage, что правила были показаны
+            sessionStorage.setItem('escalationRulesShown', 'true');
+            rulesOverlay.classList.remove('active');
+            rulesOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        // Также можно закрыть по клику вне модалки (но не будем, чтобы пользователь точно прочитал)
+        rulesOverlay.addEventListener('click', function(e) {
+            if (e.target === rulesOverlay) {
+                // Не закрываем, чтобы пользователь точно прочитал правила
+                // Можно было бы закрыть, но лучше оставить только кнопку
+            }
+        });
+
+        // Обработка клавиши Escape — не закрываем правила принудительно
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && rulesOverlay.classList.contains('active')) {
+                // Не закрываем правила по Escape
+            }
+        });
+    })();
+
+    // ================================================================
+    //  ЛОГИКА ЭСКАЛАЦИИ
+    // ================================================================
+    // Простая заглушка для демонстрации
+    var currentLevel = 1;
+    var playerCount = 0;
+    var playerNames = [];
+
+    // Элементы
+    var escStep1 = document.getElementById('escStep1');
+    var escStep2 = document.getElementById('escStep2');
+    var escStep3 = document.getElementById('escStep3');
+    var escStep4 = document.getElementById('escStep4');
+    var escResult = document.getElementById('escResult');
+
+    var step1Next = document.getElementById('escStep1Next');
+    var step2Back = document.getElementById('escStep2Back');
+    var step2Next = document.getElementById('escStep2Next');
+    var step3Back = document.getElementById('escStep3Back');
+    var step3Next = document.getElementById('escStep3Next');
+    var step4Back = document.getElementById('escStep4Back');
+    var step4Next = document.getElementById('escStep4Next');
+
+    var exitBtn = document.getElementById('escExitBtn');
+    var nextLevelBtn = document.getElementById('escNextLevelBtn');
+
+    // ===== КНОПКИ ВЫБОРА ИГРОКОВ =====
+    var countBtns = document.querySelectorAll('.player-count-btn');
+    countBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            countBtns.forEach(function(b) { b.classList.remove('selected'); });
+            this.classList.add('selected');
+            playerCount = parseInt(this.dataset.count);
+            step1Next.disabled = false;
+        });
+    });
+
+    // ===== ШАГ 1 → ШАГ 2 =====
+    step1Next.addEventListener('click', function() {
+        escStep1.classList.add('hidden');
+        escStep2.classList.remove('hidden');
+        generateNameInputs();
+    });
+
+    // ===== ШАГ 2 ← ШАГ 1 =====
+    step2Back.addEventListener('click', function() {
+        escStep2.classList.add('hidden');
+        escStep1.classList.remove('hidden');
+    });
+
+    // ===== ШАГ 2 → ШАГ 3 =====
+    step2Next.addEventListener('click', function() {
+        // Собираем имена
+        var inputs = document.querySelectorAll('#escPlayerNameInputs .input-row input');
+        playerNames = [];
+        inputs.forEach(function(inp) {
+            var name = inp.value.trim();
+            if (!name) name = 'Игрок ' + (playerNames.length + 1);
+            playerNames.push(name);
+        });
+
+        escStep2.classList.add('hidden');
+        escStep3.classList.remove('hidden');
+        generateEquipmentSelection();
+    });
+
+    // ===== ШАГ 3 ← ШАГ 2 =====
+    step3Back.addEventListener('click', function() {
+        escStep3.classList.add('hidden');
+        escStep2.classList.remove('hidden');
+    });
+
+    // ===== ШАГ 3 → ШАГ 4 =====
+    step3Next.addEventListener('click', function() {
+        escStep3.classList.add('hidden');
+        escStep4.classList.remove('hidden');
+        generateAmpSelection();
+    });
+
+    // ===== ШАГ 4 ← ШАГ 3 =====
+    step4Back.addEventListener('click', function() {
+        escStep4.classList.add('hidden');
+        escStep3.classList.remove('hidden');
+    });
+
+    // ===== ШАГ 4 → РЕЗУЛЬТАТ =====
+    step4Next.addEventListener('click', function() {
+        escStep4.classList.add('hidden');
+        escResult.classList.add('active');
+        generateResult();
+    });
+
+    // ===== ГЕНЕРАЦИЯ ПОЛЕЙ ДЛЯ ИМЕН =====
+    function generateNameInputs() {
+        var container = document.getElementById('escPlayerNameInputs');
+        var html = '';
+        var defaultNames = ['Агент', 'Хирург', 'Тень', 'Фантом'];
+        for (var i = 0; i < playerCount; i++) {
+            var defaultName = defaultNames[i] || 'Игрок ' + (i + 1);
+            html += '<div class="input-row">';
+            html += '<label><i class="fas fa-user"></i> Игрок ' + (i + 1) + '</label>';
+            html += '<input type="text" placeholder="' + defaultName + '" value="' + defaultName + '">';
+            html += '</div>';
+        }
+        container.innerHTML = html;
+    }
+
+    // ===== ГЕНЕРАЦИЯ ВЫБОРА СНАРЯЖЕНИЯ =====
+    function generateEquipmentSelection() {
+        var container = document.getElementById('escStep3Content');
+        var html = '';
+
+        // Данные снаряжения (заглушка)
+        var equipmentList = [
+            { id: 'equip1', name: 'Рентген', image: '../images/снаряжение-рентген.webp' },
+            { id: 'equip2', name: 'Стимулятор', image: '../images/снаряжение-стимулятор.webp' },
+            { id: 'equip3', name: 'Шокёр', image: '../images/снаряжение-шокёр.webp' },
+            { id: 'equip4', name: 'Дымовая шашка', image: '../images/снаряжение-дым.webp' },
+            { id: 'equip5', name: 'Лечение', image: '../images/снаряжение-лечение.webp' },
+            { id: 'equip6', name: 'Скорость', image: '../images/снаряжение-скорость.webp' }
+        ];
+
+        var selectedEquip = {};
+
+        for (var i = 0; i < playerCount; i++) {
+            var shuffled = shuffleArray([].concat(equipmentList));
+            var options = shuffled.slice(0, 3);
+
+            html += '<div class="step-subtitle" style="margin-top:1rem;font-size:0.85rem;color:#e16d48;">' + playerNames[i] + '</div>';
+            html += '<div class="selection-wrapper"><div class="selection-grid" data-player="' + i + '">';
+
+            options.forEach(function(opt) {
+                html += '<div class="selection-item" data-equip="' + opt.id + '">';
+                html += '<img src="' + opt.image + '" alt="' + opt.name + '" onerror="this.src=\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2290%22 height=%2290%22%3E%3Crect fill=%22%23222%22 width=%2290%22 height=%2290%22/%3E%3Ctext x=%2245%22 y=%2250%22 text-anchor=%22middle%22 fill=%22%23666%22 font-size=%2220%22 font-family=%22Arial%22%3E🎒%3C/text%3E%3C/svg%3E\'">';
+                html += '<span class="item-name">' + opt.name + '</span>';
+                html += '<span class="check-mark"><i class="fas fa-check-circle"></i></span>';
+                html += '</div>';
+            });
+
+            html += '</div></div>';
+
+            // Инициализируем выбранное снаряжение
+            selectedEquip[i] = null;
+        }
+
+        container.innerHTML = html;
+
+        // Обработка выбора
+        var items = container.querySelectorAll('.selection-item');
+        items.forEach(function(item) {
+            item.addEventListener('click', function() {
+                var grid = this.closest('.selection-grid');
+                var playerIdx = parseInt(grid.dataset.player);
+
+                // Снимаем выделение с других в этой группе
+                var siblings = grid.querySelectorAll('.selection-item');
+                siblings.forEach(function(s) { s.classList.remove('selected'); });
+
+                this.classList.add('selected');
+                selectedEquip[playerIdx] = this.dataset.equip;
+
+                // Проверяем, все ли выбрали
+                var allSelected = true;
+                for (var key in selectedEquip) {
+                    if (selectedEquip[key] === null) {
+                        allSelected = false;
+                        break;
+                    }
+                }
+                step3Next.disabled = !allSelected;
+            });
+        });
+
+        step3Next.disabled = true;
+    }
+
+    // ===== ГЕНЕРАЦИЯ ВЫБОРА АМП =====
+    function generateAmpSelection() {
+        var container = document.getElementById('escStep4Content');
+        var html = '';
+
+        // Данные амп (заглушка)
+        var ampList = [
+            { id: 'amp1', name: 'Регенерация', image: '../images/амп-регенерация.webp' },
+            { id: 'amp2', name: 'Скорость', image: '../images/амп-скорость.webp' },
+            { id: 'amp3', name: 'Сила', image: '../images/амп-сила.webp' },
+            { id: 'amp4', name: 'Выносливость', image: '../images/амп-выносливость.webp' },
+            { id: 'amp5', name: 'Щит', image: '../images/амп-щит.webp' },
+            { id: 'amp6', name: 'Невидимость', image: '../images/амп-невидимость.webp' }
+        ];
+
+        var selectedAmp = {};
+
+        for (var i = 0; i < playerCount; i++) {
+            var shuffled = shuffleArray([].concat(ampList));
+            var options = shuffled.slice(0, 3);
+
+            html += '<div class="step-subtitle" style="margin-top:1rem;font-size:0.85rem;color:#e16d48;">' + playerNames[i] + ' — выберите ампу</div>';
+            html += '<div class="selection-wrapper"><div class="selection-grid" data-player="' + i + '">';
+
+            options.forEach(function(opt) {
+                html += '<div class="selection-item" data-amp="' + opt.id + '">';
+                html += '<img src="' + opt.image + '" alt="' + opt.name + '" onerror="this.src=\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2290%22 height=%2290%22%3E%3Crect fill=%22%23222%22 width=%2290%22 height=%2290%22/%3E%3Ctext x=%2245%22 y=%2250%22 text-anchor=%22middle%22 fill=%22%23666%22 font-size=%2220%22 font-family=%22Arial%22%3E💉%3C/text%3E%3C/svg%3E\'">';
+                html += '<span class="item-name">' + opt.name + '</span>';
+                html += '<span class="check-mark"><i class="fas fa-check-circle"></i></span>';
+                html += '</div>';
+            });
+
+            html += '</div></div>';
+
+            selectedAmp[i] = null;
+        }
+
+        container.innerHTML = html;
+
+        var items = container.querySelectorAll('.selection-item');
+        items.forEach(function(item) {
+            item.addEventListener('click', function() {
+                var grid = this.closest('.selection-grid');
+                var playerIdx = parseInt(grid.dataset.player);
+
+                var siblings = grid.querySelectorAll('.selection-item');
+                siblings.forEach(function(s) { s.classList.remove('selected'); });
+
+                this.classList.add('selected');
+                selectedAmp[playerIdx] = this.dataset.amp;
+
+                var allSelected = true;
+                for (var key in selectedAmp) {
+                    if (selectedAmp[key] === null) {
+                        allSelected = false;
+                        break;
+                    }
+                }
+                step4Next.disabled = !allSelected;
+            });
+        });
+
+        step4Next.disabled = true;
+    }
+
+    // ===== ГЕНЕРАЦИЯ РЕЗУЛЬТАТА =====
+    function generateResult() {
+        // Заглушка для карты и испытания
+        var mapNames = ['Полицейский участок', 'Детский дом', 'Парк развлечений', 'Здание суда', 'Фабрика игрушек', 'Пристань', 'Центр города', 'Пригород', 'Торговый центр', 'Курорт', 'Телестудия', 'Тюремная ферма'];
+        var trialNames = ['УБЕЙТЕ СТУКАЧА', 'ПРИЧАСТИТЕ СИРОТ', 'ИЗМЕЛЬЧИТЕ НЕГОДЯЕВ', 'ОПРАВДАТЬ ВИНОВНОГО', 'ИЗВРАТИТЬ ФУТТЕРМАНА', 'ОТРАВИТЕ ЛЕКАРСТВО', 'ПОРАДУЙТЕ ПРОКУРОРА', 'ЛИКВИДИРУЙТЕ ПРОФСОЮЗ', 'УБЕЙТЕ ПОЛИТИКА', 'РАЗОРИТЕ АУКЦИОН', 'ЗАТКНИТЕ РОТ ИДОЛУ', 'УДАРЬТЕ НАЧАЛЬНИКА'];
+        var trialDescs = [
+            'Нельзя позволять лжесвидетелям распространять свою ложную правду.',
+            'Образование воспитывает послушание, а Вера делает его незыблемым.',
+            'Мы должны устранить непослушных детей.',
+            'Помешайте судебному процессу, заставьте свидетелей замолчать.',
+            'Разоблачите и унизьте скрытого девианта.',
+            'Захватив контроль над производством наркотиков, можно убивать с небрежностью небожителя.',
+            'Удовлетворите особые запросы прокурора.',
+            'Перейдите линию пикета, убедите рабочих продолжить работу.',
+            'Голосуйте бумажником, покажите миру, за что вы выступаете.',
+            'Уничтожьте лот, лишите его ценности.',
+            'Разорви, сожги и раздави лицо ложной харизмы.',
+            'Спровоцировать бунт заключённых, испортить продовольствие.'
+        ];
+
+        var mapIdx = Math.floor(Math.random() * mapNames.length);
+        var mapName = mapNames[mapIdx];
+        var trialName = trialNames[mapIdx];
+        var trialDesc = trialDescs[mapIdx];
+
+        // Карта
+        var mapHtml = '<div class="result-map-row">';
+        mapHtml += '<img src="../images/' + mapName + '.webp" class="map-image" alt="' + mapName + '" onerror="this.src=\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Crect fill=%22%23222%22 width=%22160%22 height=%22160%22/%3E%3Ctext x=%2280%22 y=%2285%22 text-anchor=%22middle%22 fill=%22%23666%22 font-size=%2230%22 font-family=%22Arial%22%3E🗺️%3C/text%3E%3C/svg%3E\'">';
+        mapHtml += '<div class="result-map-info">';
+        mapHtml += '<div class="map-label"><i class="fas fa-map"></i> Карта</div>';
+        mapHtml += '<div class="map-name">' + mapName + '</div>';
+        mapHtml += '<div class="trial-name">' + trialName + '</div>';
+        mapHtml += '<div class="trial-desc">' + trialDesc + '</div>';
+        mapHtml += '<div class="map-meta">';
+        mapHtml += '<span class="map-meta-item"><strong>Уровень:</strong> ' + currentLevel + '</span>';
+        mapHtml += '<span class="map-meta-item"><strong>Игроков:</strong> ' + playerCount + '</span>';
+        mapHtml += '</div></div></div>';
+
+        document.getElementById('escResultMap').innerHTML = mapHtml;
+
+        // Вариаторы (количество зависит от уровня)
+        var variatorNames = ['Психохирургия', 'Таймер бомбы', 'Смертельный главный актив', 'Разъяренные враги', 'Постоянный урон', 'Не шумите', 'Все на выход', 'Огненные мины'];
+        var varCount = Math.min(1 + Math.floor((currentLevel - 1) / 2), variatorNames.length);
+        var selectedVars = shuffleArray([].concat(variatorNames)).slice(0, varCount);
+
+        var varHtml = '';
+        selectedVars.forEach(function(v) {
+            varHtml += '<div class="var-item">';
+            varHtml += '<div style="width:60px;height:60px;background:rgba(220,90,50,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(220,90,50,0.2);font-size:1.8rem;">⚡</div>';
+            varHtml += '<span class="var-name">' + v + '</span>';
+            varHtml += '</div>';
+        });
+
+        if (varHtml === '') {
+            varHtml = '<span style="color:#888;font-size:0.85rem;">Нет вариаторов</span>';
+        }
+        document.getElementById('escResultVariators').innerHTML = varHtml;
+
+        // Игроки
+        var playersHtml = '';
+        for (var i = 0; i < playerCount; i++) {
+            playersHtml += '<div class="player-result">';
+            playersHtml += '<div class="player-name"><i class="fas fa-user-circle"></i> ' + playerNames[i] + '</div>';
+            playersHtml += '<div class="player-equip">';
+            playersHtml += '<div style="width:36px;height:36px;background:rgba(220,90,50,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🎒</div>';
+            playersHtml += '<span class="label">Снаряжение:</span>';
+            playersHtml += '<span class="value">' + (['Рентген', 'Стимулятор', 'Шокёр', 'Дымовая шашка', 'Лечение', 'Скорость'][i % 6]) + '</span>';
+            playersHtml += '</div>';
+            playersHtml += '<div style="display:flex;gap:0.5rem;flex-wrap:wrap;">';
+            playersHtml += '<div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:0.2rem 0.6rem;border:1px solid rgba(220,90,50,0.1);font-size:0.7rem;color:#ffbc9a;">💉 ' + (['Регенерация', 'Скорость', 'Сила', 'Выносливость', 'Щит', 'Невидимость'][i % 6]) + '</div>';
+            playersHtml += '</div></div>';
+        }
+        document.getElementById('escResultPlayers').innerHTML = playersHtml;
+
+        // Обновляем счётчик уровня
+        document.getElementById('levelNumber').textContent = currentLevel;
+
+        // Обновляем сложность
+        var diffEl = document.getElementById('levelDifficulty');
+        var diffClass = 'level-difficulty-intro';
+        var diffText = 'Начальная';
+        if (currentLevel <= 3) { diffClass = 'level-difficulty-intro'; diffText = 'Начальная'; }
+        else if (currentLevel <= 6) { diffClass = 'level-difficulty-standard'; diffText = 'Стандартная'; }
+        else if (currentLevel <= 10) { diffClass = 'level-difficulty-intensive'; diffText = 'Интенсивная'; }
+        else { diffClass = 'level-difficulty-psycho'; diffText = 'Психохирургия'; }
+
+        diffEl.className = 'level-difficulty ' + diffClass;
+        diffEl.textContent = diffText;
+    }
+
+    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+    function shuffleArray(arr) {
+        for (var i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        return arr;
+    }
+
+    // ===== ВЫХОД =====
+    var confirmModal = document.getElementById('confirmModal');
+    var confirmCancel = document.getElementById('confirmCancel');
+    var confirmExit = document.getElementById('confirmExit');
+
+    exitBtn.addEventListener('click', function() {
+        confirmModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    confirmCancel.addEventListener('click', function() {
+        confirmModal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    confirmModal.addEventListener('click', function(e) {
+        if (e.target === confirmModal) {
+            confirmModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    confirmExit.addEventListener('click', function() {
+        // Сброс прогресса
+        currentLevel = 1;
+        document.getElementById('levelNumber').textContent = currentLevel;
+        confirmModal.classList.remove('active');
+        document.body.style.overflow = '';
+
+        // Возврат к шагу 1
+        escResult.classList.remove('active');
+        escStep1.classList.remove('hidden');
+        escStep2.classList.add('hidden');
+        escStep3.classList.add('hidden');
+        escStep4.classList.add('hidden');
+
+        // Сброс выбора игроков
+        document.querySelectorAll('.player-count-btn').forEach(function(b) {
+            b.classList.remove('selected');
+        });
+        step1Next.disabled = true;
+        playerCount = 0;
+    });
+
+    // ===== СЛЕДУЮЩИЙ УРОВЕНЬ =====
+    nextLevelBtn.addEventListener('click', function() {
+        currentLevel++;
+        // Возврат к шагу 1 для нового уровня
+        escResult.classList.remove('active');
+        escStep1.classList.remove('hidden');
+        escStep2.classList.add('hidden');
+        escStep3.classList.add('hidden');
+        escStep4.classList.add('hidden');
+
+        // Сброс выбора игроков (оставляем количество игроков)
+        document.querySelectorAll('.player-count-btn').forEach(function(b) {
+            b.classList.remove('selected');
+        });
+        // Выбираем соответствующую кнопку
+        document.querySelectorAll('.player-count-btn').forEach(function(b) {
+            if (parseInt(b.dataset.count) === playerCount) {
+                b.classList.add('selected');
+            }
+        });
+        step1Next.disabled = false;
+
+        // Обновляем счётчик на шаге 1
+        document.getElementById('levelNumber').textContent = currentLevel;
+
+        // Обновляем сложность
+        var diffEl = document.getElementById('levelDifficulty');
+        var diffClass = 'level-difficulty-intro';
+        var diffText = 'Начальная';
+        if (currentLevel <= 3) { diffClass = 'level-difficulty-intro'; diffText = 'Начальная'; }
+        else if (currentLevel <= 6) { diffClass = 'level-difficulty-standard'; diffText = 'Стандартная'; }
+        else if (currentLevel <= 10) { diffClass = 'level-difficulty-intensive'; diffText = 'Интенсивная'; }
+        else { diffClass = 'level-difficulty-psycho'; diffText = 'Психохирургия'; }
+
+        diffEl.className = 'level-difficulty ' + diffClass;
+        diffEl.textContent = diffText;
+    });
+
+    // ===== ОБРАБОТКА КЛАВИШИ ESCAPE ДЛЯ МОДАЛКИ ПОДТВЕРЖДЕНИЯ =====
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && confirmModal.classList.contains('active')) {
+            confirmModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    console.log('✅ Эскалация загружена!');
+</script>
 
 </body>
 </html>
