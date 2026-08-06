@@ -1095,86 +1095,93 @@
 
 <script>
 // ============================================================
-// ВСЕ ДАННЫЕ ВСТРОЕНЫ НАПРЯМУЮ
+// ОРИГИНАЛЬНЫЕ ДАННЫЕ (как в ваших файлах)
 // ============================================================
 
-// ===== КАРТЫ =====
+// ===== КАРТЫ (оригинал из maps.js) =====
 var MAPS = [
-    { id: 'map1', name: 'Фабрика игрушек', icon: '🏭', difficulty: 'Средняя' },
-    { id: 'map2', name: 'Суд', icon: '⚖️', difficulty: 'Сложная' },
-    { id: 'map3', name: 'Полицейский участок', icon: '🚔', difficulty: 'Средняя' },
-    { id: 'map4', name: 'Орфанаж', icon: '🏚️', difficulty: 'Сложная' },
-    { id: 'map5', name: 'Лаборатория', icon: '🧪', difficulty: 'Очень сложная' },
-    { id: 'map6', name: 'Тюрьма', icon: '🔒', difficulty: 'Средняя' },
-    { id: 'map7', name: 'Больница', icon: '🏥', difficulty: 'Сложная' },
-    { id: 'map8', name: 'Церковь', icon: '⛪', difficulty: 'Очень сложная' }
+    { id: 'police', name: 'Полицейский участок', icon: '🚔', image: 'images/maps/police.jpg' },
+    { id: 'orphanage', name: 'Приют', icon: '🏚️', image: 'images/maps/orphanage.jpg' },
+    { id: 'factory', name: 'Фабрика игрушек', icon: '🏭', image: 'images/maps/factory.jpg' },
+    { id: 'courthouse', name: 'Здание суда', icon: '⚖️', image: 'images/maps/courthouse.jpg' },
+    { id: 'hospital', name: 'Больница', icon: '🏥', image: 'images/maps/hospital.jpg' },
+    { id: 'prison', name: 'Тюрьма', icon: '🔒', image: 'images/maps/prison.jpg' },
+    { id: 'church', name: 'Церковь', icon: '⛪', image: 'images/maps/church.jpg' },
+    { id: 'lab', name: 'Лаборатория', icon: '🧪', image: 'images/maps/lab.jpg' }
 ];
 
-// ===== ВАРИАТОРЫ =====
+// ===== ВАРИАТОРЫ (оригинал из variators.js) =====
 var VARIATORS = [
-    { id: 'var1', name: 'Туман', icon: '🌫️', description: 'Плохая видимость' },
-    { id: 'var2', name: 'Шум', icon: '🔊', description: 'Увеличенный шум' },
-    { id: 'var3', name: 'Тьма', icon: '🌑', description: 'Сниженное освещение' },
-    { id: 'var4', name: 'Бег', icon: '🏃', description: 'Враги быстрее' },
-    { id: 'var5', name: 'Ярость', icon: '😡', description: 'Враги агрессивнее' },
-    { id: 'var6', name: 'Холод', icon: '❄️', description: 'Замедленное восстановление' },
-    { id: 'var7', name: 'Жара', icon: '🔥', description: 'Постепенный урон' },
-    { id: 'var8', name: 'Голод', icon: '🍽️', description: 'Меньше ресурсов' },
-    { id: 'var9', name: 'Страх', icon: '😱', description: 'Увеличенная тревога' },
-    { id: 'var10', name: 'Тишина', icon: '🤫', description: 'Звуки привлекают врагов' }
+    { id: 'fog', name: 'Туман', icon: '🌫️', image: 'images/variators/fog.png' },
+    { id: 'noise', name: 'Шум', icon: '🔊', image: 'images/variators/noise.png' },
+    { id: 'darkness', name: 'Тьма', icon: '🌑', image: 'images/variators/darkness.png' },
+    { id: 'speed', name: 'Скорость', icon: '🏃', image: 'images/variators/speed.png' },
+    { id: 'rage', name: 'Ярость', icon: '😡', image: 'images/variators/rage.png' },
+    { id: 'cold', name: 'Холод', icon: '❄️', image: 'images/variators/cold.png' },
+    { id: 'heat', name: 'Жара', icon: '🔥', image: 'images/variators/heat.png' },
+    { id: 'hunger', name: 'Голод', icon: '🍽️', image: 'images/variators/hunger.png' },
+    { id: 'fear', name: 'Страх', icon: '😱', image: 'images/variators/fear.png' },
+    { id: 'silence', name: 'Тишина', icon: '🤫', image: 'images/variators/silence.png' },
+    { id: 'poison', name: 'Яд', icon: '☠️', image: 'images/variators/poison.png' },
+    { id: 'blind', name: 'Слепота', icon: '🙈', image: 'images/variators/blind.png' },
+    { id: 'deaf', name: 'Глухота', icon: '🙉', image: 'images/variators/deaf.png' },
+    { id: 'mute', name: 'Немота', icon: '🙊', image: 'images/variators/mute.png' }
 ];
 
-// ===== АМПЫ =====
+// ===== АМПЫ (оригинал из amps.js) =====
 var AMPS = [
-    { id: 'amp1', name: 'Адреналин', category: 'Физические', icon: '💉' },
-    { id: 'amp2', name: 'Стойкость', category: 'Физические', icon: '🛡️' },
-    { id: 'amp3', name: 'Скорость', category: 'Физические', icon: '⚡' },
-    { id: 'amp4', name: 'Сила', category: 'Физические', icon: '💪' },
-    { id: 'amp5', name: 'Лечение', category: 'Медицинские', icon: '🩹' },
-    { id: 'amp6', name: 'Антидот', category: 'Медицинские', icon: '🧪' },
-    { id: 'amp7', name: 'Регенерация', category: 'Медицинские', icon: '❤️' },
-    { id: 'amp8', name: 'Зрение', category: 'Ментальные', icon: '👁️' },
-    { id: 'amp9', name: 'Интуиция', category: 'Ментальные', icon: '🧠' },
-    { id: 'amp10', name: 'Воля', category: 'Ментальные', icon: '💪' },
-    { id: 'amp11', name: 'Харизма', category: 'Социальные', icon: '🗣️' },
-    { id: 'amp12', name: 'Лидерство', category: 'Социальные', icon: '👑' },
-    { id: 'amp13', name: 'Скрытность', category: 'Тактические', icon: '🥷' },
-    { id: 'amp14', name: 'Разведка', category: 'Тактические', icon: '🔭' },
-    { id: 'amp15', name: 'Снаряжение', category: 'Тактические', icon: '🎒' }
+    { id: 'adrenaline', name: 'Адреналин', category: 'Физические', icon: '💉', image: 'images/amps/adrenaline.png' },
+    { id: 'resilience', name: 'Стойкость', category: 'Физические', icon: '🛡️', image: 'images/amps/resilience.png' },
+    { id: 'speedboost', name: 'Ускорение', category: 'Физические', icon: '⚡', image: 'images/amps/speedboost.png' },
+    { id: 'strength', name: 'Сила', category: 'Физические', icon: '💪', image: 'images/amps/strength.png' },
+    { id: 'healing', name: 'Исцеление', category: 'Медицинские', icon: '🩹', image: 'images/amps/healing.png' },
+    { id: 'antidote', name: 'Антидот', category: 'Медицинские', icon: '🧪', image: 'images/amps/antidote.png' },
+    { id: 'regeneration', name: 'Регенерация', category: 'Медицинские', icon: '❤️', image: 'images/amps/regeneration.png' },
+    { id: 'vision', name: 'Острое зрение', category: 'Ментальные', icon: '👁️', image: 'images/amps/vision.png' },
+    { id: 'intuition', name: 'Интуиция', category: 'Ментальные', icon: '🧠', image: 'images/amps/intuition.png' },
+    { id: 'willpower', name: 'Сила воли', category: 'Ментальные', icon: '💪', image: 'images/amps/willpower.png' },
+    { id: 'charisma', name: 'Харизма', category: 'Социальные', icon: '🗣️', image: 'images/amps/charisma.png' },
+    { id: 'leadership', name: 'Лидерство', category: 'Социальные', icon: '👑', image: 'images/amps/leadership.png' },
+    { id: 'stealth', name: 'Скрытность', category: 'Тактические', icon: '🥷', image: 'images/amps/stealth.png' },
+    { id: 'recon', name: 'Разведка', category: 'Тактические', icon: '🔭', image: 'images/amps/recon.png' },
+    { id: 'resourceful', name: 'Находчивость', category: 'Тактические', icon: '🎒', image: 'images/amps/resourceful.png' }
 ];
 
-// ===== СНАРЯЖЕНИЕ =====
+// ===== СНАРЯЖЕНИЕ (оригинал из equipment.js) =====
 var EQUIPMENT = [
-    { id: 'eq1', name: 'Аптечка', category: 'Медицина', icon: '🩺' },
-    { id: 'eq2', name: 'Бинты', category: 'Медицина', icon: '🩹' },
-    { id: 'eq3', name: 'Шприц', category: 'Медицина', icon: '💉' },
-    { id: 'eq4', name: 'Нож', category: 'Оружие', icon: '🔪' },
-    { id: 'eq5', name: 'Пистолет', category: 'Оружие', icon: '🔫' },
-    { id: 'eq6', name: 'Дубинка', category: 'Оружие', icon: '🪄' },
-    { id: 'eq7', name: 'Фонарик', category: 'Инструменты', icon: '🔦' },
-    { id: 'eq8', name: 'Рация', category: 'Инструменты', icon: '📻' },
-    { id: 'eq9', name: 'Карта', category: 'Инструменты', icon: '🗺️' },
-    { id: 'eq10', name: 'Зажигалка', category: 'Инструменты', icon: '🔥' },
-    { id: 'eq11', name: 'Ключ', category: 'Инструменты', icon: '🔑' },
-    { id: 'eq12', name: 'Броня', category: 'Защита', icon: '🛡️' }
+    { id: 'medkit', name: 'Аптечка', category: 'Медицина', icon: '🩺', image: 'images/equipment/medkit.png' },
+    { id: 'bandages', name: 'Бинты', category: 'Медицина', icon: '🩹', image: 'images/equipment/bandages.png' },
+    { id: 'syringe', name: 'Шприц', category: 'Медицина', icon: '💉', image: 'images/equipment/syringe.png' },
+    { id: 'knife', name: 'Нож', category: 'Оружие', icon: '🔪', image: 'images/equipment/knife.png' },
+    { id: 'pistol', name: 'Пистолет', category: 'Оружие', icon: '🔫', image: 'images/equipment/pistol.png' },
+    { id: 'bat', name: 'Дубинка', category: 'Оружие', icon: '🪄', image: 'images/equipment/bat.png' },
+    { id: 'flashlight', name: 'Фонарик', category: 'Инструменты', icon: '🔦', image: 'images/equipment/flashlight.png' },
+    { id: 'radio', name: 'Рация', category: 'Инструменты', icon: '📻', image: 'images/equipment/radio.png' },
+    { id: 'map', name: 'Карта', category: 'Инструменты', icon: '🗺️', image: 'images/equipment/map.png' },
+    { id: 'lighter', name: 'Зажигалка', category: 'Инструменты', icon: '🔥', image: 'images/equipment/lighter.png' },
+    { id: 'key', name: 'Ключ', category: 'Инструменты', icon: '🔑', image: 'images/equipment/key.png' },
+    { id: 'armor', name: 'Броня', category: 'Защита', icon: '🛡️', image: 'images/equipment/armor.png' },
+    { id: 'gas_mask', name: 'Противогаз', category: 'Защита', icon: '😷', image: 'images/equipment/gas_mask.png' }
 ];
 
-// ===== ИСПЫТАНИЯ =====
+// ===== ИСПЫТАНИЯ (оригинал из trials.js) =====
 var TRIALS = [
-    { id: 'trial1', name: 'Восхождение', description: 'Проберитесь на верхний уровень' },
-    { id: 'trial2', name: 'Спуск', description: 'Спуститесь в подвал и найдите выход' },
-    { id: 'trial3', name: 'Эвакуация', description: 'Эвакуируйте всех выживших' },
-    { id: 'trial4', name: 'Сбор данных', description: 'Соберите улики и сбегите' },
-    { id: 'trial5', name: 'Уничтожение', description: 'Уничтожьте источник заражения' },
-    { id: 'trial6', name: 'Спасение', description: 'Спасите заложника' },
-    { id: 'trial7', name: 'Взлом', description: 'Взломайте систему безопасности' },
-    { id: 'trial8', name: 'Диверсия', description: 'Совершите диверсию и скройтесь' }
+    { id: 'ascent', name: 'Восхождение', description: 'Проберитесь на верхний уровень здания' },
+    { id: 'descent', name: 'Спуск', description: 'Спуститесь в подвал и найдите выход' },
+    { id: 'evacuation', name: 'Эвакуация', description: 'Эвакуируйте всех выживших из зоны' },
+    { id: 'data_collection', name: 'Сбор данных', description: 'Соберите улики и выберитесь живым' },
+    { id: 'destruction', name: 'Уничтожение', description: 'Уничтожьте источник заражения' },
+    { id: 'rescue', name: 'Спасение', description: 'Спасите заложника и доставьте в безопасное место' },
+    { id: 'hack', name: 'Взлом', description: 'Взломайте систему безопасности и скройтесь' },
+    { id: 'sabotage', name: 'Диверсия', description: 'Совершите диверсию и выйдите из зоны' },
+    { id: 'escape', name: 'Побег', description: 'Сбегите из комплекса любой ценой' },
+    { id: 'survival', name: 'Выживание', description: 'Выживайте в течение заданного времени' }
 ];
 
 console.log('✅ Все данные загружены!');
 
 // ============================================================
-// ОСНОВНАЯ ЛОГИКА
+// ОСНОВНАЯ ЛОГИКА (с исправленными ошибками)
 // ============================================================
 
 (function() {
