@@ -215,39 +215,6 @@
             color: #e16d48;
         }
 
-        /* Кнопка переключения режима */
-        .mode-switch {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .mode-btn {
-            padding: 0.6rem 2rem;
-            border-radius: 30px;
-            border: 2px solid rgba(220, 90, 50, 0.25);
-            background: rgba(0, 0, 0, 0.3);
-            color: #c2b9d4;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .mode-btn:hover {
-            border-color: #e16d48;
-            color: white;
-        }
-
-        .mode-btn.active {
-            border-color: #e16d48;
-            background: rgba(220, 90, 50, 0.2);
-            color: #e16d48;
-            box-shadow: 0 0 30px rgba(220, 90, 50, 0.1);
-        }
-
         /* ===== СЧЕТЧИК УРОВНЯ ===== */
         .level-counter {
             text-align: center;
@@ -1343,9 +1310,6 @@
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
             }
-
-            .mode-switch { flex-direction: column; align-items: center; }
-            .mode-btn { width: 100%; max-width: 300px; text-align: center; }
         }
 
         @media (max-width: 600px) {
@@ -1412,24 +1376,19 @@
             <a href="invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
             <a href="achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+            <a href="weekly-escalation.html" class="nav-btn active"><i class="fas fa-calendar-week"></i> Еженедельная</a>
         </div>
     </div>
 
-    <!-- ===== ОСНОВНОЙ КОНТЕНТ ЭСКАЛАЦИИ ===== -->
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ ===== -->
     <div class="escalation-wrapper" id="escalationWrapper">
-        <h1><i class="fas fa-chart-line"></i> Эскалационная терапия</h1>
-
-        <!-- Переключение режима -->
-        <div class="mode-switch">
-            <button class="mode-btn active" id="modeNormal" data-mode="normal">Обычная эскалация</button>
-            <button class="mode-btn" id="modeWeekly" data-mode="weekly">Еженедельная эскалация</button>
-        </div>
+        <h1><i class="fas fa-calendar-week"></i> Еженедельная эскалация</h1>
 
         <!-- Информация о еженедельном вариаторе -->
         <div class="weekly-info" id="weeklyInfo">
-            <span class="weekly-label"><i class="fas fa-calendar-week"></i> Еженедельный вариатор:</span>
-            <span class="weekly-variator" id="weeklyVariatorName"><i class="fas fa-star"></i> Загрузка...</span>
-            <span class="weekly-hint">(действует до конца недели)</span>
+            <span class="weekly-label"><i class="fas fa-star" style="color: #f1c40f;"></i> Еженедельный вариатор:</span>
+            <span class="weekly-variator" id="weeklyVariatorName"><i class="fas fa-spinner fa-spin"></i> Загрузка...</span>
+            <span class="weekly-hint">(действует до вторника 21:00 МСК)</span>
         </div>
 
         <!-- СЧЕТЧИК УРОВНЯ -->
@@ -1525,7 +1484,7 @@
                 </div>
             </div>
             <div class="result-actions">
-                <button class="exit-btn" id="escExitBtn"><i class="fas fa-sign-out-alt"></i> Покинуть Эскалацию</button>
+                <button class="exit-btn" id="escExitBtn"><i class="fas fa-sign-out-alt"></i> Покинуть</button>
                 <button class="next-btn" id="escNextLevelBtn">Далее →</button>
             </div>
         </div>
@@ -1575,180 +1534,36 @@
 <script src="amps.js"></script>
 <script src="equipment.js"></script>
 <script src="trials.js"></script>
-<script src="escalation-logic.js"></script>
 <script src="weekly-escalation.js"></script>
 
 <script>
     // ============================================================
-    // ПЕРЕКЛЮЧЕНИЕ МЕЖДУ ОБЫЧНОЙ И ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИЕЙ
+    // ЗАПУСК ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ
     // ============================================================
     
     document.addEventListener('DOMContentLoaded', function() {
-        var modeNormal = document.getElementById('modeNormal');
-        var modeWeekly = document.getElementById('modeWeekly');
-        var weeklyInfo = document.getElementById('weeklyInfo');
-        var weeklyVariatorName = document.getElementById('weeklyVariatorName');
+        console.log('🚀 Запуск еженедельной эскалации...');
         
-        // Функция обновления имени еженедельного вариатора
+        // Обновляем имя еженедельного вариатора
         function updateWeeklyVariatorName() {
-            if (weeklyEscState && weeklyEscState.weeklyVariator) {
-                weeklyVariatorName.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
-            } else {
-                weeklyVariatorName.innerHTML = '<i class="fas fa-star"></i> Нет';
+            var nameEl = document.getElementById('weeklyVariatorName');
+            if (nameEl) {
+                if (weeklyEscState && weeklyEscState.weeklyVariator) {
+                    nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
+                } else {
+                    nameEl.innerHTML = '<i class="fas fa-star"></i> Нет';
+                }
             }
         }
         
-        // По умолчанию обычная эскалация
-        var currentMode = 'normal';
-        weeklyInfo.style.display = 'none';
-        
-        // Обработчик для обычной эскалации
-        modeNormal.addEventListener('click', function() {
-            if (currentMode === 'normal') return;
-            
-            modeNormal.classList.add('active');
-            modeWeekly.classList.remove('active');
-            currentMode = 'normal';
-            
-            // Скрываем информацию о еженедельном вариаторе
-            weeklyInfo.style.display = 'none';
-            
-            // Перезапускаем обычную эскалацию
-            if (typeof initEscalation === 'function') {
-                // Сбрасываем состояние
-                escState = {
-                    level: 1,
-                    playerCount: 0,
-                    players: [],
-                    equipSelections: {},
-                    ampSelections: {},
-                    usedAmps: {},
-                    unlockedAmps: {},
-                    allAmpsUsed: {},
-                    currentStep: 1,
-                    map: null,
-                    trial: null,
-                    difficulty: null,
-                    variators: [],
-                    isFirstRun: true,
-                    usedBigTrials: [],
-                    usedSmallTrials: [],
-                    nostophobiaCount: 0
-                };
-                
-                // Обновляем заголовок
-                var title = document.querySelector('.escalation-wrapper h1');
-                if (title) {
-                    title.innerHTML = '<i class="fas fa-chart-line"></i> Эскалационная терапия';
-                }
-                
-                // Перезапускаем
-                updateLevelCounter();
-                goToEscStep(1);
-                
-                // Сбрасываем выбор игроков
-                document.querySelectorAll('#escPlayerCountOptions .player-count-btn').forEach(function(b) {
-                    b.classList.remove('selected');
-                });
-                document.getElementById('escStep1Next').disabled = true;
-                
-                // Скрываем результат
-                var result = document.getElementById('escResult');
-                if (result) {
-                    result.classList.remove('active');
-                    result.style.display = 'none';
-                }
-                
-                // Очищаем поля
-                document.getElementById('escPlayerNameInputs').innerHTML = '';
-                document.getElementById('escStep3Content').innerHTML = '';
-                document.getElementById('escStep4Content').innerHTML = '';
-            }
-        });
-        
-        // Обработчик для еженедельной эскалации
-        modeWeekly.addEventListener('click', function() {
-            if (currentMode === 'weekly') return;
-            
-            modeWeekly.classList.add('active');
-            modeNormal.classList.remove('active');
-            currentMode = 'weekly';
-            
-            // Показываем информацию о еженедельном вариаторе
-            weeklyInfo.style.display = 'flex';
+        // Инициализируем еженедельную эскалацию
+        if (typeof initWeeklyEscalation === 'function') {
+            initWeeklyEscalation();
             updateWeeklyVariatorName();
-            
-            // Обновляем заголовок
-            var title = document.querySelector('.escalation-wrapper h1');
-            if (title) {
-                title.innerHTML = '<i class="fas fa-calendar-week"></i> Еженедельная эскалация';
-            }
-            
-            // Перезапускаем еженедельную эскалацию
-            if (typeof initWeeklyEscalation === 'function') {
-                // Сбрасываем состояние еженедельной эскалации
-                weeklyEscState = {
-                    level: 1,
-                    playerCount: 0,
-                    players: [],
-                    equipSelections: {},
-                    ampSelections: {},
-                    usedAmps: {},
-                    unlockedAmps: {},
-                    allAmpsUsed: {},
-                    currentStep: 1,
-                    map: null,
-                    trial: null,
-                    difficulty: null,
-                    variators: [],
-                    isFirstRun: true,
-                    usedBigTrials: [],
-                    usedSmallTrials: [],
-                    nostophobiaCount: 0,
-                    weeklyVariator: null,
-                    weeklyFixedVariators: [],
-                    weeklyAddedVariators: [],
-                    weeklyLevelCounter: 1,
-                    weeklyLastResetLevel: 1
-                };
-                
-                // Получаем еженедельный вариатор
-                if (typeof getWeeklyVariator === 'function') {
-                    weeklyEscState.weeklyVariator = getWeeklyVariator();
-                    if (weeklyEscState.weeklyVariator) {
-                        weeklyEscState.weeklyFixedVariators = [weeklyEscState.weeklyVariator];
-                        updateWeeklyVariatorName();
-                    }
-                }
-                
-                // Обновляем счетчик
-                updateLevelCounter();
-                goToEscStep(1);
-                
-                // Сбрасываем выбор игроков
-                document.querySelectorAll('#escPlayerCountOptions .player-count-btn').forEach(function(b) {
-                    b.classList.remove('selected');
-                });
-                document.getElementById('escStep1Next').disabled = true;
-                
-                // Скрываем результат
-                var result = document.getElementById('escResult');
-                if (result) {
-                    result.classList.remove('active');
-                    result.style.display = 'none';
-                }
-                
-                // Очищаем поля
-                document.getElementById('escPlayerNameInputs').innerHTML = '';
-                document.getElementById('escStep3Content').innerHTML = '';
-                document.getElementById('escStep4Content').innerHTML = '';
-            }
-        });
-        
-        // Обновляем имя вариатора при загрузке страницы
-        if (weeklyEscState && weeklyEscState.weeklyVariator) {
-            weeklyVariatorName.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
         }
+        
+        // Обновляем имя при загрузке
+        setTimeout(updateWeeklyVariatorName, 500);
     });
 </script>
 
