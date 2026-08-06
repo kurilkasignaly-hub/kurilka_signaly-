@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ... ВСЕ СТИЛИ ТАКИЕ ЖЕ КАК ВЫШЕ ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -779,7 +780,7 @@
     </div>
 </div>
 
-<!-- ===== ПОДКЛЮЧЕНИЕ ВАШИХ JS ФАЙЛОВ (ОРИГИНАЛЬНЫЕ ДАННЫЕ) ===== -->
+<!-- ===== ПОДКЛЮЧЕНИЕ ВАШИХ JS ФАЙЛОВ ===== -->
 <script src="maps.js"></script>
 <script src="variators.js"></script>
 <script src="variators-all.js"></script>
@@ -787,17 +788,14 @@
 <script src="equipment.js"></script>
 <script src="trials.js"></script>
 
+<!-- ===== ОСНОВНАЯ ЛОГИКА ===== -->
 <script>
-// ============================================================
-// ОСНОВНАЯ ЛОГИКА РАБОТЫ С ВАШИМИ ДАННЫМИ
-// ============================================================
-
 (function() {
     'use strict';
 
     console.log('🚀 Запуск еженедельной эскалации...');
 
-    // Глобальное состояние
+    // Состояние
     var state = {
         playerCount: null,
         playerNames: [],
@@ -807,41 +805,56 @@
         variators: [],
         weeklyVariator: null,
         level: 1,
-        completed: false
+        completed: false,
+        initialized: false
     };
 
-    // Ждём загрузки данных из ваших файлов
+    // Функция проверки загрузки данных
+    function checkDataLoaded() {
+        return typeof MAPS !== 'undefined' && MAPS.length > 0 &&
+               typeof VARIATORS !== 'undefined' && VARIATORS.length > 0 &&
+               typeof AMPS !== 'undefined' && AMPS.length > 0 &&
+               typeof EQUIPMENT !== 'undefined' && EQUIPMENT.length > 0 &&
+               typeof TRIALS !== 'undefined' && TRIALS.length > 0;
+    }
+
+    // Ждём загрузки данных
     function waitForData(callback) {
         var attempts = 0;
-        var maxAttempts = 50;
-        
-        function checkData() {
+        var maxAttempts = 100; // 10 секунд
+
+        console.log('⏳ Ожидание загрузки данных...');
+
+        function check() {
             attempts++;
-            if (typeof MAPS !== 'undefined' && MAPS.length > 0 &&
-                typeof VARIATORS !== 'undefined' && VARIATORS.length > 0 &&
-                typeof AMPS !== 'undefined' && AMPS.length > 0 &&
-                typeof EQUIPMENT !== 'undefined' && EQUIPMENT.length > 0 &&
-                typeof TRIALS !== 'undefined' && TRIALS.length > 0) {
-                console.log('✅ Все данные загружены!');
+            if (checkDataLoaded()) {
+                console.log('✅ Данные успешно загружены!');
                 callback();
-                return true;
+                return;
             }
+
+            // Показываем прогресс
+            if (attempts % 10 === 0) {
+                console.log('⏳ Ждём данные... (' + attempts + '/' + maxAttempts + ')');
+            }
+
             if (attempts < maxAttempts) {
-                setTimeout(checkData, 100);
+                setTimeout(check, 100);
             } else {
-                console.warn('⚠️ Данные не загружены, используем fallback');
-                // Fallback данные если ваши файлы не загрузились
-                if (typeof MAPS === 'undefined') window.MAPS = [];
-                if (typeof VARIATORS === 'undefined') window.VARIATORS = [];
-                if (typeof AMPS === 'undefined') window.AMPS = [];
-                if (typeof EQUIPMENT === 'undefined') window.EQUIPMENT = [];
-                if (typeof TRIALS === 'undefined') window.TRIALS = [];
+                console.error('❌ Данные не загружены после ' + maxAttempts + ' попыток!');
+                console.log('📋 Доступные переменные:', {
+                    MAPS: typeof MAPS !== 'undefined' ? MAPS.length : 'undefined',
+                    VARIATORS: typeof VARIATORS !== 'undefined' ? VARIATORS.length : 'undefined',
+                    AMPS: typeof AMPS !== 'undefined' ? AMPS.length : 'undefined',
+                    EQUIPMENT: typeof EQUIPMENT !== 'undefined' ? EQUIPMENT.length : 'undefined',
+                    TRIALS: typeof TRIALS !== 'undefined' ? TRIALS.length : 'undefined'
+                });
+                // Всё равно запускаем с fallback
                 callback();
             }
-            return false;
         }
-        
-        checkData();
+
+        check();
     }
 
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
@@ -864,7 +877,10 @@
 
     function getById(arr, id) {
         if (!arr || !id) return null;
-        return arr.find(function(item) { return item.id === id; }) || null;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].id === id) return arr[i];
+        }
+        return null;
     }
 
     function getWeeklyVariator() {
@@ -880,8 +896,12 @@
 
     function updateWeeklyDisplay() {
         var el = document.getElementById('weeklyVariatorName');
-        if (el && state.weeklyVariator) {
-            el.innerHTML = '<i class="fas fa-star"></i> ' + state.weeklyVariator.name;
+        if (el) {
+            if (state.weeklyVariator) {
+                el.innerHTML = '<i class="fas fa-star"></i> ' + state.weeklyVariator.name;
+            } else {
+                el.innerHTML = '<i class="fas fa-star"></i> Нет данных';
+            }
         }
     }
 
@@ -908,11 +928,18 @@
         var variators = typeof VARIATORS !== 'undefined' ? VARIATORS : [];
         var trials = typeof TRIALS !== 'undefined' ? TRIALS : [];
         
-        var map = maps.length > 0 ? maps[Math.floor(Math.random() * maps.length)] : { id: 'default', name: 'Карта', image: '' };
+        if (maps.length === 0) {
+            console.warn('⚠️ Нет данных о картах, используем заглушку');
+        }
+        
+        var map = maps.length > 0 ? maps[Math.floor(Math.random() * maps.length)] : { id: 'default', name: 'Неизвестная карта', image: '' };
         var vars = getRandom(variators, 2);
         var weekly = getWeeklyVariator();
-        if (weekly) {
-            var hasDup = vars.some(function(v) { return v.id === weekly.id; });
+        if (weekly && vars.length < 3) {
+            var hasDup = false;
+            for (var i = 0; i < vars.length; i++) {
+                if (vars[i].id === weekly.id) { hasDup = true; break; }
+            }
             if (!hasDup) vars.push(weekly);
         }
         var trial = trials.length > 0 ? trials[Math.floor(Math.random() * trials.length)] : { id: 'default', name: 'Испытание', description: 'Пройдите испытание' };
@@ -965,9 +992,10 @@
 
     // ===== ПЕРЕКЛЮЧЕНИЕ ШАГОВ =====
     function showStep(step) {
-        document.querySelectorAll('.step-container').forEach(function(el) {
-            el.classList.add('hidden');
-        });
+        var containers = document.querySelectorAll('.step-container');
+        for (var i = 0; i < containers.length; i++) {
+            containers[i].classList.add('hidden');
+        }
         document.getElementById('escResult').classList.remove('active');
         var el = document.getElementById('escStep' + step);
         if (el) el.classList.remove('hidden');
@@ -978,14 +1006,17 @@
         var btns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
         var next = document.getElementById('escStep1Next');
 
-        btns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                btns.forEach(function(b) { b.classList.remove('selected'); });
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('click', function() {
+                var allBtns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
+                for (var j = 0; j < allBtns.length; j++) {
+                    allBtns[j].classList.remove('selected');
+                }
                 this.classList.add('selected');
                 setPlayerCount(parseInt(this.dataset.count));
                 next.disabled = false;
             });
-        });
+        }
 
         next.addEventListener('click', function() {
             if (state.playerCount) {
@@ -1061,13 +1092,14 @@
             items.className = 'selection-items';
 
             var options = getRandom(equipment, 3);
-            options.forEach(function(eq) {
+            for (var e = 0; e < options.length; e++) {
+                var eq = options[e];
                 var el = document.createElement('div');
                 el.className = 'selection-item';
                 el.dataset.eqId = eq.id;
                 
                 var img = document.createElement('img');
-                img.src = eq.image || eq.icon || 'images/placeholder.png';
+                img.src = eq.image || 'images/placeholder.png';
                 img.alt = eq.name || 'Снаряжение';
                 img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(eq.name || '?') + '%3C/text%3E%3C/svg%3E'; };
                 
@@ -1090,18 +1122,21 @@
                 
                 if (state.selectedEquipment[i] === eq.id) el.classList.add('selected');
 
-                el.addEventListener('click', function(idx, e) {
-                    var target = e.currentTarget;
+                el.addEventListener('click', function(idx, ev) {
+                    var target = ev.currentTarget;
                     var parent = target.closest('.player-block');
                     var pIdx = parseInt(parent.dataset.idx);
-                    parent.querySelectorAll('.selection-item').forEach(function(el) { el.classList.remove('selected'); });
+                    var allItems = parent.querySelectorAll('.selection-item');
+                    for (var k = 0; k < allItems.length; k++) {
+                        allItems[k].classList.remove('selected');
+                    }
                     target.classList.add('selected');
                     setEquipment(pIdx, target.dataset.eqId);
                     checkReady();
                 }.bind(null, i));
 
                 items.appendChild(el);
-            });
+            }
 
             block.appendChild(items);
             grid.appendChild(block);
@@ -1151,13 +1186,14 @@
             items.className = 'selection-items';
 
             var options = getRandom(amps, 3);
-            options.forEach(function(amp) {
+            for (var a = 0; a < options.length; a++) {
+                var amp = options[a];
                 var el = document.createElement('div');
                 el.className = 'selection-item';
                 el.dataset.ampId = amp.id;
                 
                 var img = document.createElement('img');
-                img.src = amp.image || amp.icon || 'images/placeholder.png';
+                img.src = amp.image || 'images/placeholder.png';
                 img.alt = amp.name || 'Ампа';
                 img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(amp.name || '?') + '%3C/text%3E%3C/svg%3E'; };
                 
@@ -1178,20 +1214,24 @@
                 el.appendChild(catSpan);
                 el.appendChild(checkMark);
                 
-                if (state.selectedAmps[i] && state.selectedAmps[i].indexOf(amp.id) !== -1) el.classList.add('selected');
+                var ampSelected = state.selectedAmps[i] && state.selectedAmps[i].indexOf(amp.id) !== -1;
+                if (ampSelected) el.classList.add('selected');
 
-                el.addEventListener('click', function(idx, e) {
-                    var target = e.currentTarget;
+                el.addEventListener('click', function(idx, ev) {
+                    var target = ev.currentTarget;
                     var parent = target.closest('.player-block');
                     var pIdx = parseInt(parent.dataset.idx);
-                    parent.querySelectorAll('.selection-item').forEach(function(el) { el.classList.remove('selected'); });
+                    var allItems = parent.querySelectorAll('.selection-item');
+                    for (var k = 0; k < allItems.length; k++) {
+                        allItems[k].classList.remove('selected');
+                    }
                     target.classList.add('selected');
                     setAmp(pIdx, target.dataset.ampId);
                     checkReady();
                 }.bind(null, i));
 
                 items.appendChild(el);
-            });
+            }
 
             block.appendChild(items);
             grid.appendChild(block);
@@ -1225,7 +1265,10 @@
         state.completed = true;
         state.level++;
 
-        document.querySelectorAll('.step-container').forEach(function(el) { el.classList.add('hidden'); });
+        var containers = document.querySelectorAll('.step-container');
+        for (var i = 0; i < containers.length; i++) {
+            containers[i].classList.add('hidden');
+        }
         var resultEl = document.getElementById('escResult');
         resultEl.classList.add('active');
 
@@ -1272,39 +1315,44 @@
         // Вариаторы
         var varContainer = document.getElementById('escResultVariators');
         varContainer.innerHTML = '';
-        vars.forEach(function(v) {
+        for (var v = 0; v < vars.length; v++) {
+            var variator = vars[v];
             var el = document.createElement('div');
             el.className = 'var-item';
             
             var img2 = document.createElement('img');
-            img2.src = v.image || 'images/placeholder.png';
-            img2.alt = v.name || 'Вариатор';
-            img2.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"%3E%3Crect width="50" height="50" fill="%23333"/%3E%3Ctext x="25" y="30" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(v.name || '?') + '%3C/text%3E%3C/svg%3E'; };
+            img2.src = variator.image || 'images/placeholder.png';
+            img2.alt = variator.name || 'Вариатор';
+            img2.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"%3E%3Crect width="50" height="50" fill="%23333"/%3E%3Ctext x="25" y="30" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(variator.name || '?') + '%3C/text%3E%3C/svg%3E'; };
             
             var nameSpan = document.createElement('span');
             nameSpan.className = 'var-name';
-            nameSpan.textContent = v.name || 'Вариатор';
+            nameSpan.textContent = variator.name || 'Вариатор';
             
             el.appendChild(img2);
             el.appendChild(nameSpan);
             varContainer.appendChild(el);
-        });
+        }
 
         // Игроки
         var playersContainer = document.getElementById('escResultPlayers');
         playersContainer.innerHTML = '';
 
-        for (var i = 0; i < state.playerCount; i++) {
+        for (var p = 0; p < state.playerCount; p++) {
             var pDiv = document.createElement('div');
             pDiv.className = 'player-result';
 
-            var equip = getById(equipment, state.selectedEquipment[i]);
-            var ampIds = state.selectedAmps[i] || [];
-            var ampObjects = ampIds.map(function(id) { return getById(amps, id); }).filter(function(a) { return a !== null; });
+            var equip = getById(equipment, state.selectedEquipment[p]);
+            var ampIds = state.selectedAmps[p] || [];
+            var ampObjects = [];
+            for (var ai = 0; ai < ampIds.length; ai++) {
+                var aObj = getById(amps, ampIds[ai]);
+                if (aObj) ampObjects.push(aObj);
+            }
 
             var nameDiv = document.createElement('div');
             nameDiv.className = 'player-name';
-            nameDiv.innerHTML = '<i class="fas fa-user"></i> ' + (state.playerNames[i] || 'Игрок ' + (i + 1));
+            nameDiv.innerHTML = '<i class="fas fa-user"></i> ' + (state.playerNames[p] || 'Игрок ' + (p + 1));
             pDiv.appendChild(nameDiv);
 
             var eqDiv = document.createElement('div');
@@ -1335,20 +1383,23 @@
                 ampsDiv.innerHTML = '<div class="amp-category-block"><div class="category-name">Нет амп</div><div class="category-amp-empty">Не выбрано</div></div>';
             } else {
                 var categories = {};
-                ampObjects.forEach(function(a) {
-                    var cat = a.category || 'Другие';
+                for (var ac = 0; ac < ampObjects.length; ac++) {
+                    var aItem = ampObjects[ac];
+                    var cat = aItem.category || 'Другие';
                     if (!categories[cat]) categories[cat] = [];
-                    categories[cat].push(a);
-                });
+                    categories[cat].push(aItem);
+                }
                 var catNames = Object.keys(categories);
-                for (var c = 0; c < Math.min(3, catNames.length); c++) {
+                var maxCats = Math.min(3, catNames.length);
+                for (var c = 0; c < maxCats; c++) {
                     var name = catNames[c];
                     var block = document.createElement('div');
                     block.className = 'amp-category-block';
                     block.innerHTML = '<div class="category-name">' + name + '</div>';
-                    categories[name].forEach(function(a) {
-                        block.innerHTML += '<div class="category-amp-name">' + (a.name || 'Ампа') + '</div>';
-                    });
+                    var itemsInCat = categories[name];
+                    for (var ic = 0; ic < itemsInCat.length; ic++) {
+                        block.innerHTML += '<div class="category-amp-name">' + (itemsInCat[ic].name || 'Ампа') + '</div>';
+                    }
                     ampsDiv.appendChild(block);
                 }
             }
@@ -1381,9 +1432,10 @@
             updateLevelDisplay();
             updateWeeklyDisplay();
             showStep(1);
-            document.querySelectorAll('#escPlayerCountOptions .player-count-btn').forEach(function(el) {
-                el.classList.remove('selected');
-            });
+            var btns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('selected');
+            }
             document.getElementById('escStep1Next').disabled = true;
         });
     }
@@ -1413,17 +1465,17 @@
             initStep1();
             setupExit();
             setupNextLevel();
+            state.initialized = true;
             console.log('✅ Еженедельная эскалация готова!');
         });
     }
 
-    // Экспортируем для внешнего использования
+    // Глобальные функции
     window.weeklyEscState = state;
     window.initWeeklyEscalation = init;
-    window.checkDataLoaded = function() {
-        return typeof MAPS !== 'undefined' && MAPS.length > 0;
-    };
+    window.checkDataLoaded = checkDataLoaded;
 
+    // Запуск
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
