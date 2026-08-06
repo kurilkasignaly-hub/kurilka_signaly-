@@ -10,12 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #f0eef7;
@@ -23,15 +18,8 @@
             min-height: 100vh;
             background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 1.8rem;
-            position: relative;
-            z-index: 10;
-        }
-
+        .container { max-width: 1400px; margin: 0 auto; padding: 1rem 1.8rem; position: relative; z-index: 10; }
+        
         .header {
             display: flex;
             justify-content: space-between;
@@ -46,34 +34,21 @@
             border: 1px solid rgba(220, 90, 50, 0.2);
             animation: fadeInScale 0.6s ease-out;
         }
-
         @keyframes fadeInScale {
             0% { opacity: 0; transform: scale(0.96) translateY(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         @keyframes resultAppear {
             0% { opacity: 0; transform: translateY(30px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-
         @keyframes modalFadeIn {
             0% { opacity: 0; transform: scale(0.9) translateY(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .logo .logo-img {
-            max-height: 55px;
-            width: auto;
-            display: block;
-        }
-
+        .logo { display: flex; align-items: center; gap: 0.8rem; }
+        .logo .logo-img { max-height: 55px; width: auto; display: block; }
         .logo .logo-text {
             font-size: 1.4rem;
             font-weight: 800;
@@ -83,12 +58,7 @@
             color: transparent;
             white-space: nowrap;
         }
-
-        .logo p {
-            font-size: 0.65rem;
-            color: #7a6a8a;
-            margin-top: 0px;
-        }
+        .logo p { font-size: 0.65rem; color: #7a6a8a; margin-top: 0px; }
 
         .nav-links {
             display: flex;
@@ -101,7 +71,6 @@
             border-radius: 60px;
             border: 1px solid rgba(210, 100, 55, 0.15);
         }
-
         .nav-btn {
             background: transparent;
             border: none;
@@ -118,12 +87,7 @@
             gap: 5px;
             text-decoration: none;
         }
-
-        .nav-btn:hover {
-            color: white;
-            text-shadow: 0 0 8px rgba(220,90,50,0.3);
-        }
-
+        .nav-btn:hover { color: white; text-shadow: 0 0 8px rgba(220,90,50,0.3); }
         .nav-btn.active {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
@@ -142,12 +106,7 @@
             position: relative;
             overflow: hidden;
         }
-
-        .escalation-wrapper > * {
-            position: relative;
-            z-index: 1;
-        }
-
+        .escalation-wrapper > * { position: relative; z-index: 1; }
         .escalation-wrapper h1 {
             font-size: 2.2rem;
             text-align: center;
@@ -161,10 +120,7 @@
             justify-content: center;
             gap: 15px;
         }
-
-        .escalation-wrapper h1 i {
-            color: #e16d48;
-        }
+        .escalation-wrapper h1 i { color: #e16d48; }
 
         .weekly-info {
             text-align: center;
@@ -179,29 +135,10 @@
             gap: 12px;
             flex-wrap: wrap;
         }
-
-        .weekly-info .weekly-label {
-            color: #888;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .weekly-info .weekly-variator {
-            color: #f1c40f;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .weekly-info .weekly-variator i {
-            color: #f1c40f;
-            margin-right: 6px;
-        }
-
-        .weekly-info .weekly-hint {
-            color: #666;
-            font-size: 0.7rem;
-        }
+        .weekly-info .weekly-label { color: #888; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; }
+        .weekly-info .weekly-variator { color: #f1c40f; font-weight: 700; font-size: 1rem; }
+        .weekly-info .weekly-variator i { color: #f1c40f; margin-right: 6px; }
+        .weekly-info .weekly-hint { color: #666; font-size: 0.7rem; }
 
         .level-counter {
             text-align: center;
@@ -211,7 +148,6 @@
             border-radius: 20px;
             border: 1px solid rgba(220, 90, 50, 0.2);
         }
-
         .level-counter .level-number {
             font-size: 2.5rem;
             font-weight: 800;
@@ -220,13 +156,7 @@
             background-clip: text;
             color: transparent;
         }
-
-        .level-counter .level-label {
-            font-size: 0.9rem;
-            color: #888;
-            margin-left: 0.5rem;
-        }
-
+        .level-counter .level-label { font-size: 0.9rem; color: #888; margin-left: 0.5rem; }
         .level-counter .level-difficulty {
             display: inline-block;
             margin-left: 1rem;
@@ -235,7 +165,6 @@
             font-size: 0.85rem;
             font-weight: 600;
         }
-
         .level-difficulty-intro { background: rgba(108, 117, 125, 0.3); color: #6c757d; }
         .level-difficulty-standard { background: rgba(255, 159, 74, 0.3); color: #ff9f4a; }
         .level-difficulty-intensive { background: rgba(46, 204, 113, 0.3); color: #2ecc71; }
@@ -249,10 +178,7 @@
             border: 1px solid rgba(220, 90, 50, 0.15);
             animation: fadeInScale 0.5s ease-out;
         }
-
-        .step-container.hidden {
-            display: none;
-        }
+        .step-container.hidden { display: none; }
 
         .step-title {
             font-size: 1.4rem;
@@ -264,7 +190,6 @@
             border-left: 4px solid #e16d48;
             padding-left: 18px;
         }
-
         .step-title .step-number {
             background: rgba(220, 90, 50, 0.2);
             padding: 0.2rem 0.8rem;
@@ -272,14 +197,7 @@
             font-size: 0.9rem;
             color: #e16d48;
         }
-
-        .step-subtitle {
-            font-size: 0.95rem;
-            color: #c2b9d4;
-            margin-bottom: 1.8rem;
-            padding-left: 10px;
-            text-align: center;
-        }
+        .step-subtitle { font-size: 0.95rem; color: #c2b9d4; margin-bottom: 1.8rem; padding-left: 10px; text-align: center; }
 
         .player-count-options {
             display: flex;
@@ -288,7 +206,6 @@
             justify-content: center;
             padding: 0.5rem 0;
         }
-
         .player-count-btn {
             background: rgba(0, 0, 0, 0.35);
             border: 2px solid rgba(220, 90, 50, 0.25);
@@ -302,14 +219,7 @@
             min-width: 90px;
             font-family: inherit;
         }
-
-        .player-count-btn:hover {
-            border-color: #e16d48;
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(220, 90, 50, 0.1);
-        }
-
+        .player-count-btn:hover { border-color: #e16d48; color: white; transform: scale(1.05); box-shadow: 0 0 30px rgba(220, 90, 50, 0.1); }
         .player-count-btn.selected {
             border-color: #e16d48;
             background: rgba(220, 90, 50, 0.2);
@@ -325,7 +235,6 @@
             margin: 0 auto;
             padding: 0.5rem 0;
         }
-
         .player-name-inputs .input-row {
             display: flex;
             align-items: center;
@@ -336,18 +245,8 @@
             border: 1px solid rgba(220, 90, 50, 0.1);
             transition: border-color 0.3s;
         }
-
-        .player-name-inputs .input-row:hover {
-            border-color: rgba(220, 90, 50, 0.3);
-        }
-
-        .player-name-inputs .input-row label {
-            min-width: 80px;
-            color: #c2b9d4;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
+        .player-name-inputs .input-row:hover { border-color: rgba(220, 90, 50, 0.3); }
+        .player-name-inputs .input-row label { min-width: 80px; color: #c2b9d4; font-weight: 600; font-size: 0.95rem; }
         .player-name-inputs .input-row input {
             flex: 1;
             background: transparent;
@@ -358,10 +257,7 @@
             font-family: inherit;
             outline: none;
         }
-
-        .player-name-inputs .input-row input::placeholder {
-            color: #555;
-        }
+        .player-name-inputs .input-row input::placeholder { color: #555; }
 
         .selection-grid {
             display: grid;
@@ -370,7 +266,6 @@
             width: 100%;
             margin: 0 auto;
         }
-
         .selection-grid.players-1 { grid-template-columns: 1fr; max-width: 350px; }
         .selection-grid.players-2 { grid-template-columns: 1fr 1fr; max-width: 600px; }
         .selection-grid.players-3 { grid-template-columns: 1fr 1fr 1fr; max-width: 750px; }
@@ -386,11 +281,7 @@
             flex-direction: column;
             gap: 0.8rem;
         }
-
-        .selection-grid .player-block:hover {
-            border-color: rgba(220, 90, 50, 0.3);
-        }
-
+        .selection-grid .player-block:hover { border-color: rgba(220, 90, 50, 0.3); }
         .selection-grid .player-block .block-title {
             font-size: 0.9rem;
             color: #e16d48;
@@ -405,7 +296,6 @@
             flex-direction: column;
             gap: 0.6rem;
         }
-
         .selection-item {
             background: rgba(0, 0, 0, 0.3);
             border: 2px solid rgba(220, 90, 50, 0.2);
@@ -419,51 +309,25 @@
             flex-direction: column;
             align-items: center;
         }
-
-        .selection-item:hover {
-            border-color: #e16d48;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
+        .selection-item:hover { border-color: #e16d48; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
         .selection-item.selected {
             border-color: #e16d48;
             background: rgba(220, 90, 50, 0.15);
             box-shadow: 0 0 40px rgba(220, 90, 50, 0.08);
         }
-
-        .selection-item .item-icon {
-            font-size: 2rem;
-            margin-bottom: 0.2rem;
+        .selection-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 0.3rem;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
         }
-
-        .selection-item .item-name {
-            font-size: 0.8rem;
-            color: #c2b9d4;
-            font-weight: 500;
-            line-height: 1.2;
-        }
-
-        .selection-item .item-category {
-            font-size: 0.55rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 0.1rem;
-        }
-
-        .selection-item .check-mark {
-            position: absolute;
-            top: 6px;
-            right: 8px;
-            color: #4c9aff;
-            font-size: 1.2rem;
-            display: none;
-        }
-
-        .selection-item.selected .check-mark {
-            display: block;
-        }
+        .selection-item .item-name { font-size: 0.8rem; color: #c2b9d4; font-weight: 500; line-height: 1.2; }
+        .selection-item .item-category { font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.1rem; }
+        .selection-item .check-mark { position: absolute; top: 6px; right: 8px; color: #4c9aff; font-size: 1.2rem; display: none; }
+        .selection-item.selected .check-mark { display: block; }
 
         .step-actions {
             display: flex;
@@ -472,7 +336,6 @@
             margin-top: 2rem;
             flex-wrap: wrap;
         }
-
         .next-btn {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             border: none;
@@ -486,17 +349,8 @@
             font-family: inherit;
             min-width: 160px;
         }
-
-        .next-btn:hover:not(:disabled) {
-            transform: scale(1.04);
-            box-shadow: 0 8px 35px rgba(188, 74, 40, 0.4);
-        }
-
-        .next-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-        }
+        .next-btn:hover:not(:disabled) { transform: scale(1.04); box-shadow: 0 8px 35px rgba(188, 74, 40, 0.4); }
+        .next-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
         .back-btn {
             background: rgba(220, 90, 50, 0.15);
@@ -510,11 +364,7 @@
             transition: all 0.3s ease;
             font-family: inherit;
         }
-
-        .back-btn:hover {
-            background: rgba(220, 90, 50, 0.25);
-            color: white;
-        }
+        .back-btn:hover { background: rgba(220, 90, 50, 0.25); color: white; }
 
         .exit-btn {
             background: rgba(255, 51, 51, 0.15);
@@ -528,34 +378,18 @@
             transition: all 0.3s ease;
             font-family: inherit;
         }
+        .exit-btn:hover { background: rgba(255, 51, 51, 0.25); color: #ff3333; }
 
-        .exit-btn:hover {
-            background: rgba(255, 51, 51, 0.25);
-            color: #ff3333;
-        }
+        .escalation-result { display: none; animation: resultAppear 0.6s ease-out; }
+        .escalation-result.active { display: block; }
 
-        .escalation-result {
-            display: none;
-            animation: resultAppear 0.6s ease-out;
-        }
-
-        .escalation-result.active {
-            display: block;
-        }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 2rem;
-        }
-
+        .result-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
         .result-card {
             background: rgba(0, 0, 0, 0.25);
             border-radius: 24px;
             padding: 1.5rem;
             border: 1px solid rgba(220, 90, 50, 0.15);
         }
-
         .result-card h3 {
             color: #e16d48;
             font-size: 1rem;
@@ -567,80 +401,25 @@
             padding-bottom: 0.8rem;
         }
 
-        .result-map-row {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .result-map-row .map-icon {
-            font-size: 4rem;
-            width: 80px;
-            text-align: center;
-            background: rgba(0,0,0,0.3);
+        .result-map-row { display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; }
+        .result-map-row .map-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
             border-radius: 16px;
-            padding: 1rem;
             border: 2px solid rgba(220, 90, 50, 0.3);
+            flex-shrink: 0;
         }
+        .result-map-info { flex: 1; min-width: 200px; }
+        .result-map-info .map-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .result-map-info .map-name { font-size: 1.4rem; color: #e16d48; font-weight: 700; margin: 0.2rem 0 0.3rem; }
+        .result-map-info .trial-name { font-size: 1.1rem; color: #ffbc9a; font-weight: 600; margin-bottom: 0.3rem; }
+        .result-map-info .trial-desc { color: #c2b9d4; font-size: 0.85rem; line-height: 1.5; }
+        .result-map-info .map-meta { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(220, 90, 50, 0.15); }
+        .result-map-info .map-meta-item { font-size: 0.8rem; color: #888; }
+        .result-map-info .map-meta-item strong { color: #ffbc9a; font-weight: 600; }
 
-        .result-map-info {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .result-map-info .map-label {
-            font-size: 0.75rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .result-map-info .map-name {
-            font-size: 1.4rem;
-            color: #e16d48;
-            font-weight: 700;
-            margin: 0.2rem 0 0.3rem;
-        }
-
-        .result-map-info .trial-name {
-            font-size: 1.1rem;
-            color: #ffbc9a;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .result-map-info .trial-desc {
-            color: #c2b9d4;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        .result-map-info .map-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid rgba(220, 90, 50, 0.15);
-        }
-
-        .result-map-info .map-meta-item {
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        .result-map-info .map-meta-item strong {
-            color: #ffbc9a;
-            font-weight: 600;
-        }
-
-        .variator-list {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
+        .variator-list { display: flex; gap: 1rem; flex-wrap: wrap; }
         .variator-list .var-item {
             display: flex;
             flex-direction: column;
@@ -652,18 +431,15 @@
             border: 1px solid rgba(220, 90, 50, 0.15);
             min-width: 80px;
         }
-
-        .variator-list .var-item .var-icon {
-            font-size: 2rem;
+        .variator-list .var-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+            padding: 4px;
         }
-
-        .variator-list .var-item .var-name {
-            font-size: 0.65rem;
-            color: #c2b9d4;
-            text-align: center;
-            max-width: 80px;
-            line-height: 1.2;
-        }
+        .variator-list .var-item .var-name { font-size: 0.65rem; color: #c2b9d4; text-align: center; max-width: 80px; line-height: 1.2; }
 
         .player-result {
             background: rgba(0, 0, 0, 0.2);
@@ -673,15 +449,8 @@
             border: 1px solid rgba(220, 90, 50, 0.1);
             transition: border-color 0.3s;
         }
-
-        .player-result:hover {
-            border-color: rgba(220, 90, 50, 0.3);
-        }
-
-        .player-result:last-child {
-            margin-bottom: 0;
-        }
-
+        .player-result:hover { border-color: rgba(220, 90, 50, 0.3); }
+        .player-result:last-child { margin-bottom: 0; }
         .player-result .player-name {
             font-weight: 700;
             color: #fff;
@@ -691,11 +460,7 @@
             align-items: center;
             gap: 10px;
         }
-
-        .player-result .player-name i {
-            color: #e16d48;
-            font-size: 1.2rem;
-        }
+        .player-result .player-name i { color: #e16d48; font-size: 1.2rem; }
 
         .player-result .player-equip {
             display: flex;
@@ -706,22 +471,16 @@
             padding: 0.4rem 0.8rem;
             border-radius: 12px;
         }
-
-        .player-result .player-equip .equip-icon {
-            font-size: 1.5rem;
+        .player-result .player-equip img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: rgba(0,0,0,0.2);
+            padding: 2px;
         }
-
-        .player-result .player-equip .label {
-            color: #888;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .player-result .player-equip .value {
-            color: #ffbc9a;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+        .player-result .player-equip .label { color: #888; font-size: 0.75rem; font-weight: 500; }
+        .player-result .player-equip .value { color: #ffbc9a; font-size: 0.9rem; font-weight: 500; }
 
         .player-amps-categories {
             display: grid;
@@ -729,14 +488,12 @@
             gap: 0.8rem;
             margin-top: 0.5rem;
         }
-
         .amp-category-block {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 12px;
             padding: 0.6rem 0.8rem;
             border: 1px solid rgba(220, 90, 50, 0.1);
         }
-
         .amp-category-block .category-name {
             font-size: 0.7rem;
             font-weight: 600;
@@ -745,7 +502,6 @@
             letter-spacing: 0.5px;
             margin-bottom: 0.2rem;
         }
-
         .amp-category-block .category-amp-name {
             font-size: 0.8rem;
             color: #ffbc9a;
@@ -753,26 +509,10 @@
             text-align: center;
             padding: 0.2rem 0;
         }
+        .amp-category-block .category-amp-empty { font-size: 0.65rem; color: #666; text-align: center; padding: 0.2rem 0; font-style: italic; }
 
-        .amp-category-block .category-amp-empty {
-            font-size: 0.65rem;
-            color: #666;
-            text-align: center;
-            padding: 0.2rem 0;
-            font-style: italic;
-        }
-
-        .result-actions {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .result-actions .next-btn {
-            min-width: 200px;
-        }
+        .result-actions { display: flex; justify-content: center; gap: 1.2rem; margin-top: 2rem; flex-wrap: wrap; }
+        .result-actions .next-btn { min-width: 200px; }
 
         .confirm-modal-overlay {
             display: none;
@@ -787,11 +527,7 @@
             align-items: center;
             backdrop-filter: blur(10px);
         }
-
-        .confirm-modal-overlay.active {
-            display: flex;
-        }
-
+        .confirm-modal-overlay.active { display: flex; }
         .confirm-modal {
             background: rgba(18, 12, 28, 0.95);
             backdrop-filter: blur(16px);
@@ -803,33 +539,10 @@
             text-align: center;
             animation: modalFadeIn 0.3s ease-out;
         }
-
-        .confirm-modal .icon {
-            font-size: 3rem;
-            color: #ff3333;
-            margin-bottom: 1rem;
-        }
-
-        .confirm-modal h2 {
-            color: #ff3333;
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .confirm-modal p {
-            color: #c2b9d4;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .confirm-modal .confirm-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
+        .confirm-modal .icon { font-size: 3rem; color: #ff3333; margin-bottom: 1rem; }
+        .confirm-modal h2 { color: #ff3333; font-size: 1.5rem; margin-bottom: 0.8rem; }
+        .confirm-modal p { color: #c2b9d4; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .confirm-modal .confirm-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
         .confirm-modal .confirm-actions button {
             padding: 0.7rem 2rem;
             border-radius: 40px;
@@ -840,27 +553,17 @@
             font-family: inherit;
             border: none;
         }
-
         .confirm-modal .confirm-actions .btn-confirm {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
         }
-
-        .confirm-modal .confirm-actions .btn-confirm:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
-        }
-
+        .confirm-modal .confirm-actions .btn-confirm:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4); }
         .confirm-modal .confirm-actions .btn-cancel {
             background: rgba(220, 90, 50, 0.15);
             border: 1px solid rgba(220, 90, 50, 0.25);
             color: #c2b9d4;
         }
-
-        .confirm-modal .confirm-actions .btn-cancel:hover {
-            background: rgba(220, 90, 50, 0.25);
-            color: white;
-        }
+        .confirm-modal .confirm-actions .btn-cancel:hover { background: rgba(220, 90, 50, 0.25); color: white; }
 
         .back-to-roulette {
             display: inline-flex;
@@ -877,12 +580,7 @@
             background: rgba(220, 90, 50, 0.1);
             border: 1px solid rgba(220, 90, 50, 0.15);
         }
-
-        .back-to-roulette:hover {
-            color: #ffbc9a;
-            background: rgba(220, 90, 50, 0.2);
-            transform: translateX(-5px);
-        }
+        .back-to-roulette:hover { color: #ffbc9a; background: rgba(220, 90, 50, 0.2); transform: translateX(-5px); }
 
         footer {
             margin-top: 3rem;
@@ -894,12 +592,7 @@
             backdrop-filter: blur(8px);
             border-radius: 50px;
         }
-
-        .footer-logo {
-            max-height: 32px;
-            width: auto;
-            margin-bottom: 0.5rem;
-        }
+        .footer-logo { max-height: 32px; width: auto; margin-bottom: 0.5rem; }
 
         @media (max-width: 850px) {
             .container { padding: 0.8rem; }
@@ -921,7 +614,6 @@
             .player-name-inputs .input-row label { min-width: auto; }
             .player-amps-categories { grid-template-columns: 1fr; gap: 0.5rem; }
         }
-
         @media (max-width: 600px) {
             .escalation-wrapper { padding: 1rem; }
             .escalation-wrapper h1 { font-size: 1.3rem; flex-wrap: wrap; }
@@ -979,7 +671,6 @@
             <span class="level-difficulty level-difficulty-intro" id="levelDifficulty">Начальная</span>
         </div>
 
-        <!-- ШАГ 1 -->
         <div class="step-container" id="escStep1">
             <div class="step-title">
                 <span class="step-number">Шаг 1</span>
@@ -997,7 +688,6 @@
             </div>
         </div>
 
-        <!-- ШАГ 2 -->
         <div class="step-container hidden" id="escStep2">
             <div class="step-title">
                 <span class="step-number">Шаг 2</span>
@@ -1011,7 +701,6 @@
             </div>
         </div>
 
-        <!-- ШАГ 3: Снаряжение -->
         <div class="step-container hidden" id="escStep3">
             <div class="step-title">
                 <span class="step-number">Шаг 3</span>
@@ -1025,7 +714,6 @@
             </div>
         </div>
 
-        <!-- ШАГ 4: Ампы -->
         <div class="step-container hidden" id="escStep4">
             <div class="step-title">
                 <span class="step-number">Шаг 4</span>
@@ -1039,7 +727,6 @@
             </div>
         </div>
 
-        <!-- РЕЗУЛЬТАТ -->
         <div class="escalation-result" id="escResult">
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <span style="background: rgba(220,90,50,0.2); padding: 0.3rem 1.5rem; border-radius: 30px; color: #e16d48; font-size: 0.85rem; font-weight: 600;">
@@ -1080,7 +767,6 @@
     </footer>
 </div>
 
-<!-- Модалка подтверждения -->
 <div class="confirm-modal-overlay" id="confirmModal">
     <div class="confirm-modal">
         <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
@@ -1093,95 +779,17 @@
     </div>
 </div>
 
+<!-- ===== ПОДКЛЮЧЕНИЕ ВАШИХ JS ФАЙЛОВ (ОРИГИНАЛЬНЫЕ ДАННЫЕ) ===== -->
+<script src="maps.js"></script>
+<script src="variators.js"></script>
+<script src="variators-all.js"></script>
+<script src="amps.js"></script>
+<script src="equipment.js"></script>
+<script src="trials.js"></script>
+
 <script>
 // ============================================================
-// ОРИГИНАЛЬНЫЕ ДАННЫЕ (как в ваших файлах)
-// ============================================================
-
-// ===== КАРТЫ (оригинал из maps.js) =====
-var MAPS = [
-    { id: 'police', name: 'Полицейский участок', icon: '🚔', image: 'images/maps/police.jpg' },
-    { id: 'orphanage', name: 'Приют', icon: '🏚️', image: 'images/maps/orphanage.jpg' },
-    { id: 'factory', name: 'Фабрика игрушек', icon: '🏭', image: 'images/maps/factory.jpg' },
-    { id: 'courthouse', name: 'Здание суда', icon: '⚖️', image: 'images/maps/courthouse.jpg' },
-    { id: 'hospital', name: 'Больница', icon: '🏥', image: 'images/maps/hospital.jpg' },
-    { id: 'prison', name: 'Тюрьма', icon: '🔒', image: 'images/maps/prison.jpg' },
-    { id: 'church', name: 'Церковь', icon: '⛪', image: 'images/maps/church.jpg' },
-    { id: 'lab', name: 'Лаборатория', icon: '🧪', image: 'images/maps/lab.jpg' }
-];
-
-// ===== ВАРИАТОРЫ (оригинал из variators.js) =====
-var VARIATORS = [
-    { id: 'fog', name: 'Туман', icon: '🌫️', image: 'images/variators/fog.png' },
-    { id: 'noise', name: 'Шум', icon: '🔊', image: 'images/variators/noise.png' },
-    { id: 'darkness', name: 'Тьма', icon: '🌑', image: 'images/variators/darkness.png' },
-    { id: 'speed', name: 'Скорость', icon: '🏃', image: 'images/variators/speed.png' },
-    { id: 'rage', name: 'Ярость', icon: '😡', image: 'images/variators/rage.png' },
-    { id: 'cold', name: 'Холод', icon: '❄️', image: 'images/variators/cold.png' },
-    { id: 'heat', name: 'Жара', icon: '🔥', image: 'images/variators/heat.png' },
-    { id: 'hunger', name: 'Голод', icon: '🍽️', image: 'images/variators/hunger.png' },
-    { id: 'fear', name: 'Страх', icon: '😱', image: 'images/variators/fear.png' },
-    { id: 'silence', name: 'Тишина', icon: '🤫', image: 'images/variators/silence.png' },
-    { id: 'poison', name: 'Яд', icon: '☠️', image: 'images/variators/poison.png' },
-    { id: 'blind', name: 'Слепота', icon: '🙈', image: 'images/variators/blind.png' },
-    { id: 'deaf', name: 'Глухота', icon: '🙉', image: 'images/variators/deaf.png' },
-    { id: 'mute', name: 'Немота', icon: '🙊', image: 'images/variators/mute.png' }
-];
-
-// ===== АМПЫ (оригинал из amps.js) =====
-var AMPS = [
-    { id: 'adrenaline', name: 'Адреналин', category: 'Физические', icon: '💉', image: 'images/amps/adrenaline.png' },
-    { id: 'resilience', name: 'Стойкость', category: 'Физические', icon: '🛡️', image: 'images/amps/resilience.png' },
-    { id: 'speedboost', name: 'Ускорение', category: 'Физические', icon: '⚡', image: 'images/amps/speedboost.png' },
-    { id: 'strength', name: 'Сила', category: 'Физические', icon: '💪', image: 'images/amps/strength.png' },
-    { id: 'healing', name: 'Исцеление', category: 'Медицинские', icon: '🩹', image: 'images/amps/healing.png' },
-    { id: 'antidote', name: 'Антидот', category: 'Медицинские', icon: '🧪', image: 'images/amps/antidote.png' },
-    { id: 'regeneration', name: 'Регенерация', category: 'Медицинские', icon: '❤️', image: 'images/amps/regeneration.png' },
-    { id: 'vision', name: 'Острое зрение', category: 'Ментальные', icon: '👁️', image: 'images/amps/vision.png' },
-    { id: 'intuition', name: 'Интуиция', category: 'Ментальные', icon: '🧠', image: 'images/amps/intuition.png' },
-    { id: 'willpower', name: 'Сила воли', category: 'Ментальные', icon: '💪', image: 'images/amps/willpower.png' },
-    { id: 'charisma', name: 'Харизма', category: 'Социальные', icon: '🗣️', image: 'images/amps/charisma.png' },
-    { id: 'leadership', name: 'Лидерство', category: 'Социальные', icon: '👑', image: 'images/amps/leadership.png' },
-    { id: 'stealth', name: 'Скрытность', category: 'Тактические', icon: '🥷', image: 'images/amps/stealth.png' },
-    { id: 'recon', name: 'Разведка', category: 'Тактические', icon: '🔭', image: 'images/amps/recon.png' },
-    { id: 'resourceful', name: 'Находчивость', category: 'Тактические', icon: '🎒', image: 'images/amps/resourceful.png' }
-];
-
-// ===== СНАРЯЖЕНИЕ (оригинал из equipment.js) =====
-var EQUIPMENT = [
-    { id: 'medkit', name: 'Аптечка', category: 'Медицина', icon: '🩺', image: 'images/equipment/medkit.png' },
-    { id: 'bandages', name: 'Бинты', category: 'Медицина', icon: '🩹', image: 'images/equipment/bandages.png' },
-    { id: 'syringe', name: 'Шприц', category: 'Медицина', icon: '💉', image: 'images/equipment/syringe.png' },
-    { id: 'knife', name: 'Нож', category: 'Оружие', icon: '🔪', image: 'images/equipment/knife.png' },
-    { id: 'pistol', name: 'Пистолет', category: 'Оружие', icon: '🔫', image: 'images/equipment/pistol.png' },
-    { id: 'bat', name: 'Дубинка', category: 'Оружие', icon: '🪄', image: 'images/equipment/bat.png' },
-    { id: 'flashlight', name: 'Фонарик', category: 'Инструменты', icon: '🔦', image: 'images/equipment/flashlight.png' },
-    { id: 'radio', name: 'Рация', category: 'Инструменты', icon: '📻', image: 'images/equipment/radio.png' },
-    { id: 'map', name: 'Карта', category: 'Инструменты', icon: '🗺️', image: 'images/equipment/map.png' },
-    { id: 'lighter', name: 'Зажигалка', category: 'Инструменты', icon: '🔥', image: 'images/equipment/lighter.png' },
-    { id: 'key', name: 'Ключ', category: 'Инструменты', icon: '🔑', image: 'images/equipment/key.png' },
-    { id: 'armor', name: 'Броня', category: 'Защита', icon: '🛡️', image: 'images/equipment/armor.png' },
-    { id: 'gas_mask', name: 'Противогаз', category: 'Защита', icon: '😷', image: 'images/equipment/gas_mask.png' }
-];
-
-// ===== ИСПЫТАНИЯ (оригинал из trials.js) =====
-var TRIALS = [
-    { id: 'ascent', name: 'Восхождение', description: 'Проберитесь на верхний уровень здания' },
-    { id: 'descent', name: 'Спуск', description: 'Спуститесь в подвал и найдите выход' },
-    { id: 'evacuation', name: 'Эвакуация', description: 'Эвакуируйте всех выживших из зоны' },
-    { id: 'data_collection', name: 'Сбор данных', description: 'Соберите улики и выберитесь живым' },
-    { id: 'destruction', name: 'Уничтожение', description: 'Уничтожьте источник заражения' },
-    { id: 'rescue', name: 'Спасение', description: 'Спасите заложника и доставьте в безопасное место' },
-    { id: 'hack', name: 'Взлом', description: 'Взломайте систему безопасности и скройтесь' },
-    { id: 'sabotage', name: 'Диверсия', description: 'Совершите диверсию и выйдите из зоны' },
-    { id: 'escape', name: 'Побег', description: 'Сбегите из комплекса любой ценой' },
-    { id: 'survival', name: 'Выживание', description: 'Выживайте в течение заданного времени' }
-];
-
-console.log('✅ Все данные загружены!');
-
-// ============================================================
-// ОСНОВНАЯ ЛОГИКА (с исправленными ошибками)
+// ОСНОВНАЯ ЛОГИКА РАБОТЫ С ВАШИМИ ДАННЫМИ
 // ============================================================
 
 (function() {
@@ -1189,6 +797,7 @@ console.log('✅ Все данные загружены!');
 
     console.log('🚀 Запуск еженедельной эскалации...');
 
+    // Глобальное состояние
     var state = {
         playerCount: null,
         playerNames: [],
@@ -1200,6 +809,40 @@ console.log('✅ Все данные загружены!');
         level: 1,
         completed: false
     };
+
+    // Ждём загрузки данных из ваших файлов
+    function waitForData(callback) {
+        var attempts = 0;
+        var maxAttempts = 50;
+        
+        function checkData() {
+            attempts++;
+            if (typeof MAPS !== 'undefined' && MAPS.length > 0 &&
+                typeof VARIATORS !== 'undefined' && VARIATORS.length > 0 &&
+                typeof AMPS !== 'undefined' && AMPS.length > 0 &&
+                typeof EQUIPMENT !== 'undefined' && EQUIPMENT.length > 0 &&
+                typeof TRIALS !== 'undefined' && TRIALS.length > 0) {
+                console.log('✅ Все данные загружены!');
+                callback();
+                return true;
+            }
+            if (attempts < maxAttempts) {
+                setTimeout(checkData, 100);
+            } else {
+                console.warn('⚠️ Данные не загружены, используем fallback');
+                // Fallback данные если ваши файлы не загрузились
+                if (typeof MAPS === 'undefined') window.MAPS = [];
+                if (typeof VARIATORS === 'undefined') window.VARIATORS = [];
+                if (typeof AMPS === 'undefined') window.AMPS = [];
+                if (typeof EQUIPMENT === 'undefined') window.EQUIPMENT = [];
+                if (typeof TRIALS === 'undefined') window.TRIALS = [];
+                callback();
+            }
+            return false;
+        }
+        
+        checkData();
+    }
 
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
     function shuffle(arr) {
@@ -1226,10 +869,13 @@ console.log('✅ Все данные загружены!');
 
     function getWeeklyVariator() {
         if (state.weeklyVariator) return state.weeklyVariator;
-        var weekly = VARIATORS[Math.floor(Math.random() * VARIATORS.length)];
-        state.weeklyVariator = weekly;
-        updateWeeklyDisplay();
-        return weekly;
+        if (typeof VARIATORS !== 'undefined' && VARIATORS.length > 0) {
+            var weekly = VARIATORS[Math.floor(Math.random() * VARIATORS.length)];
+            state.weeklyVariator = weekly;
+            updateWeeklyDisplay();
+            return weekly;
+        }
+        return null;
     }
 
     function updateWeeklyDisplay() {
@@ -1258,14 +904,18 @@ console.log('✅ Все данные загружены!');
     }
 
     function generateTrial() {
-        var map = MAPS[Math.floor(Math.random() * MAPS.length)];
-        var vars = getRandom(VARIATORS, 2);
+        var maps = typeof MAPS !== 'undefined' ? MAPS : [];
+        var variators = typeof VARIATORS !== 'undefined' ? VARIATORS : [];
+        var trials = typeof TRIALS !== 'undefined' ? TRIALS : [];
+        
+        var map = maps.length > 0 ? maps[Math.floor(Math.random() * maps.length)] : { id: 'default', name: 'Карта', image: '' };
+        var vars = getRandom(variators, 2);
         var weekly = getWeeklyVariator();
         if (weekly) {
             var hasDup = vars.some(function(v) { return v.id === weekly.id; });
             if (!hasDup) vars.push(weekly);
         }
-        var trial = TRIALS[Math.floor(Math.random() * TRIALS.length)];
+        var trial = trials.length > 0 ? trials[Math.floor(Math.random() * trials.length)] : { id: 'default', name: 'Испытание', description: 'Пройдите испытание' };
         return { map: map, variators: vars, trial: trial };
     }
 
@@ -1297,12 +947,6 @@ console.log('✅ Все данные загружены!');
     function setAmp(index, id) {
         if (index >= 0 && index < state.selectedAmps.length) {
             state.selectedAmps[index] = [id];
-        }
-    }
-
-    function clearAmps(index) {
-        if (index >= 0 && index < state.selectedAmps.length) {
-            state.selectedAmps[index] = [];
         }
     }
 
@@ -1401,6 +1045,8 @@ console.log('✅ Все данные загружены!');
         grid.className = 'selection-grid players-' + state.playerCount;
         container.appendChild(grid);
 
+        var equipment = typeof EQUIPMENT !== 'undefined' ? EQUIPMENT : [];
+
         for (var i = 0; i < state.playerCount; i++) {
             var block = document.createElement('div');
             block.className = 'player-block';
@@ -1414,15 +1060,34 @@ console.log('✅ Все данные загружены!');
             var items = document.createElement('div');
             items.className = 'selection-items';
 
-            var options = getRandom(EQUIPMENT, 3);
+            var options = getRandom(equipment, 3);
             options.forEach(function(eq) {
                 var el = document.createElement('div');
                 el.className = 'selection-item';
                 el.dataset.eqId = eq.id;
-                el.innerHTML = '<div class="item-icon">' + (eq.icon || '🎒') + '</div>' +
-                               '<span class="item-name">' + eq.name + '</span>' +
-                               '<span class="item-category">' + (eq.category || 'Снаряжение') + '</span>' +
-                               '<span class="check-mark"><i class="fas fa-check-circle"></i></span>';
+                
+                var img = document.createElement('img');
+                img.src = eq.image || eq.icon || 'images/placeholder.png';
+                img.alt = eq.name || 'Снаряжение';
+                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(eq.name || '?') + '%3C/text%3E%3C/svg%3E'; };
+                
+                var nameSpan = document.createElement('span');
+                nameSpan.className = 'item-name';
+                nameSpan.textContent = eq.name || 'Неизвестно';
+                
+                var catSpan = document.createElement('span');
+                catSpan.className = 'item-category';
+                catSpan.textContent = eq.category || 'Снаряжение';
+                
+                var checkMark = document.createElement('span');
+                checkMark.className = 'check-mark';
+                checkMark.innerHTML = '<i class="fas fa-check-circle"></i>';
+                
+                el.appendChild(img);
+                el.appendChild(nameSpan);
+                el.appendChild(catSpan);
+                el.appendChild(checkMark);
+                
                 if (state.selectedEquipment[i] === eq.id) el.classList.add('selected');
 
                 el.addEventListener('click', function(idx, e) {
@@ -1470,6 +1135,8 @@ console.log('✅ Все данные загружены!');
         grid.className = 'selection-grid players-' + state.playerCount;
         container.appendChild(grid);
 
+        var amps = typeof AMPS !== 'undefined' ? AMPS : [];
+
         for (var i = 0; i < state.playerCount; i++) {
             var block = document.createElement('div');
             block.className = 'player-block';
@@ -1483,15 +1150,34 @@ console.log('✅ Все данные загружены!');
             var items = document.createElement('div');
             items.className = 'selection-items';
 
-            var options = getRandom(AMPS, 3);
+            var options = getRandom(amps, 3);
             options.forEach(function(amp) {
                 var el = document.createElement('div');
                 el.className = 'selection-item';
                 el.dataset.ampId = amp.id;
-                el.innerHTML = '<div class="item-icon">' + (amp.icon || '💊') + '</div>' +
-                               '<span class="item-name">' + amp.name + '</span>' +
-                               '<span class="item-category">' + (amp.category || 'Ампа') + '</span>' +
-                               '<span class="check-mark"><i class="fas fa-check-circle"></i></span>';
+                
+                var img = document.createElement('img');
+                img.src = amp.image || amp.icon || 'images/placeholder.png';
+                img.alt = amp.name || 'Ампа';
+                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(amp.name || '?') + '%3C/text%3E%3C/svg%3E'; };
+                
+                var nameSpan = document.createElement('span');
+                nameSpan.className = 'item-name';
+                nameSpan.textContent = amp.name || 'Неизвестно';
+                
+                var catSpan = document.createElement('span');
+                catSpan.className = 'item-category';
+                catSpan.textContent = amp.category || 'Ампа';
+                
+                var checkMark = document.createElement('span');
+                checkMark.className = 'check-mark';
+                checkMark.innerHTML = '<i class="fas fa-check-circle"></i>';
+                
+                el.appendChild(img);
+                el.appendChild(nameSpan);
+                el.appendChild(catSpan);
+                el.appendChild(checkMark);
+                
                 if (state.selectedAmps[i] && state.selectedAmps[i].indexOf(amp.id) !== -1) el.classList.add('selected');
 
                 el.addEventListener('click', function(idx, e) {
@@ -1552,22 +1238,34 @@ console.log('✅ Все данные загружены!');
         var vars = data.variators;
         var trial = data.trial;
 
+        var equipment = typeof EQUIPMENT !== 'undefined' ? EQUIPMENT : [];
+        var amps = typeof AMPS !== 'undefined' ? AMPS : [];
+
         // Карта
         var mapContainer = document.getElementById('escResultMap');
         mapContainer.innerHTML = '';
         var row = document.createElement('div');
         row.className = 'result-map-row';
-        row.innerHTML = '<div class="map-icon">' + (map.icon || '🗺️') + '</div>';
+        
+        var img = document.createElement('img');
+        img.className = 'map-image';
+        img.src = map.image || 'images/placeholder.png';
+        img.alt = map.name || 'Карта';
+        img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"%3E%3Crect width="120" height="120" fill="%23333"/%3E%3Ctext x="60" y="65" text-anchor="middle" fill="%23666" font-size="14"%3E' + encodeURIComponent(map.name || '?') + '%3C/text%3E%3C/svg%3E'; };
+        
         var info = document.createElement('div');
         info.className = 'result-map-info';
-        info.innerHTML = '<div class="map-label">Локация</div>' +
-                         '<div class="map-name">' + map.name + '</div>' +
-                         '<div class="trial-name">' + (trial ? trial.name : 'Испытание') + '</div>' +
-                         '<div class="trial-desc">' + (trial ? trial.description : 'Пройдите испытание') + '</div>' +
-                         '<div class="map-meta">' +
-                         '<span class="map-meta-item"><strong>Уровень:</strong> ' + (state.level - 1) + '</span>' +
-                         '<span class="map-meta-item"><strong>Сложность:</strong> ' + getDifficulty(state.level - 1).text + '</span>' +
-                         '</div>';
+        info.innerHTML = 
+            '<div class="map-label">Локация</div>' +
+            '<div class="map-name">' + (map.name || 'Неизвестно') + '</div>' +
+            '<div class="trial-name">' + (trial ? trial.name : 'Испытание') + '</div>' +
+            '<div class="trial-desc">' + (trial ? trial.description : 'Пройдите испытание') + '</div>' +
+            '<div class="map-meta">' +
+            '<span class="map-meta-item"><strong>Уровень:</strong> ' + (state.level - 1) + '</span>' +
+            '<span class="map-meta-item"><strong>Сложность:</strong> ' + getDifficulty(state.level - 1).text + '</span>' +
+            '</div>';
+        
+        row.appendChild(img);
         row.appendChild(info);
         mapContainer.appendChild(row);
 
@@ -1577,7 +1275,18 @@ console.log('✅ Все данные загружены!');
         vars.forEach(function(v) {
             var el = document.createElement('div');
             el.className = 'var-item';
-            el.innerHTML = '<div class="var-icon">' + (v.icon || '💀') + '</div><span class="var-name">' + v.name + '</span>';
+            
+            var img2 = document.createElement('img');
+            img2.src = v.image || 'images/placeholder.png';
+            img2.alt = v.name || 'Вариатор';
+            img2.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"%3E%3Crect width="50" height="50" fill="%23333"/%3E%3Ctext x="25" y="30" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(v.name || '?') + '%3C/text%3E%3C/svg%3E'; };
+            
+            var nameSpan = document.createElement('span');
+            nameSpan.className = 'var-name';
+            nameSpan.textContent = v.name || 'Вариатор';
+            
+            el.appendChild(img2);
+            el.appendChild(nameSpan);
             varContainer.appendChild(el);
         });
 
@@ -1589,17 +1298,34 @@ console.log('✅ Все данные загружены!');
             var pDiv = document.createElement('div');
             pDiv.className = 'player-result';
 
-            var equip = getById(EQUIPMENT, state.selectedEquipment[i]);
-            var amps = state.selectedAmps[i] || [];
-            var ampObjects = amps.map(function(id) { return getById(AMPS, id); }).filter(function(a) { return a !== null; });
+            var equip = getById(equipment, state.selectedEquipment[i]);
+            var ampIds = state.selectedAmps[i] || [];
+            var ampObjects = ampIds.map(function(id) { return getById(amps, id); }).filter(function(a) { return a !== null; });
 
-            pDiv.innerHTML = '<div class="player-name"><i class="fas fa-user"></i> ' + (state.playerNames[i] || 'Игрок ' + (i + 1)) + '</div>';
+            var nameDiv = document.createElement('div');
+            nameDiv.className = 'player-name';
+            nameDiv.innerHTML = '<i class="fas fa-user"></i> ' + (state.playerNames[i] || 'Игрок ' + (i + 1));
+            pDiv.appendChild(nameDiv);
 
             var eqDiv = document.createElement('div');
             eqDiv.className = 'player-equip';
-            eqDiv.innerHTML = '<span class="equip-icon">' + (equip ? equip.icon : '🎒') + '</span>' +
-                              '<span class="label">Снаряжение:</span>' +
-                              '<span class="value">' + (equip ? equip.name : 'Не выбрано') + '</span>';
+            
+            var eqImg = document.createElement('img');
+            eqImg.src = equip ? (equip.image || 'images/placeholder.png') : 'images/placeholder.png';
+            eqImg.alt = equip ? equip.name : 'Снаряжение';
+            eqImg.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"%3E%3Crect width="32" height="32" fill="%23333"/%3E%3Ctext x="16" y="20" text-anchor="middle" fill="%23666" font-size="8"%3E?%3C/text%3E%3C/svg%3E'; };
+            
+            var labelSpan = document.createElement('span');
+            labelSpan.className = 'label';
+            labelSpan.textContent = 'Снаряжение:';
+            
+            var valueSpan = document.createElement('span');
+            valueSpan.className = 'value';
+            valueSpan.textContent = equip ? equip.name : 'Не выбрано';
+            
+            eqDiv.appendChild(eqImg);
+            eqDiv.appendChild(labelSpan);
+            eqDiv.appendChild(valueSpan);
             pDiv.appendChild(eqDiv);
 
             var ampsDiv = document.createElement('div');
@@ -1621,7 +1347,7 @@ console.log('✅ Все данные загружены!');
                     block.className = 'amp-category-block';
                     block.innerHTML = '<div class="category-name">' + name + '</div>';
                     categories[name].forEach(function(a) {
-                        block.innerHTML += '<div class="category-amp-name">' + (a.icon || '💊') + ' ' + a.name + '</div>';
+                        block.innerHTML += '<div class="category-amp-name">' + (a.name || 'Ампа') + '</div>';
                     });
                     ampsDiv.appendChild(block);
                 }
@@ -1681,16 +1407,28 @@ console.log('✅ Все данные загружены!');
 
     // ===== ИНИЦИАЛИЗАЦИЯ =====
     function init() {
-        getWeeklyVariator();
-        updateLevelDisplay();
-        initStep1();
-        setupExit();
-        setupNextLevel();
-        console.log('✅ Еженедельная эскалация готова!');
+        waitForData(function() {
+            getWeeklyVariator();
+            updateLevelDisplay();
+            initStep1();
+            setupExit();
+            setupNextLevel();
+            console.log('✅ Еженедельная эскалация готова!');
+        });
     }
 
-    document.addEventListener('DOMContentLoaded', init);
-    if (document.readyState !== 'loading') init();
+    // Экспортируем для внешнего использования
+    window.weeklyEscState = state;
+    window.initWeeklyEscalation = init;
+    window.checkDataLoaded = function() {
+        return typeof MAPS !== 'undefined' && MAPS.length > 0;
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 
 })();
 </script>
