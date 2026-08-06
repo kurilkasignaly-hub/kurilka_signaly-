@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -22,51 +21,7 @@
             color: #f0eef7;
             overflow-x: hidden;
             min-height: 100vh;
-            position: relative;
             background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
-        }
-
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.78);
-            z-index: -1;
-        }
-
-        /* ===== АНИМАЦИИ ===== */
-        @keyframes fadeInScale {
-            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes smokePulse {
-            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
-            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
-            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
-        }
-
-        @keyframes resultAppear {
-            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        @keyframes modalFadeIn {
-            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .container {
@@ -77,7 +32,6 @@
             z-index: 10;
         }
 
-        /* ===== НАВИГАЦИЯ ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -90,12 +44,22 @@
             margin-bottom: 2rem;
             gap: 1rem;
             border: 1px solid rgba(220, 90, 50, 0.2);
-            transition: all 0.3s;
             animation: fadeInScale 0.6s ease-out;
         }
 
-        .header:hover {
-            border-color: rgba(220, 90, 50, 0.4);
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes resultAppear {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes modalFadeIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .logo {
@@ -166,7 +130,6 @@
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
-        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ЭСКАЛАЦИИ ===== */
         .escalation-wrapper {
             max-width: 1100px;
             margin: 0 auto;
@@ -178,18 +141,6 @@
             animation: fadeInScale 0.6s ease-out;
             position: relative;
             overflow: hidden;
-        }
-
-        .escalation-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/фон эскалация.webp') center/cover no-repeat;
-            opacity: 0.25;
-            z-index: 0;
         }
 
         .escalation-wrapper > * {
@@ -215,7 +166,43 @@
             color: #e16d48;
         }
 
-        /* ===== СЧЕТЧИК УРОВНЯ ===== */
+        .weekly-info {
+            text-align: center;
+            padding: 10px 16px;
+            background: rgba(220, 90, 50, 0.12);
+            border-radius: 16px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .weekly-info .weekly-label {
+            color: #888;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .weekly-info .weekly-variator {
+            color: #f1c40f;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .weekly-info .weekly-variator i {
+            color: #f1c40f;
+            margin-right: 6px;
+        }
+
+        .weekly-info .weekly-hint {
+            color: #666;
+            font-size: 0.7rem;
+        }
+
         .level-counter {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -254,7 +241,6 @@
         .level-difficulty-intensive { background: rgba(46, 204, 113, 0.3); color: #2ecc71; }
         .level-difficulty-psycho { background: rgba(255, 51, 51, 0.3); color: #ff3333; }
 
-        /* ===== ШАГИ ===== */
         .step-container {
             background: rgba(0, 0, 0, 0.25);
             border-radius: 28px;
@@ -295,7 +281,6 @@
             text-align: center;
         }
 
-        /* ===== КНОПКИ ВЫБОРА ИГРОКОВ ===== */
         .player-count-options {
             display: flex;
             gap: 1.2rem;
@@ -332,7 +317,6 @@
             box-shadow: 0 0 40px rgba(220, 90, 50, 0.15);
         }
 
-        /* ===== ПОЛЯ ВВОДА ИМЕН ===== */
         .player-name-inputs {
             display: flex;
             flex-direction: column;
@@ -379,47 +363,18 @@
             color: #555;
         }
 
-        /* ===== ЦЕНТРАЛИЗОВАННАЯ СЕТКА ВЫБОРА ===== */
-        .selection-wrapper {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
         .selection-grid {
             display: grid;
             gap: 1.5rem;
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
             margin: 0 auto;
         }
 
-        .selection-grid.players-1 {
-            grid-template-columns: 1fr;
-            max-width: 300px;
-        }
-
-        .selection-grid.players-2 {
-            grid-template-columns: 1fr 1fr;
-            max-width: 500px;
-        }
-
-        .selection-grid.players-3 {
-            grid-template-columns: 1fr 1fr;
-            max-width: 500px;
-        }
-
-        .selection-grid.players-3 .player-block:last-child {
-            grid-column: 1 / -1;
-            max-width: 50%;
-            justify-self: center;
-            width: 100%;
-        }
-
-        .selection-grid.players-4 {
-            grid-template-columns: 1fr 1fr;
-            max-width: 550px;
-        }
+        .selection-grid.players-1 { grid-template-columns: 1fr; max-width: 350px; }
+        .selection-grid.players-2 { grid-template-columns: 1fr 1fr; max-width: 600px; }
+        .selection-grid.players-3 { grid-template-columns: 1fr 1fr 1fr; max-width: 750px; }
+        .selection-grid.players-4 { grid-template-columns: 1fr 1fr; max-width: 650px; }
 
         .selection-grid .player-block {
             background: rgba(0, 0, 0, 0.25);
@@ -445,7 +400,6 @@
             border-bottom: 1px solid rgba(220, 90, 50, 0.1);
         }
 
-        /* ===== ВЫБОР ВНУТРИ БЛОКА ===== */
         .selection-items {
             display: flex;
             flex-direction: column;
@@ -478,19 +432,9 @@
             box-shadow: 0 0 40px rgba(220, 90, 50, 0.08);
         }
 
-        .selection-item img {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            margin-bottom: 0.3rem;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 6px;
-            transition: transform 0.3s;
-        }
-
-        .selection-item:hover img {
-            transform: scale(1.05);
+        .selection-item .item-icon {
+            font-size: 2rem;
+            margin-bottom: 0.2rem;
         }
 
         .selection-item .item-name {
@@ -521,7 +465,6 @@
             display: block;
         }
 
-        /* ===== КНОПКИ НАВИГАЦИИ ===== */
         .step-actions {
             display: flex;
             justify-content: center;
@@ -591,7 +534,6 @@
             color: #ff3333;
         }
 
-        /* ===== РЕЗУЛЬТАТ ===== */
         .escalation-result {
             display: none;
             animation: resultAppear 0.6s ease-out;
@@ -632,13 +574,14 @@
             flex-wrap: wrap;
         }
 
-        .result-map-row .map-image {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
+        .result-map-row .map-icon {
+            font-size: 4rem;
+            width: 80px;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
             border-radius: 16px;
+            padding: 1rem;
             border: 2px solid rgba(220, 90, 50, 0.3);
-            flex-shrink: 0;
         }
 
         .result-map-info {
@@ -692,7 +635,6 @@
             font-weight: 600;
         }
 
-        /* ===== ВАРИАТОРЫ ===== */
         .variator-list {
             display: flex;
             gap: 1rem;
@@ -704,27 +646,25 @@
             flex-direction: column;
             align-items: center;
             gap: 0.4rem;
+            background: rgba(0,0,0,0.2);
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+            min-width: 80px;
         }
 
-        .variator-list .var-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 6px;
-            border: 1px solid rgba(220, 90, 50, 0.15);
+        .variator-list .var-item .var-icon {
+            font-size: 2rem;
         }
 
         .variator-list .var-item .var-name {
             font-size: 0.65rem;
             color: #c2b9d4;
             text-align: center;
-            max-width: 75px;
+            max-width: 80px;
             line-height: 1.2;
         }
 
-        /* ===== ИГРОКИ В РЕЗУЛЬТАТЕ ===== */
         .player-result {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 16px;
@@ -767,13 +707,8 @@
             border-radius: 12px;
         }
 
-        .player-result .player-equip img {
-            width: 36px;
-            height: 36px;
-            object-fit: contain;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 4px;
+        .player-result .player-equip .equip-icon {
+            font-size: 1.5rem;
         }
 
         .player-result .player-equip .label {
@@ -800,19 +735,6 @@
             border-radius: 12px;
             padding: 0.6rem 0.8rem;
             border: 1px solid rgba(220, 90, 50, 0.1);
-            transition: border-color 0.3s;
-            position: relative;
-        }
-
-        .amp-category-block:hover {
-            border-color: rgba(220, 90, 50, 0.25);
-        }
-
-        .amp-category-block .category-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.3rem;
         }
 
         .amp-category-block .category-name {
@@ -821,27 +743,7 @@
             color: #e16d48;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-
-        .amp-category-block .category-change-btn {
-            background: rgba(220, 90, 50, 0.2);
-            border: 1px solid rgba(220, 90, 50, 0.3);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            color: #c2b9d4;
-            font-size: 0.6rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .amp-category-block .category-change-btn:hover {
-            background: rgba(220, 90, 50, 0.4);
-            color: white;
-            transform: scale(1.1);
+            margin-bottom: 0.2rem;
         }
 
         .amp-category-block .category-amp-name {
@@ -860,13 +762,6 @@
             font-style: italic;
         }
 
-        .amp-category-block .category-complete {
-            font-size: 0.6rem;
-            color: #2ecc71;
-            text-align: center;
-        }
-
-        /* ===== КНОПКИ В РЕЗУЛЬТАТЕ ===== */
         .result-actions {
             display: flex;
             justify-content: center;
@@ -879,230 +774,6 @@
             min-width: 200px;
         }
 
-        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ СМЕНЫ АМФЫ ===== */
-        .amp-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .amp-modal-overlay.active {
-            display: flex;
-        }
-
-        .amp-modal {
-            background: rgba(18, 12, 28, 0.95);
-            backdrop-filter: blur(16px);
-            border-radius: 30px;
-            border: 2px solid rgba(220, 90, 50, 0.4);
-            padding: 2rem;
-            max-width: 700px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        .amp-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(220, 90, 50, 0.2);
-        }
-
-        .amp-modal-header h2 {
-            font-size: 1.3rem;
-            color: #e16d48;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .amp-modal-close {
-            background: none;
-            border: none;
-            color: #c2b9d4;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .amp-modal-close:hover {
-            color: #e16d48;
-        }
-
-        .amp-modal-category-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .amp-modal-category-tabs button {
-            background: rgba(220, 90, 50, 0.15);
-            border: 1px solid rgba(220, 90, 50, 0.25);
-            border-radius: 30px;
-            padding: 0.5rem 1.5rem;
-            color: #c2b9d4;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .amp-modal-category-tabs button:hover {
-            background: rgba(220, 90, 50, 0.25);
-            color: white;
-        }
-
-        .amp-modal-category-tabs button.active {
-            background: rgba(220, 90, 50, 0.3);
-            border-color: #e16d48;
-            color: #e16d48;
-        }
-
-        .amp-modal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .amp-modal-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(220, 90, 50, 0.2);
-            border-radius: 16px;
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .amp-modal-item:hover:not(.locked) {
-            border-color: #e16d48;
-            transform: scale(1.05);
-        }
-
-        .amp-modal-item.selected {
-            border-color: #4c9aff;
-            background: rgba(76, 154, 255, 0.1);
-        }
-
-        .amp-modal-item.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .amp-modal-item.locked:hover {
-            transform: none;
-            border-color: rgba(220, 90, 50, 0.2);
-        }
-
-        .amp-modal-item img {
-            width: 65px;
-            height: 65px;
-            object-fit: contain;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 6px;
-        }
-
-        .amp-modal-item .amp-name {
-            font-size: 0.85rem;
-            color: #c2b9d4;
-            margin-top: 0.3rem;
-            font-weight: 500;
-        }
-
-        .amp-modal-item .amp-category-label {
-            font-size: 0.6rem;
-            color: #666;
-            margin-top: 0.1rem;
-        }
-
-        .amp-modal-item .amp-status {
-            font-size: 0.6rem;
-            margin-top: 0.2rem;
-        }
-
-        .amp-modal-item .amp-status.available {
-            color: #4c9aff;
-        }
-
-        .amp-modal-item .amp-status.locked {
-            color: #888;
-        }
-
-        .amp-modal-item .amp-status.current {
-            color: #2ecc71;
-        }
-
-        .amp-modal-item .lock-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 14px;
-        }
-
-        .amp-modal-item .lock-overlay i {
-            font-size: 2rem;
-            color: #888;
-        }
-
-        .amp-modal-item .lock-overlay span {
-            font-size: 0.7rem;
-            color: #888;
-            margin-top: 0.3rem;
-        }
-
-        .amp-modal-confirm {
-            margin-top: 1.5rem;
-            text-align: center;
-        }
-
-        .amp-modal-confirm button {
-            background: linear-gradient(135deg, #bc4627, #e25d32);
-            border: none;
-            padding: 0.7rem 2.5rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .amp-modal-confirm button:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
-        }
-
-        .amp-modal-confirm button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        /* ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== */
         .confirm-modal-overlay {
             display: none;
             position: fixed;
@@ -1191,7 +862,6 @@
             color: white;
         }
 
-        /* ===== КНОПКА НАЗАД ===== */
         .back-to-roulette {
             display: inline-flex;
             align-items: center;
@@ -1214,7 +884,6 @@
             transform: translateX(-5px);
         }
 
-        /* ===== ФУТЕР ===== */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -1232,51 +901,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* ===== ИНФОРМАЦИЯ О ЕЖЕНЕДЕЛЬНОМ ВАРИАТОРЕ ===== */
-        .weekly-info {
-            text-align: center;
-            padding: 10px 16px;
-            background: rgba(220, 90, 50, 0.12);
-            border-radius: 16px;
-            border: 1px solid rgba(220, 90, 50, 0.25);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .weekly-info .weekly-label {
-            color: #888;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .weekly-info .weekly-variator {
-            color: #f1c40f;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .weekly-info .weekly-variator i {
-            color: #f1c40f;
-            margin-right: 6px;
-        }
-
-        .weekly-info .weekly-hint {
-            color: #666;
-            font-size: 0.7rem;
-        }
-
-        /* ===== АДАПТИВ ===== */
-        @media (max-width: 992px) {
-            .result-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 850px) {
             .container { padding: 0.8rem; }
             .header { flex-direction: column; padding: 0.8rem 1rem; border-radius: 40px; }
@@ -1284,82 +908,42 @@
             .nav-btn { padding: 0.35rem 0.7rem; font-size: 0.7rem; }
             .logo .logo-img { max-height: 40px; }
             .logo .logo-text { font-size: 1.1rem; }
-            
             .escalation-wrapper { padding: 1.5rem; margin: 0 0.5rem; }
             .escalation-wrapper h1 { font-size: 1.6rem; }
-            
             .step-container { padding: 1.5rem; }
             .step-title { font-size: 1.1rem; }
-            
             .player-count-btn { padding: 1rem 2rem; font-size: 1.3rem; min-width: 70px; }
-            
-            .selection-grid.players-1 { max-width: 100%; }
-            .selection-grid.players-2 { max-width: 100%; }
-            .selection-grid.players-3 { max-width: 100%; }
-            .selection-grid.players-4 { max-width: 100%; }
-            .selection-grid.players-3 .player-block:last-child { max-width: 80%; }
-            .selection-item img { width: 60px; height: 60px; }
-            
-            .result-map-row { flex-direction: column; text-align: left; }
-            .result-map-row .map-image { width: 130px; height: 130px; }
-            
+            .selection-grid { gap: 1rem; }
+            .selection-grid.players-3 { grid-template-columns: 1fr 1fr; max-width: 100%; }
+            .selection-grid.players-4 { grid-template-columns: 1fr 1fr; max-width: 100%; }
+            .result-grid { grid-template-columns: 1fr; }
             .player-name-inputs .input-row { flex-direction: column; align-items: stretch; padding: 0.5rem 1rem; }
             .player-name-inputs .input-row label { min-width: auto; }
-            
-            .player-amps-categories {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
+            .player-amps-categories { grid-template-columns: 1fr; gap: 0.5rem; }
         }
 
         @media (max-width: 600px) {
             .escalation-wrapper { padding: 1rem; }
             .escalation-wrapper h1 { font-size: 1.3rem; flex-wrap: wrap; }
-            
             .step-container { padding: 1rem; }
             .step-title { font-size: 1rem; padding-left: 12px; gap: 8px; }
-            .step-title .step-number { font-size: 0.7rem; padding: 0.1rem 0.6rem; }
-            
+            .selection-grid { gap: 0.8rem; }
+            .selection-grid.players-2 { grid-template-columns: 1fr; max-width: 100%; }
+            .selection-grid.players-3 { grid-template-columns: 1fr; max-width: 100%; }
+            .selection-grid.players-4 { grid-template-columns: 1fr; max-width: 100%; }
             .player-count-btn { padding: 0.8rem 1.2rem; font-size: 1.1rem; min-width: 55px; }
             .player-count-options { gap: 0.5rem; }
-            
-            .selection-grid.players-3 .player-block:last-child { max-width: 100%; }
-            .selection-grid { gap: 1rem; }
-            .selection-item img { width: 50px; height: 50px; }
-            .selection-item .item-name { font-size: 0.7rem; }
-            
-            .result-map-row .map-image { width: 100px; height: 100px; }
-            .variator-list { gap: 0.5rem; }
-            .variator-list .var-item img { width: 50px; height: 50px; }
-            .variator-list .var-item .var-name { font-size: 0.55rem; max-width: 60px; }
-            
             .step-actions { flex-direction: column; align-items: center; }
             .next-btn, .back-btn, .exit-btn { width: 100%; justify-content: center; }
-            
-            .back-to-roulette { font-size: 0.85rem; padding: 0.5rem 1rem; }
-            
-            .amp-modal { padding: 1rem; }
-            .amp-modal-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-            .amp-modal-item img { width: 50px; height: 50px; }
-            .amp-modal-item .amp-name { font-size: 0.7rem; }
-            
-            .player-amps-categories {
-                grid-template-columns: 1fr;
-                gap: 0.4rem;
-            }
-            .amp-category-block .category-name { font-size: 0.6rem; }
-            .amp-category-block .category-amp-name { font-size: 0.7rem; }
+            .result-actions { flex-direction: column; align-items: center; }
+            .result-actions .next-btn { width: 100%; }
+            .player-amps-categories { grid-template-columns: 1fr; gap: 0.4rem; }
         }
     </style>
 </head>
 <body>
 
-<video class="background-video" autoplay muted loop playsinline>
-    <source src="images/об игре фон.mp4" type="video/mp4">
-</video>
-
 <div class="container">
-    <!-- ===== НАВИГАЦИЯ ===== -->
     <div class="header">
         <div class="logo">
             <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
@@ -1380,25 +964,22 @@
         </div>
     </div>
 
-    <!-- ===== ОСНОВНОЙ КОНТЕНТ ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ ===== -->
     <div class="escalation-wrapper" id="escalationWrapper">
         <h1><i class="fas fa-calendar-week"></i> Еженедельная эскалация</h1>
 
-        <!-- Информация о еженедельном вариаторе -->
-        <div class="weekly-info" id="weeklyInfo">
+        <div class="weekly-info">
             <span class="weekly-label"><i class="fas fa-star" style="color: #f1c40f;"></i> Еженедельный вариатор:</span>
             <span class="weekly-variator" id="weeklyVariatorName"><i class="fas fa-spinner fa-spin"></i> Загрузка...</span>
             <span class="weekly-hint">(действует до вторника 21:00 МСК)</span>
         </div>
 
-        <!-- СЧЕТЧИК УРОВНЯ -->
-        <div class="level-counter" id="levelCounter">
+        <div class="level-counter">
             <span class="level-number" id="levelNumber">1</span>
             <span class="level-label">УРОВЕНЬ</span>
             <span class="level-difficulty level-difficulty-intro" id="levelDifficulty">Начальная</span>
         </div>
 
-        <!-- ШАГ 1: Количество игроков -->
+        <!-- ШАГ 1 -->
         <div class="step-container" id="escStep1">
             <div class="step-title">
                 <span class="step-number">Шаг 1</span>
@@ -1416,7 +997,7 @@
             </div>
         </div>
 
-        <!-- ШАГ 2: Ввод ников -->
+        <!-- ШАГ 2 -->
         <div class="step-container hidden" id="escStep2">
             <div class="step-title">
                 <span class="step-number">Шаг 2</span>
@@ -1436,7 +1017,7 @@
                 <span class="step-number">Шаг 3</span>
                 <i class="fas fa-backpack"></i> Выбор снаряжения
             </div>
-            <div class="step-subtitle" id="escStep3Subtitle">Каждому игроку предлагается 3 случайных снаряжения на выбор</div>
+            <div class="step-subtitle">Каждому игроку предлагается 3 случайных снаряжения на выбор</div>
             <div id="escStep3Content"></div>
             <div class="step-actions">
                 <button class="back-btn" id="escStep3Back">← Назад</button>
@@ -1450,7 +1031,7 @@
                 <span class="step-number">Шаг 4</span>
                 <i class="fas fa-capsules"></i> Выбор амп
             </div>
-            <div class="step-subtitle" id="escStep4Subtitle">Каждому игроку предлагается 3 случайных ампы на выбор (нужно выбрать 1)</div>
+            <div class="step-subtitle">Каждому игроку предлагается 3 случайных ампы на выбор</div>
             <div id="escStep4Content"></div>
             <div class="step-actions">
                 <button class="back-btn" id="escStep4Back">← Назад</button>
@@ -1458,7 +1039,7 @@
             </div>
         </div>
 
-        <!-- РЕЗУЛЬТАТ ИСПЫТАНИЯ -->
+        <!-- РЕЗУЛЬТАТ -->
         <div class="escalation-result" id="escResult">
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <span style="background: rgba(220,90,50,0.2); padding: 0.3rem 1.5rem; border-radius: 30px; color: #e16d48; font-size: 0.85rem; font-weight: 600;">
@@ -1499,22 +1080,7 @@
     </footer>
 </div>
 
-<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ СМЕНЫ АМФЫ ===== -->
-<div class="amp-modal-overlay" id="ampModal">
-    <div class="amp-modal">
-        <div class="amp-modal-header">
-            <h2><i class="fas fa-capsules"></i> <span id="ampModalPlayerName">Игрок</span> — выбор ампы</h2>
-            <button class="amp-modal-close" id="ampModalClose">&times;</button>
-        </div>
-        <div class="amp-modal-category-tabs" id="ampCategoryTabs"></div>
-        <div class="amp-modal-grid" id="ampModalGrid"></div>
-        <div class="amp-modal-confirm">
-            <button id="ampModalConfirm">Выбрать</button>
-        </div>
-    </div>
-</div>
-
-<!-- ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== -->
+<!-- Модалка подтверждения -->
 <div class="confirm-modal-overlay" id="confirmModal">
     <div class="confirm-modal">
         <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
@@ -1527,17 +1093,88 @@
     </div>
 </div>
 
-<!-- ===== ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ ===== -->
-<script src="maps.js"></script>
-<script src="variators.js"></script>
-<script src="variators-all.js"></script>
-<script src="amps.js"></script>
-<script src="equipment.js"></script>
-<script src="trials.js"></script>
-
 <script>
 // ============================================================
-// ПОЛНОСТЬЮ ПЕРЕПИСАННЫЙ JS ДЛЯ ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ
+// ВСЕ ДАННЫЕ ВСТРОЕНЫ НАПРЯМУЮ
+// ============================================================
+
+// ===== КАРТЫ =====
+var MAPS = [
+    { id: 'map1', name: 'Фабрика игрушек', icon: '🏭', difficulty: 'Средняя' },
+    { id: 'map2', name: 'Суд', icon: '⚖️', difficulty: 'Сложная' },
+    { id: 'map3', name: 'Полицейский участок', icon: '🚔', difficulty: 'Средняя' },
+    { id: 'map4', name: 'Орфанаж', icon: '🏚️', difficulty: 'Сложная' },
+    { id: 'map5', name: 'Лаборатория', icon: '🧪', difficulty: 'Очень сложная' },
+    { id: 'map6', name: 'Тюрьма', icon: '🔒', difficulty: 'Средняя' },
+    { id: 'map7', name: 'Больница', icon: '🏥', difficulty: 'Сложная' },
+    { id: 'map8', name: 'Церковь', icon: '⛪', difficulty: 'Очень сложная' }
+];
+
+// ===== ВАРИАТОРЫ =====
+var VARIATORS = [
+    { id: 'var1', name: 'Туман', icon: '🌫️', description: 'Плохая видимость' },
+    { id: 'var2', name: 'Шум', icon: '🔊', description: 'Увеличенный шум' },
+    { id: 'var3', name: 'Тьма', icon: '🌑', description: 'Сниженное освещение' },
+    { id: 'var4', name: 'Бег', icon: '🏃', description: 'Враги быстрее' },
+    { id: 'var5', name: 'Ярость', icon: '😡', description: 'Враги агрессивнее' },
+    { id: 'var6', name: 'Холод', icon: '❄️', description: 'Замедленное восстановление' },
+    { id: 'var7', name: 'Жара', icon: '🔥', description: 'Постепенный урон' },
+    { id: 'var8', name: 'Голод', icon: '🍽️', description: 'Меньше ресурсов' },
+    { id: 'var9', name: 'Страх', icon: '😱', description: 'Увеличенная тревога' },
+    { id: 'var10', name: 'Тишина', icon: '🤫', description: 'Звуки привлекают врагов' }
+];
+
+// ===== АМПЫ =====
+var AMPS = [
+    { id: 'amp1', name: 'Адреналин', category: 'Физические', icon: '💉' },
+    { id: 'amp2', name: 'Стойкость', category: 'Физические', icon: '🛡️' },
+    { id: 'amp3', name: 'Скорость', category: 'Физические', icon: '⚡' },
+    { id: 'amp4', name: 'Сила', category: 'Физические', icon: '💪' },
+    { id: 'amp5', name: 'Лечение', category: 'Медицинские', icon: '🩹' },
+    { id: 'amp6', name: 'Антидот', category: 'Медицинские', icon: '🧪' },
+    { id: 'amp7', name: 'Регенерация', category: 'Медицинские', icon: '❤️' },
+    { id: 'amp8', name: 'Зрение', category: 'Ментальные', icon: '👁️' },
+    { id: 'amp9', name: 'Интуиция', category: 'Ментальные', icon: '🧠' },
+    { id: 'amp10', name: 'Воля', category: 'Ментальные', icon: '💪' },
+    { id: 'amp11', name: 'Харизма', category: 'Социальные', icon: '🗣️' },
+    { id: 'amp12', name: 'Лидерство', category: 'Социальные', icon: '👑' },
+    { id: 'amp13', name: 'Скрытность', category: 'Тактические', icon: '🥷' },
+    { id: 'amp14', name: 'Разведка', category: 'Тактические', icon: '🔭' },
+    { id: 'amp15', name: 'Снаряжение', category: 'Тактические', icon: '🎒' }
+];
+
+// ===== СНАРЯЖЕНИЕ =====
+var EQUIPMENT = [
+    { id: 'eq1', name: 'Аптечка', category: 'Медицина', icon: '🩺' },
+    { id: 'eq2', name: 'Бинты', category: 'Медицина', icon: '🩹' },
+    { id: 'eq3', name: 'Шприц', category: 'Медицина', icon: '💉' },
+    { id: 'eq4', name: 'Нож', category: 'Оружие', icon: '🔪' },
+    { id: 'eq5', name: 'Пистолет', category: 'Оружие', icon: '🔫' },
+    { id: 'eq6', name: 'Дубинка', category: 'Оружие', icon: '🪄' },
+    { id: 'eq7', name: 'Фонарик', category: 'Инструменты', icon: '🔦' },
+    { id: 'eq8', name: 'Рация', category: 'Инструменты', icon: '📻' },
+    { id: 'eq9', name: 'Карта', category: 'Инструменты', icon: '🗺️' },
+    { id: 'eq10', name: 'Зажигалка', category: 'Инструменты', icon: '🔥' },
+    { id: 'eq11', name: 'Ключ', category: 'Инструменты', icon: '🔑' },
+    { id: 'eq12', name: 'Броня', category: 'Защита', icon: '🛡️' }
+];
+
+// ===== ИСПЫТАНИЯ =====
+var TRIALS = [
+    { id: 'trial1', name: 'Восхождение', description: 'Проберитесь на верхний уровень' },
+    { id: 'trial2', name: 'Спуск', description: 'Спуститесь в подвал и найдите выход' },
+    { id: 'trial3', name: 'Эвакуация', description: 'Эвакуируйте всех выживших' },
+    { id: 'trial4', name: 'Сбор данных', description: 'Соберите улики и сбегите' },
+    { id: 'trial5', name: 'Уничтожение', description: 'Уничтожьте источник заражения' },
+    { id: 'trial6', name: 'Спасение', description: 'Спасите заложника' },
+    { id: 'trial7', name: 'Взлом', description: 'Взломайте систему безопасности' },
+    { id: 'trial8', name: 'Диверсия', description: 'Совершите диверсию и скройтесь' }
+];
+
+console.log('✅ Все данные загружены!');
+
+// ============================================================
+// ОСНОВНАЯ ЛОГИКА
 // ============================================================
 
 (function() {
@@ -1545,928 +1182,508 @@
 
     console.log('🚀 Запуск еженедельной эскалации...');
 
-    // ===== ГЛОБАЛЬНОЕ СОСТОЯНИЕ =====
-    var weeklyEscState = {
+    var state = {
         playerCount: null,
         playerNames: [],
         selectedEquipment: [],
         selectedAmps: [],
-        // Карта и вариаторы генерируются автоматически
         map: null,
         variators: [],
         weeklyVariator: null,
         level: 1,
-        completed: false,
-        difficulty: 'intro'
+        completed: false
     };
 
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-    function shuffleArray(arr) {
-        for (var i = arr.length - 1; i > 0; i--) {
+    function shuffle(arr) {
+        var a = [].concat(arr);
+        for (var i = a.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
-            var temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            var temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
         }
-        return arr;
+        return a;
     }
 
-    function getRandomItems(arr, count) {
+    function getRandom(arr, count) {
         if (!arr || arr.length === 0) return [];
-        var shuffled = shuffleArray([].concat(arr));
+        var shuffled = shuffle(arr);
         return shuffled.slice(0, Math.min(count, shuffled.length));
     }
 
-    function getItemById(arr, id) {
+    function getById(arr, id) {
         if (!arr || !id) return null;
         return arr.find(function(item) { return item.id === id; }) || null;
     }
 
-    function getItemByName(arr, name) {
-        if (!arr || !name) return null;
-        return arr.find(function(item) { return item.name === name; }) || null;
-    }
-
-    // ===== ЗАГРУЗКА ДАННЫХ =====
-    // Проверяем наличие данных из внешних файлов
-    var dataLoaded = false;
-
-    function checkDataLoaded() {
-        // Проверяем, что все необходимые данные загружены
-        if (typeof MAPS !== 'undefined' && MAPS.length > 0 &&
-            typeof VARIATORS !== 'undefined' && VARIATORS.length > 0 &&
-            typeof AMPS !== 'undefined' && AMPS.length > 0 &&
-            typeof EQUIPMENT !== 'undefined' && EQUIPMENT.length > 0 &&
-            typeof TRIALS !== 'undefined' && TRIALS.length > 0) {
-            dataLoaded = true;
-            return true;
-        }
-        
-        console.warn('⚠️ Данные ещё не загружены, ожидание...');
-        return false;
-    }
-
-    // Функция для безопасного получения данных
-    function getSafeData() {
-        return {
-            maps: typeof MAPS !== 'undefined' ? MAPS : [],
-            variators: typeof VARIATORS !== 'undefined' ? VARIATORS : [],
-            amps: typeof AMPS !== 'undefined' ? AMPS : [],
-            equipment: typeof EQUIPMENT !== 'undefined' ? EQUIPMENT : [],
-            trials: typeof TRIALS !== 'undefined' ? TRIALS : []
-        };
-    }
-
-    // ===== ГЕНЕРАЦИЯ ИСПЫТАНИЯ =====
-    function generateTrial() {
-        var data = getSafeData();
-        var maps = data.maps;
-        var variators = data.variators;
-        var trials = data.trials;
-
-        if (maps.length === 0) {
-            console.error('❌ Нет данных о картах!');
-            return null;
-        }
-
-        // Выбираем случайную карту
-        var map = maps[Math.floor(Math.random() * maps.length)];
-        
-        // Выбираем 2 случайных вариатора (без повторений)
-        var shuffledVariators = shuffleArray([].concat(variators));
-        var selectedVariators = [];
-        for (var i = 0; i < Math.min(2, shuffledVariators.length); i++) {
-            selectedVariators.push(shuffledVariators[i]);
-        }
-
-        // Добавляем еженедельный вариатор
-        var weeklyVar = getWeeklyVariator();
-        if (weeklyVar) {
-            // Проверяем, что нет дубликатов
-            var hasDuplicate = selectedVariators.some(function(v) { 
-                return v.id === weeklyVar.id || v.name === weeklyVar.name; 
-            });
-            if (!hasDuplicate) {
-                selectedVariators.push(weeklyVar);
-            }
-        }
-
-        return {
-            map: map,
-            variators: selectedVariators,
-            trial: trials.length > 0 ? trials[Math.floor(Math.random() * trials.length)] : null
-        };
-    }
-
-    // ===== ЕЖЕНЕДЕЛЬНЫЙ ВАРИАТОР =====
     function getWeeklyVariator() {
-        // Если уже есть сохранённый, возвращаем его
-        if (weeklyEscState.weeklyVariator) {
-            return weeklyEscState.weeklyVariator;
-        }
-
-        var data = getSafeData();
-        var variators = data.variators;
-        
-        if (variators.length === 0) return null;
-        
-        // Выбираем случайный вариатор как "еженедельный"
-        // В реальности здесь должна быть логика выбора конкретного вариатора по дате
-        var weekly = variators[Math.floor(Math.random() * variators.length)];
-        weeklyEscState.weeklyVariator = weekly;
-        
-        // Обновляем отображение
-        updateWeeklyVariatorDisplay();
-        
+        if (state.weeklyVariator) return state.weeklyVariator;
+        var weekly = VARIATORS[Math.floor(Math.random() * VARIATORS.length)];
+        state.weeklyVariator = weekly;
+        updateWeeklyDisplay();
         return weekly;
     }
 
-    function updateWeeklyVariatorDisplay() {
-        var nameEl = document.getElementById('weeklyVariatorName');
-        if (nameEl) {
-            if (weeklyEscState.weeklyVariator) {
-                nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
-            } else {
-                nameEl.innerHTML = '<i class="fas fa-star"></i> Нет';
-            }
+    function updateWeeklyDisplay() {
+        var el = document.getElementById('weeklyVariatorName');
+        if (el && state.weeklyVariator) {
+            el.innerHTML = '<i class="fas fa-star"></i> ' + state.weeklyVariator.name;
         }
     }
 
-    // ===== ФУНКЦИИ УПРАВЛЕНИЯ СОСТОЯНИЕМ =====
+    function getDifficulty(level) {
+        if (level <= 3) return { text: 'Начальная', cls: 'level-difficulty-intro' };
+        if (level <= 6) return { text: 'Стандартная', cls: 'level-difficulty-standard' };
+        if (level <= 9) return { text: 'Интенсивная', cls: 'level-difficulty-intensive' };
+        return { text: 'Психо', cls: 'level-difficulty-psycho' };
+    }
+
+    function updateLevelDisplay() {
+        var numEl = document.getElementById('levelNumber');
+        var diffEl = document.getElementById('levelDifficulty');
+        if (numEl) numEl.textContent = state.level;
+        if (diffEl) {
+            var diff = getDifficulty(state.level);
+            diffEl.textContent = diff.text;
+            diffEl.className = 'level-difficulty ' + diff.cls;
+        }
+    }
+
+    function generateTrial() {
+        var map = MAPS[Math.floor(Math.random() * MAPS.length)];
+        var vars = getRandom(VARIATORS, 2);
+        var weekly = getWeeklyVariator();
+        if (weekly) {
+            var hasDup = vars.some(function(v) { return v.id === weekly.id; });
+            if (!hasDup) vars.push(weekly);
+        }
+        var trial = TRIALS[Math.floor(Math.random() * TRIALS.length)];
+        return { map: map, variators: vars, trial: trial };
+    }
+
+    // ===== УПРАВЛЕНИЕ СОСТОЯНИЕМ =====
     function setPlayerCount(count) {
-        weeklyEscState.playerCount = count;
-        weeklyEscState.playerNames = [];
-        weeklyEscState.selectedEquipment = [];
-        weeklyEscState.selectedAmps = [];
-        
-        // Инициализируем массивы для каждого игрока
+        state.playerCount = count;
+        state.playerNames = [];
+        state.selectedEquipment = [];
+        state.selectedAmps = [];
         for (var i = 0; i < count; i++) {
-            weeklyEscState.playerNames.push('');
-            weeklyEscState.selectedEquipment.push(null);
-            weeklyEscState.selectedAmps.push([]);
+            state.playerNames.push('');
+            state.selectedEquipment.push(null);
+            state.selectedAmps.push([]);
         }
     }
 
     function setPlayerName(index, name) {
-        if (index >= 0 && index < weeklyEscState.playerNames.length) {
-            weeklyEscState.playerNames[index] = name.trim();
+        if (index >= 0 && index < state.playerNames.length) {
+            state.playerNames[index] = name.trim();
         }
     }
 
-    function setPlayerEquipment(index, equipId) {
-        if (index >= 0 && index < weeklyEscState.selectedEquipment.length) {
-            weeklyEscState.selectedEquipment[index] = equipId;
+    function setEquipment(index, id) {
+        if (index >= 0 && index < state.selectedEquipment.length) {
+            state.selectedEquipment[index] = id;
         }
     }
 
-    function setPlayerAmp(index, ampId) {
-        if (index >= 0 && index < weeklyEscState.selectedAmps.length) {
-            // Проверяем, есть ли уже такая ампа
-            var existingIndex = weeklyEscState.selectedAmps[index].indexOf(ampId);
-            if (existingIndex === -1) {
-                weeklyEscState.selectedAmps[index].push(ampId);
-            }
+    function setAmp(index, id) {
+        if (index >= 0 && index < state.selectedAmps.length) {
+            state.selectedAmps[index] = [id];
         }
     }
 
-    function removePlayerAmp(index, ampId) {
-        if (index >= 0 && index < weeklyEscState.selectedAmps.length) {
-            var ampIndex = weeklyEscState.selectedAmps[index].indexOf(ampId);
-            if (ampIndex !== -1) {
-                weeklyEscState.selectedAmps[index].splice(ampIndex, 1);
-            }
+    function clearAmps(index) {
+        if (index >= 0 && index < state.selectedAmps.length) {
+            state.selectedAmps[index] = [];
         }
-    }
-
-    function clearPlayerAmps(index) {
-        if (index >= 0 && index < weeklyEscState.selectedAmps.length) {
-            weeklyEscState.selectedAmps[index] = [];
-        }
-    }
-
-    function getPlayerAmpCount(index) {
-        if (index >= 0 && index < weeklyEscState.selectedAmps.length) {
-            return weeklyEscState.selectedAmps[index].length;
-        }
-        return 0;
     }
 
     function isPlayerReady(index) {
-        if (index >= 0 && index < weeklyEscState.playerNames.length) {
-            return weeklyEscState.playerNames[index].length > 0 &&
-                   weeklyEscState.selectedEquipment[index] !== null &&
-                   weeklyEscState.selectedAmps[index].length > 0;
-        }
-        return false;
+        return state.playerNames[index] && state.playerNames[index].length > 0 &&
+               state.selectedEquipment[index] !== null &&
+               state.selectedAmps[index] && state.selectedAmps[index].length > 0;
     }
 
-    function allPlayersReady() {
-        for (var i = 0; i < weeklyEscState.playerCount; i++) {
+    function allReady() {
+        for (var i = 0; i < state.playerCount; i++) {
             if (!isPlayerReady(i)) return false;
         }
         return true;
     }
 
-    // ===== ОБНОВЛЕНИЕ ИНТЕРФЕЙСА =====
-    function updateLevelDisplay() {
-        var levelEl = document.getElementById('levelNumber');
-        var difficultyEl = document.getElementById('levelDifficulty');
-        
-        if (levelEl) levelEl.textContent = weeklyEscState.level;
-        
-        if (difficultyEl) {
-            var level = weeklyEscState.level;
-            var difficultyText = '';
-            var difficultyClass = '';
-            
-            if (level <= 3) {
-                difficultyText = 'Начальная';
-                difficultyClass = 'level-difficulty-intro';
-            } else if (level <= 6) {
-                difficultyText = 'Стандартная';
-                difficultyClass = 'level-difficulty-standard';
-            } else if (level <= 9) {
-                difficultyText = 'Интенсивная';
-                difficultyClass = 'level-difficulty-intensive';
-            } else {
-                difficultyText = 'Психо';
-                difficultyClass = 'level-difficulty-psycho';
-            }
-            
-            difficultyEl.textContent = difficultyText;
-            difficultyEl.className = 'level-difficulty ' + difficultyClass;
-        }
+    // ===== ПЕРЕКЛЮЧЕНИЕ ШАГОВ =====
+    function showStep(step) {
+        document.querySelectorAll('.step-container').forEach(function(el) {
+            el.classList.add('hidden');
+        });
+        document.getElementById('escResult').classList.remove('active');
+        var el = document.getElementById('escStep' + step);
+        if (el) el.classList.remove('hidden');
     }
 
-    // ===== ШАГ 1: ВЫБОР КОЛИЧЕСТВА ИГРОКОВ =====
+    // ===== ШАГ 1 =====
     function initStep1() {
-        var buttons = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
-        var nextBtn = document.getElementById('escStep1Next');
-        
-        buttons.forEach(function(btn) {
+        var btns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
+        var next = document.getElementById('escStep1Next');
+
+        btns.forEach(function(btn) {
             btn.addEventListener('click', function() {
-                buttons.forEach(function(b) { b.classList.remove('selected'); });
+                btns.forEach(function(b) { b.classList.remove('selected'); });
                 this.classList.add('selected');
-                
-                var count = parseInt(this.dataset.count);
-                setPlayerCount(count);
-                nextBtn.disabled = false;
+                setPlayerCount(parseInt(this.dataset.count));
+                next.disabled = false;
             });
         });
-        
-        nextBtn.addEventListener('click', function() {
-            if (weeklyEscState.playerCount) {
+
+        next.addEventListener('click', function() {
+            if (state.playerCount) {
                 showStep(2);
                 initStep2();
             }
         });
     }
 
-    // ===== ШАГ 2: ВВОД ИМЕН =====
+    // ===== ШАГ 2 =====
     function initStep2() {
         var container = document.getElementById('escPlayerNameInputs');
-        var nextBtn = document.getElementById('escStep2Next');
-        var backBtn = document.getElementById('escStep2Back');
-        
+        var next = document.getElementById('escStep2Next');
+        var back = document.getElementById('escStep2Back');
+
         container.innerHTML = '';
-        
-        for (var i = 0; i < weeklyEscState.playerCount; i++) {
+        for (var i = 0; i < state.playerCount; i++) {
             var row = document.createElement('div');
             row.className = 'input-row';
-            row.innerHTML = `
-                <label for="playerName_${i}">Игрок ${i + 1}</label>
-                <input type="text" id="playerName_${i}" placeholder="Введите ник..." value="${weeklyEscState.playerNames[i] || ''}">
-            `;
+            row.innerHTML = '<label>Игрок ' + (i + 1) + '</label><input type="text" placeholder="Введите ник..." value="' + (state.playerNames[i] || '') + '">';
             container.appendChild(row);
-            
             var input = row.querySelector('input');
-            input.addEventListener('input', function(index, e) {
-                setPlayerName(index, e.target.value);
-                checkStep2Ready();
+            input.addEventListener('input', function(idx, e) {
+                setPlayerName(idx, e.target.value);
+                checkReady();
             }.bind(null, i));
         }
-        
-        function checkStep2Ready() {
-            var allFilled = true;
-            for (var i = 0; i < weeklyEscState.playerCount; i++) {
-                if (!weeklyEscState.playerNames[i] || weeklyEscState.playerNames[i].length === 0) {
-                    allFilled = false;
+
+        function checkReady() {
+            var ready = true;
+            for (var i = 0; i < state.playerCount; i++) {
+                if (!state.playerNames[i] || state.playerNames[i].length === 0) {
+                    ready = false;
                     break;
                 }
             }
-            nextBtn.disabled = !allFilled;
+            next.disabled = !ready;
         }
-        
-        // Первоначальная проверка
-        setTimeout(checkStep2Ready, 100);
-        
-        nextBtn.addEventListener('click', function() {
-            if (!nextBtn.disabled) {
-                showStep(3);
-                initStep3();
-            }
+
+        setTimeout(checkReady, 100);
+
+        next.addEventListener('click', function() {
+            if (!next.disabled) { showStep(3); initStep3(); }
         });
-        
-        backBtn.addEventListener('click', function() {
-            showStep(1);
-        });
+
+        back.addEventListener('click', function() { showStep(1); });
     }
 
-    // ===== ШАГ 3: ВЫБОР СНАРЯЖЕНИЯ =====
+    // ===== ШАГ 3: Снаряжение =====
     function initStep3() {
         var container = document.getElementById('escStep3Content');
-        var nextBtn = document.getElementById('escStep3Next');
-        var backBtn = document.getElementById('escStep3Back');
-        
-        var data = getSafeData();
-        var equipment = data.equipment;
-        
+        var next = document.getElementById('escStep3Next');
+        var back = document.getElementById('escStep3Back');
+
         container.innerHTML = '';
-        
-        // Создаём сетку выбора для каждого игрока
         var grid = document.createElement('div');
-        grid.className = 'selection-grid players-' + weeklyEscState.playerCount;
+        grid.className = 'selection-grid players-' + state.playerCount;
         container.appendChild(grid);
-        
-        for (var i = 0; i < weeklyEscState.playerCount; i++) {
+
+        for (var i = 0; i < state.playerCount; i++) {
             var block = document.createElement('div');
             block.className = 'player-block';
-            block.dataset.playerIndex = i;
-            
+            block.dataset.idx = i;
+
             var title = document.createElement('div');
             title.className = 'block-title';
-            title.textContent = weeklyEscState.playerNames[i] || 'Игрок ' + (i + 1);
+            title.textContent = state.playerNames[i] || 'Игрок ' + (i + 1);
             block.appendChild(title);
-            
-            var itemsContainer = document.createElement('div');
-            itemsContainer.className = 'selection-items';
-            itemsContainer.dataset.playerIndex = i;
-            
-            // Выбираем 3 случайных снаряжения
-            var randomEquipment = getRandomItems(equipment, 3);
-            
-            randomEquipment.forEach(function(equip) {
-                var item = document.createElement('div');
-                item.className = 'selection-item';
-                item.dataset.equipId = equip.id;
-                
-                var img = document.createElement('img');
-                img.src = equip.image || 'images/placeholder.png';
-                img.alt = equip.name;
-                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70"%3E%3Crect width="70" height="70" fill="%23333"/%3E%3Ctext x="35" y="40" text-anchor="middle" fill="%23666" font-size="12"%3E' + encodeURIComponent(equip.name || '?') + '%3C/text%3E%3C/svg%3E'; };
-                
-                var nameSpan = document.createElement('span');
-                nameSpan.className = 'item-name';
-                nameSpan.textContent = equip.name || 'Неизвестно';
-                
-                var categorySpan = document.createElement('span');
-                categorySpan.className = 'item-category';
-                categorySpan.textContent = equip.category || 'Снаряжение';
-                
-                var checkMark = document.createElement('span');
-                checkMark.className = 'check-mark';
-                checkMark.innerHTML = '<i class="fas fa-check-circle"></i>';
-                
-                item.appendChild(img);
-                item.appendChild(nameSpan);
-                item.appendChild(categorySpan);
-                item.appendChild(checkMark);
-                
-                // Проверяем, выбрано ли уже это снаряжение
-                if (weeklyEscState.selectedEquipment[i] === equip.id) {
-                    item.classList.add('selected');
-                }
-                
-                item.addEventListener('click', function(index, e) {
+
+            var items = document.createElement('div');
+            items.className = 'selection-items';
+
+            var options = getRandom(EQUIPMENT, 3);
+            options.forEach(function(eq) {
+                var el = document.createElement('div');
+                el.className = 'selection-item';
+                el.dataset.eqId = eq.id;
+                el.innerHTML = '<div class="item-icon">' + (eq.icon || '🎒') + '</div>' +
+                               '<span class="item-name">' + eq.name + '</span>' +
+                               '<span class="item-category">' + (eq.category || 'Снаряжение') + '</span>' +
+                               '<span class="check-mark"><i class="fas fa-check-circle"></i></span>';
+                if (state.selectedEquipment[i] === eq.id) el.classList.add('selected');
+
+                el.addEventListener('click', function(idx, e) {
                     var target = e.currentTarget;
-                    var parentBlock = target.closest('.player-block');
-                    var playerIdx = parseInt(parentBlock.dataset.playerIndex);
-                    
-                    // Убираем выделение у всех элементов в этом блоке
-                    parentBlock.querySelectorAll('.selection-item').forEach(function(el) {
-                        el.classList.remove('selected');
-                    });
-                    
-                    // Выделяем текущий
+                    var parent = target.closest('.player-block');
+                    var pIdx = parseInt(parent.dataset.idx);
+                    parent.querySelectorAll('.selection-item').forEach(function(el) { el.classList.remove('selected'); });
                     target.classList.add('selected');
-                    
-                    // Сохраняем выбор
-                    var equipId = target.dataset.equipId;
-                    setPlayerEquipment(playerIdx, equipId);
-                    
-                    // Проверяем, все ли готовы
-                    checkStep3Ready();
+                    setEquipment(pIdx, target.dataset.eqId);
+                    checkReady();
                 }.bind(null, i));
-                
-                itemsContainer.appendChild(item);
+
+                items.appendChild(el);
             });
-            
-            block.appendChild(itemsContainer);
+
+            block.appendChild(items);
             grid.appendChild(block);
         }
-        
-        function checkStep3Ready() {
+
+        function checkReady() {
             var ready = true;
-            for (var i = 0; i < weeklyEscState.playerCount; i++) {
-                if (weeklyEscState.selectedEquipment[i] === null) {
-                    ready = false;
-                    break;
-                }
+            for (var i = 0; i < state.playerCount; i++) {
+                if (state.selectedEquipment[i] === null) { ready = false; break; }
             }
-            nextBtn.disabled = !ready;
+            next.disabled = !ready;
         }
-        
-        setTimeout(checkStep3Ready, 100);
-        
-        nextBtn.addEventListener('click', function() {
-            if (!nextBtn.disabled) {
-                showStep(4);
-                initStep4();
-            }
+
+        setTimeout(checkReady, 100);
+
+        next.addEventListener('click', function() {
+            if (!next.disabled) { showStep(4); initStep4(); }
         });
-        
-        backBtn.addEventListener('click', function() {
-            showStep(2);
-        });
+
+        back.addEventListener('click', function() { showStep(2); });
     }
 
-    // ===== ШАГ 4: ВЫБОР АМП =====
+    // ===== ШАГ 4: Ампы =====
     function initStep4() {
         var container = document.getElementById('escStep4Content');
-        var nextBtn = document.getElementById('escStep4Next');
-        var backBtn = document.getElementById('escStep4Back');
-        
-        var data = getSafeData();
-        var amps = data.amps;
-        
+        var next = document.getElementById('escStep4Next');
+        var back = document.getElementById('escStep4Back');
+
         container.innerHTML = '';
-        
-        // Создаём сетку выбора для каждого игрока
         var grid = document.createElement('div');
-        grid.className = 'selection-grid players-' + weeklyEscState.playerCount;
+        grid.className = 'selection-grid players-' + state.playerCount;
         container.appendChild(grid);
-        
-        for (var i = 0; i < weeklyEscState.playerCount; i++) {
+
+        for (var i = 0; i < state.playerCount; i++) {
             var block = document.createElement('div');
             block.className = 'player-block';
-            block.dataset.playerIndex = i;
-            
+            block.dataset.idx = i;
+
             var title = document.createElement('div');
             title.className = 'block-title';
-            title.textContent = weeklyEscState.playerNames[i] || 'Игрок ' + (i + 1);
+            title.textContent = state.playerNames[i] || 'Игрок ' + (i + 1);
             block.appendChild(title);
-            
-            var itemsContainer = document.createElement('div');
-            itemsContainer.className = 'selection-items';
-            itemsContainer.dataset.playerIndex = i;
-            
-            // Выбираем 3 случайных ампы
-            var randomAmps = getRandomItems(amps, 3);
-            
-            randomAmps.forEach(function(amp) {
-                var item = document.createElement('div');
-                item.className = 'selection-item';
-                item.dataset.ampId = amp.id;
-                
-                var img = document.createElement('img');
-                img.src = amp.image || 'images/placeholder.png';
-                img.alt = amp.name;
-                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70"%3E%3Crect width="70" height="70" fill="%23333"/%3E%3Ctext x="35" y="40" text-anchor="middle" fill="%23666" font-size="12"%3E' + encodeURIComponent(amp.name || '?') + '%3C/text%3E%3C/svg%3E'; };
-                
-                var nameSpan = document.createElement('span');
-                nameSpan.className = 'item-name';
-                nameSpan.textContent = amp.name || 'Неизвестно';
-                
-                var categorySpan = document.createElement('span');
-                categorySpan.className = 'item-category';
-                categorySpan.textContent = amp.category || 'Ампа';
-                
-                var checkMark = document.createElement('span');
-                checkMark.className = 'check-mark';
-                checkMark.innerHTML = '<i class="fas fa-check-circle"></i>';
-                
-                item.appendChild(img);
-                item.appendChild(nameSpan);
-                item.appendChild(categorySpan);
-                item.appendChild(checkMark);
-                
-                // Проверяем, выбрана ли уже эта ампа
-                if (weeklyEscState.selectedAmps[i] && weeklyEscState.selectedAmps[i].indexOf(amp.id) !== -1) {
-                    item.classList.add('selected');
-                }
-                
-                item.addEventListener('click', function(index, e) {
+
+            var items = document.createElement('div');
+            items.className = 'selection-items';
+
+            var options = getRandom(AMPS, 3);
+            options.forEach(function(amp) {
+                var el = document.createElement('div');
+                el.className = 'selection-item';
+                el.dataset.ampId = amp.id;
+                el.innerHTML = '<div class="item-icon">' + (amp.icon || '💊') + '</div>' +
+                               '<span class="item-name">' + amp.name + '</span>' +
+                               '<span class="item-category">' + (amp.category || 'Ампа') + '</span>' +
+                               '<span class="check-mark"><i class="fas fa-check-circle"></i></span>';
+                if (state.selectedAmps[i] && state.selectedAmps[i].indexOf(amp.id) !== -1) el.classList.add('selected');
+
+                el.addEventListener('click', function(idx, e) {
                     var target = e.currentTarget;
-                    var parentBlock = target.closest('.player-block');
-                    var playerIdx = parseInt(parentBlock.dataset.playerIndex);
-                    var ampId = target.dataset.ampId;
-                    
-                    // Убираем выделение у всех элементов в этом блоке
-                    parentBlock.querySelectorAll('.selection-item').forEach(function(el) {
-                        el.classList.remove('selected');
-                    });
-                    
-                    // Выделяем текущий
+                    var parent = target.closest('.player-block');
+                    var pIdx = parseInt(parent.dataset.idx);
+                    parent.querySelectorAll('.selection-item').forEach(function(el) { el.classList.remove('selected'); });
                     target.classList.add('selected');
-                    
-                    // Очищаем предыдущие выборы амп для этого игрока
-                    clearPlayerAmps(playerIdx);
-                    // Сохраняем выбор
-                    setPlayerAmp(playerIdx, ampId);
-                    
-                    // Проверяем, все ли готовы
-                    checkStep4Ready();
+                    setAmp(pIdx, target.dataset.ampId);
+                    checkReady();
                 }.bind(null, i));
-                
-                itemsContainer.appendChild(item);
+
+                items.appendChild(el);
             });
-            
-            block.appendChild(itemsContainer);
+
+            block.appendChild(items);
             grid.appendChild(block);
         }
-        
-        function checkStep4Ready() {
+
+        function checkReady() {
             var ready = true;
-            for (var i = 0; i < weeklyEscState.playerCount; i++) {
-                if (!weeklyEscState.selectedAmps[i] || weeklyEscState.selectedAmps[i].length === 0) {
+            for (var i = 0; i < state.playerCount; i++) {
+                if (!state.selectedAmps[i] || state.selectedAmps[i].length === 0) {
                     ready = false;
                     break;
                 }
             }
-            nextBtn.disabled = !ready;
+            next.disabled = !ready;
         }
-        
-        setTimeout(checkStep4Ready, 100);
-        
-        nextBtn.addEventListener('click', function() {
-            if (!nextBtn.disabled) {
-                showResult();
-            }
+
+        setTimeout(checkReady, 100);
+
+        next.addEventListener('click', function() {
+            if (!next.disabled) showResult();
         });
-        
-        backBtn.addEventListener('click', function() {
-            showStep(3);
-        });
+
+        back.addEventListener('click', function() { showStep(3); });
     }
 
-    // ===== ПОКАЗ РЕЗУЛЬТАТА =====
+    // ===== РЕЗУЛЬТАТ =====
     function showResult() {
-        // Генерируем испытание
-        var trialData = generateTrial();
-        if (!trialData) {
-            alert('Ошибка генерации испытания. Попробуйте ещё раз.');
-            return;
-        }
-        
-        weeklyEscState.map = trialData.map;
-        weeklyEscState.variators = trialData.variators;
-        weeklyEscState.completed = true;
-        
-        // Обновляем уровень
-        weeklyEscState.level++;
-        updateLevelDisplay();
-        
-        // Скрываем шаги, показываем результат
-        document.querySelectorAll('.step-container').forEach(function(el) {
-            el.classList.add('hidden');
-        });
-        document.getElementById('escStep1').classList.add('hidden');
-        
+        var data = generateTrial();
+        state.map = data.map;
+        state.variators = data.variators;
+        state.completed = true;
+        state.level++;
+
+        document.querySelectorAll('.step-container').forEach(function(el) { el.classList.add('hidden'); });
         var resultEl = document.getElementById('escResult');
         resultEl.classList.add('active');
-        
-        // Заполняем результат
-        renderResult(trialData);
+
+        updateLevelDisplay();
+        renderResult(data);
     }
 
-    // ===== ОТОБРАЖЕНИЕ РЕЗУЛЬТАТА =====
-    function renderResult(trialData) {
-        var map = trialData.map;
-        var variators = trialData.variators;
-        
+    function renderResult(data) {
+        var map = data.map;
+        var vars = data.variators;
+        var trial = data.trial;
+
         // Карта
         var mapContainer = document.getElementById('escResultMap');
         mapContainer.innerHTML = '';
-        
-        var mapImg = document.createElement('img');
-        mapImg.className = 'map-image';
-        mapImg.src = map.image || 'images/placeholder.png';
-        mapImg.alt = map.name || 'Карта';
-        mapImg.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"%3E%3Crect width="160" height="160" fill="%23333"/%3E%3Ctext x="80" y="85" text-anchor="middle" fill="%23666" font-size="14"%3E' + encodeURIComponent(map.name || '?') + '%3C/text%3E%3C/svg%3E'; };
-        
-        var infoDiv = document.createElement('div');
-        infoDiv.className = 'result-map-info';
-        
-        var labelSpan = document.createElement('div');
-        labelSpan.className = 'map-label';
-        labelSpan.textContent = 'Локация';
-        
-        var nameSpan = document.createElement('div');
-        nameSpan.className = 'map-name';
-        nameSpan.textContent = map.name || 'Неизвестно';
-        
-        var trialSpan = document.createElement('div');
-        trialSpan.className = 'trial-name';
-        trialSpan.textContent = trialData.trial ? trialData.trial.name : 'Испытание';
-        
-        var descSpan = document.createElement('div');
-        descSpan.className = 'trial-desc';
-        descSpan.textContent = trialData.trial ? trialData.trial.description : 'Пройдите испытание';
-        
-        var metaDiv = document.createElement('div');
-        metaDiv.className = 'map-meta';
-        metaDiv.innerHTML = `
-            <span class="map-meta-item"><strong>Уровень:</strong> ${weeklyEscState.level - 1}</span>
-            <span class="map-meta-item"><strong>Сложность:</strong> ${weeklyEscState.level <= 3 ? 'Начальная' : weeklyEscState.level <= 6 ? 'Стандартная' : weeklyEscState.level <= 9 ? 'Интенсивная' : 'Психо'}</span>
-        `;
-        
-        infoDiv.appendChild(labelSpan);
-        infoDiv.appendChild(nameSpan);
-        infoDiv.appendChild(trialSpan);
-        infoDiv.appendChild(descSpan);
-        infoDiv.appendChild(metaDiv);
-        
-        var rowDiv = document.createElement('div');
-        rowDiv.className = 'result-map-row';
-        rowDiv.appendChild(mapImg);
-        rowDiv.appendChild(infoDiv);
-        mapContainer.appendChild(rowDiv);
-        
+        var row = document.createElement('div');
+        row.className = 'result-map-row';
+        row.innerHTML = '<div class="map-icon">' + (map.icon || '🗺️') + '</div>';
+        var info = document.createElement('div');
+        info.className = 'result-map-info';
+        info.innerHTML = '<div class="map-label">Локация</div>' +
+                         '<div class="map-name">' + map.name + '</div>' +
+                         '<div class="trial-name">' + (trial ? trial.name : 'Испытание') + '</div>' +
+                         '<div class="trial-desc">' + (trial ? trial.description : 'Пройдите испытание') + '</div>' +
+                         '<div class="map-meta">' +
+                         '<span class="map-meta-item"><strong>Уровень:</strong> ' + (state.level - 1) + '</span>' +
+                         '<span class="map-meta-item"><strong>Сложность:</strong> ' + getDifficulty(state.level - 1).text + '</span>' +
+                         '</div>';
+        row.appendChild(info);
+        mapContainer.appendChild(row);
+
         // Вариаторы
         var varContainer = document.getElementById('escResultVariators');
         varContainer.innerHTML = '';
-        
-        variators.forEach(function(variator) {
-            var item = document.createElement('div');
-            item.className = 'var-item';
-            
-            var img = document.createElement('img');
-            img.src = variator.image || 'images/placeholder.png';
-            img.alt = variator.name;
-            img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E' + encodeURIComponent(variator.name || '?') + '%3C/text%3E%3C/svg%3E'; };
-            
-            var nameSpan = document.createElement('span');
-            nameSpan.className = 'var-name';
-            nameSpan.textContent = variator.name || 'Вариатор';
-            
-            item.appendChild(img);
-            item.appendChild(nameSpan);
-            varContainer.appendChild(item);
+        vars.forEach(function(v) {
+            var el = document.createElement('div');
+            el.className = 'var-item';
+            el.innerHTML = '<div class="var-icon">' + (v.icon || '💀') + '</div><span class="var-name">' + v.name + '</span>';
+            varContainer.appendChild(el);
         });
-        
+
         // Игроки
         var playersContainer = document.getElementById('escResultPlayers');
         playersContainer.innerHTML = '';
-        
-        var data = getSafeData();
-        var equipmentData = data.equipment;
-        var ampsData = data.amps;
-        
-        for (var i = 0; i < weeklyEscState.playerCount; i++) {
-            var playerDiv = document.createElement('div');
-            playerDiv.className = 'player-result';
-            
-            var nameDiv = document.createElement('div');
-            nameDiv.className = 'player-name';
-            nameDiv.innerHTML = '<i class="fas fa-user"></i> ' + (weeklyEscState.playerNames[i] || 'Игрок ' + (i + 1));
-            playerDiv.appendChild(nameDiv);
-            
-            // Снаряжение
-            var equipId = weeklyEscState.selectedEquipment[i];
-            var equip = getItemById(equipmentData, equipId);
-            
-            var equipDiv = document.createElement('div');
-            equipDiv.className = 'player-equip';
-            
-            var equipImg = document.createElement('img');
-            equipImg.src = equip && equip.image ? equip.image : 'images/placeholder.png';
-            equipImg.alt = equip ? equip.name : 'Снаряжение';
-            equipImg.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"%3E%3Crect width="36" height="36" fill="%23333"/%3E%3Ctext x="18" y="22" text-anchor="middle" fill="%23666" font-size="8"%3E?%3C/text%3E%3C/svg%3E'; };
-            
-            var labelSpan = document.createElement('span');
-            labelSpan.className = 'label';
-            labelSpan.textContent = 'Снаряжение:';
-            
-            var valueSpan = document.createElement('span');
-            valueSpan.className = 'value';
-            valueSpan.textContent = equip ? equip.name : 'Не выбрано';
-            
-            equipDiv.appendChild(equipImg);
-            equipDiv.appendChild(labelSpan);
-            equipDiv.appendChild(valueSpan);
-            playerDiv.appendChild(equipDiv);
-            
-            // Ампы
-            var ampsContainer = document.createElement('div');
-            ampsContainer.className = 'player-amps-categories';
-            
-            var playerAmps = weeklyEscState.selectedAmps[i] || [];
-            
-            // Группируем ампы по категориям
-            var ampCategories = {};
-            playerAmps.forEach(function(ampId) {
-                var amp = getItemById(ampsData, ampId);
-                if (amp) {
-                    var category = amp.category || 'Другие';
-                    if (!ampCategories[category]) {
-                        ampCategories[category] = [];
-                    }
-                    ampCategories[category].push(amp);
-                }
-            });
-            
-            // Если амп нет, показываем пустые слоты
-            if (Object.keys(ampCategories).length === 0) {
-                var emptyBlock = document.createElement('div');
-                emptyBlock.className = 'amp-category-block';
-                emptyBlock.innerHTML = `
-                    <div class="category-header">
-                        <span class="category-name">Нет амп</span>
-                    </div>
-                    <div class="category-amp-empty">Не выбрано</div>
-                `;
-                ampsContainer.appendChild(emptyBlock);
+
+        for (var i = 0; i < state.playerCount; i++) {
+            var pDiv = document.createElement('div');
+            pDiv.className = 'player-result';
+
+            var equip = getById(EQUIPMENT, state.selectedEquipment[i]);
+            var amps = state.selectedAmps[i] || [];
+            var ampObjects = amps.map(function(id) { return getById(AMPS, id); }).filter(function(a) { return a !== null; });
+
+            pDiv.innerHTML = '<div class="player-name"><i class="fas fa-user"></i> ' + (state.playerNames[i] || 'Игрок ' + (i + 1)) + '</div>';
+
+            var eqDiv = document.createElement('div');
+            eqDiv.className = 'player-equip';
+            eqDiv.innerHTML = '<span class="equip-icon">' + (equip ? equip.icon : '🎒') + '</span>' +
+                              '<span class="label">Снаряжение:</span>' +
+                              '<span class="value">' + (equip ? equip.name : 'Не выбрано') + '</span>';
+            pDiv.appendChild(eqDiv);
+
+            var ampsDiv = document.createElement('div');
+            ampsDiv.className = 'player-amps-categories';
+
+            if (ampObjects.length === 0) {
+                ampsDiv.innerHTML = '<div class="amp-category-block"><div class="category-name">Нет амп</div><div class="category-amp-empty">Не выбрано</div></div>';
             } else {
-                // Показываем до 3 категорий
-                var categoryNames = Object.keys(ampCategories);
-                for (var c = 0; c < Math.min(3, categoryNames.length); c++) {
-                    var catName = categoryNames[c];
-                    var ampsInCat = ampCategories[catName];
-                    
+                var categories = {};
+                ampObjects.forEach(function(a) {
+                    var cat = a.category || 'Другие';
+                    if (!categories[cat]) categories[cat] = [];
+                    categories[cat].push(a);
+                });
+                var catNames = Object.keys(categories);
+                for (var c = 0; c < Math.min(3, catNames.length); c++) {
+                    var name = catNames[c];
                     var block = document.createElement('div');
                     block.className = 'amp-category-block';
-                    
-                    var header = document.createElement('div');
-                    header.className = 'category-header';
-                    
-                    var catNameSpan = document.createElement('span');
-                    catNameSpan.className = 'category-name';
-                    catNameSpan.textContent = catName;
-                    
-                    header.appendChild(catNameSpan);
-                    block.appendChild(header);
-                    
-                    ampsInCat.forEach(function(amp) {
-                        var nameSpan = document.createElement('div');
-                        nameSpan.className = 'category-amp-name';
-                        nameSpan.textContent = amp.name || 'Ампа';
-                        block.appendChild(nameSpan);
+                    block.innerHTML = '<div class="category-name">' + name + '</div>';
+                    categories[name].forEach(function(a) {
+                        block.innerHTML += '<div class="category-amp-name">' + (a.icon || '💊') + ' ' + a.name + '</div>';
                     });
-                    
-                    ampsContainer.appendChild(block);
+                    ampsDiv.appendChild(block);
                 }
             }
-            
-            playerDiv.appendChild(ampsContainer);
-            playersContainer.appendChild(playerDiv);
+
+            pDiv.appendChild(ampsDiv);
+            playersContainer.appendChild(pDiv);
         }
     }
 
-    // ===== ПЕРЕКЛЮЧЕНИЕ ШАГОВ =====
-    function showStep(step) {
-        // Скрываем все шаги
-        document.querySelectorAll('.step-container').forEach(function(el) {
-            el.classList.add('hidden');
-        });
-        
-        // Скрываем результат
-        document.getElementById('escResult').classList.remove('active');
-        
-        // Показываем нужный шаг
-        var stepId = 'escStep' + step;
-        var stepEl = document.getElementById(stepId);
-        if (stepEl) {
-            stepEl.classList.remove('hidden');
-        }
-    }
-
-    // ===== ИНИЦИАЛИЗАЦИЯ =====
-    function init() {
-        // Проверяем загрузку данных
-        if (!checkDataLoaded()) {
-            // Ждём загрузки
-            var checkInterval = setInterval(function() {
-                if (checkDataLoaded()) {
-                    clearInterval(checkInterval);
-                    doInit();
-                }
-            }, 200);
-            
-            // Таймаут на случай, если данные так и не загрузятся
-            setTimeout(function() {
-                clearInterval(checkInterval);
-                if (!dataLoaded) {
-                    console.warn('⚠️ Данные не загружены, но продолжаем работу с имеющимися');
-                    doInit();
-                }
-            }, 5000);
-        } else {
-            doInit();
-        }
-    }
-
-    function doInit() {
-        console.log('✅ Данные загружены, инициализация...');
-        
-        // Получаем еженедельный вариатор
-        getWeeklyVariator();
-        
-        // Обновляем отображение уровня
-        updateLevelDisplay();
-        
-        // Инициализируем шаг 1
-        initStep1();
-        
-        // Настройка кнопок выхода
-        setupExitButtons();
-        
-        // Настройка кнопки "Далее" в результате
-        setupNextLevelButton();
-        
-        console.log('✅ Еженедельная эскалация инициализирована!');
-    }
-
-    function setupExitButtons() {
+    // ===== ВЫХОД =====
+    function setupExit() {
         var exitBtn = document.getElementById('escExitBtn');
-        var confirmModal = document.getElementById('confirmModal');
-        var confirmCancel = document.getElementById('confirmCancel');
-        var confirmExit = document.getElementById('confirmExit');
-        
-        exitBtn.addEventListener('click', function() {
-            confirmModal.classList.add('active');
-        });
-        
-        confirmCancel.addEventListener('click', function() {
-            confirmModal.classList.remove('active');
-        });
-        
-        confirmExit.addEventListener('click', function() {
-            confirmModal.classList.remove('active');
-            resetEscalation();
-        });
-        
-        // Закрытие по клику на оверлей
-        confirmModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
-            }
+        var modal = document.getElementById('confirmModal');
+        var cancel = document.getElementById('confirmCancel');
+        var confirm = document.getElementById('confirmExit');
+
+        exitBtn.addEventListener('click', function() { modal.classList.add('active'); });
+        cancel.addEventListener('click', function() { modal.classList.remove('active'); });
+        confirm.addEventListener('click', function() {
+            modal.classList.remove('active');
+            state.level = 1;
+            state.playerCount = null;
+            state.playerNames = [];
+            state.selectedEquipment = [];
+            state.selectedAmps = [];
+            state.map = null;
+            state.variators = [];
+            state.completed = false;
+            state.weeklyVariator = null;
+            updateLevelDisplay();
+            updateWeeklyDisplay();
+            showStep(1);
+            document.querySelectorAll('#escPlayerCountOptions .player-count-btn').forEach(function(el) {
+                el.classList.remove('selected');
+            });
+            document.getElementById('escStep1Next').disabled = true;
         });
     }
 
-    function setupNextLevelButton() {
-        var nextBtn = document.getElementById('escNextLevelBtn');
-        nextBtn.addEventListener('click', function() {
-            // Сброс выбора для нового уровня
-            weeklyEscState.selectedEquipment = [];
-            weeklyEscState.selectedAmps = [];
-            weeklyEscState.map = null;
-            weeklyEscState.variators = [];
-            weeklyEscState.completed = false;
-            
-            for (var i = 0; i < weeklyEscState.playerCount; i++) {
-                weeklyEscState.selectedEquipment.push(null);
-                weeklyEscState.selectedAmps.push([]);
+    // ===== СЛЕДУЮЩИЙ УРОВЕНЬ =====
+    function setupNextLevel() {
+        document.getElementById('escNextLevelBtn').addEventListener('click', function() {
+            state.selectedEquipment = [];
+            state.selectedAmps = [];
+            state.map = null;
+            state.variators = [];
+            state.completed = false;
+            for (var i = 0; i < state.playerCount; i++) {
+                state.selectedEquipment.push(null);
+                state.selectedAmps.push([]);
             }
-            
-            // Показываем шаг 3 (выбор снаряжения)
             showStep(3);
             initStep3();
         });
     }
 
-    function resetEscalation() {
-        weeklyEscState.level = 1;
-        weeklyEscState.playerCount = null;
-        weeklyEscState.playerNames = [];
-        weeklyEscState.selectedEquipment = [];
-        weeklyEscState.selectedAmps = [];
-        weeklyEscState.map = null;
-        weeklyEscState.variators = [];
-        weeklyEscState.completed = false;
-        weeklyEscState.weeklyVariator = null;
-        
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
+    function init() {
+        getWeeklyVariator();
         updateLevelDisplay();
-        showStep(1);
-        
-        // Сбрасываем выбор кнопок
-        document.querySelectorAll('#escPlayerCountOptions .player-count-btn').forEach(function(el) {
-            el.classList.remove('selected');
-        });
-        document.getElementById('escStep1Next').disabled = true;
+        initStep1();
+        setupExit();
+        setupNextLevel();
+        console.log('✅ Еженедельная эскалация готова!');
     }
 
-    // ===== ЗАПУСК =====
-    // Экспортируем функцию для внешнего использования
-    window.initWeeklyEscalation = init;
-    window.weeklyEscState = weeklyEscState;
-    window.checkDataLoaded = checkDataLoaded;
-
-    // Автозапуск
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+    document.addEventListener('DOMContentLoaded', init);
+    if (document.readyState !== 'loading') init();
 
 })();
 </script>
