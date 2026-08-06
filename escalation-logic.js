@@ -117,7 +117,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     // ОСОБЫЕ ПРАВИЛА ДЛЯ 1 ИГРОКА
     // ============================================================
     if (playerCount === 1) {
-        // Без Имён и Без Рации не могут выпадать при 1 игроке
         if (variatorName === 'Без Имён' || variatorName === 'Без Рации') {
             return false;
         }
@@ -155,8 +154,7 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     }
     
     // ============================================================
-    // 2. ТРОФЕЙНОЕ СНАРЯЖЕНИЕ — блокирует реагенты и другие вариаторы
-    // НО НЕ БЛОКИРУЕТ УРОН ОТКЛЮЧАЕТ СНАРЯЖЕНИЕ И СЛОМАННЫЙ РЕАГЕНТ
+    // 2. ТРОФЕЙНОЕ СНАРЯЖЕНИЕ — НЕ БЛОКИРУЕТ УРОН ОТКЛЮЧАЕТ СНАРЯЖЕНИЕ И СЛОМАННЫЙ РЕАГЕНТ
     // ============================================================
     var trophyEquipmentBlocked = [
         'Первый Уровень', 'Без Снаряжения',
@@ -198,7 +196,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     
     var bossNames = Object.keys(bossMapRestrictions);
     
-    // Проверка ограничений боссов по картам
     if (bossNames.indexOf(variatorName) !== -1) {
         var allowedMaps = bossMapRestrictions[variatorName] || [];
         var isMapAllowed = false;
@@ -238,15 +235,9 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     }
     
     // ============================================================
-    // 6. Трофейное Снаряжение НЕ БЛОКИРУЕТ Урон Отключает Снаряжение и Сломанный Реагент
-    // Это уже учтено выше (убраны из списка блокировки)
-    // ============================================================
-    
-    // ============================================================
     // ДАЛЕЕ СЛЕДУЮТ ОСТАЛЬНЫЕ ПРАВИЛА (СОХРАНЕНЫ)
     // ============================================================
     
-    // ПРАВИЛО: Все на выход не может попадаться на испытании "Устранение устаревшего оборудования"
     if (variatorName === 'Все На Выход') {
         var blockedTrialsForAllExit = ['Устранение устаревшего оборудования'];
         if (blockedTrialsForAllExit.indexOf(trialName) !== -1) {
@@ -254,14 +245,12 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Таймер Бомбы не может попадаться на испытании "Устранение устаревшего оборудования"
     if (variatorName === 'Таймер Бомбы') {
         if (trialName === 'Устранение устаревшего оборудования') {
             return false;
         }
     }
     
-    // ПРАВИЛО: Глубокий Ожог не совместим с Вечная Мерзлота и Резкое Похолодание
     if (variatorName === 'Глубокий Ожог') {
         if (selectedNames.indexOf('Вечная Мерзлота') !== -1 || selectedNames.indexOf('Резкое Похолодание') !== -1) {
             return false;
@@ -273,12 +262,10 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Сильнее Вместе не может попадаться в одиночном режиме
     if (variatorName === 'Сильнее Вместе' && playerCount === 1) {
         return false;
     }
     
-    // ПРАВИЛО: Сильнее Вместе при 2-3 игроках не может попадаться на определенных испытаниях
     if (variatorName === 'Сильнее Вместе' && (playerCount === 2 || playerCount === 3)) {
         var blockedTrialsForStronger = ['Сожгите секс-игрушки', 'Обработайте фабрику газом', 'Освободите заключенных', 'Заберите наркотики'];
         if (blockedTrialsForStronger.indexOf(trialName) !== -1) {
@@ -286,7 +273,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Сильнее Вместе блокирует выпадение других вариаторов
     var strongerTogetherBlocked = [
         'Главная Рулетка', 'Самое Главное', 'Токсический Шок',
         'Лиланд Койл', 'Матушка Гуссбери', 'Франко Барби',
@@ -310,7 +296,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Вечная Мерзлота не совместима с Резкое Похолодание, Токсический Шок и Глубокий Ожог
     if (variatorName === 'Вечная Мерзлота') {
         if (selectedNames.indexOf('Резкое Похолодание') !== -1 || selectedNames.indexOf('Токсический Шок') !== -1 || selectedNames.indexOf('Глубокий Ожог') !== -1) {
             return false;
@@ -322,7 +307,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Резкое Похолодание не совместимо с Глубокий Ожог и Вечная Мерзлота
     if (variatorName === 'Резкое Похолодание') {
         if (selectedNames.indexOf('Глубокий Ожог') !== -1 || selectedNames.indexOf('Вечная Мерзлота') !== -1) {
             return false;
@@ -334,7 +318,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Самое Главное и Главная Рулетка не совместимы друг с другом
     if (variatorName === 'Самое Главное' && selectedNames.indexOf('Главная Рулетка') !== -1) {
         return false;
     }
@@ -342,7 +325,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         return false;
     }
     
-    // ПРАВИЛО: Самое Главное блокирует охотников и боссов
     var samoGlavnoeBlocked = [
         'Лиланд Койл', 'Матушка Гуссбери', 'Франко Барби',
         'Близнецы Кресс', 'Лилия Богомолова',
@@ -361,7 +343,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Таймер Бомбы не совместим с вариатором "Разбейте Телевизоры"
     if (variatorName === 'Таймер Бомбы' && selectedNames.indexOf('Разбейте Телевизоры') !== -1) {
         return false;
     }
@@ -369,7 +350,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         return false;
     }
     
-    // ПРАВИЛО: Токсический Шок блокирует Глубокий Ожог
     if (variatorName === 'Токсический Шок' && selectedNames.indexOf('Глубокий Ожог') !== -1) {
         return false;
     }
@@ -377,7 +357,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         return false;
     }
     
-    // ПРАВИЛО: Вариаторы с дверьми и проходами не могут быть вместе
     var doorsAndPassages = [
         'Ненадежные Двери',
         'Заблокированные Проходы',
@@ -395,7 +374,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ПРАВИЛО: Психохирургия несовместима с некоторыми вариаторами
     var psychoBlocked = [
         'Повышенная Угроза', 'Повышенная Угроза II', 'Низкая Плотность Врагов',
         'Много Противников', 'Враги Сильнее', 'Враги Сильнее II',
@@ -414,19 +392,16 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Правило: Низкая плотность врагов только до 5 уровня
     if (variatorName === 'Низкая Плотность Врагов' && level > 5) {
         return false;
     }
     
-    // Правило: Ностофобия и Психохирургия не выпадают до 20 уровня
     if (level < 21) {
         if (variatorName === 'Ностофобия' || variatorName === 'Психохирургия') {
             return false;
         }
     }
     
-    // Правило: Ностофобия выпадает с очень маленьким шансом после 20
     if (variatorName === 'Ностофобия' && level >= 21) {
         if (Math.random() > 0.02) {
             return false;
@@ -444,7 +419,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         return true;
     }
     
-    // Правило: Вариаторы из одной категории не могут быть вместе
     var category = variator.category;
     var exclusiveCategories = [
         'collection', 'collection_special', 'hunters', 'boss', 'traps',
@@ -459,7 +433,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // collection_special блокирует collection
     if (category === 'collection') {
         for (var cs = 0; cs < selectedVariators.length; cs++) {
             if (selectedVariators[cs].category === 'collection_special') {
@@ -475,7 +448,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Правило: Боссы не могут быть вместе с охотниками
     if (variator.category === 'boss') {
         for (var h = 0; h < selectedVariators.length; h++) {
             if (selectedVariators[h].category === 'hunters') {
@@ -491,7 +463,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Правило: Боссы блокируют special
     if (variator.category === 'boss') {
         for (var sp = 0; sp < selectedVariators.length; sp++) {
             if (selectedVariators[sp].category === 'special') {
@@ -507,7 +478,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Правило: Сломанный Реагент блокирует определенные вариаторы
     var brokenReagentBlocked = [
         'Без Рецептов', 'Без Амф', 'Без Снаряжения', 'Увеличенная Перезарядка Снаряжения',
         'Урон Отключает Снаряжения', 'Без Улучшения Снаряжения', 'Урон Перезапускает Снаряжения',
@@ -526,7 +496,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Глубокий Ожог блокирует охотников
     var deepBurnBlocked = ['Больше Толкачей', 'Егерь', 'Больше Притворщиков'];
     if (variatorName === 'Глубокий Ожог') {
         for (var db = 0; db < deepBurnBlocked.length; db++) {
@@ -541,9 +510,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // ===== ПРАВИЛА ДЛЯ МИН =====
-    
-    // Группа мин: только одна из них может выпасть
     var mineGroup = ['Взрывчатка', 'Ледяные Мины', 'Огненные Мины'];
     if (mineGroup.indexOf(variatorName) !== -1) {
         for (var mg = 0; mg < selectedVariators.length; mg++) {
@@ -553,7 +519,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Огненные Мины блокируют
     var fireMineBlocked = [
         'Больше Ловушек', 'Больше Ловушек II', 'Больше Мин Психоза',
         'Больше Звуковых Ловушек', 'Дополнительные Ловушки Главного Актива',
@@ -572,7 +537,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Ледяные Мины блокируют
     var iceMineBlocked = [
         'Больше Ловушек', 'Больше Ловушек II', 'Больше Мин Психоза',
         'Больше Звуковых Ловушек', 'Дополнительные Ловушки Главного Актива',
@@ -591,7 +555,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Взрывчатка блокирует
     var explosionBlocked = [
         'Больше Ловушек', 'Больше Ловушек II', 'Больше Мин Психоза',
         'Больше Звуковых Ловушек', 'Дополнительные Ловушки Главного Актива',
@@ -610,7 +573,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         }
     }
     
-    // Ограничения реагентов: максимум 2
     if (variator.category === 'reagent') {
         var reagentCount = 0;
         for (var r = 0; r < selectedVariators.length; r++) {
@@ -639,7 +601,6 @@ function getVariatorsForLevel(level, mapName, playerCount) {
     
     var availableVariators = allVariatorsData.slice();
     
-    // ИСКЛЮЧЕННЫЕ ВАРИАТОРЫ (НИКОГДА НЕ ВЫПАДАЮТ)
     var excludedVariators = [
         'Ворота С Детектором Звука',
         'Дистанционные Ворота',
@@ -652,17 +613,14 @@ function getVariatorsForLevel(level, mapName, playerCount) {
         return excludedVariators.indexOf(v.name) === -1;
     });
     
-    // Если уровень > 5, удаляем "Низкая Плотность Врагов" из доступных
     if (level > 5) {
         availableVariators = availableVariators.filter(function(v) {
             return v.name !== "Низкая Плотность Врагов";
         });
     }
     
-    // Получаем название испытания из escState
     var trialName = escState.trial ? escState.trial.name : '';
     
-    // Уровень 21+
     if (level >= 21) {
         console.log('🎯 Уровень 21+ - 8 вариаторов');
         
@@ -718,7 +676,6 @@ function getVariatorsForLevel(level, mapName, playerCount) {
         return result;
     }
     
-    // Уровни 1-20
     var count;
     if (level === 1) {
         count = 2;
@@ -856,7 +813,6 @@ function getMapAndTrial(level) {
     
     console.log('✅ Выбрано:', selected.trial.name, 'на', selected.mapName);
     
-    // Сохраняем название испытания в escState для проверок совместимости
     escState.currentTrialName = selected.trial.name;
     escState.map = { name: selected.mapName, image: selected.mapImage };
     
@@ -1118,7 +1074,7 @@ function renderEscPlayerNames() {
 }
 
 // ============================================================
-// ОТРИСОВКА СНАРЯЖЕНИЯ
+// ОТРИСОВКА СНАРЯЖЕНИЯ (С ЗЕЛЕНЫМ ФОНОМ ПРИ ВЫБОРЕ)
 // ============================================================
 
 function renderEscEquipment() {
@@ -1186,11 +1142,29 @@ function renderEscEquipment() {
             item.dataset.equip = eq.name;
             var isSelected = escState.equipSelections[idx] === eq.name;
             
+            // ============================================================
+            // ЗЕЛЕНЫЙ ФОН ПРИ ВЫБОРЕ (как на картинке)
+            // ============================================================
             item.style.cssText = 'display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.06); cursor: pointer; transition: all 0.3s ease; position: relative;';
             if (isSelected) {
-                item.style.borderColor = '#e16d48';
-                item.style.background = 'rgba(220,90,50,0.1)';
+                item.style.borderColor = '#2ecc71';
+                item.style.background = 'rgba(46, 204, 113, 0.15)';
+                item.style.boxShadow = '0 0 20px rgba(46, 204, 113, 0.15)';
             }
+            
+            // Hover эффект
+            item.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.borderColor = 'rgba(46, 204, 113, 0.3)';
+                    this.style.background = 'rgba(46, 204, 113, 0.05)';
+                }
+            });
+            item.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.borderColor = 'rgba(255,255,255,0.06)';
+                    this.style.background = 'rgba(255,255,255,0.03)';
+                }
+            });
             
             item.innerHTML = `
                 <img src="${eq.image}" alt="${eq.name}" onerror="this.src='https://placehold.co/80x80/1a1a2e/e16d48?text=?'" style="width:80px; height:80px; object-fit:contain; border-radius:10px; background:rgba(0,0,0,0.3); padding:4px;">
@@ -1204,12 +1178,15 @@ function renderEscEquipment() {
                     el.classList.remove('selected');
                     el.style.borderColor = 'rgba(255,255,255,0.06)';
                     el.style.background = 'rgba(255,255,255,0.03)';
+                    el.style.boxShadow = 'none';
                     var check = el.querySelector('.check-mark');
                     if (check) check.style.display = 'none';
                 });
                 this.classList.add('selected');
-                this.style.borderColor = '#e16d48';
-                this.style.background = 'rgba(220,90,50,0.1)';
+                // Зеленый фон при выборе
+                this.style.borderColor = '#2ecc71';
+                this.style.background = 'rgba(46, 204, 113, 0.15)';
+                this.style.boxShadow = '0 0 20px rgba(46, 204, 113, 0.15)';
                 var check = this.querySelector('.check-mark');
                 if (check) check.style.display = 'block';
                 escState.equipSelections[idx] = eq.name;
