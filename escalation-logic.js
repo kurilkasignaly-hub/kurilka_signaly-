@@ -1074,7 +1074,7 @@ function renderEscPlayerNames() {
 }
 
 // ============================================================
-// ОТРИСОВКА СНАРЯЖЕНИЯ (С ЗЕЛЕНЫМ ФОНОМ ПРИ ВЫБОРЕ)
+// ОТРИСОВКА СНАРЯЖЕНИЯ (С ЦВЕТНЫМ ФОНОМ ДЛЯ КАЖДОГО ТИПА)
 // ============================================================
 
 function renderEscEquipment() {
@@ -1086,6 +1086,18 @@ function renderEscEquipment() {
         container.innerHTML = '<div style="color: #e16d48; text-align: center; padding: 2rem;">Ошибка: данные снаряжения не загружены</div>';
         return;
     }
+    
+    // ============================================================
+    // ЦВЕТА ДЛЯ КАЖДОГО ТИПА СНАРЯЖЕНИЯ
+    // ============================================================
+    var equipColors = {
+        'Оглушение': { bg: 'rgba(231, 76, 60, 0.2)', border: '#e74c3c', glow: 'rgba(231, 76, 60, 0.3)' },
+        'Завеса': { bg: 'rgba(155, 89, 182, 0.2)', border: '#9b59b6', glow: 'rgba(155, 89, 182, 0.3)' },
+        'Исцеление': { bg: 'rgba(26, 188, 156, 0.2)', border: '#1abc9c', glow: 'rgba(26, 188, 156, 0.3)' },
+        'Глушилка': { bg: 'rgba(243, 156, 18, 0.2)', border: '#f39c12', glow: 'rgba(243, 156, 18, 0.3)' },
+        'Рентген': { bg: 'rgba(46, 204, 113, 0.2)', border: '#2ecc71', glow: 'rgba(46, 204, 113, 0.3)' },
+        'Баррикада': { bg: 'rgba(241, 196, 15, 0.2)', border: '#f1c40f', glow: 'rgba(241, 196, 15, 0.3)' }
+    };
     
     var header = document.createElement('div');
     header.style.cssText = 'text-align: center; margin-bottom: 20px;';
@@ -1142,21 +1154,25 @@ function renderEscEquipment() {
             item.dataset.equip = eq.name;
             var isSelected = escState.equipSelections[idx] === eq.name;
             
+            // Получаем цвета для данного снаряжения
+            var colors = equipColors[eq.name] || { bg: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.06)', glow: 'rgba(255,255,255,0)' };
+            
             // ============================================================
-            // ЗЕЛЕНЫЙ ФОН ПРИ ВЫБОРЕ (как на картинке)
+            // ЦВЕТНОЙ ФОН В ЗАВИСИМОСТИ ОТ ТИПА СНАРЯЖЕНИЯ
             // ============================================================
             item.style.cssText = 'display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.06); cursor: pointer; transition: all 0.3s ease; position: relative;';
+            
             if (isSelected) {
-                item.style.borderColor = '#2ecc71';
-                item.style.background = 'rgba(46, 204, 113, 0.15)';
-                item.style.boxShadow = '0 0 20px rgba(46, 204, 113, 0.15)';
+                item.style.borderColor = colors.border;
+                item.style.background = colors.bg;
+                item.style.boxShadow = '0 0 25px ' + colors.glow;
             }
             
             // Hover эффект
             item.addEventListener('mouseenter', function() {
                 if (!this.classList.contains('selected')) {
-                    this.style.borderColor = 'rgba(46, 204, 113, 0.3)';
-                    this.style.background = 'rgba(46, 204, 113, 0.05)';
+                    this.style.borderColor = colors.border;
+                    this.style.background = 'rgba(255,255,255,0.06)';
                 }
             });
             item.addEventListener('mouseleave', function() {
@@ -1183,10 +1199,14 @@ function renderEscEquipment() {
                     if (check) check.style.display = 'none';
                 });
                 this.classList.add('selected');
-                // Зеленый фон при выборе
-                this.style.borderColor = '#2ecc71';
-                this.style.background = 'rgba(46, 204, 113, 0.15)';
-                this.style.boxShadow = '0 0 20px rgba(46, 204, 113, 0.15)';
+                
+                // Применяем цвет для выбранного снаряжения
+                var eqName = this.dataset.equip;
+                var eqColors = equipColors[eqName] || { bg: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.06)', glow: 'rgba(255,255,255,0)' };
+                this.style.borderColor = eqColors.border;
+                this.style.background = eqColors.bg;
+                this.style.boxShadow = '0 0 25px ' + eqColors.glow;
+                
                 var check = this.querySelector('.check-mark');
                 if (check) check.style.display = 'block';
                 escState.equipSelections[idx] = eq.name;
