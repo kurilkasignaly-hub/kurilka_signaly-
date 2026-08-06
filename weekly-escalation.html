@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Еженедельная Эскалация — Курилка Синьялы</title>
+    <link rel="icon" href="images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.78);
+            z-index: -1;
+        }
+
+        /* ===== АНИМАЦИИ ===== */
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes smokePulse {
+            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
+            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+        }
+
+        @keyframes resultAppear {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes modalFadeIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.4);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ЭСКАЛАЦИИ ===== */
+        .escalation-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(18, 12, 28, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            border: 2px solid rgba(220, 90, 50, 0.3);
+            padding: 2.5rem;
+            animation: fadeInScale 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .escalation-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/фон эскалация.webp') center/cover no-repeat;
+            opacity: 0.25;
+            z-index: 0;
+        }
+
+        .escalation-wrapper > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .escalation-wrapper h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .escalation-wrapper h1 i {
+            color: #e16d48;
+        }
+
+        /* Кнопка переключения режима */
+        .mode-switch {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mode-btn {
+            padding: 0.6rem 2rem;
+            border-radius: 30px;
+            border: 2px solid rgba(220, 90, 50, 0.25);
+            background: rgba(0, 0, 0, 0.3);
+            color: #c2b9d4;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .mode-btn:hover {
+            border-color: #e16d48;
+            color: white;
+        }
+
+        .mode-btn.active {
+            border-color: #e16d48;
+            background: rgba(220, 90, 50, 0.2);
+            color: #e16d48;
+            box-shadow: 0 0 30px rgba(220, 90, 50, 0.1);
+        }
+
+        /* ===== СЧЕТЧИК УРОВНЯ ===== */
+        .level-counter {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(220, 90, 50, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .level-counter .level-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .level-counter .level-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-left: 0.5rem;
+        }
+
+        .level-counter .level-difficulty {
+            display: inline-block;
+            margin-left: 1rem;
+            padding: 0.2rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .level-difficulty-intro { background: rgba(108, 117, 125, 0.3); color: #6c757d; }
+        .level-difficulty-standard { background: rgba(255, 159, 74, 0.3); color: #ff9f4a; }
+        .level-difficulty-intensive { background: rgba(46, 204, 113, 0.3); color: #2ecc71; }
+        .level-difficulty-psycho { background: rgba(255, 51, 51, 0.3); color: #ff3333; }
+
+        /* ===== ШАГИ ===== */
+        .step-container {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 28px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        .step-container.hidden {
+            display: none;
+        }
+
+        .step-title {
+            font-size: 1.4rem;
+            color: #e16d48;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-left: 4px solid #e16d48;
+            padding-left: 18px;
+        }
+
+        .step-title .step-number {
+            background: rgba(220, 90, 50, 0.2);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #e16d48;
+        }
+
+        .step-subtitle {
+            font-size: 0.95rem;
+            color: #c2b9d4;
+            margin-bottom: 1.8rem;
+            padding-left: 10px;
+            text-align: center;
+        }
+
+        /* ===== КНОПКИ ВЫБОРА ИГРОКОВ ===== */
+        .player-count-options {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+
+        .player-count-btn {
+            background: rgba(0, 0, 0, 0.35);
+            border: 2px solid rgba(220, 90, 50, 0.25);
+            border-radius: 24px;
+            padding: 1.2rem 2.8rem;
+            color: #c2b9d4;
+            font-size: 1.6rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 90px;
+            font-family: inherit;
+        }
+
+        .player-count-btn:hover {
+            border-color: #e16d48;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(220, 90, 50, 0.1);
+        }
+
+        .player-count-btn.selected {
+            border-color: #e16d48;
+            background: rgba(220, 90, 50, 0.2);
+            color: white;
+            box-shadow: 0 0 40px rgba(220, 90, 50, 0.15);
+        }
+
+        /* ===== ПОЛЯ ВВОДА ИМЕН ===== */
+        .player-name-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 0.5rem 0;
+        }
+
+        .player-name-inputs .input-row {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.3rem 1rem 0.3rem 1.5rem;
+            border-radius: 18px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        .player-name-inputs .input-row:hover {
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        .player-name-inputs .input-row label {
+            min-width: 80px;
+            color: #c2b9d4;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .player-name-inputs .input-row input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.7rem 0.5rem;
+            color: #f0eef7;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .player-name-inputs .input-row input::placeholder {
+            color: #555;
+        }
+
+        /* ===== ЦЕНТРАЛИЗОВАННАЯ СЕТКА ВЫБОРА ===== */
+        .selection-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .selection-grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .selection-grid.players-1 {
+            grid-template-columns: 1fr;
+            max-width: 300px;
+        }
+
+        .selection-grid.players-2 {
+            grid-template-columns: 1fr 1fr;
+            max-width: 500px;
+        }
+
+        .selection-grid.players-3 {
+            grid-template-columns: 1fr 1fr;
+            max-width: 500px;
+        }
+
+        .selection-grid.players-3 .player-block:last-child {
+            grid-column: 1 / -1;
+            max-width: 50%;
+            justify-self: center;
+            width: 100%;
+        }
+
+        .selection-grid.players-4 {
+            grid-template-columns: 1fr 1fr;
+            max-width: 550px;
+        }
+
+        .selection-grid .player-block {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+            transition: border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .selection-grid .player-block:hover {
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        .selection-grid .player-block .block-title {
+            font-size: 0.9rem;
+            color: #e16d48;
+            font-weight: 700;
+            text-align: center;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.1);
+        }
+
+        /* ===== ВЫБОР ВНУТРИ БЛОКА ===== */
+        .selection-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .selection-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(220, 90, 50, 0.2);
+            border-radius: 16px;
+            padding: 0.8rem 0.6rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .selection-item:hover {
+            border-color: #e16d48;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .selection-item.selected {
+            border-color: #e16d48;
+            background: rgba(220, 90, 50, 0.15);
+            box-shadow: 0 0 40px rgba(220, 90, 50, 0.08);
+        }
+
+        .selection-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 0.3rem;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px;
+            transition: transform 0.3s;
+        }
+
+        .selection-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .selection-item .item-name {
+            font-size: 0.8rem;
+            color: #c2b9d4;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .selection-item .item-category {
+            font-size: 0.55rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.1rem;
+        }
+
+        .selection-item .check-mark {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            color: #4c9aff;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        .selection-item.selected .check-mark {
+            display: block;
+        }
+
+        /* ===== КНОПКИ НАВИГАЦИИ ===== */
+        .step-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.9rem 3rem;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            min-width: 160px;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            transform: scale(1.04);
+            box-shadow: 0 8px 35px rgba(188, 74, 40, 0.4);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-btn {
+            background: rgba(220, 90, 50, 0.15);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #c2b9d4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .back-btn:hover {
+            background: rgba(220, 90, 50, 0.25);
+            color: white;
+        }
+
+        .exit-btn {
+            background: rgba(255, 51, 51, 0.15);
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #ff6666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .exit-btn:hover {
+            background: rgba(255, 51, 51, 0.25);
+            color: #ff3333;
+        }
+
+        /* ===== РЕЗУЛЬТАТ ===== */
+        .escalation-result {
+            display: none;
+            animation: resultAppear 0.6s ease-out;
+        }
+
+        .escalation-result.active {
+            display: block;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+        }
+
+        .result-card {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .result-card h3 {
+            color: #e16d48;
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.15);
+            padding-bottom: 0.8rem;
+        }
+
+        .result-map-row {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .result-map-row .map-image {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid rgba(220, 90, 50, 0.3);
+            flex-shrink: 0;
+        }
+
+        .result-map-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .result-map-info .map-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-map-info .map-name {
+            font-size: 1.4rem;
+            color: #e16d48;
+            font-weight: 700;
+            margin: 0.2rem 0 0.3rem;
+        }
+
+        .result-map-info .trial-name {
+            font-size: 1.1rem;
+            color: #ffbc9a;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .result-map-info .trial-desc {
+            color: #c2b9d4;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .result-map-info .map-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .result-map-info .map-meta-item {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .result-map-info .map-meta-item strong {
+            color: #ffbc9a;
+            font-weight: 600;
+        }
+
+        /* ===== ВАРИАТОРЫ ===== */
+        .variator-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .variator-list .var-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .variator-list .var-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .variator-list .var-item .var-name {
+            font-size: 0.65rem;
+            color: #c2b9d4;
+            text-align: center;
+            max-width: 75px;
+            line-height: 1.2;
+        }
+
+        /* ===== ИГРОКИ В РЕЗУЛЬТАТЕ ===== */
+        .player-result {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        .player-result:hover {
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        .player-result:last-child {
+            margin-bottom: 0;
+        }
+
+        .player-result .player-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .player-result .player-name i {
+            color: #e16d48;
+            font-size: 1.2rem;
+        }
+
+        .player-result .player-equip {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+        }
+
+        .player-result .player-equip img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px;
+        }
+
+        .player-result .player-equip .label {
+            color: #888;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .player-result .player-equip .value {
+            color: #ffbc9a;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .player-amps-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .amp-category-block {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            transition: border-color 0.3s;
+            position: relative;
+        }
+
+        .amp-category-block:hover {
+            border-color: rgba(220, 90, 50, 0.25);
+        }
+
+        .amp-category-block .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+        }
+
+        .amp-category-block .category-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #e16d48;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .amp-category-block .category-change-btn {
+            background: rgba(220, 90, 50, 0.2);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            color: #c2b9d4;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .amp-category-block .category-change-btn:hover {
+            background: rgba(220, 90, 50, 0.4);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .amp-category-block .category-amp-name {
+            font-size: 0.8rem;
+            color: #ffbc9a;
+            font-weight: 500;
+            text-align: center;
+            padding: 0.2rem 0;
+        }
+
+        .amp-category-block .category-amp-empty {
+            font-size: 0.65rem;
+            color: #666;
+            text-align: center;
+            padding: 0.2rem 0;
+            font-style: italic;
+        }
+
+        .amp-category-block .category-complete {
+            font-size: 0.6rem;
+            color: #2ecc71;
+            text-align: center;
+        }
+
+        /* ===== КНОПКИ В РЕЗУЛЬТАТЕ ===== */
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .result-actions .next-btn {
+            min-width: 200px;
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ СМЕНЫ АМФЫ ===== */
+        .amp-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .amp-modal-overlay.active {
+            display: flex;
+        }
+
+        .amp-modal {
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border-radius: 30px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            padding: 2rem;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .amp-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .amp-modal-header h2 {
+            font-size: 1.3rem;
+            color: #e16d48;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .amp-modal-close {
+            background: none;
+            border: none;
+            color: #c2b9d4;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .amp-modal-close:hover {
+            color: #e16d48;
+        }
+
+        .amp-modal-category-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .amp-modal-category-tabs button {
+            background: rgba(220, 90, 50, 0.15);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+            color: #c2b9d4;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .amp-modal-category-tabs button:hover {
+            background: rgba(220, 90, 50, 0.25);
+            color: white;
+        }
+
+        .amp-modal-category-tabs button.active {
+            background: rgba(220, 90, 50, 0.3);
+            border-color: #e16d48;
+            color: #e16d48;
+        }
+
+        .amp-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .amp-modal-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(220, 90, 50, 0.2);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .amp-modal-item:hover:not(.locked) {
+            border-color: #e16d48;
+            transform: scale(1.05);
+        }
+
+        .amp-modal-item.selected {
+            border-color: #4c9aff;
+            background: rgba(76, 154, 255, 0.1);
+        }
+
+        .amp-modal-item.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .amp-modal-item.locked:hover {
+            transform: none;
+            border-color: rgba(220, 90, 50, 0.2);
+        }
+
+        .amp-modal-item img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px;
+        }
+
+        .amp-modal-item .amp-name {
+            font-size: 0.85rem;
+            color: #c2b9d4;
+            margin-top: 0.3rem;
+            font-weight: 500;
+        }
+
+        .amp-modal-item .amp-category-label {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 0.1rem;
+        }
+
+        .amp-modal-item .amp-status {
+            font-size: 0.6rem;
+            margin-top: 0.2rem;
+        }
+
+        .amp-modal-item .amp-status.available {
+            color: #4c9aff;
+        }
+
+        .amp-modal-item .amp-status.locked {
+            color: #888;
+        }
+
+        .amp-modal-item .amp-status.current {
+            color: #2ecc71;
+        }
+
+        .amp-modal-item .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 14px;
+        }
+
+        .amp-modal-item .lock-overlay i {
+            font-size: 2rem;
+            color: #888;
+        }
+
+        .amp-modal-item .lock-overlay span {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 0.3rem;
+        }
+
+        .amp-modal-confirm {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .amp-modal-confirm button {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.7rem 2.5rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .amp-modal-confirm button:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
+        }
+
+        .amp-modal-confirm button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== */
+        .confirm-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .confirm-modal-overlay.active {
+            display: flex;
+        }
+
+        .confirm-modal {
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 51, 51, 0.4);
+            padding: 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .confirm-modal .icon {
+            font-size: 3rem;
+            color: #ff3333;
+            margin-bottom: 1rem;
+        }
+
+        .confirm-modal h2 {
+            color: #ff3333;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .confirm-modal p {
+            color: #c2b9d4;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .confirm-modal .confirm-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .confirm-modal .confirm-actions button {
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            border: none;
+        }
+
+        .confirm-modal .confirm-actions .btn-confirm {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+        }
+
+        .confirm-modal .confirm-actions .btn-confirm:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
+        }
+
+        .confirm-modal .confirm-actions .btn-cancel {
+            background: rgba(220, 90, 50, 0.15);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            color: #c2b9d4;
+        }
+
+        .confirm-modal .confirm-actions .btn-cancel:hover {
+            background: rgba(220, 90, 50, 0.25);
+            color: white;
+        }
+
+        /* ===== КНОПКА НАЗАД ===== */
+        .back-to-roulette {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 2rem;
+            color: #e16d48;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            background: rgba(220, 90, 50, 0.1);
+            border: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .back-to-roulette:hover {
+            color: #ffbc9a;
+            background: rgba(220, 90, 50, 0.2);
+            transform: translateX(-5px);
+        }
+
+        /* ===== ФУТЕР ===== */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        .footer-logo {
+            max-height: 32px;
+            width: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== ИНФОРМАЦИЯ О ЕЖЕНЕДЕЛЬНОМ ВАРИАТОРЕ ===== */
+        .weekly-info {
+            text-align: center;
+            padding: 10px 16px;
+            background: rgba(220, 90, 50, 0.12);
+            border-radius: 16px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .weekly-info .weekly-label {
+            color: #888;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .weekly-info .weekly-variator {
+            color: #f1c40f;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .weekly-info .weekly-variator i {
+            color: #f1c40f;
+            margin-right: 6px;
+        }
+
+        .weekly-info .weekly-hint {
+            color: #666;
+            font-size: 0.7rem;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 992px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 0.8rem; }
+            .header { flex-direction: column; padding: 0.8rem 1rem; border-radius: 40px; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 0.3rem; }
+            .nav-btn { padding: 0.35rem 0.7rem; font-size: 0.7rem; }
+            .logo .logo-img { max-height: 40px; }
+            .logo .logo-text { font-size: 1.1rem; }
+            
+            .escalation-wrapper { padding: 1.5rem; margin: 0 0.5rem; }
+            .escalation-wrapper h1 { font-size: 1.6rem; }
+            
+            .step-container { padding: 1.5rem; }
+            .step-title { font-size: 1.1rem; }
+            
+            .player-count-btn { padding: 1rem 2rem; font-size: 1.3rem; min-width: 70px; }
+            
+            .selection-grid.players-1 { max-width: 100%; }
+            .selection-grid.players-2 { max-width: 100%; }
+            .selection-grid.players-3 { max-width: 100%; }
+            .selection-grid.players-4 { max-width: 100%; }
+            .selection-grid.players-3 .player-block:last-child { max-width: 80%; }
+            .selection-item img { width: 60px; height: 60px; }
+            
+            .result-map-row { flex-direction: column; text-align: left; }
+            .result-map-row .map-image { width: 130px; height: 130px; }
+            
+            .player-name-inputs .input-row { flex-direction: column; align-items: stretch; padding: 0.5rem 1rem; }
+            .player-name-inputs .input-row label { min-width: auto; }
+            
+            .player-amps-categories {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .mode-switch { flex-direction: column; align-items: center; }
+            .mode-btn { width: 100%; max-width: 300px; text-align: center; }
+        }
+
+        @media (max-width: 600px) {
+            .escalation-wrapper { padding: 1rem; }
+            .escalation-wrapper h1 { font-size: 1.3rem; flex-wrap: wrap; }
+            
+            .step-container { padding: 1rem; }
+            .step-title { font-size: 1rem; padding-left: 12px; gap: 8px; }
+            .step-title .step-number { font-size: 0.7rem; padding: 0.1rem 0.6rem; }
+            
+            .player-count-btn { padding: 0.8rem 1.2rem; font-size: 1.1rem; min-width: 55px; }
+            .player-count-options { gap: 0.5rem; }
+            
+            .selection-grid.players-3 .player-block:last-child { max-width: 100%; }
+            .selection-grid { gap: 1rem; }
+            .selection-item img { width: 50px; height: 50px; }
+            .selection-item .item-name { font-size: 0.7rem; }
+            
+            .result-map-row .map-image { width: 100px; height: 100px; }
+            .variator-list { gap: 0.5rem; }
+            .variator-list .var-item img { width: 50px; height: 50px; }
+            .variator-list .var-item .var-name { font-size: 0.55rem; max-width: 60px; }
+            
+            .step-actions { flex-direction: column; align-items: center; }
+            .next-btn, .back-btn, .exit-btn { width: 100%; justify-content: center; }
+            
+            .back-to-roulette { font-size: 0.85rem; padding: 0.5rem 1rem; }
+            
+            .amp-modal { padding: 1rem; }
+            .amp-modal-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+            .amp-modal-item img { width: 50px; height: 50px; }
+            .amp-modal-item .amp-name { font-size: 0.7rem; }
+            
+            .player-amps-categories {
+                grid-template-columns: 1fr;
+                gap: 0.4rem;
+            }
+            .amp-category-block .category-name { font-size: 0.6rem; }
+            .amp-category-block .category-amp-name { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="images/об игре фон.mp4" type="video/mp4">
+</video>
+
+<div class="container">
+    <!-- ===== НАВИГАЦИЯ ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
+            <a href="achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ЭСКАЛАЦИИ ===== -->
+    <div class="escalation-wrapper" id="escalationWrapper">
+        <h1><i class="fas fa-chart-line"></i> Эскалационная терапия</h1>
+
+        <!-- Переключение режима -->
+        <div class="mode-switch">
+            <button class="mode-btn active" id="modeNormal" data-mode="normal">Обычная эскалация</button>
+            <button class="mode-btn" id="modeWeekly" data-mode="weekly">Еженедельная эскалация</button>
+        </div>
+
+        <!-- Информация о еженедельном вариаторе -->
+        <div class="weekly-info" id="weeklyInfo">
+            <span class="weekly-label"><i class="fas fa-calendar-week"></i> Еженедельный вариатор:</span>
+            <span class="weekly-variator" id="weeklyVariatorName"><i class="fas fa-star"></i> Загрузка...</span>
+            <span class="weekly-hint">(действует до конца недели)</span>
+        </div>
+
+        <!-- СЧЕТЧИК УРОВНЯ -->
+        <div class="level-counter" id="levelCounter">
+            <span class="level-number" id="levelNumber">1</span>
+            <span class="level-label">УРОВЕНЬ</span>
+            <span class="level-difficulty level-difficulty-intro" id="levelDifficulty">Начальная</span>
+        </div>
+
+        <!-- ШАГ 1: Количество игроков -->
+        <div class="step-container" id="escStep1">
+            <div class="step-title">
+                <span class="step-number">Шаг 1</span>
+                <i class="fas fa-users"></i> Количество игроков
+            </div>
+            <div class="step-subtitle">Выберите, сколько игроков будет участвовать в испытании</div>
+            <div class="player-count-options" id="escPlayerCountOptions">
+                <button class="player-count-btn" data-count="1">1</button>
+                <button class="player-count-btn" data-count="2">2</button>
+                <button class="player-count-btn" data-count="3">3</button>
+                <button class="player-count-btn" data-count="4">4</button>
+            </div>
+            <div class="step-actions">
+                <button class="next-btn" id="escStep1Next" disabled>Далее →</button>
+            </div>
+        </div>
+
+        <!-- ШАГ 2: Ввод ников -->
+        <div class="step-container hidden" id="escStep2">
+            <div class="step-title">
+                <span class="step-number">Шаг 2</span>
+                <i class="fas fa-user-edit"></i> Имена игроков
+            </div>
+            <div class="step-subtitle">Введите имена всех участников</div>
+            <div class="player-name-inputs" id="escPlayerNameInputs"></div>
+            <div class="step-actions">
+                <button class="back-btn" id="escStep2Back">← Назад</button>
+                <button class="next-btn" id="escStep2Next">Далее →</button>
+            </div>
+        </div>
+
+        <!-- ШАГ 3: Снаряжение -->
+        <div class="step-container hidden" id="escStep3">
+            <div class="step-title">
+                <span class="step-number">Шаг 3</span>
+                <i class="fas fa-backpack"></i> Выбор снаряжения
+            </div>
+            <div class="step-subtitle" id="escStep3Subtitle">Каждому игроку предлагается 3 случайных снаряжения на выбор</div>
+            <div id="escStep3Content"></div>
+            <div class="step-actions">
+                <button class="back-btn" id="escStep3Back">← Назад</button>
+                <button class="next-btn" id="escStep3Next" disabled>Далее →</button>
+            </div>
+        </div>
+
+        <!-- ШАГ 4: Ампы -->
+        <div class="step-container hidden" id="escStep4">
+            <div class="step-title">
+                <span class="step-number">Шаг 4</span>
+                <i class="fas fa-capsules"></i> Выбор амп
+            </div>
+            <div class="step-subtitle" id="escStep4Subtitle">Каждому игроку предлагается 3 случайных ампы на выбор (нужно выбрать 1)</div>
+            <div id="escStep4Content"></div>
+            <div class="step-actions">
+                <button class="back-btn" id="escStep4Back">← Назад</button>
+                <button class="next-btn" id="escStep4Next" disabled>Далее →</button>
+            </div>
+        </div>
+
+        <!-- РЕЗУЛЬТАТ ИСПЫТАНИЯ -->
+        <div class="escalation-result" id="escResult">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <span style="background: rgba(220,90,50,0.2); padding: 0.3rem 1.5rem; border-radius: 30px; color: #e16d48; font-size: 0.85rem; font-weight: 600;">
+                    <i class="fas fa-check-circle"></i> Испытание сгенерировано!
+                </span>
+            </div>
+            <div class="result-grid">
+                <div>
+                    <div class="result-card">
+                        <h3><i class="fas fa-map"></i> Испытание</h3>
+                        <div class="result-map-row" id="escResultMap"></div>
+                    </div>
+                    <div class="result-card" style="margin-top: 1.5rem;">
+                        <h3><i class="fas fa-skull"></i> Вариаторы</h3>
+                        <div class="variator-list" id="escResultVariators"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="result-card">
+                        <h3><i class="fas fa-users"></i> Участники</h3>
+                        <div id="escResultPlayers"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="result-actions">
+                <button class="exit-btn" id="escExitBtn"><i class="fas fa-sign-out-alt"></i> Покинуть Эскалацию</button>
+                <button class="next-btn" id="escNextLevelBtn">Далее →</button>
+            </div>
+        </div>
+
+        <a href="roulette.html" class="back-to-roulette"><i class="fas fa-arrow-left"></i> Вернуться к рулетке</a>
+    </div>
+
+    <footer>
+        <img src="images/лого.png" alt="Курилка Синьялы" class="footer-logo" onerror="this.style.display='none'">
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ СМЕНЫ АМФЫ ===== -->
+<div class="amp-modal-overlay" id="ampModal">
+    <div class="amp-modal">
+        <div class="amp-modal-header">
+            <h2><i class="fas fa-capsules"></i> <span id="ampModalPlayerName">Игрок</span> — выбор ампы</h2>
+            <button class="amp-modal-close" id="ampModalClose">&times;</button>
+        </div>
+        <div class="amp-modal-category-tabs" id="ampCategoryTabs"></div>
+        <div class="amp-modal-grid" id="ampModalGrid"></div>
+        <div class="amp-modal-confirm">
+            <button id="ampModalConfirm">Выбрать</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== -->
+<div class="confirm-modal-overlay" id="confirmModal">
+    <div class="confirm-modal">
+        <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <h2>Выход из эскалации</h2>
+        <p>Все данные о текущем прогрессе будут аннулированы. Вы начнёте эскалацию с самого начала. Уверены, что хотите покинуть?</p>
+        <div class="confirm-actions">
+            <button class="btn-cancel" id="confirmCancel">Отмена</button>
+            <button class="btn-confirm" id="confirmExit">Выйти</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ ===== -->
+<script src="maps.js"></script>
+<script src="variators.js"></script>
+<script src="variators-all.js"></script>
+<script src="amps.js"></script>
+<script src="equipment.js"></script>
+<script src="trials.js"></script>
+<script src="escalation-logic.js"></script>
+<script src="weekly-escalation.js"></script>
+
+<script>
+    // ============================================================
+    // ПЕРЕКЛЮЧЕНИЕ МЕЖДУ ОБЫЧНОЙ И ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИЕЙ
+    // ============================================================
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        var modeNormal = document.getElementById('modeNormal');
+        var modeWeekly = document.getElementById('modeWeekly');
+        var weeklyInfo = document.getElementById('weeklyInfo');
+        var weeklyVariatorName = document.getElementById('weeklyVariatorName');
+        
+        // Функция обновления имени еженедельного вариатора
+        function updateWeeklyVariatorName() {
+            if (weeklyEscState && weeklyEscState.weeklyVariator) {
+                weeklyVariatorName.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
+            } else {
+                weeklyVariatorName.innerHTML = '<i class="fas fa-star"></i> Нет';
+            }
+        }
+        
+        // По умолчанию обычная эскалация
+        var currentMode = 'normal';
+        weeklyInfo.style.display = 'none';
+        
+        // Обработчик для обычной эскалации
+        modeNormal.addEventListener('click', function() {
+            if (currentMode === 'normal') return;
+            
+            modeNormal.classList.add('active');
+            modeWeekly.classList.remove('active');
+            currentMode = 'normal';
+            
+            // Скрываем информацию о еженедельном вариаторе
+            weeklyInfo.style.display = 'none';
+            
+            // Перезапускаем обычную эскалацию
+            if (typeof initEscalation === 'function') {
+                // Сбрасываем состояние
+                escState = {
+                    level: 1,
+                    playerCount: 0,
+                    players: [],
+                    equipSelections: {},
+                    ampSelections: {},
+                    usedAmps: {},
+                    unlockedAmps: {},
+                    allAmpsUsed: {},
+                    currentStep: 1,
+                    map: null,
+                    trial: null,
+                    difficulty: null,
+                    variators: [],
+                    isFirstRun: true,
+                    usedBigTrials: [],
+                    usedSmallTrials: [],
+                    nostophobiaCount: 0
+                };
+                
+                // Обновляем заголовок
+                var title = document.querySelector('.escalation-wrapper h1');
+                if (title) {
+                    title.innerHTML = '<i class="fas fa-chart-line"></i> Эскалационная терапия';
+                }
+                
+                // Перезапускаем
+                updateLevelCounter();
+                goToEscStep(1);
+                
+                // Сбрасываем выбор игроков
+                document.querySelectorAll('#escPlayerCountOptions .player-count-btn').forEach(function(b) {
+                    b.classList.remove('selected');
+                });
+                document.getElementById('escStep1Next').disabled = true;
+                
+                // Скрываем результат
+                var result = document.getElementById('escResult');
+                if (result) {
+                    result.classList.remove('active');
+                    result.style.display = 'none';
+                }
+                
+                // Очищаем поля
+                document.getElementById('escPlayerNameInputs').innerHTML = '';
+                document.getElementById('escStep3Content').innerHTML = '';
+                document.getElementById('escStep4Content').innerHTML = '';
+            }
+        });
+        
+        // Обработчик для еженедельной эскалации
+        modeWeekly.addEventListener('click', function() {
+            if (currentMode === 'weekly') return;
+            
+            modeWeekly.classList.add('active');
+            modeNormal.classList.remove('active');
+            currentMode = 'weekly';
+            
+            // Показываем информацию о еженедельном вариаторе
+            weeklyInfo.style.display = 'flex';
+            updateWeeklyVariatorName();
+            
+            // Обновляем заголовок
+            var title = document.querySelector('.escalation-wrapper h1');
+            if (title) {
+                title.innerHTML = '<i class="fas fa-calendar-week"></i> Еженедельная эскалация';
+            }
+            
+            // Перезапускаем еженедельную эскалацию
+            if (typeof initWeeklyEscalation === 'function') {
+                // Сбрасываем состояние еженедельной эскалации
+                weeklyEscState = {
+                    level: 1,
+                    playerCount: 0,
+                    players: [],
+                    equipSelections: {},
+                    ampSelections: {},
+                    usedAmps: {},
+                    unlockedAmps: {},
+                    allAmpsUsed: {},
+                    currentStep: 1,
+                    map: null,
+                    trial: null,
+                    difficulty: null,
+                    variators: [],
+                    isFirstRun: true,
+                    usedBigTrials: [],
+                    usedSmallTrials: [],
+                    nostophobiaCount: 0,
+                    weeklyVariator: null,
+                    weeklyFixedVariators: [],
+                    weeklyAddedVariators: [],
+                    weeklyLevelCounter: 1,
+                    weeklyLastResetLevel: 1
+                };
+                
+                // Получаем еженедельный вариатор
+                if (typeof getWeeklyVariator === 'function') {
+                    weeklyEscState.weeklyVariator = getWeeklyVariator();
+                    if (weeklyEscState.weeklyVariator) {
+                        weeklyEscState.weeklyFixedVariators = [weeklyEscState.weeklyVariator];
+                        updateWeeklyVariatorName();
+                    }
+                }
+                
+                // Обновляем счетчик
+                updateLevelCounter();
+                goToEscStep(1);
+                
+                // Сбрасываем выбор игроков
+                document.querySelectorAll('#escPlayerCountOptions .player-count-btn').forEach(function(b) {
+                    b.classList.remove('selected');
+                });
+                document.getElementById('escStep1Next').disabled = true;
+                
+                // Скрываем результат
+                var result = document.getElementById('escResult');
+                if (result) {
+                    result.classList.remove('active');
+                    result.style.display = 'none';
+                }
+                
+                // Очищаем поля
+                document.getElementById('escPlayerNameInputs').innerHTML = '';
+                document.getElementById('escStep3Content').innerHTML = '';
+                document.getElementById('escStep4Content').innerHTML = '';
+            }
+        });
+        
+        // Обновляем имя вариатора при загрузке страницы
+        if (weeklyEscState && weeklyEscState.weeklyVariator) {
+            weeklyVariatorName.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
+        }
+    });
+</script>
+
+</body>
+</html>
