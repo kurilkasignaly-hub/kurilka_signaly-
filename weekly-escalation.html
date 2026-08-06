@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ... ВСЕ СТИЛИ ТАКИЕ ЖЕ КАК ВЫШЕ ... */
+        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -21,6 +21,7 @@
         }
         .container { max-width: 1400px; margin: 0 auto; padding: 1rem 1.8rem; position: relative; z-index: 10; }
         
+        /* HEADER */
         .header {
             display: flex;
             justify-content: space-between;
@@ -95,6 +96,7 @@
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
+        /* MAIN WRAPPER */
         .escalation-wrapper {
             max-width: 1100px;
             margin: 0 auto;
@@ -171,6 +173,7 @@
         .level-difficulty-intensive { background: rgba(46, 204, 113, 0.3); color: #2ecc71; }
         .level-difficulty-psycho { background: rgba(255, 51, 51, 0.3); color: #ff3333; }
 
+        /* STEPS */
         .step-container {
             background: rgba(0, 0, 0, 0.25);
             border-radius: 28px;
@@ -200,6 +203,7 @@
         }
         .step-subtitle { font-size: 0.95rem; color: #c2b9d4; margin-bottom: 1.8rem; padding-left: 10px; text-align: center; }
 
+        /* PLAYER COUNT */
         .player-count-options {
             display: flex;
             gap: 1.2rem;
@@ -228,6 +232,7 @@
             box-shadow: 0 0 40px rgba(220, 90, 50, 0.15);
         }
 
+        /* PLAYER NAME INPUTS */
         .player-name-inputs {
             display: flex;
             flex-direction: column;
@@ -260,6 +265,7 @@
         }
         .player-name-inputs .input-row input::placeholder { color: #555; }
 
+        /* SELECTION GRID */
         .selection-grid {
             display: grid;
             gap: 1.5rem;
@@ -330,6 +336,7 @@
         .selection-item .check-mark { position: absolute; top: 6px; right: 8px; color: #4c9aff; font-size: 1.2rem; display: none; }
         .selection-item.selected .check-mark { display: block; }
 
+        /* BUTTONS */
         .step-actions {
             display: flex;
             justify-content: center;
@@ -381,6 +388,7 @@
         }
         .exit-btn:hover { background: rgba(255, 51, 51, 0.25); color: #ff3333; }
 
+        /* RESULT */
         .escalation-result { display: none; animation: resultAppear 0.6s ease-out; }
         .escalation-result.active { display: block; }
 
@@ -515,6 +523,7 @@
         .result-actions { display: flex; justify-content: center; gap: 1.2rem; margin-top: 2rem; flex-wrap: wrap; }
         .result-actions .next-btn { min-width: 200px; }
 
+        /* CONFIRM MODAL */
         .confirm-modal-overlay {
             display: none;
             position: fixed;
@@ -583,6 +592,7 @@
         }
         .back-to-roulette:hover { color: #ffbc9a; background: rgba(220, 90, 50, 0.2); transform: translateX(-5px); }
 
+        /* FOOTER */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -595,6 +605,7 @@
         }
         .footer-logo { max-height: 32px; width: auto; margin-bottom: 0.5rem; }
 
+        /* RESPONSIVE */
         @media (max-width: 850px) {
             .container { padding: 0.8rem; }
             .header { flex-direction: column; padding: 0.8rem 1rem; border-radius: 40px; }
@@ -637,6 +648,7 @@
 <body>
 
 <div class="container">
+    <!-- HEADER -->
     <div class="header">
         <div class="logo">
             <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
@@ -657,6 +669,7 @@
         </div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <div class="escalation-wrapper" id="escalationWrapper">
         <h1><i class="fas fa-calendar-week"></i> Еженедельная эскалация</h1>
 
@@ -672,6 +685,7 @@
             <span class="level-difficulty level-difficulty-intro" id="levelDifficulty">Начальная</span>
         </div>
 
+        <!-- ШАГ 1: Количество игроков -->
         <div class="step-container" id="escStep1">
             <div class="step-title">
                 <span class="step-number">Шаг 1</span>
@@ -689,6 +703,7 @@
             </div>
         </div>
 
+        <!-- ШАГ 2: Имена игроков -->
         <div class="step-container hidden" id="escStep2">
             <div class="step-title">
                 <span class="step-number">Шаг 2</span>
@@ -702,6 +717,7 @@
             </div>
         </div>
 
+        <!-- ШАГ 3: Снаряжение -->
         <div class="step-container hidden" id="escStep3">
             <div class="step-title">
                 <span class="step-number">Шаг 3</span>
@@ -715,6 +731,7 @@
             </div>
         </div>
 
+        <!-- ШАГ 4: Ампы -->
         <div class="step-container hidden" id="escStep4">
             <div class="step-title">
                 <span class="step-number">Шаг 4</span>
@@ -728,6 +745,7 @@
             </div>
         </div>
 
+        <!-- РЕЗУЛЬТАТ -->
         <div class="escalation-result" id="escResult">
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <span style="background: rgba(220,90,50,0.2); padding: 0.3rem 1.5rem; border-radius: 30px; color: #e16d48; font-size: 0.85rem; font-weight: 600;">
@@ -754,13 +772,14 @@
             </div>
             <div class="result-actions">
                 <button class="exit-btn" id="escExitBtn"><i class="fas fa-sign-out-alt"></i> Покинуть</button>
-                <button class="next-btn" id="escNextLevelBtn">Далее →</button>
+                <button class="next-btn" id="escNextLevelBtn">Следующий уровень →</button>
             </div>
         </div>
 
         <a href="roulette.html" class="back-to-roulette"><i class="fas fa-arrow-left"></i> Вернуться к рулетке</a>
     </div>
 
+    <!-- FOOTER -->
     <footer>
         <img src="images/лого.png" alt="Курилка Синьялы" class="footer-logo" onerror="this.style.display='none'">
         <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
@@ -768,6 +787,7 @@
     </footer>
 </div>
 
+<!-- CONFIRM MODAL -->
 <div class="confirm-modal-overlay" id="confirmModal">
     <div class="confirm-modal">
         <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
@@ -780,7 +800,7 @@
     </div>
 </div>
 
-<!-- ===== ПОДКЛЮЧЕНИЕ ВАШИХ JS ФАЙЛОВ ===== -->
+<!-- ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ -->
 <script src="maps.js"></script>
 <script src="variators.js"></script>
 <script src="variators-all.js"></script>
@@ -795,7 +815,7 @@
 
     console.log('🚀 Запуск еженедельной эскалации...');
 
-    // Состояние
+    // === СОСТОЯНИЕ ===
     var state = {
         playerCount: null,
         playerNames: [],
@@ -809,7 +829,7 @@
         initialized: false
     };
 
-    // Функция проверки загрузки данных
+    // === ПРОВЕРКА ЗАГРУЗКИ ДАННЫХ ===
     function checkDataLoaded() {
         return typeof MAPS !== 'undefined' && MAPS.length > 0 &&
                typeof VARIATORS !== 'undefined' && VARIATORS.length > 0 &&
@@ -818,12 +838,9 @@
                typeof TRIALS !== 'undefined' && TRIALS.length > 0;
     }
 
-    // Ждём загрузки данных
     function waitForData(callback) {
         var attempts = 0;
-        var maxAttempts = 100; // 10 секунд
-
-        console.log('⏳ Ожидание загрузки данных...');
+        var maxAttempts = 100;
 
         function check() {
             attempts++;
@@ -833,7 +850,6 @@
                 return;
             }
 
-            // Показываем прогресс
             if (attempts % 10 === 0) {
                 console.log('⏳ Ждём данные... (' + attempts + '/' + maxAttempts + ')');
             }
@@ -849,7 +865,6 @@
                     EQUIPMENT: typeof EQUIPMENT !== 'undefined' ? EQUIPMENT.length : 'undefined',
                     TRIALS: typeof TRIALS !== 'undefined' ? TRIALS.length : 'undefined'
                 });
-                // Всё равно запускаем с fallback
                 callback();
             }
         }
@@ -857,7 +872,7 @@
         check();
     }
 
-    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+    // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
     function shuffle(arr) {
         var a = [].concat(arr);
         for (var i = a.length - 1; i > 0; i--) {
@@ -928,10 +943,6 @@
         var variators = typeof VARIATORS !== 'undefined' ? VARIATORS : [];
         var trials = typeof TRIALS !== 'undefined' ? TRIALS : [];
         
-        if (maps.length === 0) {
-            console.warn('⚠️ Нет данных о картах, используем заглушку');
-        }
-        
         var map = maps.length > 0 ? maps[Math.floor(Math.random() * maps.length)] : { id: 'default', name: 'Неизвестная карта', image: '' };
         var vars = getRandom(variators, 2);
         var weekly = getWeeklyVariator();
@@ -946,7 +957,7 @@
         return { map: map, variators: vars, trial: trial };
     }
 
-    // ===== УПРАВЛЕНИЕ СОСТОЯНИЕМ =====
+    // === УПРАВЛЕНИЕ СОСТОЯНИЕМ ===
     function setPlayerCount(count) {
         state.playerCount = count;
         state.playerNames = [];
@@ -990,7 +1001,7 @@
         return true;
     }
 
-    // ===== ПЕРЕКЛЮЧЕНИЕ ШАГОВ =====
+    // === ПЕРЕКЛЮЧЕНИЕ ШАГОВ ===
     function showStep(step) {
         var containers = document.querySelectorAll('.step-container');
         for (var i = 0; i < containers.length; i++) {
@@ -1001,32 +1012,40 @@
         if (el) el.classList.remove('hidden');
     }
 
-    // ===== ШАГ 1 =====
+    // === ШАГ 1: Количество игроков ===
     function initStep1() {
         var btns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
         var next = document.getElementById('escStep1Next');
 
+        // Убираем старые обработчики
         for (var i = 0; i < btns.length; i++) {
-            btns[i].addEventListener('click', function() {
-                var allBtns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
-                for (var j = 0; j < allBtns.length; j++) {
-                    allBtns[j].classList.remove('selected');
-                }
-                this.classList.add('selected');
-                setPlayerCount(parseInt(this.dataset.count));
-                next.disabled = false;
-            });
+            btns[i].removeEventListener('click', handlePlayerCountClick);
+            btns[i].addEventListener('click', handlePlayerCountClick);
         }
 
-        next.addEventListener('click', function() {
+        function handlePlayerCountClick() {
+            var allBtns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
+            for (var j = 0; j < allBtns.length; j++) {
+                allBtns[j].classList.remove('selected');
+            }
+            this.classList.add('selected');
+            setPlayerCount(parseInt(this.dataset.count));
+            next.disabled = false;
+        }
+
+        // Убираем старые обработчики next
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
             if (state.playerCount) {
                 showStep(2);
                 initStep2();
             }
         });
+        document.getElementById('escStep1Next').disabled = true;
     }
 
-    // ===== ШАГ 2 =====
+    // === ШАГ 2: Имена игроков ===
     function initStep2() {
         var container = document.getElementById('escPlayerNameInputs');
         var next = document.getElementById('escStep2Next');
@@ -1039,10 +1058,12 @@
             row.innerHTML = '<label>Игрок ' + (i + 1) + '</label><input type="text" placeholder="Введите ник..." value="' + (state.playerNames[i] || '') + '">';
             container.appendChild(row);
             var input = row.querySelector('input');
-            input.addEventListener('input', function(idx, e) {
-                setPlayerName(idx, e.target.value);
-                checkReady();
-            }.bind(null, i));
+            input.addEventListener('input', (function(idx) {
+                return function(e) {
+                    setPlayerName(idx, e.target.value);
+                    checkReady();
+                };
+            })(i));
         }
 
         function checkReady() {
@@ -1058,14 +1079,19 @@
 
         setTimeout(checkReady, 100);
 
-        next.addEventListener('click', function() {
-            if (!next.disabled) { showStep(3); initStep3(); }
+        // Убираем старые обработчики
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
+            if (!this.disabled) { showStep(3); initStep3(); }
         });
 
-        back.addEventListener('click', function() { showStep(1); });
+        var newBack = back.cloneNode(true);
+        back.parentNode.replaceChild(newBack, back);
+        newBack.addEventListener('click', function() { showStep(1); });
     }
 
-    // ===== ШАГ 3: Снаряжение =====
+    // === ШАГ 3: Снаряжение ===
     function initStep3() {
         var container = document.getElementById('escStep3Content');
         var next = document.getElementById('escStep3Next');
@@ -1122,18 +1148,20 @@
                 
                 if (state.selectedEquipment[i] === eq.id) el.classList.add('selected');
 
-                el.addEventListener('click', function(idx, ev) {
-                    var target = ev.currentTarget;
-                    var parent = target.closest('.player-block');
-                    var pIdx = parseInt(parent.dataset.idx);
-                    var allItems = parent.querySelectorAll('.selection-item');
-                    for (var k = 0; k < allItems.length; k++) {
-                        allItems[k].classList.remove('selected');
-                    }
-                    target.classList.add('selected');
-                    setEquipment(pIdx, target.dataset.eqId);
-                    checkReady();
-                }.bind(null, i));
+                el.addEventListener('click', (function(idx) {
+                    return function(ev) {
+                        var target = ev.currentTarget;
+                        var parent = target.closest('.player-block');
+                        var pIdx = parseInt(parent.dataset.idx);
+                        var allItems = parent.querySelectorAll('.selection-item');
+                        for (var k = 0; k < allItems.length; k++) {
+                            allItems[k].classList.remove('selected');
+                        }
+                        target.classList.add('selected');
+                        setEquipment(pIdx, target.dataset.eqId);
+                        checkReady();
+                    };
+                })(i));
 
                 items.appendChild(el);
             }
@@ -1152,14 +1180,18 @@
 
         setTimeout(checkReady, 100);
 
-        next.addEventListener('click', function() {
-            if (!next.disabled) { showStep(4); initStep4(); }
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
+            if (!this.disabled) { showStep(4); initStep4(); }
         });
 
-        back.addEventListener('click', function() { showStep(2); });
+        var newBack = back.cloneNode(true);
+        back.parentNode.replaceChild(newBack, back);
+        newBack.addEventListener('click', function() { showStep(2); });
     }
 
-    // ===== ШАГ 4: Ампы =====
+    // === ШАГ 4: Ампы ===
     function initStep4() {
         var container = document.getElementById('escStep4Content');
         var next = document.getElementById('escStep4Next');
@@ -1217,18 +1249,20 @@
                 var ampSelected = state.selectedAmps[i] && state.selectedAmps[i].indexOf(amp.id) !== -1;
                 if (ampSelected) el.classList.add('selected');
 
-                el.addEventListener('click', function(idx, ev) {
-                    var target = ev.currentTarget;
-                    var parent = target.closest('.player-block');
-                    var pIdx = parseInt(parent.dataset.idx);
-                    var allItems = parent.querySelectorAll('.selection-item');
-                    for (var k = 0; k < allItems.length; k++) {
-                        allItems[k].classList.remove('selected');
-                    }
-                    target.classList.add('selected');
-                    setAmp(pIdx, target.dataset.ampId);
-                    checkReady();
-                }.bind(null, i));
+                el.addEventListener('click', (function(idx) {
+                    return function(ev) {
+                        var target = ev.currentTarget;
+                        var parent = target.closest('.player-block');
+                        var pIdx = parseInt(parent.dataset.idx);
+                        var allItems = parent.querySelectorAll('.selection-item');
+                        for (var k = 0; k < allItems.length; k++) {
+                            allItems[k].classList.remove('selected');
+                        }
+                        target.classList.add('selected');
+                        setAmp(pIdx, target.dataset.ampId);
+                        checkReady();
+                    };
+                })(i));
 
                 items.appendChild(el);
             }
@@ -1250,14 +1284,18 @@
 
         setTimeout(checkReady, 100);
 
-        next.addEventListener('click', function() {
-            if (!next.disabled) showResult();
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
+            if (!this.disabled) showResult();
         });
 
-        back.addEventListener('click', function() { showStep(3); });
+        var newBack = back.cloneNode(true);
+        back.parentNode.replaceChild(newBack, back);
+        newBack.addEventListener('click', function() { showStep(3); });
     }
 
-    // ===== РЕЗУЛЬТАТ =====
+    // === РЕЗУЛЬТАТ ===
     function showResult() {
         var data = generateTrial();
         state.map = data.map;
@@ -1409,7 +1447,7 @@
         }
     }
 
-    // ===== ВЫХОД =====
+    // === ВЫХОД ===
     function setupExit() {
         var exitBtn = document.getElementById('escExitBtn');
         var modal = document.getElementById('confirmModal');
@@ -1440,7 +1478,7 @@
         });
     }
 
-    // ===== СЛЕДУЮЩИЙ УРОВЕНЬ =====
+    // === СЛЕДУЮЩИЙ УРОВЕНЬ ===
     function setupNextLevel() {
         document.getElementById('escNextLevelBtn').addEventListener('click', function() {
             state.selectedEquipment = [];
@@ -1457,7 +1495,7 @@
         });
     }
 
-    // ===== ИНИЦИАЛИЗАЦИЯ =====
+    // === ИНИЦИАЛИЗАЦИЯ ===
     function init() {
         waitForData(function() {
             getWeeklyVariator();
@@ -1470,10 +1508,8 @@
         });
     }
 
-    // Глобальные функции
+    // Экспорт для отладки
     window.weeklyEscState = state;
-    window.initWeeklyEscalation = init;
-    window.checkDataLoaded = checkDataLoaded;
 
     // Запуск
     if (document.readyState === 'loading') {
