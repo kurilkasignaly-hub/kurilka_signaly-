@@ -100,7 +100,7 @@ function unlockAmpForPlayer(playerIndex, ampName) {
 }
 
 // ============================================================
-// ПРОВЕРКА СОВМЕСТИМОСТИ ВАРИАТОРОВ (С НОВЫМИ ПРАВИЛАМИ)
+// ПРОВЕРКА СОВМЕСТИМОСТИ ВАРИАТОРОВ
 // ============================================================
 
 function isVariatorCompatible(variator, selectedVariators, trialName, playerCount, level) {
@@ -111,6 +111,16 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     // Проверка на дубликаты
     if (selectedNames.indexOf(variatorName) !== -1) {
         return false;
+    }
+    
+    // ============================================================
+    // ОСОБЫЕ ПРАВИЛА ДЛЯ 1 ИГРОКА
+    // ============================================================
+    if (playerCount === 1) {
+        // Без Имён и Без Рации не могут выпадать при 1 игроке
+        if (variatorName === 'Без Имён' || variatorName === 'Без Рации') {
+            return false;
+        }
     }
     
     // ============================================================
@@ -129,7 +139,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
                 return false;
             }
         }
-        // Блокирует все категории collection и collection_special
         for (var ec = 0; ec < selectedVariators.length; ec++) {
             if (selectedVariators[ec].category === 'collection' || selectedVariators[ec].category === 'collection_special') {
                 return false;
@@ -147,12 +156,12 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     
     // ============================================================
     // 2. ТРОФЕЙНОЕ СНАРЯЖЕНИЕ — блокирует реагенты и другие вариаторы
+    // НО НЕ БЛОКИРУЕТ УРОН ОТКЛЮЧАЕТ СНАРЯЖЕНИЕ И СЛОМАННЫЙ РЕАГЕНТ
     // ============================================================
     var trophyEquipmentBlocked = [
-        'Первый Уровень', 'Сломанный Реагент', 'Без Снаряжения',
+        'Первый Уровень', 'Без Снаряжения',
         'Без Улучшения Снаряжения', 'Увеличенная Перезарядка Снаряжения',
-        'Ограниченное Снаряжение', 'Урон Перезапускает Снаряжение',
-        'Урон Отключает Снаряжение'
+        'Ограниченное Снаряжение', 'Урон Перезапускает Снаряжение'
     ];
     
     if (variatorName === 'Трофейное Снаряжение') {
@@ -192,9 +201,13 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     // Проверка ограничений боссов по картам
     if (bossNames.indexOf(variatorName) !== -1) {
         var allowedMaps = bossMapRestrictions[variatorName] || [];
-        var isMapAllowed = allowedMaps.some(function(allowedMap) {
-            return mapName.indexOf(allowedMap) !== -1 || mapName === allowedMap;
-        });
+        var isMapAllowed = false;
+        for (var am = 0; am < allowedMaps.length; am++) {
+            if (mapName.indexOf(allowedMaps[am]) !== -1 || mapName === allowedMaps[am]) {
+                isMapAllowed = true;
+                break;
+            }
+        }
         if (!isMapAllowed && allowedMaps.length > 0) {
             return false;
         }
@@ -205,14 +218,12 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     // ============================================================
     var selectedBosses = selectedNames.filter(function(name) { return bossNames.indexOf(name) !== -1; });
     
-    // Если текущий вариатор — босс, проверяем наличие Главная Рулетка и Самое Главное
     if (bossNames.indexOf(variatorName) !== -1) {
         if (selectedNames.indexOf('Главная Рулетка') !== -1 || selectedNames.indexOf('Самое Главное') !== -1) {
             return false;
         }
     }
     
-    // Если в выбранных есть босс, проверяем что текущий вариатор не Главная Рулетка и не Самое Главное
     if (selectedBosses.length > 0) {
         if (variatorName === 'Главная Рулетка' || variatorName === 'Самое Главное') {
             return false;
@@ -225,6 +236,11 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     if (bossNames.indexOf(variatorName) !== -1 && selectedBosses.length > 0) {
         return false;
     }
+    
+    // ============================================================
+    // 6. Трофейное Снаряжение НЕ БЛОКИРУЕТ Урон Отключает Снаряжение и Сломанный Реагент
+    // Это уже учтено выше (убраны из списка блокировки)
+    // ============================================================
     
     // ============================================================
     // ДАЛЕЕ СЛЕДУЮТ ОСТАЛЬНЫЕ ПРАВИЛА (СОХРАНЕНЫ)
@@ -1049,7 +1065,7 @@ function initEscalation() {
 }
 
 // ============================================================
-// ОТРИСОВКА ШАГОВ С ПРАВИЛЬНЫМ РАСПОЛОЖЕНИЕМ БЛОКОВ
+// ОТРИСОВКА ШАГОВ
 // ============================================================
 
 function renderEscPlayerNames() {
