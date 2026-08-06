@@ -1485,7 +1485,7 @@
             </div>
             <div class="result-actions">
                 <button class="exit-btn" id="escExitBtn"><i class="fas fa-sign-out-alt"></i> Покинуть</button>
-                <button class="next-btn" id="escNextLevelBtn">Далее →</button>
+                <button class="next-btn" id="escNextLevelBtn">Следующий уровень →</button>
             </div>
         </div>
 
@@ -1497,21 +1497,6 @@
         <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
         <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
     </footer>
-</div>
-
-<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ СМЕНЫ АМФЫ ===== -->
-<div class="amp-modal-overlay" id="ampModal">
-    <div class="amp-modal">
-        <div class="amp-modal-header">
-            <h2><i class="fas fa-capsules"></i> <span id="ampModalPlayerName">Игрок</span> — выбор ампы</h2>
-            <button class="amp-modal-close" id="ampModalClose">&times;</button>
-        </div>
-        <div class="amp-modal-category-tabs" id="ampCategoryTabs"></div>
-        <div class="amp-modal-grid" id="ampModalGrid"></div>
-        <div class="amp-modal-confirm">
-            <button id="ampModalConfirm">Выбрать</button>
-        </div>
-    </div>
 </div>
 
 <!-- ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== -->
@@ -1534,37 +1519,774 @@
 <script src="amps.js"></script>
 <script src="equipment.js"></script>
 <script src="trials.js"></script>
-<script src="weekly-escalation.js"></script>
 
+<!-- ===== ОСНОВНАЯ ЛОГИКА ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ ===== -->
 <script>
+// ============================================================
+// ЕЖЕНЕДЕЛЬНАЯ ЭСКАЛАЦИЯ — ПОЛНАЯ ЛОГИКА
+// ============================================================
+
+(function() {
+    'use strict';
+
+    console.log('🔥 Инициализация еженедельной эскалации...');
+
     // ============================================================
-    // ЗАПУСК ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ
+    // СОСТОЯНИЕ
     // ============================================================
     
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 Запуск еженедельной эскалации...');
-        
-        // Обновляем имя еженедельного вариатора
-        function updateWeeklyVariatorName() {
-            var nameEl = document.getElementById('weeklyVariatorName');
-            if (nameEl) {
-                if (weeklyEscState && weeklyEscState.weeklyVariator) {
-                    nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
-                } else {
-                    nameEl.innerHTML = '<i class="fas fa-star"></i> Нет';
-                }
+    var state = {
+        playerCount: null,
+        playerNames: [],
+        selectedEquipment: [],
+        selectedAmps: [],
+        map: null,
+        variators: [],
+        weeklyVariator: null,
+        level: 1,
+        completed: false,
+        initialized: false,
+        ampModalData: null
+    };
+
+    window.weeklyEscState = state;
+
+    // ============================================================
+    // ПРОВЕРКА ЗАГРУЗКИ ДАННЫХ
+    // ============================================================
+    
+    window.checkDataLoaded = function() {
+        return typeof MAPS !== 'undefined' && MAPS.length > 0 &&
+               typeof VARIATORS !== 'undefined' && VARIATORS.length > 0 &&
+               typeof AMPS !== 'undefined' && AMPS.length > 0 &&
+               typeof EQUIPMENT !== 'undefined' && EQUIPMENT.length > 0 &&
+               typeof TRIALS !== 'undefined' && TRIALS.length > 0;
+    };
+
+    // ============================================================
+    // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+    // ============================================================
+    
+    function shuffle(arr) {
+        var a = [].concat(arr);
+        for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+        return a;
+    }
+
+    function getRandom(arr, count) {
+        if (!arr || arr.length === 0) return [];
+        var shuffled = shuffle(arr);
+        return shuffled.slice(0, Math.min(count, shuffled.length));
+    }
+
+    function getById(arr, id) {
+        if (!arr || !id) return null;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].id === id) return arr[i];
+        }
+        return null;
+    }
+
+    function getWeeklyVariator() {
+        if (state.weeklyVariator) return state.weeklyVariator;
+        if (typeof VARIATORS !== 'undefined' && VARIATORS.length > 0) {
+            var weekly = VARIATORS[Math.floor(Math.random() * VARIATORS.length)];
+            state.weeklyVariator = weekly;
+            updateWeeklyDisplay();
+            return weekly;
+        }
+        return null;
+    }
+
+    function updateWeeklyDisplay() {
+        var el = document.getElementById('weeklyVariatorName');
+        if (el) {
+            if (state.weeklyVariator) {
+                el.innerHTML = '<i class="fas fa-star"></i> ' + state.weeklyVariator.name;
+            } else {
+                el.innerHTML = '<i class="fas fa-star"></i> Нет данных';
             }
         }
-        
-        // Инициализируем еженедельную эскалацию
-        if (typeof initWeeklyEscalation === 'function') {
-            initWeeklyEscalation();
-            updateWeeklyVariatorName();
+    }
+
+    function getDifficulty(level) {
+        if (level <= 3) return { text: 'Начальная', cls: 'level-difficulty-intro' };
+        if (level <= 6) return { text: 'Стандартная', cls: 'level-difficulty-standard' };
+        if (level <= 9) return { text: 'Интенсивная', cls: 'level-difficulty-intensive' };
+        return { text: 'Психо', cls: 'level-difficulty-psycho' };
+    }
+
+    function updateLevelDisplay() {
+        var numEl = document.getElementById('levelNumber');
+        var diffEl = document.getElementById('levelDifficulty');
+        if (numEl) numEl.textContent = state.level;
+        if (diffEl) {
+            var diff = getDifficulty(state.level);
+            diffEl.textContent = diff.text;
+            diffEl.className = 'level-difficulty ' + diff.cls;
         }
+    }
+
+    function generateTrial() {
+        var maps = typeof MAPS !== 'undefined' ? MAPS : [];
+        var variators = typeof VARIATORS !== 'undefined' ? VARIATORS : [];
+        var trials = typeof TRIALS !== 'undefined' ? TRIALS : [];
         
-        // Обновляем имя при загрузке
-        setTimeout(updateWeeklyVariatorName, 500);
-    });
+        var map = maps.length > 0 ? maps[Math.floor(Math.random() * maps.length)] : { id: 'default', name: 'Неизвестная карта', image: '' };
+        var vars = getRandom(variators, 2);
+        var weekly = getWeeklyVariator();
+        if (weekly && vars.length < 3) {
+            var hasDup = false;
+            for (var i = 0; i < vars.length; i++) {
+                if (vars[i].id === weekly.id) { hasDup = true; break; }
+            }
+            if (!hasDup) vars.push(weekly);
+        }
+        var trial = trials.length > 0 ? trials[Math.floor(Math.random() * trials.length)] : { id: 'default', name: 'Испытание', description: 'Пройдите испытание' };
+        return { map: map, variators: vars, trial: trial };
+    }
+
+    // ============================================================
+    // УПРАВЛЕНИЕ СОСТОЯНИЕМ
+    // ============================================================
+    
+    function setPlayerCount(count) {
+        state.playerCount = count;
+        state.playerNames = [];
+        state.selectedEquipment = [];
+        state.selectedAmps = [];
+        for (var i = 0; i < count; i++) {
+            state.playerNames.push('');
+            state.selectedEquipment.push(null);
+            state.selectedAmps.push([]);
+        }
+    }
+
+    function setPlayerName(index, name) {
+        if (index >= 0 && index < state.playerNames.length) {
+            state.playerNames[index] = name.trim();
+        }
+    }
+
+    function setEquipment(index, id) {
+        if (index >= 0 && index < state.selectedEquipment.length) {
+            state.selectedEquipment[index] = id;
+        }
+    }
+
+    function setAmp(index, id) {
+        if (index >= 0 && index < state.selectedAmps.length) {
+            state.selectedAmps[index] = [id];
+        }
+    }
+
+    function isPlayerReady(index) {
+        return state.playerNames[index] && state.playerNames[index].length > 0 &&
+               state.selectedEquipment[index] !== null &&
+               state.selectedAmps[index] && state.selectedAmps[index].length > 0;
+    }
+
+    function allReady() {
+        for (var i = 0; i < state.playerCount; i++) {
+            if (!isPlayerReady(i)) return false;
+        }
+        return true;
+    }
+
+    // ============================================================
+    // ПЕРЕКЛЮЧЕНИЕ ШАГОВ
+    // ============================================================
+    
+    function showStep(step) {
+        var containers = document.querySelectorAll('.step-container');
+        for (var i = 0; i < containers.length; i++) {
+            containers[i].classList.add('hidden');
+        }
+        document.getElementById('escResult').classList.remove('active');
+        var el = document.getElementById('escStep' + step);
+        if (el) el.classList.remove('hidden');
+    }
+
+    // ============================================================
+    // ШАГ 1: Количество игроков
+    // ============================================================
+    
+    function initStep1() {
+        var btns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
+        var next = document.getElementById('escStep1Next');
+
+        function handleClick() {
+            var allBtns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
+            for (var j = 0; j < allBtns.length; j++) {
+                allBtns[j].classList.remove('selected');
+            }
+            this.classList.add('selected');
+            setPlayerCount(parseInt(this.dataset.count));
+            next.disabled = false;
+        }
+
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].removeEventListener('click', handleClick);
+            btns[i].addEventListener('click', handleClick);
+        }
+
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
+            if (state.playerCount) {
+                showStep(2);
+                initStep2();
+            }
+        });
+        document.getElementById('escStep1Next').disabled = true;
+    }
+
+    // ============================================================
+    // ШАГ 2: Имена игроков
+    // ============================================================
+    
+    function initStep2() {
+        var container = document.getElementById('escPlayerNameInputs');
+        var next = document.getElementById('escStep2Next');
+        var back = document.getElementById('escStep2Back');
+
+        container.innerHTML = '';
+        for (var i = 0; i < state.playerCount; i++) {
+            var row = document.createElement('div');
+            row.className = 'input-row';
+            row.innerHTML = '<label>Игрок ' + (i + 1) + '</label><input type="text" placeholder="Введите ник..." value="' + (state.playerNames[i] || '') + '">';
+            container.appendChild(row);
+            var input = row.querySelector('input');
+            input.addEventListener('input', (function(idx) {
+                return function(e) {
+                    setPlayerName(idx, e.target.value);
+                    checkReady();
+                };
+            })(i));
+        }
+
+        function checkReady() {
+            var ready = true;
+            for (var i = 0; i < state.playerCount; i++) {
+                if (!state.playerNames[i] || state.playerNames[i].length === 0) {
+                    ready = false;
+                    break;
+                }
+            }
+            next.disabled = !ready;
+        }
+
+        setTimeout(checkReady, 100);
+
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
+            if (!this.disabled) { showStep(3); initStep3(); }
+        });
+
+        var newBack = back.cloneNode(true);
+        back.parentNode.replaceChild(newBack, back);
+        newBack.addEventListener('click', function() { showStep(1); });
+    }
+
+    // ============================================================
+    // ШАГ 3: Снаряжение
+    // ============================================================
+    
+    function initStep3() {
+        var container = document.getElementById('escStep3Content');
+        var next = document.getElementById('escStep3Next');
+        var back = document.getElementById('escStep3Back');
+
+        container.innerHTML = '';
+        var wrapper = document.createElement('div');
+        wrapper.className = 'selection-wrapper';
+        var grid = document.createElement('div');
+        grid.className = 'selection-grid players-' + state.playerCount;
+        wrapper.appendChild(grid);
+        container.appendChild(wrapper);
+
+        var equipment = typeof EQUIPMENT !== 'undefined' ? EQUIPMENT : [];
+
+        for (var i = 0; i < state.playerCount; i++) {
+            var block = document.createElement('div');
+            block.className = 'player-block';
+            block.dataset.idx = i;
+
+            var title = document.createElement('div');
+            title.className = 'block-title';
+            title.textContent = state.playerNames[i] || 'Игрок ' + (i + 1);
+            block.appendChild(title);
+
+            var items = document.createElement('div');
+            items.className = 'selection-items';
+
+            var options = getRandom(equipment, 3);
+            for (var e = 0; e < options.length; e++) {
+                var eq = options[e];
+                var el = document.createElement('div');
+                el.className = 'selection-item';
+                el.dataset.eqId = eq.id;
+                
+                var img = document.createElement('img');
+                img.src = eq.image || 'images/placeholder.png';
+                img.alt = eq.name || 'Снаряжение';
+                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E?%3C/text%3E%3C/svg%3E'; };
+                
+                var nameSpan = document.createElement('span');
+                nameSpan.className = 'item-name';
+                nameSpan.textContent = eq.name || 'Неизвестно';
+                
+                var catSpan = document.createElement('span');
+                catSpan.className = 'item-category';
+                catSpan.textContent = eq.category || 'Снаряжение';
+                
+                var checkMark = document.createElement('span');
+                checkMark.className = 'check-mark';
+                checkMark.innerHTML = '<i class="fas fa-check-circle"></i>';
+                
+                el.appendChild(img);
+                el.appendChild(nameSpan);
+                el.appendChild(catSpan);
+                el.appendChild(checkMark);
+                
+                if (state.selectedEquipment[i] === eq.id) el.classList.add('selected');
+
+                el.addEventListener('click', (function(idx) {
+                    return function(ev) {
+                        var target = ev.currentTarget;
+                        var parent = target.closest('.player-block');
+                        var pIdx = parseInt(parent.dataset.idx);
+                        var allItems = parent.querySelectorAll('.selection-item');
+                        for (var k = 0; k < allItems.length; k++) {
+                            allItems[k].classList.remove('selected');
+                        }
+                        target.classList.add('selected');
+                        setEquipment(pIdx, target.dataset.eqId);
+                        checkReady();
+                    };
+                })(i));
+
+                items.appendChild(el);
+            }
+
+            block.appendChild(items);
+            grid.appendChild(block);
+        }
+
+        function checkReady() {
+            var ready = true;
+            for (var i = 0; i < state.playerCount; i++) {
+                if (state.selectedEquipment[i] === null) { ready = false; break; }
+            }
+            next.disabled = !ready;
+        }
+
+        setTimeout(checkReady, 100);
+
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
+            if (!this.disabled) { showStep(4); initStep4(); }
+        });
+
+        var newBack = back.cloneNode(true);
+        back.parentNode.replaceChild(newBack, back);
+        newBack.addEventListener('click', function() { showStep(2); });
+    }
+
+    // ============================================================
+    // ШАГ 4: Ампы
+    // ============================================================
+    
+    function initStep4() {
+        var container = document.getElementById('escStep4Content');
+        var next = document.getElementById('escStep4Next');
+        var back = document.getElementById('escStep4Back');
+
+        container.innerHTML = '';
+        var wrapper = document.createElement('div');
+        wrapper.className = 'selection-wrapper';
+        var grid = document.createElement('div');
+        grid.className = 'selection-grid players-' + state.playerCount;
+        wrapper.appendChild(grid);
+        container.appendChild(wrapper);
+
+        var amps = typeof AMPS !== 'undefined' ? AMPS : [];
+
+        for (var i = 0; i < state.playerCount; i++) {
+            var block = document.createElement('div');
+            block.className = 'player-block';
+            block.dataset.idx = i;
+
+            var title = document.createElement('div');
+            title.className = 'block-title';
+            title.textContent = state.playerNames[i] || 'Игрок ' + (i + 1);
+            block.appendChild(title);
+
+            var items = document.createElement('div');
+            items.className = 'selection-items';
+
+            var options = getRandom(amps, 3);
+            for (var a = 0; a < options.length; a++) {
+                var amp = options[a];
+                var el = document.createElement('div');
+                el.className = 'selection-item';
+                el.dataset.ampId = amp.id;
+                
+                var img = document.createElement('img');
+                img.src = amp.image || 'images/placeholder.png';
+                img.alt = amp.name || 'Ампа';
+                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E?%3C/text%3E%3C/svg%3E'; };
+                
+                var nameSpan = document.createElement('span');
+                nameSpan.className = 'item-name';
+                nameSpan.textContent = amp.name || 'Неизвестно';
+                
+                var catSpan = document.createElement('span');
+                catSpan.className = 'item-category';
+                catSpan.textContent = amp.category || 'Ампа';
+                
+                var checkMark = document.createElement('span');
+                checkMark.className = 'check-mark';
+                checkMark.innerHTML = '<i class="fas fa-check-circle"></i>';
+                
+                el.appendChild(img);
+                el.appendChild(nameSpan);
+                el.appendChild(catSpan);
+                el.appendChild(checkMark);
+                
+                var ampSelected = state.selectedAmps[i] && state.selectedAmps[i].indexOf(amp.id) !== -1;
+                if (ampSelected) el.classList.add('selected');
+
+                el.addEventListener('click', (function(idx) {
+                    return function(ev) {
+                        var target = ev.currentTarget;
+                        var parent = target.closest('.player-block');
+                        var pIdx = parseInt(parent.dataset.idx);
+                        var allItems = parent.querySelectorAll('.selection-item');
+                        for (var k = 0; k < allItems.length; k++) {
+                            allItems[k].classList.remove('selected');
+                        }
+                        target.classList.add('selected');
+                        setAmp(pIdx, target.dataset.ampId);
+                        checkReady();
+                    };
+                })(i));
+
+                items.appendChild(el);
+            }
+
+            block.appendChild(items);
+            grid.appendChild(block);
+        }
+
+        function checkReady() {
+            var ready = true;
+            for (var i = 0; i < state.playerCount; i++) {
+                if (!state.selectedAmps[i] || state.selectedAmps[i].length === 0) {
+                    ready = false;
+                    break;
+                }
+            }
+            next.disabled = !ready;
+        }
+
+        setTimeout(checkReady, 100);
+
+        var newNext = next.cloneNode(true);
+        next.parentNode.replaceChild(newNext, next);
+        newNext.addEventListener('click', function() {
+            if (!this.disabled) showResult();
+        });
+
+        var newBack = back.cloneNode(true);
+        back.parentNode.replaceChild(newBack, back);
+        newBack.addEventListener('click', function() { showStep(3); });
+    }
+
+    // ============================================================
+    // РЕЗУЛЬТАТ
+    // ============================================================
+    
+    function showResult() {
+        var data = generateTrial();
+        state.map = data.map;
+        state.variators = data.variators;
+        state.completed = true;
+        state.level++;
+
+        var containers = document.querySelectorAll('.step-container');
+        for (var i = 0; i < containers.length; i++) {
+            containers[i].classList.add('hidden');
+        }
+        var resultEl = document.getElementById('escResult');
+        resultEl.classList.add('active');
+
+        updateLevelDisplay();
+        renderResult(data);
+    }
+
+    function renderResult(data) {
+        var map = data.map;
+        var vars = data.variators;
+        var trial = data.trial;
+
+        var equipment = typeof EQUIPMENT !== 'undefined' ? EQUIPMENT : [];
+        var amps = typeof AMPS !== 'undefined' ? AMPS : [];
+
+        // Карта
+        var mapContainer = document.getElementById('escResultMap');
+        mapContainer.innerHTML = '';
+        var row = document.createElement('div');
+        row.className = 'result-map-row';
+        
+        var img = document.createElement('img');
+        img.className = 'map-image';
+        img.src = map.image || 'images/placeholder.png';
+        img.alt = map.name || 'Карта';
+        img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"%3E%3Crect width="160" height="160" fill="%23333"/%3E%3Ctext x="80" y="85" text-anchor="middle" fill="%23666" font-size="16"%3E' + encodeURIComponent(map.name || '?') + '%3C/text%3E%3C/svg%3E'; };
+        
+        var info = document.createElement('div');
+        info.className = 'result-map-info';
+        info.innerHTML = 
+            '<div class="map-label">Локация</div>' +
+            '<div class="map-name">' + (map.name || 'Неизвестно') + '</div>' +
+            '<div class="trial-name">' + (trial ? trial.name : 'Испытание') + '</div>' +
+            '<div class="trial-desc">' + (trial ? trial.description : 'Пройдите испытание') + '</div>' +
+            '<div class="map-meta">' +
+            '<span class="map-meta-item"><strong>Уровень:</strong> ' + (state.level - 1) + '</span>' +
+            '<span class="map-meta-item"><strong>Сложность:</strong> ' + getDifficulty(state.level - 1).text + '</span>' +
+            '</div>';
+        
+        row.appendChild(img);
+        row.appendChild(info);
+        mapContainer.appendChild(row);
+
+        // Вариаторы
+        var varContainer = document.getElementById('escResultVariators');
+        varContainer.innerHTML = '';
+        for (var v = 0; v < vars.length; v++) {
+            var variator = vars[v];
+            var el = document.createElement('div');
+            el.className = 'var-item';
+            
+            var img2 = document.createElement('img');
+            img2.src = variator.image || 'images/placeholder.png';
+            img2.alt = variator.name || 'Вариатор';
+            img2.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"%3E%3Crect width="60" height="60" fill="%23333"/%3E%3Ctext x="30" y="35" text-anchor="middle" fill="%23666" font-size="10"%3E?%3C/text%3E%3C/svg%3E'; };
+            
+            var nameSpan = document.createElement('span');
+            nameSpan.className = 'var-name';
+            nameSpan.textContent = variator.name || 'Вариатор';
+            
+            el.appendChild(img2);
+            el.appendChild(nameSpan);
+            varContainer.appendChild(el);
+        }
+
+        // Игроки
+        var playersContainer = document.getElementById('escResultPlayers');
+        playersContainer.innerHTML = '';
+
+        for (var p = 0; p < state.playerCount; p++) {
+            var pDiv = document.createElement('div');
+            pDiv.className = 'player-result';
+
+            var equip = getById(equipment, state.selectedEquipment[p]);
+            var ampIds = state.selectedAmps[p] || [];
+            var ampObjects = [];
+            for (var ai = 0; ai < ampIds.length; ai++) {
+                var aObj = getById(amps, ampIds[ai]);
+                if (aObj) ampObjects.push(aObj);
+            }
+
+            var nameDiv = document.createElement('div');
+            nameDiv.className = 'player-name';
+            nameDiv.innerHTML = '<i class="fas fa-user"></i> ' + (state.playerNames[p] || 'Игрок ' + (p + 1));
+            pDiv.appendChild(nameDiv);
+
+            var eqDiv = document.createElement('div');
+            eqDiv.className = 'player-equip';
+            
+            var eqImg = document.createElement('img');
+            eqImg.src = equip ? (equip.image || 'images/placeholder.png') : 'images/placeholder.png';
+            eqImg.alt = equip ? equip.name : 'Снаряжение';
+            eqImg.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"%3E%3Crect width="36" height="36" fill="%23333"/%3E%3Ctext x="18" y="23" text-anchor="middle" fill="%23666" font-size="10"%3E?%3C/text%3E%3C/svg%3E'; };
+            
+            var labelSpan = document.createElement('span');
+            labelSpan.className = 'label';
+            labelSpan.textContent = 'Снаряжение:';
+            
+            var valueSpan = document.createElement('span');
+            valueSpan.className = 'value';
+            valueSpan.textContent = equip ? equip.name : 'Не выбрано';
+            
+            eqDiv.appendChild(eqImg);
+            eqDiv.appendChild(labelSpan);
+            eqDiv.appendChild(valueSpan);
+            pDiv.appendChild(eqDiv);
+
+            var ampsDiv = document.createElement('div');
+            ampsDiv.className = 'player-amps-categories';
+
+            if (ampObjects.length === 0) {
+                ampsDiv.innerHTML = '<div class="amp-category-block"><div class="category-name">Нет амп</div><div class="category-amp-empty">Не выбрано</div></div>';
+            } else {
+                var categories = {};
+                for (var ac = 0; ac < ampObjects.length; ac++) {
+                    var aItem = ampObjects[ac];
+                    var cat = aItem.category || 'Другие';
+                    if (!categories[cat]) categories[cat] = [];
+                    categories[cat].push(aItem);
+                }
+                var catNames = Object.keys(categories);
+                var maxCats = Math.min(3, catNames.length);
+                for (var c = 0; c < maxCats; c++) {
+                    var name = catNames[c];
+                    var block = document.createElement('div');
+                    block.className = 'amp-category-block';
+                    block.innerHTML = '<div class="category-name">' + name + '</div>';
+                    var itemsInCat = categories[name];
+                    for (var ic = 0; ic < itemsInCat.length; ic++) {
+                        block.innerHTML += '<div class="category-amp-name">' + (itemsInCat[ic].name || 'Ампа') + '</div>';
+                    }
+                    ampsDiv.appendChild(block);
+                }
+            }
+
+            pDiv.appendChild(ampsDiv);
+            playersContainer.appendChild(pDiv);
+        }
+    }
+
+    // ============================================================
+    // ВЫХОД
+    // ============================================================
+    
+    function setupExit() {
+        var exitBtn = document.getElementById('escExitBtn');
+        var modal = document.getElementById('confirmModal');
+        var cancel = document.getElementById('confirmCancel');
+        var confirm = document.getElementById('confirmExit');
+
+        exitBtn.addEventListener('click', function() { modal.classList.add('active'); });
+        cancel.addEventListener('click', function() { modal.classList.remove('active'); });
+        confirm.addEventListener('click', function() {
+            modal.classList.remove('active');
+            resetState();
+            showStep(1);
+            var btns = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('selected');
+            }
+            document.getElementById('escStep1Next').disabled = true;
+            updateLevelDisplay();
+            updateWeeklyDisplay();
+        });
+    }
+
+    function resetState() {
+        state.level = 1;
+        state.playerCount = null;
+        state.playerNames = [];
+        state.selectedEquipment = [];
+        state.selectedAmps = [];
+        state.map = null;
+        state.variators = [];
+        state.completed = false;
+        state.weeklyVariator = null;
+    }
+
+    // ============================================================
+    // СЛЕДУЮЩИЙ УРОВЕНЬ
+    // ============================================================
+    
+    function setupNextLevel() {
+        document.getElementById('escNextLevelBtn').addEventListener('click', function() {
+            state.selectedEquipment = [];
+            state.selectedAmps = [];
+            state.map = null;
+            state.variators = [];
+            state.completed = false;
+            for (var i = 0; i < state.playerCount; i++) {
+                state.selectedEquipment.push(null);
+                state.selectedAmps.push([]);
+            }
+            showStep(3);
+            initStep3();
+        });
+    }
+
+    // ============================================================
+    // ЗАГРУЗКА ДАННЫХ И ИНИЦИАЛИЗАЦИЯ
+    // ============================================================
+    
+    function waitForData(callback) {
+        var attempts = 0;
+        var maxAttempts = 100;
+
+        function check() {
+            attempts++;
+            if (window.checkDataLoaded()) {
+                console.log('✅ Данные успешно загружены!');
+                callback();
+                return;
+            }
+
+            if (attempts % 10 === 0) {
+                console.log('⏳ Ждём данные... (' + attempts + '/' + maxAttempts + ')');
+            }
+
+            if (attempts < maxAttempts) {
+                setTimeout(check, 100);
+            } else {
+                console.error('❌ Данные не загружены после ' + maxAttempts + ' попыток!');
+                console.log('📋 Доступные переменные:', {
+                    MAPS: typeof MAPS !== 'undefined' ? MAPS.length : 'undefined',
+                    VARIATORS: typeof VARIATORS !== 'undefined' ? VARIATORS.length : 'undefined',
+                    AMPS: typeof AMPS !== 'undefined' ? AMPS.length : 'undefined',
+                    EQUIPMENT: typeof EQUIPMENT !== 'undefined' ? EQUIPMENT.length : 'undefined',
+                    TRIALS: typeof TRIALS !== 'undefined' ? TRIALS.length : 'undefined'
+                });
+                callback();
+            }
+        }
+
+        check();
+    }
+
+    // ============================================================
+    // ГЛАВНАЯ ИНИЦИАЛИЗАЦИЯ
+    // ============================================================
+    
+    function init() {
+        waitForData(function() {
+            getWeeklyVariator();
+            updateLevelDisplay();
+            initStep1();
+            setupExit();
+            setupNextLevel();
+            state.initialized = true;
+            console.log('✅ Еженедельная эскалация готова!');
+        });
+    }
+
+    window.initWeeklyEscalation = init;
+
+    // Запуск
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();
 </script>
 
 </body>
