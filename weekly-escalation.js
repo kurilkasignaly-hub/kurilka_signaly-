@@ -64,10 +64,54 @@ function getWeeklyVariator() {
 }
 
 // ============================================================
+// ПРОВЕРКА НУЖНО ЛИ СБРОСИТЬ ЕЖЕНЕДЕЛЬНУЮ ЭСКАЛАЦИЮ (ВТОРНИК 21:00)
+// ============================================================
+
+function isWeeklyResetNeeded() {
+    var now = new Date();
+    var day = now.getDay(); // 0 - воскресенье, 1 - понедельник, 2 - вторник
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    
+    // Вторник 21:00 (day === 2, hours === 21, minutes === 0)
+    // Проверяем, что прошло больше 21:00 во вторник
+    if (day === 2 && hours >= 21 && minutes >= 0) {
+        // Проверяем, не было ли уже сброса на этой неделе
+        var lastReset = localStorage.getItem('weeklyEscLastReset');
+        if (lastReset) {
+            var lastResetDate = new Date(lastReset);
+            var lastResetWeek = getWeekNumber(lastResetDate);
+            var currentWeek = getWeekNumber(now);
+            if (lastResetWeek === currentWeek) {
+                return false; // Уже сброшено на этой неделе
+            }
+        }
+        return true;
+    }
+    
+    return false;
+}
+
+// ============================================================
+// НОМЕР НЕДЕЛИ
+// ============================================================
+
+function getWeekNumber(date) {
+    var d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+    var week1 = new Date(d.getFullYear(), 0, 4);
+    return 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+}
+
+// ============================================================
 // СБРОС ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ (ПРИ НОВОЙ НЕДЕЛЕ)
 // ============================================================
 
 function resetWeeklyEscalation() {
+    // Получаем новый еженедельный вариатор
+    var newWeekly = getWeeklyVariator();
+    
     weeklyEscState = {
         level: 1,
         playerCount: 0,
@@ -86,22 +130,61 @@ function resetWeeklyEscalation() {
         usedBigTrials: [],
         usedSmallTrials: [],
         nostophobiaCount: 0,
-        weeklyVariator: getWeeklyVariator(),
-        weeklyFixedVariators: [],
+        weeklyVariator: newWeekly,
+        weeklyFixedVariators: newWeekly ? [newWeekly] : [],
         weeklyAddedVariators: [],
         weeklyLevelCounter: 1,
         weeklyLastResetLevel: 1
     };
     
-    // Если еженедельный вариатор найден, добавляем его в фиксированные
-    if (weeklyEscState.weeklyVariator) {
-        weeklyEscState.weeklyFixedVariators = [weeklyEscState.weeklyVariator];
+    // Сохраняем в localStorage
+    localStorage.setItem('weeklyEscWeekNumber', getWeekNumber(new Date()).toString());
+    localStorage.setItem('weeklyEscLastReset', new Date().toISOString());
+    if (newWeekly) {
+        localStorage.setItem('weeklyEscVariator', JSON.stringify(newWeekly));
+    } else {
+        localStorage.removeItem('weeklyEscVariator');
     }
     
     console.log('🔄 Еженедельная эскалация сброшена! Главный вариатор недели:', 
-        weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
+        newWeekly ? newWeekly.name : 'Нет');
     
-    return weeklyEscState.weeklyVariator;
+    return newWeekly;
+}
+
+// ============================================================
+// ВОССТАНОВЛЕНИЕ ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ ИЗ LOCALSTORAGE
+// ============================================================
+
+function restoreWeeklyEscalation() {
+    // Проверяем, нужно ли сбросить
+    if (isWeeklyResetNeeded()) {
+        console.log('🔄 Наступила новая неделя, сбрасываем еженедельную эскалацию...');
+        return resetWeeklyEscalation();
+    }
+    
+    // Восстанавливаем из localStorage
+    var savedVariator = localStorage.getItem('weeklyEscVariator');
+    var savedWeek = localStorage.getItem('weeklyEscWeekNumber');
+    var currentWeek = getWeekNumber(new Date());
+    
+    if (savedVariator && savedWeek && parseInt(savedWeek) === currentWeek) {
+        try {
+            var variator = JSON.parse(savedVariator);
+            weeklyEscState.weeklyVariator = variator;
+            if (variator) {
+                weeklyEscState.weeklyFixedVariators = [variator];
+            }
+            console.log('📥 Восстановлен еженедельный вариатор:', variator ? variator.name : 'Нет');
+            return variator;
+        } catch(e) {
+            console.error('Ошибка восстановления еженедельного вариатора:', e);
+            return resetWeeklyEscalation();
+        }
+    } else {
+        // Нет сохраненного вариатора или другая неделя
+        return resetWeeklyEscalation();
+    }
 }
 
 // ============================================================
@@ -114,8 +197,9 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
     console.log('🔄 Генерация вариаторов для еженедельной эскалации, уровень:', level);
     console.log('📍 Карта:', mapName);
     console.log('👥 Игроков:', playerCount);
+    console.log('📌 Еженедельный вариатор:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
     
-    // Проверяем, нужно ли сбросить счетчик (каждые 10 уровней)
+    // Проверяем, нужно ли сбросить добавочные вариаторы (каждые 10 уровней)
     if (level > 1 && (level - 1) % 10 === 0 && level <= 20) {
         weeklyEscState.weeklyLevelCounter = 1;
         weeklyEscState.weeklyAddedVariators = [];
@@ -123,47 +207,52 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
         console.log('🔄 Сброс добавочных вариаторов на уровне:', level);
     }
     
-    // Определяем, сколько вариаторов должно быть на этом уровне
+    // Определяем целевое количество вариаторов
     var targetCount;
     if (level >= 21) {
         targetCount = 8;
     } else {
         // Для уровней 1-20: количество вариаторов = уровень (но не больше 7)
         targetCount = Math.min(level, 7);
-        if (level === 1) targetCount = 2; // На 1 уровне должно быть 2 вариатора
+        if (level === 1) targetCount = 2;
     }
     
     console.log('🎯 Целевое количество вариаторов:', targetCount);
     
-    // Получаем текущие фиксированные вариаторы
-    var fixedVariators = weeklyEscState.weeklyFixedVariators.slice();
-    var result = fixedVariators.slice();
+    // НАЧИНАЕМ С ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА (он ВСЕГДА должен быть первым)
+    var result = [];
+    
+    // Добавляем еженедельный вариатор (всегда первый)
+    if (weeklyEscState.weeklyVariator) {
+        result.push(weeklyEscState.weeklyVariator);
+        // Обновляем weeklyFixedVariators, чтобы еженедельный всегда был первым
+        if (weeklyEscState.weeklyFixedVariators.length === 0 || 
+            weeklyEscState.weeklyFixedVariators[0].name !== weeklyEscState.weeklyVariator.name) {
+            weeklyEscState.weeklyFixedVariators = [weeklyEscState.weeklyVariator];
+        }
+    }
     
     // Проверяем, нужно ли добавить психохирургию и двойные задания на 21+ уровне
-    var hasPsycho = fixedVariators.some(function(v) { return v.name === "Психохирургия"; });
-    var hasDoubleTasks = fixedVariators.some(function(v) { return v.name === "Двойные задания"; });
-    
-    // Если уровень >= 21 и нет психохирургии и двойных заданий - добавляем их в фиксированные
     if (level >= 21) {
+        var hasPsycho = result.some(function(v) { return v.name === "Психохирургия"; });
+        var hasDoubleTasks = result.some(function(v) { return v.name === "Двойные задания"; });
+        
         var psycho = allVariatorsData.find(function(v) { return v.name === "Психохирургия"; });
         var doubleTasks = allVariatorsData.find(function(v) { return v.name === "Двойные задания"; });
         
         if (psycho && !hasPsycho) {
-            fixedVariators.push(psycho);
+            result.push(psycho);
             weeklyEscState.weeklyFixedVariators.push(psycho);
             console.log('✅ Добавлена Психохирургия в фиксированные вариаторы');
         }
         if (doubleTasks && !hasDoubleTasks) {
-            fixedVariators.push(doubleTasks);
+            result.push(doubleTasks);
             weeklyEscState.weeklyFixedVariators.push(doubleTasks);
             console.log('✅ Добавлены Двойные задания в фиксированные вариаторы');
         }
     }
     
-    // Снова обновляем result после добавления психохирургии
-    result = fixedVariators.slice();
-    
-    // Получаем уже добавленные дополнительные вариаторы
+    // Добавляем ранее сохраненные добавочные вариаторы
     var addedVariators = weeklyEscState.weeklyAddedVariators.slice();
     result = result.concat(addedVariators);
     
@@ -175,7 +264,7 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
     
     // Если нужно добавить вариаторы
     if (neededCount > 0) {
-        // Получаем список доступных вариаторов (исключаем уже использованные в этой неделе)
+        // Получаем список доступных вариаторов
         var usedNames = result.map(function(v) { return v.name; });
         var available = allVariatorsData.filter(function(v) {
             // Исключаем уже использованные в этой неделе
@@ -185,6 +274,7 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
             if (v.name === 'Психохирургия' && level < 21) return false;
             if (v.name === 'Двойные задания' && level < 21) return false;
             if (v.name === 'Низкая Плотность Врагов' && level > 5) return false;
+            // Еженедельный вариатор уже добавлен
             return true;
         });
         
@@ -393,30 +483,13 @@ function prepareWeeklyFullResult(mapName, mapImage, trial, difficulty) {
     resultContainer.style.display = 'none';
     resultContainer.classList.remove('active');
     
-    // Показываем информацию о еженедельном вариаторе
-    var weeklyInfo = document.getElementById('weeklyVariatorInfo');
-    if (weeklyInfo) {
-        var weeklyName = weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет';
-        weeklyInfo.innerHTML = `
-            <div style="text-align: center; padding: 8px 16px; background: rgba(220,90,50,0.15); border-radius: 12px; border: 1px solid rgba(220,90,50,0.3); margin-bottom: 16px;">
-                <span style="color: #e16d48; font-weight: 700; letter-spacing: 1px;">
-                    <i class="fas fa-calendar-week"></i> Еженедельный вариатор: 
-                </span>
-                <span style="color: #ffbc9a; font-weight: 600;">${weeklyName}</span>
-                <span style="color: #888; font-size: 0.8rem; margin-left: 8px;">
-                    (Уровень ${weeklyEscState.level})
-                </span>
-            </div>
-        `;
-    }
-    
     var resultMap = document.getElementById('escResultMap');
     if (resultMap) {
         var trialImage = trial.image || mapImage;
         var trialNameUpper = trial.name.toUpperCase();
         var mapNameUpper = mapName.toUpperCase();
         
-        // Добавляем информацию о еженедельном вариаторе в карту
+        // Информация о еженедельном вариаторе
         var weeklyVariatorName = weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет';
         
         resultMap.innerHTML = `
@@ -486,38 +559,16 @@ function prepareWeeklyFullResult(mapName, mapImage, trial, difficulty) {
 function initWeeklyEscalation() {
     console.log('🚀 Запуск еженедельной эскалации...');
     
-    // Проверяем, нужно ли сбросить еженедельную эскалацию (новая неделя)
-    var lastReset = localStorage.getItem('weeklyEscLastReset');
-    var now = new Date();
-    var weekNumber = getWeekNumber(now);
-    var storedWeek = localStorage.getItem('weeklyEscWeekNumber');
+    // Восстанавливаем или сбрасываем еженедельную эскалацию
+    restoreWeeklyEscalation();
     
-    if (!storedWeek || parseInt(storedWeek) !== weekNumber) {
-        // Новая неделя - сбрасываем
-        var weeklyVariator = resetWeeklyEscalation();
-        localStorage.setItem('weeklyEscWeekNumber', weekNumber.toString());
-        localStorage.setItem('weeklyEscLastReset', now.toISOString());
-        if (weeklyVariator) {
-            localStorage.setItem('weeklyEscVariator', JSON.stringify(weeklyVariator));
-        }
-        console.log('🔄 Новая неделя! Еженедельный вариатор:', weeklyVariator ? weeklyVariator.name : 'Нет');
-    } else {
-        // Восстанавливаем еженедельный вариатор из localStorage
-        var savedVariator = localStorage.getItem('weeklyEscVariator');
-        if (savedVariator) {
-            try {
-                weeklyEscState.weeklyVariator = JSON.parse(savedVariator);
-                if (weeklyEscState.weeklyVariator) {
-                    weeklyEscState.weeklyFixedVariators = [weeklyEscState.weeklyVariator];
-                }
-                console.log('📥 Восстановлен еженедельный вариатор:', 
-                    weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
-            } catch(e) {
-                console.error('Ошибка восстановления еженедельного вариатора:', e);
-                resetWeeklyEscalation();
-            }
+    // Обновляем информацию о еженедельном вариаторе на странице
+    var weeklyVariatorNameEl = document.getElementById('weeklyVariatorName');
+    if (weeklyVariatorNameEl) {
+        if (weeklyEscState.weeklyVariator) {
+            weeklyVariatorNameEl.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
         } else {
-            resetWeeklyEscalation();
+            weeklyVariatorNameEl.innerHTML = '<i class="fas fa-star"></i> Нет';
         }
     }
     
@@ -547,33 +598,6 @@ function initWeeklyEscalation() {
     var nextLevelBtn = document.getElementById('escNextLevelBtn');
     var exitBtn = document.getElementById('escExitBtn');
     var restartBtn = document.getElementById('escRestartBtn');
-    
-    // Обновляем заголовок
-    var titleElement = document.querySelector('.page-title');
-    if (titleElement) {
-        titleElement.textContent = 'ЕЖЕНЕДЕЛЬНАЯ ЭСКАЛАЦИЯ';
-    }
-    
-    // Добавляем информацию о еженедельном вариаторе
-    var weeklyInfoContainer = document.createElement('div');
-    weeklyInfoContainer.id = 'weeklyVariatorInfo';
-    weeklyInfoContainer.style.cssText = 'text-align: center; padding: 8px 16px; background: rgba(220,90,50,0.15); border-radius: 12px; border: 1px solid rgba(220,90,50,0.3); margin-bottom: 16px;';
-    var weeklyName = weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет';
-    weeklyInfoContainer.innerHTML = `
-        <span style="color: #e16d48; font-weight: 700; letter-spacing: 1px;">
-            <i class="fas fa-calendar-week"></i> Еженедельный вариатор: 
-        </span>
-        <span style="color: #ffbc9a; font-weight: 600;">${weeklyName}</span>
-        <span style="color: #888; font-size: 0.8rem; margin-left: 8px;">
-            (Действует до конца недели)
-        </span>
-    `;
-    
-    // Вставляем информацию перед контейнером новостей
-    var newsContainer = document.querySelector('.news-container');
-    if (newsContainer) {
-        newsContainer.parentNode.insertBefore(weeklyInfoContainer, newsContainer);
-    }
     
     // Переназначаем обработчики для использования weekly-функций
     if (options) {
@@ -683,18 +707,6 @@ function initWeeklyEscalation() {
     }
     
     updateLevelCounter();
-}
-
-// ============================================================
-// ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ: НОМЕР НЕДЕЛИ
-// ============================================================
-
-function getWeekNumber(date) {
-    var d = new Date(date);
-    d.setHours(0, 0, 0, 0);
-    d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
-    var week1 = new Date(d.getFullYear(), 0, 4);
-    return 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 }
 
 // ============================================================
