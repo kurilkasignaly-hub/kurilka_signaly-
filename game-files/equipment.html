@@ -159,6 +159,14 @@
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
+        /* ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== */
+        .music-controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
         .music-toggle {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -199,6 +207,128 @@
             font-size: 0.7rem;
             font-weight: 500;
             letter-spacing: 0.5px;
+        }
+
+        .volume-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.7rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .volume-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .volume-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .volume-toggle-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .volume-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .volume-dropdown.open {
+            display: block;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .volume-dropdown .volume-label {
+            font-size: 0.7rem;
+            color: #8a7a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        .volume-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .volume-slider-wrapper .vol-icon {
+            color: #7a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider-wrapper .vol-icon.active {
+            color: #e25d32;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .volume-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e25d32;
+            min-width: 36px;
+            text-align: center;
         }
 
         .breadcrumb {
@@ -765,6 +895,13 @@
             .eq-upgrades { grid-template-columns: 1fr; }
             .eq-examples-with-images { justify-content: center; }
             .eq-image-gallery { justify-content: center; }
+            .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+            .music-toggle .label { font-size: 0.6rem; }
+            .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+            .volume-dropdown { right: auto; left: 50%; transform: translateX(-50%); }
+            .volume-dropdown.open { transform: translateX(-50%) scale(1); }
+            .volume-slider { width: 100px; }
+            .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
         }
 
         @media (max-width: 550px) {
@@ -799,11 +936,32 @@
             <a href="../invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
             <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
-            
-            <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
-                <span class="icon fa-solid fa-volume-xmark"></span>
-                <span class="label">Выкл</span>
-            </button>
+            <a href="../weekly-escalation.html" class="nav-btn"><i class="fas fa-calendar-week"></i> Еженедельная</a>
+
+            <!-- ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== -->
+            <div class="music-controls-wrapper">
+                <div class="music-controls">
+                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                        <span class="icon fa-solid fa-volume-xmark"></span>
+                        <span class="label">Выкл</span>
+                    </button>
+
+                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
+                        <span class="arrow">▼</span>
+                    </div>
+                </div>
+
+                <!-- Выпадающий регулятор громкости -->
+                <div class="volume-dropdown" id="volumeDropdown">
+                    <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
+                    <div class="volume-slider-wrapper">
+                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
+                        <span class="volume-value" id="volumeValue">40%</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -871,6 +1029,7 @@
     let currentTrackIndex = 0;
     let mainAudioFiles = [];
     let currentAudioElement = null;
+    let volumeDropdownOpen = false;
 
     function initMainAudio() {
         const container = document.getElementById('mainAudioContainer');
@@ -893,7 +1052,7 @@
         const audio = mainAudioFiles[currentTrackIndex];
         if (!audio) return;
         currentAudioElement = audio;
-        audio.volume = 0.4;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
         audio.currentTime = 0;
         audio.play().catch(() => {});
         audio.addEventListener('ended', function onEnd() {
@@ -915,7 +1074,7 @@
         const audio = mainAudioFiles[0];
         if (!audio) return;
         currentAudioElement = audio;
-        audio.volume = 0.4;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
         audio.currentTime = 0;
         audio.play().catch(() => {});
         audio.addEventListener('ended', function onEnd() {
@@ -965,12 +1124,78 @@
         }
     }
 
-    window.toggleMainMusic = toggleMainMusic;
+    // ===== УПРАВЛЕНИЕ ГРОМКОСТЬЮ =====
+    function toggleVolumeDropdown() {
+        volumeDropdownOpen = !volumeDropdownOpen;
+        const dropdown = document.getElementById('volumeDropdown');
+        const arrow = document.querySelector('.volume-toggle-btn .arrow');
+        
+        if (volumeDropdownOpen) {
+            dropdown.classList.add('open');
+            arrow.classList.add('open');
+        } else {
+            dropdown.classList.remove('open');
+            arrow.classList.remove('open');
+        }
+    }
+
+    function updateVolumeDisplay() {
+        const slider = document.getElementById('volumeSlider');
+        const valueDisplay = document.getElementById('volumeValue');
+        const val = parseInt(slider.value);
+        valueDisplay.textContent = val + '%';
+    }
+
+    // Закрытие дропдауна при клике вне
+    document.addEventListener('click', function(e) {
+        const wrapper = document.querySelector('.music-controls-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            const dropdown = document.getElementById('volumeDropdown');
+            const arrow = document.querySelector('.volume-toggle-btn .arrow');
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            volumeDropdownOpen = false;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('volumeSlider');
+        const valueDisplay = document.getElementById('volumeValue');
+        
+        slider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            valueDisplay.textContent = val + '%';
+            
+            if (currentAudioElement && mainAudioStarted) {
+                currentAudioElement.volume = val / 100;
+            }
+            
+            // Обновляем фон слайдера
+            const percent = val;
+            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
+        });
+        
+        // Устанавливаем начальное состояние слайдера
+        const initialVal = parseInt(slider.value);
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
+        updateVolumeDisplay();
+    });
 
     // Автозапуск музыки при загрузке
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(startMainMusic, 1000);
     });
+
+    // Запуск при клике если не запустилось
+    document.addEventListener('click', function initAudioOnClick() {
+        if (!mainAudioStarted) {
+            startMainMusic();
+            document.removeEventListener('click', initAudioOnClick);
+        }
+    }, { once: true });
+
+    window.toggleMainMusic = toggleMainMusic;
+    window.toggleVolumeDropdown = toggleVolumeDropdown;
 
     // ============ ДАННЫЕ О СНАРЯЖЕНИИ ============
     const equipmentData = [
