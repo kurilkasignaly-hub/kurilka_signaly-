@@ -411,17 +411,57 @@
             margin-bottom: 1rem;
         }
 
-        .info-box {
-            background: rgba(220, 90, 50, 0.1);
-            border-left: 4px solid #e25d32;
-            padding: 1rem 1.2rem;
-            margin: 1rem 0;
-            border-radius: 12px;
+        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ВВЕРХУ ===== */
+        .equipment-description-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(220, 90, 50, 0.15);
         }
 
-        .info-box p {
+        .equipment-description-block p {
             color: #d1cce6;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .equipment-description-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .equipment-description-block strong {
+            color: #e16d48;
+        }
+
+        /* ===== ОБЩЕЕ ОПОВЕЩЕНИЕ ===== */
+        .global-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            background: rgba(255, 200, 0, 0.08);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+        }
+
+        .global-alert .alert-icon {
+            color: #f1c40f;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .global-alert .alert-text {
+            color: #e8e0d0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .global-alert .alert-text strong {
+            color: #f1c40f;
         }
 
         /* ===== КАРТОЧКИ СНАРЯЖЕНИЯ ===== */
@@ -623,7 +663,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* ===== ОПОВЕЩЕНИЯ ===== */
+        /* ===== ОПОВЕЩЕНИЯ В КАРТОЧКАХ ===== */
         .eq-alert {
             display: flex;
             align-items: flex-start;
@@ -936,7 +976,6 @@
             <a href="../invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
             <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
-            <a href="../weekly-escalation.html" class="nav-btn"><i class="fas fa-calendar-week"></i> Еженедельная</a>
 
             <!-- ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== -->
             <div class="music-controls-wrapper">
@@ -980,10 +1019,19 @@
                 </div>
                 <div class="character-title">
                     <h1 class="character-name">Снаряжение</h1>
-                    <div class="info-box">
-                        <p>Снаряжение в The Outlast Trials — это предметы, которые помогают реагентам выживать в испытаниях. Каждый предмет имеет свои уникальные улучшения и тактики использования.</p>
-                    </div>
                 </div>
+            </div>
+
+            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ===== -->
+            <div class="equipment-description-block">
+                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — снаряжение в игре The Outlast Trials, оборудование реагентов для оказании помощи во время прохождения испытаний. Несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
+                <p>Без улучшения «Подготовка» снаряжению требуется время в начале испытания, что прийти в готовность. После использования снаряжения на испытании устройству требуется время на его восстановление. Однако с помощью одноразовой зарядки снаряжения, которые находятся в областях испытаний, реагент сможет снова активировать устройство. У каждого типа снаряжения своё время для восстановления после использования.</p>
+            </div>
+
+            <!-- ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== -->
+            <div class="global-alert">
+                <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="alert-text"><strong>ВНИМАНИЕ!</strong> После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.</div>
             </div>
 
             <!-- Список снаряжения -->
@@ -1208,10 +1256,6 @@
                 { src: '../images/оглушение 02.webp', alt: 'Оглушение вид 3' },
                 { src: '../images/оглушение 03.webp', alt: 'Оглушение вид 4' }
             ],
-            alerts: [
-                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
-                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
-            ],
             upgrades: [
                 { name: 'Активировать', desc: 'активация снаряжения.' },
                 { name: 'Увеличенный радиус', desc: 'увеличивает радиус взрыва.' },
@@ -1245,10 +1289,6 @@
                 { src: '../images/завеса 02.webp', alt: 'Завеса вид 3' },
                 { src: '../images/завеса 03.webp', alt: 'Завеса вид 4' }
             ],
-            alerts: [
-                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
-                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
-            ],
             upgrades: [
                 { name: 'Активировать', desc: 'активация снаряжения.' },
                 { name: 'Увеличенный радиус', desc: 'увеличивает радиус взрыва.' },
@@ -1278,10 +1318,6 @@
                 { src: '../images/исцеление 01.webp', alt: 'Исцеление вид 2' },
                 { src: '../images/исцеление 02.webp', alt: 'Исцеление вид 3' },
                 { src: '../images/исцеление 03.webp', alt: 'Исцеление вид 4' }
-            ],
-            alerts: [
-                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
-                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
             ],
             upgrades: [
                 { name: 'Активировать', desc: 'активация снаряжения.' },
@@ -1313,10 +1349,6 @@
                 { src: '../images/рентген 02.webp', alt: 'Рентген вид 3' },
                 { src: '../images/рентген 03.webp', alt: 'Рентген вид 4' }
             ],
-            alerts: [
-                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
-                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
-            ],
             upgrades: [
                 { name: 'Активировать', desc: 'активация снаряжения.' },
                 { name: 'Общая информация', desc: 'союзники могут видеть местоположение помеченных врагов.' },
@@ -1347,10 +1379,6 @@
                 { src: '../images/баррикада 02.webp', alt: 'Баррикада вид 3' },
                 { src: '../images/баррикада 03.webp', alt: 'Баррикада вид 4' }
             ],
-            alerts: [
-                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
-                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
-            ],
             upgrades: [
                 { name: 'Активировать', desc: 'активация снаряжения.' },
                 { name: 'Ускоренная перезарядка', desc: 'уменьшает время восстановления перед повторным использованием.' },
@@ -1380,10 +1408,6 @@
                 { src: '../images/глушилка 01.webp', alt: 'Глушилка вид 2' },
                 { src: '../images/глушилка 02.webp', alt: 'Глушилка вид 3' },
                 { src: '../images/глушилка 03.webp', alt: 'Глушилка вид 4' }
-            ],
-            alerts: [
-                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
-                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
             ],
             upgrades: [
                 { name: 'Активировать', desc: 'активация снаряжения.' },
@@ -1466,18 +1490,6 @@
                 galleryHtml += `</div>`;
             }
 
-            // Оповещения
-            let alertsHtml = '';
-            item.alerts.forEach((alert, idx) => {
-                const dangerClass = idx === 1 ? 'alert-danger' : '';
-                alertsHtml += `
-                    <div class="eq-alert ${dangerClass}">
-                        <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                        <div class="alert-text"><strong>ВНИМАНИЕ!</strong> ${alert}</div>
-                    </div>
-                `;
-            });
-
             // Улучшения
             let upgradesHtml = '';
             item.upgrades.forEach((upgrade, idx) => {
@@ -1512,8 +1524,6 @@
                     <i class="fas fa-quote-left" style="color: rgba(255,255,255,0.3); margin-right: 6px;"></i>
                     ${item.description}
                 </div>
-
-                ${alertsHtml}
 
                 <div class="eq-upgrades-title">
                     <i class="fas fa-arrow-up"></i> УЛУЧШЕНИЕ ДЛЯ ${item.name.toUpperCase()}
