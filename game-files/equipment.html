@@ -598,6 +598,7 @@
             color: #e16d48;
         }
 
+        /* ===== ГАЛЕРЕЯ (БЕЛЫЕ КВАДРАТИКИ) ===== */
         .eq-image-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -607,19 +608,35 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .eq-image-gallery .gallery-img {
+        .eq-image-gallery .gallery-placeholder {
             width: 100px;
             height: 100px;
-            object-fit: cover;
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 12px;
-            border: 2px solid rgba(220, 90, 50, 0.25);
+            border: 2px dashed rgba(220, 90, 50, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.6rem;
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 500;
+            padding: 4px;
         }
 
-        .eq-image-gallery .gallery-img:hover {
+        .eq-image-gallery .gallery-placeholder:hover {
             transform: scale(1.05);
             border-color: #e16d48;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .eq-image-gallery .gallery-placeholder i {
+            font-size: 1.5rem;
+            color: #bbb;
+            display: block;
+            margin-bottom: 4px;
         }
 
         .eq-description {
@@ -776,6 +793,7 @@
             color: #e16d48;
         }
 
+        /* ===== ПРИМЕРЫ (БЕЛЫЕ КВАДРАТИКИ) ===== */
         .eq-examples-with-images {
             display: flex;
             flex-wrap: wrap;
@@ -786,7 +804,7 @@
             border: 1px solid rgba(220, 90, 50, 0.1);
         }
 
-        .eq-example-img-wrapper {
+        .eq-example-placeholder {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -795,24 +813,30 @@
             transition: all 0.3s ease;
         }
 
-        .eq-example-img-wrapper:hover {
+        .eq-example-placeholder:hover {
             transform: scale(1.05);
         }
 
-        .eq-example-img-wrapper img {
+        .eq-example-placeholder .placeholder-box {
             width: 60px;
             height: 60px;
-            object-fit: cover;
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 10px;
-            border: 2px solid rgba(220, 90, 50, 0.2);
-            transition: border-color 0.3s ease;
+            border: 2px dashed rgba(220, 90, 50, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
         }
 
-        .eq-example-img-wrapper:hover img {
+        .eq-example-placeholder:hover .placeholder-box {
             border-color: #e16d48;
+            background: rgba(255, 255, 255, 0.95);
         }
 
-        .eq-example-img-wrapper .example-label {
+        .eq-example-placeholder .example-label {
             font-size: 0.55rem;
             color: #888;
             text-align: center;
@@ -910,7 +934,7 @@
             .eq-upgrades { grid-template-columns: 1fr; }
             .eq-examples-with-images { justify-content: center; }
             .eq-image-gallery { justify-content: center; }
-            .eq-image-gallery .gallery-img { width: 80px; height: 80px; }
+            .eq-image-gallery .gallery-placeholder { width: 80px; height: 80px; }
             .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
             .music-toggle .label { font-size: 0.6rem; }
             .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
@@ -919,6 +943,7 @@
             .volume-slider { width: 100px; }
             .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
             .equipment-description-block p { font-size: 0.8rem; }
+            .eq-example-placeholder .placeholder-box { width: 50px; height: 50px; }
         }
 
         @media (max-width: 550px) {
@@ -926,9 +951,9 @@
             .character-name { font-size: 1.3rem; }
             .equipment-header .eq-icon { width: 40px; height: 40px; }
             .equipment-header .eq-icon img { width: 40px; height: 40px; }
-            .eq-image-gallery .gallery-img { width: 70px; height: 70px; }
-            .eq-example-img-wrapper img { width: 50px; height: 50px; }
-            .eq-example-img-wrapper .example-label { font-size: 0.5rem; max-width: 50px; }
+            .eq-image-gallery .gallery-placeholder { width: 70px; height: 70px; }
+            .eq-example-placeholder .placeholder-box { width: 45px; height: 45px; }
+            .eq-example-placeholder .example-label { font-size: 0.5rem; max-width: 45px; }
             .character-image { flex: 0 0 100%; }
             .character-image img { max-width: 200px; margin: 0 auto; }
         }
@@ -1438,14 +1463,16 @@
             body.className = 'equipment-body';
             body.id = bodyId;
 
+            // ГАЛЕРЕЯ — БЕЛЫЕ КВАДРАТИКИ
             let galleryHtml = '';
             if (item.galleryImages && item.galleryImages.length > 0) {
                 galleryHtml = `<div class="eq-image-gallery">`;
-                item.galleryImages.forEach(img => {
+                item.galleryImages.forEach((img, index) => {
                     galleryHtml += `
-                        <img class="gallery-img" src="${img.src}" alt="${img.alt}" 
-                             onclick="openModal('${img.src}', '${img.alt}')"
-                             onerror="this.style.display='none'">
+                        <div class="gallery-placeholder" onclick="openModal('${img.src}', '${img.alt}')" title="${img.alt}">
+                            <i class="fas fa-image"></i>
+                            <span>${index + 1}</span>
+                        </div>
                     `;
                 });
                 galleryHtml += `</div>`;
@@ -1472,13 +1499,16 @@
                 `;
             });
 
+            // ПРИМЕРЫ — БЕЛЫЕ КВАДРАТИКИ
             let examplesHtml = '';
             if (item.examples && item.examples.length > 0) {
                 examplesHtml = `<div class="eq-examples-with-images">`;
                 item.examples.forEach(ex => {
                     examplesHtml += `
-                        <div class="eq-example-img-wrapper" onclick="openModal('${ex.image}', '${ex.label}')">
-                            <img src="${ex.image}" alt="${ex.label}" onerror="this.style.display='none'">
+                        <div class="eq-example-placeholder" onclick="openModal('${ex.image}', '${ex.label}')">
+                            <div class="placeholder-box">
+                                <i class="fas fa-image"></i>
+                            </div>
                             <span class="example-label">${ex.label}</span>
                         </div>
                     `;
