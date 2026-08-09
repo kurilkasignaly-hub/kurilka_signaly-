@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Снаряжение — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/лого.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -54,6 +57,11 @@
             100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
         }
 
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -62,91 +70,135 @@
             z-index: 10;
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            padding: 1.2rem 2rem;
-            background: rgba(8, 6, 15, 0.5);
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.6);
             backdrop-filter: blur(16px);
             border-radius: 80px;
             margin-bottom: 2rem;
             gap: 1rem;
-            border: 1px solid rgba(220, 90, 50, 0.25);
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s;
             animation: fadeInScale 0.6s ease-out;
         }
 
         .header:hover {
-            border-color: rgba(220, 90, 50, 0.5);
-            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+            border-color: rgba(220, 90, 50, 0.4);
         }
 
-        .logo h1 {
-            font-size: 2rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #fbc2a0, #e25d32, #ff9f6e);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: smokePulse 3s ease-in-out infinite;
+            white-space: nowrap;
         }
 
         .logo p {
-            font-size: 0.75rem;
-            color: #c2b9d4;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .logo p i {
-            color: #e16d48;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
         }
 
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.7rem;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(15, 10, 20, 0.4);
-            backdrop-filter: blur(12px);
-            padding: 0.6rem 1.3rem;
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
             border-radius: 60px;
-            border: 1px solid rgba(210, 100, 55, 0.25);
+            border: 1px solid rgba(210, 100, 55, 0.15);
         }
 
         .nav-btn {
             background: transparent;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 0.9rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: #e2d9f0;
+            color: #b5a8c8;
+            transition: all 0.3s;
             font-family: inherit;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             text-decoration: none;
         }
 
         .nav-btn:hover {
             color: white;
-            transform: translateY(-2px);
-            text-shadow: 0 0 6px rgba(220,90,50,0.4);
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
-            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.3);
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        .music-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .music-toggle.playing {
+            border-color: rgba(220, 90, 50, 0.3);
+            color: #e25d32;
+        }
+
+        .music-toggle .icon {
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .music-toggle .icon.pulse {
+            animation: musicPulse 1.2s ease-in-out infinite;
+        }
+
+        .music-toggle .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .breadcrumb {
@@ -187,7 +239,7 @@
             padding: 2rem;
         }
 
-        /* Интро */
+        /* ===== ИНТРО ===== */
         .character-intro {
             display: flex;
             flex-wrap: wrap;
@@ -392,7 +444,6 @@
             max-height: 3000px;
         }
 
-        /* Заголовок "ВНЕШНИЙ ВИД И ОПИСАНИЕ" */
         .eq-section-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -408,7 +459,7 @@
             color: #e16d48;
         }
 
-        /* ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ */
+        /* ===== ГАЛЕРЕЯ ===== */
         .eq-image-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -442,7 +493,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* ОПОВЕЩЕНИЯ */
+        /* ===== ОПОВЕЩЕНИЯ ===== */
         .eq-alert {
             display: flex;
             align-items: flex-start;
@@ -475,7 +526,6 @@
             color: #f1c40f;
         }
 
-        /* Второе оповещение - красное */
         .eq-alert.alert-danger {
             background: rgba(255, 0, 0, 0.08);
             border-color: rgba(255, 0, 0, 0.25);
@@ -539,7 +589,6 @@
             border: 2px solid;
         }
 
-        /* Цвет кружков с цифрами */
         .color-red .eq-upgrade-item .num {
             color: #e74c3c;
             border-color: #e74c3c;
@@ -590,7 +639,6 @@
             color: #e16d48;
         }
 
-        /* Примеры с изображениями */
         .eq-examples-with-images {
             display: flex;
             flex-wrap: wrap;
@@ -627,7 +675,7 @@
             border-color: #e16d48;
         }
 
-        /* Модальное окно для увеличения */
+        /* ===== МОДАЛЬНОЕ ОКНО ===== */
         .modal {
             display: none;
             position: fixed;
@@ -683,7 +731,7 @@
             font-size: 0.9rem;
         }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -695,12 +743,19 @@
             border-radius: 50px;
         }
 
+        .footer-logo {
+            max-height: 32px;
+            width: auto;
+            margin-bottom: 0.5rem;
+        }
+
         @media (max-width: 850px) {
             .container { padding: 1rem; }
             .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
             .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
             .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
-            .logo h1 { font-size: 1.5rem; }
+            .logo .logo-img { max-height: 40px; }
+            .logo .logo-text { font-size: 1.1rem; }
             .character-intro { flex-direction: column; align-items: center; text-align: center; }
             .character-name { font-size: 1.6rem; text-align: center; }
             .article-content { padding: 1.2rem; }
@@ -727,37 +782,44 @@
 <img class="background-image" src="../фон/Вторжение фон.png" alt="Фон" onerror="this.style.display='none'">
 
 <div class="container">
-    <!-- Шапка -->
+    <!-- ===== HEADER ===== -->
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-smoking"></i> Курилка Синьялы</h1>
-            <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
+            </div>
         </div>
         <div class="nav-links">
-            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
-            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Справочник ролей</a>
-            <a href="../server-news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости сервера</a>
-            <a href="../game-news.html" class="nav-btn"><i class="fas fa-gamepad"></i> Новости игры</a>
-            <a href="../site-news.html" class="nav-btn"><i class="fas fa-code"></i> Новости сайта</a>
-            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
-            <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
-            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
-            <a href="../about-game.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+            <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
+            <a href="achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+            <a href="weekly-escalation.html" class="nav-btn active"><i class="fas fa-calendar-week"></i> Еженедельная</a>
+            
+            <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                <span class="icon fa-solid fa-volume-xmark"></span>
+                <span class="label">Выкл</span>
+            </button>
         </div>
     </div>
 
-    <!-- Хлебные крошки -->
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
     <div class="breadcrumb">
-        <a href="../roulette.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к рулетке</a>
+        <a href="roulette.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к рулетке</a>
     </div>
 
-    <!-- Основная статья -->
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <div class="article-wrapper">
         <div class="article-content">
             <!-- Интро -->
             <div class="character-intro">
                 <div class="character-image">
-                    <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
+                    <img src="images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
                 </div>
                 <div class="character-title">
                     <h1 class="character-name">Снаряжение</h1>
@@ -774,13 +836,15 @@
         </div>
     </div>
 
+    <!-- ===== FOOTER ===== -->
     <footer>
+        <img src="images/лого.png" alt="Курилка Синьялы" class="footer-logo" onerror="this.style.display='none'">
         <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
         <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
     </footer>
 </div>
 
-<!-- Модальное окно для увеличения изображений -->
+<!-- ===== МОДАЛЬНОЕ ОКНО ===== -->
 <div id="galleryModal" class="modal">
     <span class="modal-close">&times;</span>
     <div class="modal-content">
@@ -789,7 +853,126 @@
     </div>
 </div>
 
+<!-- ===== АУДИО ДЛЯ ГЛАВНОЙ СТРАНИЦЫ ===== -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio1" preload="auto">
+        <source src="images/комната отдыха 1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="mainAudio2" preload="auto">
+        <source src="images/комната отдыха 2.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="mainAudio3" preload="auto">
+        <source src="images/комната отдыха 3.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
 <script>
+    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
+    let mainAudioStarted = false;
+    let currentTrackIndex = 0;
+    let mainAudioFiles = [];
+    let currentAudioElement = null;
+
+    function initMainAudio() {
+        const container = document.getElementById('mainAudioContainer');
+        if (!container) return;
+        
+        mainAudioFiles = [];
+        const audioElements = container.querySelectorAll('audio');
+        audioElements.forEach(audio => {
+            mainAudioFiles.push(audio);
+        });
+    }
+
+    function playNextMainTrack() {
+        if (!mainAudioStarted) return;
+        if (currentAudioElement) {
+            currentAudioElement.pause();
+            currentAudioElement.currentTime = 0;
+        }
+        currentTrackIndex = (currentTrackIndex + 1) % mainAudioFiles.length;
+        const audio = mainAudioFiles[currentTrackIndex];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = 0.4;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+    }
+
+    function startMainMusic() {
+        if (mainAudioStarted) return;
+        initMainAudio();
+        if (mainAudioFiles.length === 0) {
+            setTimeout(startMainMusic, 500);
+            return;
+        }
+        mainAudioStarted = true;
+        currentTrackIndex = 0;
+        const audio = mainAudioFiles[0];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = 0.4;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+        updateMusicButton(true);
+    }
+
+    function updateMusicButton(state) {
+        const btn = document.getElementById('musicToggleBtn');
+        if (!btn) return;
+        const icon = btn.querySelector('.icon');
+        const label = btn.querySelector('.label');
+        if (state) {
+            btn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high', 'pulse');
+            }
+            if (label) label.textContent = 'Вкл';
+        } else {
+            btn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-high', 'pulse');
+                icon.classList.add('fa-volume-xmark');
+            }
+            if (label) label.textContent = 'Выкл';
+        }
+    }
+
+    function toggleMainMusic() {
+        if (mainAudioStarted) {
+            mainAudioStarted = false;
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+            }
+            mainAudioFiles.forEach(a => {
+                a.pause();
+                a.currentTime = 0;
+            });
+            updateMusicButton(false);
+        } else {
+            startMainMusic();
+        }
+    }
+
+    window.toggleMainMusic = toggleMainMusic;
+
+    // Автозапуск музыки при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(startMainMusic, 1000);
+    });
+
     // ============ ДАННЫЕ О СНАРЯЖЕНИИ ============
     const equipmentData = [
         {
@@ -839,7 +1022,8 @@
             galleryImages: [
                 { src: '../images/обычная завеса.webp', alt: 'Завеса вид 1' },
                 { src: '../images/завеса 01.webp', alt: 'Завеса вид 2' },
-                { src: '../images/завеса 02.webp', alt: 'Завеса вид 3' }
+                { src: '../images/завеса 02.webp', alt: 'Завеса вид 3' },
+                { src: '../images/завеса 03.webp', alt: 'Завеса вид 4' }
             ],
             alerts: [
                 'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
@@ -871,7 +1055,8 @@
             galleryImages: [
                 { src: '../images/обычное исцеление.webp', alt: 'Исцеление вид 1' },
                 { src: '../images/исцеление 01.webp', alt: 'Исцеление вид 2' },
-                { src: '../images/исцеление 02.webp', alt: 'Исцеление вид 3' }
+                { src: '../images/исцеление 02.webp', alt: 'Исцеление вид 3' },
+                { src: '../images/исцеление 03.webp', alt: 'Исцеление вид 4' }
             ],
             alerts: [
                 'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
@@ -904,7 +1089,8 @@
             galleryImages: [
                 { src: '../images/обычный рентген.webp', alt: 'Рентген вид 1' },
                 { src: '../images/рентген 01.webp', alt: 'Рентген вид 2' },
-                { src: '../images/рентген 02.webp', alt: 'Рентген вид 3' }
+                { src: '../images/рентген 02.webp', alt: 'Рентген вид 3' },
+                { src: '../images/рентген 03.webp', alt: 'Рентген вид 4' }
             ],
             alerts: [
                 'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
@@ -936,7 +1122,8 @@
             galleryImages: [
                 { src: '../images/обычная баррикада.webp', alt: 'Баррикада вид 1' },
                 { src: '../images/баррикада 01.webp', alt: 'Баррикада вид 2' },
-                { src: '../images/баррикада 02.webp', alt: 'Баррикада вид 3' }
+                { src: '../images/баррикада 02.webp', alt: 'Баррикада вид 3' },
+                { src: '../images/баррикада 03.webp', alt: 'Баррикада вид 4' }
             ],
             alerts: [
                 'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
@@ -968,7 +1155,8 @@
             galleryImages: [
                 { src: '../images/обычная глушилка.webp', alt: 'Глушилка вид 1' },
                 { src: '../images/глушилка 01.webp', alt: 'Глушилка вид 2' },
-                { src: '../images/глушилка 02.webp', alt: 'Глушилка вид 3' }
+                { src: '../images/глушилка 02.webp', alt: 'Глушилка вид 3' },
+                { src: '../images/глушилка 03.webp', alt: 'Глушилка вид 4' }
             ],
             alerts: [
                 'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
@@ -1024,7 +1212,7 @@
             header.className = 'equipment-header';
             header.innerHTML = `
                 <div class="eq-icon">
-                    <img src="../images/${item.icon}" alt="${item.name}" onerror="this.src='https://placehold.co/50x50/333/666?text=${item.name.charAt(0)}'">
+                    <img src="images/${item.icon}" alt="${item.name}" onerror="this.src='https://placehold.co/50x50/333/666?text=${item.name.charAt(0)}'">
                 </div>
                 <div class="eq-title-group">
                     <div class="eq-name">${item.name}</div>
@@ -1066,7 +1254,7 @@
                 `;
             });
 
-            // Улучшения с жирным названием и цифрами в кружках
+            // Улучшения
             let upgradesHtml = '';
             item.upgrades.forEach((upgrade, idx) => {
                 upgradesHtml += `
@@ -1077,7 +1265,7 @@
                 `;
             });
 
-            // Примеры использования с изображениями
+            // Примеры использования
             let examplesHtml = '';
             if (item.examples && item.examples.length > 0) {
                 examplesHtml = `<div class="eq-examples-with-images">`;
@@ -1140,7 +1328,6 @@
 
     // ============ ИНИЦИАЛИЗАЦИЯ ============
     function init() {
-        // Обработчики модального окна
         const modal = document.getElementById('galleryModal');
         const modalClose = document.querySelector('.modal-close');
 
@@ -1154,7 +1341,6 @@
 
         renderEquipment();
 
-        // Анимация появления
         document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
