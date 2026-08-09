@@ -312,7 +312,7 @@
             color: #e16d48;
         }
 
-        /* ===== НОВЫЙ ДИЗАЙН КАРТОЧЕК СНАРЯЖЕНИЯ ===== */
+        /* ===== КАРТОЧКИ СНАРЯЖЕНИЯ ===== */
         .equipment-grid {
             display: flex;
             flex-direction: column;
@@ -333,7 +333,6 @@
             box-shadow: 0 8px 30px rgba(220, 90, 50, 0.1);
         }
 
-        /* Заголовок карточки с названием и иконкой */
         .equipment-header {
             display: flex;
             align-items: center;
@@ -396,7 +395,6 @@
             transform: rotate(180deg);
         }
 
-        /* Тело карточки (скрываемое) */
         .equipment-body {
             padding: 0 1.8rem;
             max-height: 0;
@@ -409,7 +407,6 @@
             max-height: 2000px;
         }
 
-        /* Описание */
         .eq-description {
             color: #c2b9d4;
             line-height: 1.6;
@@ -423,7 +420,6 @@
             color: #e16d48;
         }
 
-        /* Улучшения */
         .eq-upgrades-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -486,7 +482,6 @@
             font-weight: 600;
         }
 
-        /* Примеры использования */
         .eq-examples-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -561,6 +556,33 @@
             background: rgba(220, 90, 50, 0.3);
             border-color: #e16d48;
             color: #e16d48;
+        }
+
+        /* Секции */
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-text {
+            color: #d1cce6;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .section-text p {
+            margin-bottom: 1rem;
         }
 
         /* Модальное окно */
@@ -705,37 +727,17 @@
                     Содержание <i class="fas fa-chevron-down"></i>
                 </div>
                 <ul class="toc-list" id="tocList">
-                    <li><a href="#overview">1. Обзор снаряжения</a></li>
-                    <li><a href="#categories">2. Категории снаряжения</a></li>
-                    <li><a href="#equipment">3. Список снаряжения</a></li>
+                    <li><a href="#equipment">Список снаряжения</a></li>
                 </ul>
             </div>
 
-            <!-- Обзор -->
-            <div class="section" id="overview">
-                <h2 class="section-title"><i class="fas fa-info-circle"></i> Обзор снаряжения</h2>
-                <div class="section-text">
-                    <p>В игре The Outlast Trials представлено множество видов снаряжения, которые можно использовать для прохождения испытаний. Каждый предмет имеет свои особенности и преимущества, позволяя адаптировать стиль игры под конкретную ситуацию.</p>
-                    <p>Снаряжение можно найти в испытаниях, получить за выполнение заданий или открыть через систему прогрессии. Некоторые предметы доступны только на определённых уровнях сложности.</p>
-                </div>
-            </div>
-
             <!-- Категории -->
-            <div class="section" id="categories">
-                <h2 class="section-title"><i class="fas fa-tags"></i> Категории снаряжения</h2>
-                <div class="section-text">
-                    <p>Всё снаряжение в игре разделено на несколько категорий:</p>
-                </div>
-                <div class="category-tabs" id="categoryTabs">
-                    <button class="category-tab active" data-category="all">Все</button>
-                    <button class="category-tab" data-category="метательное">Метательное</button>
-                    <button class="category-tab" data-category="медицинское">Медицинское</button>
-                    <button class="category-tab" data-category="инструменты">Инструменты</button>
-                    <button class="category-tab" data-category="особое">Особое</button>
-                </div>
-                <div style="margin-top: 0.5rem; font-size: 0.85rem; color: #888;">
-                    <i class="fas fa-mouse-pointer"></i> Нажмите на категорию, чтобы отфильтровать снаряжение
-                </div>
+            <div class="category-tabs" id="categoryTabs">
+                <button class="category-tab active" data-category="all">Все</button>
+                <button class="category-tab" data-category="метательное">Метательное</button>
+                <button class="category-tab" data-category="медицинское">Медицинское</button>
+                <button class="category-tab" data-category="инструменты">Инструменты</button>
+                <button class="category-tab" data-category="особое">Особое</button>
             </div>
 
             <!-- Список снаряжения -->
@@ -878,14 +880,12 @@
             : equipmentData.filter(item => item.category === category);
 
         grid.innerHTML = '';
-        filtered.forEach((item, index) => {
+        filtered.forEach((item) => {
             const card = document.createElement('div');
             card.className = 'equipment-card';
             
-            // Создаём уникальный ID для каждой карточки
             const bodyId = 'eqBody_' + item.id;
             
-            // Заголовок карточки
             const header = document.createElement('div');
             header.className = 'equipment-header';
             header.innerHTML = `
@@ -902,12 +902,10 @@
             `;
             card.appendChild(header);
 
-            // Тело карточки (содержимое)
             const body = document.createElement('div');
             body.className = 'equipment-body';
             body.id = bodyId;
 
-            // Описание
             let upgradesHtml = '';
             item.upgrades.forEach((upgrade, idx) => {
                 upgradesHtml += `
@@ -920,9 +918,10 @@
 
             let examplesHtml = '';
             item.examples.forEach(ex => {
+                const icon = ex === 'Снаряд' ? 'fa-bolt' : 'fa-tag';
                 examplesHtml += `
                     <span class="eq-example-tag">
-                        <i class="fas fa-${ex === 'Снаряд' ? 'bolt' : 'tag'} tag-icon"></i>
+                        <i class="fas ${icon} tag-icon"></i>
                         ${ex}
                     </span>
                 `;
@@ -952,7 +951,6 @@
             card.appendChild(body);
             grid.appendChild(card);
 
-            // Обработчик открытия/закрытия
             const toggle = document.getElementById('eqToggle_' + item.id);
             let isOpen = false;
 
@@ -963,9 +961,7 @@
                 this.classList.toggle('open', isOpen);
             });
 
-            // Клик по заголовку тоже открывает
             header.addEventListener('click', function(e) {
-                // Игнорируем клик по самой иконке переключения
                 if (e.target.closest('.eq-toggle')) return;
                 isOpen = !isOpen;
                 body.classList.toggle('open', isOpen);
@@ -985,14 +981,12 @@
 
     // ============ ИНИЦИАЛИЗАЦИЯ ============
     function init() {
-        // Обработчики вкладок
         document.querySelectorAll('.category-tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 filterEquipment(this.dataset.category);
             });
         });
 
-        // Оглавление
         const tocToggle = document.getElementById('tocToggle');
         const tocList = document.getElementById('tocList');
         if (tocToggle && tocList) {
@@ -1002,7 +996,6 @@
             });
         }
 
-        // Плавная прокрутка
         document.querySelectorAll('.toc-list a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1014,7 +1007,6 @@
             });
         });
 
-        // Модальное окно
         const modal = document.getElementById('galleryModal');
         const modalImg = document.getElementById('modalImage');
         const modalClose = document.querySelector('.modal-close');
@@ -1042,10 +1034,8 @@
             if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
         });
 
-        // Первоначальный рендеринг
         renderEquipment('all');
 
-        // Анимация появления
         document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
