@@ -312,107 +312,223 @@
             color: #e16d48;
         }
 
-        /* Секции */
-        .section {
-            margin-top: 2rem;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #e16d48;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-text {
-            color: #d1cce6;
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        .section-text p {
-            margin-bottom: 1rem;
-        }
-
-        /* Сетка снаряжения */
+        /* ===== НОВЫЙ ДИЗАЙН КАРТОЧЕК СНАРЯЖЕНИЯ ===== */
         .equipment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 1.5rem;
         }
 
         .equipment-card {
-            background: rgba(18, 12, 28, 0.6);
-            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 24px;
+            border: 1px solid rgba(220, 90, 50, 0.2);
             overflow: hidden;
-            border: 1px solid rgba(220, 90, 50, 0.25);
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
         }
 
         .equipment-card:hover {
-            transform: translateY(-5px);
-            border-color: #e16d48;
-            box-shadow: 0 10px 25px rgba(220, 90, 50, 0.2);
+            border-color: rgba(220, 90, 50, 0.4);
+            box-shadow: 0 8px 30px rgba(220, 90, 50, 0.1);
         }
 
-        .equipment-card .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            display: block;
-        }
-
-        .equipment-card .card-body {
-            padding: 1.2rem;
-            flex: 1;
+        /* Заголовок карточки с названием и иконкой */
+        .equipment-header {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.2rem 1.8rem;
+            background: rgba(220, 90, 50, 0.08);
+            border-bottom: 1px solid rgba(220, 90, 50, 0.15);
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
-        .equipment-card .card-title {
-            font-size: 1.1rem;
+        .equipment-header:hover {
+            background: rgba(220, 90, 50, 0.14);
+        }
+
+        .equipment-header .eq-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(220, 90, 50, 0.2);
+            border-radius: 14px;
+            flex-shrink: 0;
+            color: #e16d48;
+        }
+
+        .equipment-header .eq-icon img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .equipment-header .eq-title-group {
+            flex: 1;
+        }
+
+        .equipment-header .eq-name {
+            font-size: 1.3rem;
             font-weight: 700;
             color: #f0eef7;
-            margin-bottom: 0.3rem;
         }
 
-        .equipment-card .card-category {
+        .equipment-header .eq-category {
             font-size: 0.7rem;
             color: #e16d48;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 600;
-            margin-bottom: 0.6rem;
         }
 
-        .equipment-card .card-desc {
-            font-size: 0.85rem;
+        .equipment-header .eq-toggle {
+            color: #888;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .equipment-header .eq-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        /* Тело карточки (скрываемое) */
+        .equipment-body {
+            padding: 0 1.8rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .equipment-body.open {
+            padding: 1.5rem 1.8rem;
+            max-height: 2000px;
+        }
+
+        /* Описание */
+        .eq-description {
             color: #c2b9d4;
-            line-height: 1.5;
-            flex: 1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .equipment-card .card-effect {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid rgba(220, 90, 50, 0.15);
-            font-size: 0.8rem;
-            color: #ffbc9a;
-        }
-
-        .equipment-card .card-effect i {
+        .eq-description strong {
             color: #e16d48;
-            margin-right: 6px;
+        }
+
+        /* Улучшения */
+        .eq-upgrades-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eq-upgrades-title i {
+            color: #e16d48;
+        }
+
+        .eq-upgrades {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .eq-upgrade-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 0.5rem 0.8rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border-left: 2px solid rgba(220, 90, 50, 0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .eq-upgrade-item:hover {
+            border-left-color: #e16d48;
+        }
+
+        .eq-upgrade-item .num {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #e16d48;
+            min-width: 20px;
+            background: rgba(220, 90, 50, 0.2);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .eq-upgrade-item .text {
+            font-size: 0.85rem;
+            color: #d1cce6;
+            line-height: 1.4;
+        }
+
+        .eq-upgrade-item .text .highlight {
+            color: #ffbc9a;
+            font-weight: 600;
+        }
+
+        /* Примеры использования */
+        .eq-examples-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eq-examples-title i {
+            color: #e16d48;
+        }
+
+        .eq-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+        }
+
+        .eq-example-tag {
+            font-size: 0.8rem;
+            color: #c2b9d4;
+            background: rgba(220, 90, 50, 0.1);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .eq-example-tag:hover {
+            background: rgba(220, 90, 50, 0.2);
+            border-color: #e16d48;
+        }
+
+        .eq-example-tag .tag-icon {
+            color: #e16d48;
+            margin-right: 4px;
         }
 
         /* Категории-теги */
@@ -445,64 +561,6 @@
             background: rgba(220, 90, 50, 0.3);
             border-color: #e16d48;
             color: #e16d48;
-        }
-
-        /* Таблица характеристик */
-        .stats-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .stats-table th,
-        .stats-table td {
-            padding: 0.8rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .stats-table th {
-            color: #e16d48;
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stats-table td {
-            color: #d1cce6;
-            font-size: 0.9rem;
-        }
-
-        .stats-table tr:hover td {
-            background: rgba(220, 90, 50, 0.05);
-        }
-
-        .stat-bar {
-            display: inline-block;
-            height: 6px;
-            border-radius: 3px;
-            background: linear-gradient(90deg, #e16d48, #ffbc9a);
-            transition: width 0.3s ease;
-        }
-
-        .stat-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .stat-bar-container .stat-label {
-            min-width: 80px;
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        .stat-bar-container .stat-value {
-            font-size: 0.8rem;
-            color: #ffbc9a;
-            font-weight: 600;
-            min-width: 30px;
         }
 
         /* Модальное окно */
@@ -575,17 +633,19 @@
             .character-name { font-size: 1.6rem; text-align: center; }
             .character-sub { text-align: center; }
             .article-content { padding: 1.2rem; }
-            .section-title { font-size: 1.3rem; }
-            .equipment-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-            .stats-table { font-size: 0.8rem; }
-            .stats-table th, .stats-table td { padding: 0.5rem; }
+            .equipment-header { padding: 1rem 1.2rem; }
+            .equipment-header .eq-name { font-size: 1.1rem; }
+            .equipment-body.open { padding: 1rem 1.2rem; }
+            .eq-upgrades { grid-template-columns: 1fr; }
+            .eq-examples { flex-direction: column; align-items: flex-start; }
         }
 
         @media (max-width: 550px) {
             .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
-            .equipment-grid { grid-template-columns: 1fr; }
             .character-name { font-size: 1.3rem; }
             .category-tab { padding: 0.3rem 1rem; font-size: 0.75rem; }
+            .equipment-header .eq-icon { width: 40px; height: 40px; font-size: 1.4rem; }
+            .equipment-header .eq-icon img { width: 28px; height: 28px; }
         }
     </style>
 </head>
@@ -630,11 +690,11 @@
                     <h1 class="character-name">Снаряжение</h1>
                     <div class="character-sub">
                         <p><i class="fas fa-tag"></i> Категория: Все типы</p>
-                        <p><i class="fas fa-shield-alt"></i> Доступно: 10 предметов</p>
-                        <p><i class="fas fa-sync-alt"></i> Обновлено: Июль 2024</p>
+                        <p><i class="fas fa-shield-alt"></i> Доступно: 5 предметов</p>
+                        <p><i class="fas fa-sync-alt"></i> Обновлено: Август 2024</p>
                     </div>
                     <div class="info-box">
-                        <p>Снаряжение в The Outlast Trials — это предметы, которые помогают реагентам выживать в испытаниях. Каждый предмет имеет свои уникальные характеристики и может быть улучшен с помощью специальных модификаций.</p>
+                        <p>Снаряжение в The Outlast Trials — это предметы, которые помогают реагентам выживать в испытаниях. Каждый предмет имеет свои уникальные улучшения и тактики использования.</p>
                     </div>
                 </div>
             </div>
@@ -647,8 +707,7 @@
                 <ul class="toc-list" id="tocList">
                     <li><a href="#overview">1. Обзор снаряжения</a></li>
                     <li><a href="#categories">2. Категории снаряжения</a></li>
-                    <li><a href="#equipment">3. Полный список</a></li>
-                    <li><a href="#stats">4. Сравнительная таблица</a></li>
+                    <li><a href="#equipment">3. Список снаряжения</a></li>
                 </ul>
             </div>
 
@@ -669,8 +728,8 @@
                 </div>
                 <div class="category-tabs" id="categoryTabs">
                     <button class="category-tab active" data-category="all">Все</button>
+                    <button class="category-tab" data-category="метательное">Метательное</button>
                     <button class="category-tab" data-category="медицинское">Медицинское</button>
-                    <button class="category-tab" data-category="защитное">Защитное</button>
                     <button class="category-tab" data-category="инструменты">Инструменты</button>
                     <button class="category-tab" data-category="особое">Особое</button>
                 </div>
@@ -681,33 +740,9 @@
 
             <!-- Список снаряжения -->
             <div class="section" id="equipment">
-                <h2 class="section-title"><i class="fas fa-box"></i> Полный список снаряжения</h2>
+                <h2 class="section-title"><i class="fas fa-box"></i> Список снаряжения</h2>
                 <div class="equipment-grid" id="equipmentGrid">
                     <!-- Карточки будут сгенерированы через JS -->
-                </div>
-            </div>
-
-            <!-- Сравнительная таблица -->
-            <div class="section" id="stats">
-                <h2 class="section-title"><i class="fas fa-chart-bar"></i> Сравнительная таблица</h2>
-                <div class="section-text">
-                    <p>Сравнение основных характеристик снаряжения:</p>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table class="stats-table" id="statsTable">
-                        <thead>
-                            <tr>
-                                <th>Название</th>
-                                <th>Категория</th>
-                                <th>Эффективность</th>
-                                <th>Надёжность</th>
-                                <th>Универсальность</th>
-                            </tr>
-                        </thead>
-                        <tbody id="statsBody">
-                            <!-- Данные будут сгенерированы через JS -->
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
@@ -732,93 +767,94 @@
     const equipmentData = [
         {
             id: 1,
-            name: 'Аптечка',
-            category: 'медицинское',
-            image: '../images/аптечка.png',
-            description: 'Восстанавливает здоровье при использовании. Базовый предмет выживания.',
-            effect: 'Восстанавливает 40% здоровья за 3 секунды',
-            stats: { efficiency: 85, reliability: 90, versatility: 70 }
+            name: 'Оглушение',
+            category: 'метательное',
+            icon: 'fa-bolt',
+            image: '../images/оглушение.png',
+            description: 'Мощное метательное оружие, поражающее электрическим током, которое временно оглушает и дезориентирует врагов.',
+            upgrades: [
+                'Активировать — активация снаряжения.',
+                'Увеличенный радиус — увеличивает радиус взрыва.',
+                'Разоружение — все ловушки, в том числе и дверные, и вражеские мины уничтожаются взрывом.',
+                'Увеличенная длительность — увеличивает длительность оглушающего эффекта.',
+                'Восстановление — время перезарядки сокращается, если ни один враг не поражён.',
+                'Электрообстер — реагенты в радиусе взрыва сразу частично восстанавливают заряд батареи и выносливость.',
+                'Сокращённая перезарядка — уменьшает время перезарядки снаряжения перед использованием.',
+                'Подготовка — снаряжение готово к использованию в начале испытания.'
+            ],
+            examples: ['Подготовка', 'Электрообстер', 'Сокращённая перезарядка', 'Подготовка', 'Снаряд', 'Подготовка', 'Снаряд']
         },
         {
             id: 2,
-            name: 'Бинты',
+            name: 'Аптечка',
             category: 'медицинское',
-            image: '../images/бинты.png',
-            description: 'Останавливают кровотечение и восстанавливают часть здоровья.',
-            effect: 'Останавливает кровотечение, восстанавливает 20% здоровья',
-            stats: { efficiency: 70, reliability: 85, versatility: 75 }
+            icon: 'fa-heartbeat',
+            image: '../images/аптечка.png',
+            description: 'Восстанавливает здоровье при использовании. Базовый предмет выживания, который может спасти жизнь в критической ситуации.',
+            upgrades: [
+                'Активировать — активация снаряжения.',
+                'Увеличенное восстановление — восстанавливает на 30% больше здоровья.',
+                'Быстрая перезарядка — сокращает время перезарядки на 40%.',
+                'Область — восстанавливает здоровье всем союзникам в радиусе 5 метров.',
+                'Стойкость — даёт временную неуязвимость на 3 секунды после использования.',
+                'Двойной заряд — позволяет использовать аптечку дважды без перезарядки.',
+                'Подготовка — снаряжение готово к использованию в начале испытания.'
+            ],
+            examples: ['Подготовка', 'Двойной заряд', 'Область', 'Быстрая перезарядка', 'Стойкость']
         },
         {
             id: 3,
-            name: 'Защитный шлем',
-            category: 'защитное',
-            image: '../images/шлем.png',
-            description: 'Уменьшает урон от ударов по голове. Важный элемент защиты.',
-            effect: 'Снижает урон по голове на 50%',
-            stats: { efficiency: 80, reliability: 95, versatility: 60 }
+            name: 'Отмычка',
+            category: 'инструменты',
+            icon: 'fa-key',
+            image: '../images/отмычка.png',
+            description: 'Позволяет открывать запертые двери и замки. Незаменимый инструмент для исследования закрытых зон.',
+            upgrades: [
+                'Активировать — активация снаряжения.',
+                'Быстрое взламывание — уменьшает время взлома на 50%.',
+                'Бесшумность — взлом не издаёт звуков, не привлекая врагов.',
+                'Универсальность — может открывать замки любого уровня.',
+                'Сохранность — отмычка не ломается после использования.',
+                'Сокращённая перезарядка — уменьшает время перезарядки снаряжения перед использованием.',
+                'Подготовка — снаряжение готово к использованию в начале испытания.'
+            ],
+            examples: ['Подготовка', 'Универсальность', 'Бесшумность', 'Быстрое взламывание']
         },
         {
             id: 4,
-            name: 'Бронежилет',
-            category: 'защитное',
-            image: '../images/бронежилет.png',
-            description: 'Обеспечивает дополнительную защиту от физического урона.',
-            effect: 'Снижает получаемый урон на 25%',
-            stats: { efficiency: 75, reliability: 90, versatility: 65 }
+            name: 'Сигнальная ракета',
+            category: 'особое',
+            icon: 'fa-rocket',
+            image: '../images/ракета.png',
+            description: 'Привлекает внимание врагов, позволяя отвлечь их и незаметно пройти мимо.',
+            upgrades: [
+                'Активировать — активация снаряжения.',
+                'Увеличенный радиус — привлекает врагов в радиусе 20 метров.',
+                'Длительность — увеличивает время действия до 20 секунд.',
+                'Ослепление — враги в радиусе взрыва временно ослепляются.',
+                'Двойная ракета — позволяет запустить две ракеты с одной перезарядкой.',
+                'Сокращённая перезарядка — уменьшает время перезарядки снаряжения перед использованием.',
+                'Подготовка — снаряжение готово к использованию в начале испытания.'
+            ],
+            examples: ['Подготовка', 'Двойная ракета', 'Ослепление', 'Увеличенный радиус']
         },
         {
             id: 5,
-            name: 'Отмычка',
-            category: 'инструменты',
-            image: '../images/отмычка.png',
-            description: 'Позволяет открывать запертые двери и замки.',
-            effect: 'Открывает замки уровня 1-2',
-            stats: { efficiency: 90, reliability: 80, versatility: 85 }
-        },
-        {
-            id: 6,
-            name: 'Универсальный ключ',
-            category: 'инструменты',
-            image: '../images/ключ.png',
-            description: 'Продвинутый инструмент для взлома замков любой сложности.',
-            effect: 'Открывает замки любого уровня',
-            stats: { efficiency: 95, reliability: 75, versatility: 90 }
-        },
-        {
-            id: 7,
-            name: 'Тактический фонарь',
-            category: 'инструменты',
-            image: '../images/фонарь.png',
-            description: 'Освещает тёмные зоны и может временно ослепить врагов.',
-            effect: 'Освещает область, может ослепить врагов',
-            stats: { efficiency: 70, reliability: 85, versatility: 80 }
-        },
-        {
-            id: 8,
-            name: 'Сигнальная ракета',
-            category: 'особое',
-            image: '../images/ракета.png',
-            description: 'Привлекает внимание врагов, позволяя отвлечь их.',
-            effect: 'Привлекает врагов в зону на 15 секунд',
-            stats: { efficiency: 60, reliability: 70, versatility: 90 }
-        },
-        {
-            id: 9,
-            name: 'Усиленный стимулятор',
+            name: 'Стимулятор',
             category: 'медицинское',
+            icon: 'fa-syringe',
             image: '../images/стимулятор.png',
-            description: 'Временно увеличивает физические способности.',
-            effect: 'Увеличивает скорость и силу на 30% на 10 секунд',
-            stats: { efficiency: 85, reliability: 65, versatility: 80 }
-        },
-        {
-            id: 10,
-            name: 'Дымовая шашка',
-            category: 'особое',
-            image: '../images/дым.png',
-            description: 'Создаёт облако дыма, скрывающее передвижение.',
-            effect: 'Создаёт дымовую завесу на 8 секунд',
-            stats: { efficiency: 65, reliability: 75, versatility: 85 }
+            description: 'Временно увеличивает физические способности реагента, позволяя быстрее передвигаться и сильнее атаковать.',
+            upgrades: [
+                'Активировать — активация снаряжения.',
+                'Увеличенная скорость — увеличивает скорость на 50%.',
+                'Увеличенная сила — увеличивает урон в ближнем бою на 100%.',
+                'Длительность — увеличивает время действия до 30 секунд.',
+                'Двойной заряд — позволяет использовать стимулятор дважды без перезарядки.',
+                'Восстановление — частично восстанавливает здоровье при использовании.',
+                'Подготовка — снаряжение готово к использованию в начале испытания.'
+            ],
+            examples: ['Подготовка', 'Двойной заряд', 'Увеличенная скорость', 'Увеличенная сила']
         }
     ];
 
@@ -828,9 +864,7 @@
     function filterEquipment(category) {
         currentCategory = category;
         renderEquipment(category);
-        renderStats(category);
 
-        // Обновляем активную вкладку
         document.querySelectorAll('.category-tab').forEach(tab => {
             tab.classList.toggle('active', tab.dataset.category === category);
         });
@@ -844,20 +878,99 @@
             : equipmentData.filter(item => item.category === category);
 
         grid.innerHTML = '';
-        filtered.forEach(item => {
+        filtered.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'equipment-card';
-            card.innerHTML = `
-                <img class="card-image" src="${item.image}" alt="${item.name}" 
-                     onerror="this.src='https://placehold.co/280x200/1a1a2e/e16d48?text=${encodeURIComponent(item.name)}'">
-                <div class="card-body">
-                    <div class="card-title">${item.name}</div>
-                    <div class="card-category"><i class="fas fa-tag"></i> ${item.category}</div>
-                    <div class="card-desc">${item.description}</div>
-                    <div class="card-effect"><i class="fas fa-bolt"></i> ${item.effect}</div>
+            
+            // Создаём уникальный ID для каждой карточки
+            const bodyId = 'eqBody_' + item.id;
+            
+            // Заголовок карточки
+            const header = document.createElement('div');
+            header.className = 'equipment-header';
+            header.innerHTML = `
+                <div class="eq-icon">
+                    <i class="fas ${item.icon}"></i>
+                </div>
+                <div class="eq-title-group">
+                    <div class="eq-name">${item.name}</div>
+                    <div class="eq-category"><i class="fas fa-tag"></i> ${item.category}</div>
+                </div>
+                <div class="eq-toggle" id="eqToggle_${item.id}">
+                    <i class="fas fa-chevron-down"></i>
                 </div>
             `;
+            card.appendChild(header);
+
+            // Тело карточки (содержимое)
+            const body = document.createElement('div');
+            body.className = 'equipment-body';
+            body.id = bodyId;
+
+            // Описание
+            let upgradesHtml = '';
+            item.upgrades.forEach((upgrade, idx) => {
+                upgradesHtml += `
+                    <div class="eq-upgrade-item">
+                        <span class="num">${idx + 1}</span>
+                        <span class="text">${upgrade}</span>
+                    </div>
+                `;
+            });
+
+            let examplesHtml = '';
+            item.examples.forEach(ex => {
+                examplesHtml += `
+                    <span class="eq-example-tag">
+                        <i class="fas fa-${ex === 'Снаряд' ? 'bolt' : 'tag'} tag-icon"></i>
+                        ${ex}
+                    </span>
+                `;
+            });
+
+            body.innerHTML = `
+                <div class="eq-description">
+                    <i class="fas fa-quote-left" style="color: #e16d48; opacity: 0.5; margin-right: 6px;"></i>
+                    ${item.description}
+                </div>
+
+                <div class="eq-upgrades-title">
+                    <i class="fas fa-arrow-up"></i> УЛУЧШЕНИЕ ДЛЯ ${item.name.toUpperCase()}
+                </div>
+                <div class="eq-upgrades">
+                    ${upgradesHtml}
+                </div>
+
+                <div class="eq-examples-title">
+                    <i class="fas fa-image"></i> ПРИМЕРЫ ИСПОЛЬЗОВАНИЯ СНАРЯЖЕНИЯ
+                </div>
+                <div class="eq-examples">
+                    ${examplesHtml}
+                </div>
+            `;
+
+            card.appendChild(body);
             grid.appendChild(card);
+
+            // Обработчик открытия/закрытия
+            const toggle = document.getElementById('eqToggle_' + item.id);
+            let isOpen = false;
+
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isOpen = !isOpen;
+                body.classList.toggle('open', isOpen);
+                this.classList.toggle('open', isOpen);
+            });
+
+            // Клик по заголовку тоже открывает
+            header.addEventListener('click', function(e) {
+                // Игнорируем клик по самой иконке переключения
+                if (e.target.closest('.eq-toggle')) return;
+                isOpen = !isOpen;
+                body.classList.toggle('open', isOpen);
+                toggle.classList.toggle('open', isOpen);
+            });
         });
 
         if (filtered.length === 0) {
@@ -866,62 +979,6 @@
                     <i class="fas fa-box-open" style="font-size: 3rem; display: block; margin-bottom: 1rem;"></i>
                     Нет снаряжения в этой категории
                 </div>
-            `;
-        }
-    }
-
-    // ============ РЕНДЕРИНГ ТАБЛИЦЫ ============
-    function renderStats(category) {
-        const tbody = document.getElementById('statsBody');
-        const filtered = category === 'all' 
-            ? equipmentData 
-            : equipmentData.filter(item => item.category === category);
-
-        tbody.innerHTML = '';
-        filtered.forEach(item => {
-            const s = item.stats;
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><strong style="color: #f0eef7;">${item.name}</strong></td>
-                <td><span style="color: #e16d48; font-size: 0.8rem; text-transform: uppercase;">${item.category}</span></td>
-                <td>
-                    <div class="stat-bar-container">
-                        <span class="stat-label">Эффективность</span>
-                        <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; max-width:120px;">
-                            <div class="stat-bar" style="width:${s.efficiency}%;"></div>
-                        </div>
-                        <span class="stat-value">${s.efficiency}%</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="stat-bar-container">
-                        <span class="stat-label">Надёжность</span>
-                        <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; max-width:120px;">
-                            <div class="stat-bar" style="width:${s.reliability}%;"></div>
-                        </div>
-                        <span class="stat-value">${s.reliability}%</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="stat-bar-container">
-                        <span class="stat-label">Универсальность</span>
-                        <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; max-width:120px;">
-                            <div class="stat-bar" style="width:${s.versatility}%;"></div>
-                        </div>
-                        <span class="stat-value">${s.versatility}%</span>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
-
-        if (filtered.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" style="text-align: center; padding: 2rem; color: #888;">
-                        Нет данных для этой категории
-                    </td>
-                </tr>
             `;
         }
     }
@@ -962,9 +1019,11 @@
         const modalImg = document.getElementById('modalImage');
         const modalClose = document.querySelector('.modal-close');
 
-        document.querySelectorAll('.equipment-card .card-image').forEach(img => {
-            img.addEventListener('click', () => {
-                modalImg.src = img.src;
+        document.querySelectorAll('.equipment-card .eq-icon i').forEach(icon => {
+            icon.addEventListener('click', () => {
+                const card = icon.closest('.equipment-card');
+                const name = card.querySelector('.eq-name')?.textContent || 'Снаряжение';
+                modalImg.src = `../images/${name.toLowerCase()}.png`;
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
@@ -985,7 +1044,6 @@
 
         // Первоначальный рендеринг
         renderEquipment('all');
-        renderStats('all');
 
         // Анимация появления
         document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
