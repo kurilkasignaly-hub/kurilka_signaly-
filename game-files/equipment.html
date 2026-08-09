@@ -326,7 +326,6 @@
         }
 
         .equipment-header .eq-icon {
-            font-size: 2rem;
             width: 50px;
             height: 50px;
             display: flex;
@@ -335,19 +334,14 @@
             background: rgba(0, 0, 0, 0.3);
             border-radius: 14px;
             flex-shrink: 0;
+            overflow: hidden;
         }
 
-        .equipment-header .eq-icon i {
-            color: inherit;
+        .equipment-header .eq-icon img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
         }
-
-        /* Цвет иконок */
-        .color-red .eq-icon { color: #e74c3c; }
-        .color-purple .eq-icon { color: #9b59b6; }
-        .color-teal .eq-icon { color: #1abc9c; }
-        .color-green .eq-icon { color: #2ecc71; }
-        .color-yellow .eq-icon { color: #f1c40f; }
-        .color-orange .eq-icon { color: #e67e22; }
 
         .equipment-header .eq-title-group {
             flex: 1;
@@ -360,19 +354,13 @@
         }
 
         .equipment-header .eq-category {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
+            color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 600;
+            font-weight: 500;
+            opacity: 0.7;
         }
-
-        /* Цвет категории */
-        .color-red .eq-category { color: #e74c3c; }
-        .color-purple .eq-category { color: #9b59b6; }
-        .color-teal .eq-category { color: #1abc9c; }
-        .color-green .eq-category { color: #2ecc71; }
-        .color-yellow .eq-category { color: #f1c40f; }
-        .color-orange .eq-category { color: #e67e22; }
 
         .equipment-header .eq-toggle {
             color: #888;
@@ -602,43 +590,6 @@
             color: #e16d48;
         }
 
-        .eq-examples {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem 1rem;
-            padding: 0.8rem 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            border: 1px solid rgba(220, 90, 50, 0.1);
-        }
-
-        .eq-example-tag {
-            font-size: 0.8rem;
-            color: #c2b9d4;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .eq-example-tag:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .eq-example-tag .tag-icon {
-            margin-right: 4px;
-        }
-
-        /* Цвет тегов примеров */
-        .color-red .eq-example-tag .tag-icon { color: #e74c3c; }
-        .color-purple .eq-example-tag .tag-icon { color: #9b59b6; }
-        .color-teal .eq-example-tag .tag-icon { color: #1abc9c; }
-        .color-green .eq-example-tag .tag-icon { color: #2ecc71; }
-        .color-yellow .eq-example-tag .tag-icon { color: #f1c40f; }
-        .color-orange .eq-example-tag .tag-icon { color: #e67e22; }
-
         /* Примеры с изображениями */
         .eq-examples-with-images {
             display: flex;
@@ -674,12 +625,6 @@
 
         .eq-example-img-wrapper:hover img {
             border-color: #e16d48;
-        }
-
-        .eq-example-img-wrapper .example-label {
-            font-size: 0.65rem;
-            color: #888;
-            text-align: center;
         }
 
         /* Модальное окно для увеличения */
@@ -770,7 +715,8 @@
         @media (max-width: 550px) {
             .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
             .character-name { font-size: 1.3rem; }
-            .equipment-header .eq-icon { width: 40px; height: 40px; font-size: 1.4rem; }
+            .equipment-header .eq-icon { width: 40px; height: 40px; }
+            .equipment-header .eq-icon img { width: 28px; height: 28px; }
             .eq-image-gallery .gallery-img { width: 80px; height: 80px; }
             .eq-example-img-wrapper img { width: 60px; height: 60px; }
         }
@@ -849,8 +795,7 @@
         {
             id: 1,
             name: 'Оглушение',
-            category: 'метательное',
-            icon: 'fa-bolt',
+            icon: 'оглушение иконка.webp',
             color: 'color-red',
             image: '../images/оглушение.png',
             description: 'Мощное метательное оружие, поражающее электрическим током, которое временно оглушает и дезориентирует врагов.',
@@ -874,20 +819,19 @@
                 { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
             ],
             examples: [
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Электрообстер', icon: 'fa-tag', image: '../images/пример-электрообстер.png' },
-                { label: 'Сокращённая перезарядка', icon: 'fa-tag', image: '../images/пример-перезарядка.png' },
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Снаряд', icon: 'fa-bolt', image: '../images/пример-снаряд.png' },
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Снаряд', icon: 'fa-bolt', image: '../images/пример-снаряд.png' }
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Электрообстер', image: '../images/пример-электрообстер.png' },
+                { label: 'Сокращённая перезарядка', image: '../images/пример-перезарядка.png' },
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Снаряд', image: '../images/пример-снаряд.png' },
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Снаряд', image: '../images/пример-снаряд.png' }
             ]
         },
         {
             id: 2,
             name: 'Завеса',
-            category: 'особое',
-            icon: 'fa-cloud',
+            icon: 'завеса иконка.webp',
             color: 'color-purple',
             image: '../images/завеса.png',
             description: 'Создаёт плотную дымовую завесу, скрывающую передвижение реагентов и дезориентирующую врагов.',
@@ -909,17 +853,16 @@
                 { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
             ],
             examples: [
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Маскировка', icon: 'fa-tag', image: '../images/пример-маскировка.png' },
-                { label: 'Увеличенный радиус', icon: 'fa-tag', image: '../images/пример-радиус.png' },
-                { label: 'Отравление', icon: 'fa-tag', image: '../images/пример-отравление.png' }
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Маскировка', image: '../images/пример-маскировка.png' },
+                { label: 'Увеличенный радиус', image: '../images/пример-радиус.png' },
+                { label: 'Отравление', image: '../images/пример-отравление.png' }
             ]
         },
         {
             id: 3,
             name: 'Исцеление',
-            category: 'медицинское',
-            icon: 'fa-heartbeat',
+            icon: 'исцеление иконка.webp',
             color: 'color-teal',
             image: '../images/исцеление.png',
             description: 'Восстанавливает здоровье при использовании. Базовый предмет выживания, который может спасти жизнь в критической ситуации.',
@@ -941,18 +884,17 @@
                 { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
             ],
             examples: [
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Двойной заряд', icon: 'fa-tag', image: '../images/пример-двойной-заряд.png' },
-                { label: 'Область', icon: 'fa-tag', image: '../images/пример-область.png' },
-                { label: 'Быстрая перезарядка', icon: 'fa-tag', image: '../images/пример-перезарядка.png' },
-                { label: 'Стойкость', icon: 'fa-tag', image: '../images/пример-стойкость.png' }
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Двойной заряд', image: '../images/пример-двойной-заряд.png' },
+                { label: 'Область', image: '../images/пример-область.png' },
+                { label: 'Быстрая перезарядка', image: '../images/пример-перезарядка.png' },
+                { label: 'Стойкость', image: '../images/пример-стойкость.png' }
             ]
         },
         {
             id: 4,
             name: 'Рентген',
-            category: 'инструменты',
-            icon: 'fa-eye',
+            icon: 'рентген иконка.webp',
             color: 'color-green',
             image: '../images/рентген.png',
             description: 'Позволяет видеть сквозь стены, обнаруживая врагов, ловушки и предметы в радиусе действия.',
@@ -974,25 +916,22 @@
                 { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
             ],
             examples: [
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Метка', icon: 'fa-tag', image: '../images/пример-метка.png' },
-                { label: 'Обнаружение ловушек', icon: 'fa-tag', image: '../images/пример-ловушки.png' },
-                { label: 'Увеличенный радиус', icon: 'fa-tag', image: '../images/пример-радиус.png' }
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Метка', image: '../images/пример-метка.png' },
+                { label: 'Обнаружение ловушек', image: '../images/пример-ловушки.png' },
+                { label: 'Увеличенный радиус', image: '../images/пример-радиус.png' }
             ]
         },
         {
             id: 5,
             name: 'Баррикада',
-            category: 'защитное',
-            icon: 'fa-shield',
+            icon: 'баррикада иконка.webp',
             color: 'color-yellow',
-            image: '../images/баррикада иконка.webp',
+            image: '../images/баррикада.png',
             description: 'Создаёт временное укрепление, блокирующее проход для врагов и дающее укрытие для реагентов.',
             galleryImages: [
-                { src: '../images/обычная баррикада.webp', alt: 'Баррикада вид 1' },
-                { src: '../images/баррикада 01.webp', alt: 'Баррикада вид 2' },
-                { src: '../images/баррикада 02.webp', alt: 'Баррикада вид 3' },
-                { src: '../images/баррикада 03.webp', alt: 'Баррикада вид 4' }
+                { src: '../images/баррикада-1.png', alt: 'Баррикада вид 1' },
+                { src: '../images/баррикада-2.png', alt: 'Баррикада вид 2' }
             ],
             alerts: [
                 'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
@@ -1008,17 +947,16 @@
                 { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
             ],
             examples: [
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Усиление', icon: 'fa-tag', image: '../images/пример-усиление.png' },
-                { label: 'Оглушение', icon: 'fa-tag', image: '../images/пример-оглушение.png' },
-                { label: 'Увеличенная прочность', icon: 'fa-tag', image: '../images/пример-прочность.png' }
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Усиление', image: '../images/пример-усиление.png' },
+                { label: 'Оглушение', image: '../images/пример-оглушение.png' },
+                { label: 'Увеличенная прочность', image: '../images/пример-прочность.png' }
             ]
         },
         {
             id: 6,
             name: 'Глушилка',
-            category: 'инструменты',
-            icon: 'fa-volume-mute',
+            icon: 'глушилка иконка.webp',
             color: 'color-orange',
             image: '../images/глушилка.png',
             description: 'Создаёт область тишины, заглушающую звуки передвижения и действий реагентов, позволяя проходить незаметно.',
@@ -1040,10 +978,10 @@
                 { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
             ],
             examples: [
-                { label: 'Подготовка', icon: 'fa-tag', image: '../images/пример-подготовка.png' },
-                { label: 'Маскировка', icon: 'fa-tag', image: '../images/пример-маскировка.png' },
-                { label: 'Отвлечение', icon: 'fa-tag', image: '../images/пример-отвлечение.png' },
-                { label: 'Увеличенный радиус', icon: 'fa-tag', image: '../images/пример-радиус.png' }
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Маскировка', image: '../images/пример-маскировка.png' },
+                { label: 'Отвлечение', image: '../images/пример-отвлечение.png' },
+                { label: 'Увеличенный радиус', image: '../images/пример-радиус.png' }
             ]
         }
     ];
@@ -1080,11 +1018,11 @@
             header.className = 'equipment-header';
             header.innerHTML = `
                 <div class="eq-icon">
-                    <i class="fas ${item.icon}"></i>
+                    <img src="../images/${item.icon}" alt="${item.name}" onerror="this.src='https://placehold.co/36x36/333/666?text=${item.name.charAt(0)}'">
                 </div>
                 <div class="eq-title-group">
                     <div class="eq-name">${item.name}</div>
-                    <div class="eq-category"><i class="fas fa-tag"></i> ${item.category}</div>
+                    <div class="eq-category">СНАРЯЖЕНИЕ</div>
                 </div>
                 <div class="eq-toggle" id="eqToggle_${item.id}">
                     <i class="fas fa-chevron-down"></i>
@@ -1138,11 +1076,9 @@
             if (item.examples && item.examples.length > 0) {
                 examplesHtml = `<div class="eq-examples-with-images">`;
                 item.examples.forEach(ex => {
-                    const icon = ex.icon || 'fa-tag';
                     examplesHtml += `
                         <div class="eq-example-img-wrapper" onclick="openModal('${ex.image}', '${ex.label}')">
                             <img src="${ex.image}" alt="${ex.label}" onerror="this.style.display='none'">
-                            <span class="example-label"><i class="fas ${icon} tag-icon"></i> ${ex.label}</span>
                         </div>
                     `;
                 });
