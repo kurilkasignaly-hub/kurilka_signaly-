@@ -369,23 +369,23 @@
             padding: 2rem;
         }
 
-        /* ===== ЗАГОЛОВОК СНАРЯЖЕНИЕ ===== */
+        /* ===== ЗАГОЛОВОК И ИНФОРМАЦИЯ ===== */
         .character-intro {
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
-            margin-bottom: 1rem;
-            align-items: center;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
         }
 
         .character-image {
-            flex: 0 0 180px;
+            flex: 0 0 280px;
             text-align: center;
         }
 
         .character-image img {
             width: 100%;
-            max-width: 180px;
+            max-width: 280px;
             border-radius: 20px;
             border: 2px solid rgba(220, 90, 50, 0.4);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -398,7 +398,7 @@
 
         .character-title {
             flex: 1;
-            min-width: 200px;
+            min-width: 250px;
         }
 
         .character-name {
@@ -408,23 +408,53 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 0;
+            margin-bottom: 0.8rem;
         }
 
-        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД НАДПИСЬЮ) ===== */
+        /* ===== ИНФОРМАЦИОННЫЙ БЛОК (под заголовком) ===== */
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .character-sub p {
+            margin-bottom: 0.3rem;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 0.8rem 0 0 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== */
         .equipment-description-block {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
-            padding: 0.8rem 1.2rem;
+            padding: 1rem 1.2rem;
             margin-bottom: 1.2rem;
             border: 1px solid rgba(220, 90, 50, 0.15);
         }
 
         .equipment-description-block p {
             color: #d1cce6;
-            line-height: 1.5;
-            font-size: 0.85rem;
-            margin-bottom: 0.4rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
 
         .equipment-description-block p:last-child {
@@ -449,14 +479,14 @@
 
         .global-alert .alert-icon {
             color: #f1c40f;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             flex-shrink: 0;
             margin-top: 2px;
         }
 
         .global-alert .alert-text {
             color: #e8e0d0;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
         }
 
@@ -660,7 +690,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* ===== ОПОВЕЩЕНИЯ В КАРТОЧКАХ ===== */
         .eq-alert {
             display: flex;
             align-items: flex-start;
@@ -925,8 +954,6 @@
             .logo .logo-text { font-size: 1.1rem; }
             .character-intro { flex-direction: column; align-items: center; text-align: center; }
             .character-name { font-size: 1.6rem; text-align: center; }
-            .character-image { flex: 0 0 140px; }
-            .character-image img { max-width: 140px; }
             .article-content { padding: 1.2rem; }
             .equipment-header { padding: 0.8rem 1rem; }
             .equipment-header .eq-name { font-size: 1rem; }
@@ -954,8 +981,10 @@
             .eq-image-gallery .gallery-img { width: 70px; height: 70px; }
             .eq-example-img-wrapper img { width: 50px; height: 50px; }
             .global-alert { padding: 0.6rem 0.8rem; }
-            .global-alert .alert-icon { font-size: 1.2rem; }
+            .global-alert .alert-icon { font-size: 1rem; }
             .global-alert .alert-text { font-size: 0.8rem; }
+            .character-image { flex: 0 0 100%; }
+            .character-image img { max-width: 200px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -1014,19 +1043,29 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <div class="article-wrapper">
         <div class="article-content">
-            <!-- ЗАГОЛОВОК СНАРЯЖЕНИЕ -->
+            <!-- ЗАГОЛОВОК И ИНФОРМАЦИЯ -->
             <div class="character-intro">
                 <div class="character-image">
-                    <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/180x180/1a1a2e/e16d48?text=Снаряжение'">
+                    <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
                 </div>
                 <div class="character-title">
                     <h1 class="character-name">Снаряжение</h1>
+                    
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Категория: Все типы</p>
+                        <p><i class="fas fa-shield-alt"></i> Доступно: 6 предметов</p>
+                        <p><i class="fas fa-sync-alt"></i> Обновлено: Август 2024</p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <p>Снаряжения или Риги (ориг. Rigs) — снаряжение в игре The Outlast Trials, оборудование реагентов для оказания помощи во время прохождения испытаний. Каждый тип снаряжения имеет свои уникальные улучшения и тактики использования.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД НАДПИСЬЮ) ===== -->
+            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== -->
             <div class="equipment-description-block">
-                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — снаряжение в игре The Outlast Trials, оборудование реагентов для оказания помощи во время прохождения испытаний. Несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
+                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
                 <p>Без улучшения «Подготовка» снаряжению требуется время в начале испытания, чтобы прийти в готовность. После использования снаряжения на испытании устройству требуется время на его восстановление. Однако с помощью одноразовой зарядки снаряжения, которые находятся в областях испытаний, реагент сможет снова активировать устройство. У каждого типа снаряжения своё время для восстановления после использования.</p>
             </div>
 
