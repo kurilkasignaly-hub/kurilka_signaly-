@@ -369,7 +369,7 @@
             padding: 2rem;
         }
 
-        /* ===== ЗАГОЛОВОК ===== */
+        /* ===== ЗАГОЛОВОК И ИНФОРМАЦИЯ ===== */
         .character-intro {
             display: flex;
             flex-wrap: wrap;
@@ -411,7 +411,37 @@
             margin-bottom: 0.8rem;
         }
 
-        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ===== */
+        /* ===== ИНФОРМАЦИОННЫЙ БЛОК (под заголовком) ===== */
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .character-sub p {
+            margin-bottom: 0.3rem;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 0.8rem 0 0 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== */
         .equipment-description-block {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
@@ -433,6 +463,35 @@
 
         .equipment-description-block strong {
             color: #e16d48;
+        }
+
+        /* ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== */
+        .global-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.2rem;
+            border-radius: 12px;
+            background: rgba(255, 200, 0, 0.08);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+        }
+
+        .global-alert .alert-icon {
+            color: #f1c40f;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .global-alert .alert-text {
+            color: #e8e0d0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .global-alert .alert-text strong {
+            color: #f1c40f;
         }
 
         /* ===== КАРТОЧКИ СНАРЯЖЕНИЯ ===== */
@@ -598,7 +657,6 @@
             color: #e16d48;
         }
 
-        /* ===== ГАЛЕРЕЯ (БЕЛЫЕ КВАДРАТИКИ) ===== */
         .eq-image-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -608,35 +666,19 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .eq-image-gallery .gallery-placeholder {
+        .eq-image-gallery .gallery-img {
             width: 100px;
             height: 100px;
-            background: rgba(255, 255, 255, 0.85);
+            object-fit: cover;
             border-radius: 12px;
-            border: 2px dashed rgba(220, 90, 50, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 0.6rem;
-            text-align: center;
+            border: 2px solid rgba(220, 90, 50, 0.25);
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 500;
-            padding: 4px;
         }
 
-        .eq-image-gallery .gallery-placeholder:hover {
+        .eq-image-gallery .gallery-img:hover {
             transform: scale(1.05);
             border-color: #e16d48;
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .eq-image-gallery .gallery-placeholder i {
-            font-size: 1.5rem;
-            color: #bbb;
-            display: block;
-            margin-bottom: 4px;
         }
 
         .eq-description {
@@ -793,7 +835,6 @@
             color: #e16d48;
         }
 
-        /* ===== ПРИМЕРЫ (БЕЛЫЕ КВАДРАТИКИ) ===== */
         .eq-examples-with-images {
             display: flex;
             flex-wrap: wrap;
@@ -804,7 +845,7 @@
             border: 1px solid rgba(220, 90, 50, 0.1);
         }
 
-        .eq-example-placeholder {
+        .eq-example-img-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -813,35 +854,21 @@
             transition: all 0.3s ease;
         }
 
-        .eq-example-placeholder:hover {
+        .eq-example-img-wrapper:hover {
             transform: scale(1.05);
         }
 
-        .eq-example-placeholder .placeholder-box {
+        .eq-example-img-wrapper img {
             width: 60px;
             height: 60px;
-            background: rgba(255, 255, 255, 0.85);
+            object-fit: cover;
             border-radius: 10px;
-            border: 2px dashed rgba(220, 90, 50, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 0.7rem;
-            transition: all 0.3s ease;
+            border: 2px solid rgba(220, 90, 50, 0.2);
+            transition: border-color 0.3s ease;
         }
 
-        .eq-example-placeholder:hover .placeholder-box {
+        .eq-example-img-wrapper:hover img {
             border-color: #e16d48;
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .eq-example-placeholder .example-label {
-            font-size: 0.55rem;
-            color: #888;
-            text-align: center;
-            max-width: 60px;
-            line-height: 1.2;
         }
 
         /* ===== МОДАЛЬНОЕ ОКНО ===== */
@@ -934,7 +961,7 @@
             .eq-upgrades { grid-template-columns: 1fr; }
             .eq-examples-with-images { justify-content: center; }
             .eq-image-gallery { justify-content: center; }
-            .eq-image-gallery .gallery-placeholder { width: 80px; height: 80px; }
+            .eq-image-gallery .gallery-img { width: 80px; height: 80px; }
             .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
             .music-toggle .label { font-size: 0.6rem; }
             .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
@@ -943,7 +970,7 @@
             .volume-slider { width: 100px; }
             .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
             .equipment-description-block p { font-size: 0.8rem; }
-            .eq-example-placeholder .placeholder-box { width: 50px; height: 50px; }
+            .global-alert .alert-text { font-size: 0.85rem; }
         }
 
         @media (max-width: 550px) {
@@ -951,9 +978,11 @@
             .character-name { font-size: 1.3rem; }
             .equipment-header .eq-icon { width: 40px; height: 40px; }
             .equipment-header .eq-icon img { width: 40px; height: 40px; }
-            .eq-image-gallery .gallery-placeholder { width: 70px; height: 70px; }
-            .eq-example-placeholder .placeholder-box { width: 45px; height: 45px; }
-            .eq-example-placeholder .example-label { font-size: 0.5rem; max-width: 45px; }
+            .eq-image-gallery .gallery-img { width: 70px; height: 70px; }
+            .eq-example-img-wrapper img { width: 50px; height: 50px; }
+            .global-alert { padding: 0.6rem 0.8rem; }
+            .global-alert .alert-icon { font-size: 1rem; }
+            .global-alert .alert-text { font-size: 0.8rem; }
             .character-image { flex: 0 0 100%; }
             .character-image img { max-width: 200px; margin: 0 auto; }
         }
@@ -981,6 +1010,7 @@
             <a href="../invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
             <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+            <a href="../weekly-escalation.html" class="nav-btn"><i class="fas fa-calendar-week"></i> Еженедельная</a>
 
             <div class="music-controls-wrapper">
                 <div class="music-controls">
@@ -1013,20 +1043,36 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <div class="article-wrapper">
         <div class="article-content">
-            <!-- ЗАГОЛОВОК -->
+            <!-- ЗАГОЛОВОК И ИНФОРМАЦИЯ -->
             <div class="character-intro">
                 <div class="character-image">
                     <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
                 </div>
                 <div class="character-title">
                     <h1 class="character-name">Снаряжение</h1>
+                    
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Категория: Снаряжение</p>
+                        <p><i class="fas fa-shield-alt"></i> Доступно: 6 снаряжении</p>
+                        <p><i class="fas fa-sync-alt"></i> Обновлено: Актуально с последним обновлением./p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <p>Снаряжения — оборудование реагентов для оказания помощи во время прохождения испытаний. Каждый тип снаряжения имеет свои уникальные улучшения и тактики использования.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ===== -->
+            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== -->
             <div class="equipment-description-block">
-                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — снаряжение в игре The Outlast Trials, оборудование реагентов для оказания помощи во время прохождения испытаний. Несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
+                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
                 <p>Без улучшения «Подготовка» снаряжению требуется время в начале испытания, чтобы прийти в готовность. После использования снаряжения на испытании устройству требуется время на его восстановление. Однако с помощью одноразовой зарядки снаряжения, которые находятся в областях испытаний, реагент сможет снова активировать устройство. У каждого типа снаряжения своё время для восстановления после использования.</p>
+            </div>
+
+            <!-- ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== -->
+            <div class="global-alert">
+                <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="alert-text"><strong>ВНИМАНИЕ!</strong> После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.</div>
             </div>
 
             <!-- Список снаряжения -->
@@ -1463,16 +1509,14 @@
             body.className = 'equipment-body';
             body.id = bodyId;
 
-            // ГАЛЕРЕЯ — БЕЛЫЕ КВАДРАТИКИ
             let galleryHtml = '';
             if (item.galleryImages && item.galleryImages.length > 0) {
                 galleryHtml = `<div class="eq-image-gallery">`;
-                item.galleryImages.forEach((img, index) => {
+                item.galleryImages.forEach(img => {
                     galleryHtml += `
-                        <div class="gallery-placeholder" onclick="openModal('${img.src}', '${img.alt}')" title="${img.alt}">
-                            <i class="fas fa-image"></i>
-                            <span>${index + 1}</span>
-                        </div>
+                        <img class="gallery-img" src="${img.src}" alt="${img.alt}" 
+                             onclick="openModal('${img.src}', '${img.alt}')"
+                             onerror="this.style.display='none'">
                     `;
                 });
                 galleryHtml += `</div>`;
@@ -1499,17 +1543,13 @@
                 `;
             });
 
-            // ПРИМЕРЫ — БЕЛЫЕ КВАДРАТИКИ
             let examplesHtml = '';
             if (item.examples && item.examples.length > 0) {
                 examplesHtml = `<div class="eq-examples-with-images">`;
                 item.examples.forEach(ex => {
                     examplesHtml += `
-                        <div class="eq-example-placeholder" onclick="openModal('${ex.image}', '${ex.label}')">
-                            <div class="placeholder-box">
-                                <i class="fas fa-image"></i>
-                            </div>
-                            <span class="example-label">${ex.label}</span>
+                        <div class="eq-example-img-wrapper" onclick="openModal('${ex.image}', '${ex.label}')">
+                            <img src="${ex.image}" alt="${ex.label}" onerror="this.style.display='none'">
                         </div>
                     `;
                 });
