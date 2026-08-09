@@ -369,12 +369,12 @@
             padding: 2rem;
         }
 
-        /* ===== ИНТРО ===== */
+        /* ===== ИНТРО С ИЗОБРАЖЕНИЕМ ===== */
         .character-intro {
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             align-items: flex-start;
         }
 
@@ -408,10 +408,10 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
-        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ВВЕРХУ ===== */
+        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ===== */
         .equipment-description-block {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 16px;
@@ -435,33 +435,34 @@
             color: #e16d48;
         }
 
-        /* ===== ОБЩЕЕ ОПОВЕЩЕНИЕ ===== */
+        /* ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ (УВЕЛИЧЕННОЕ) ===== */
         .global-alert {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 0.8rem 1rem;
+            gap: 16px;
+            padding: 1.2rem 1.5rem;
             margin-bottom: 1.5rem;
-            border-radius: 12px;
+            border-radius: 16px;
             background: rgba(255, 200, 0, 0.08);
-            border: 1px solid rgba(255, 200, 0, 0.2);
+            border: 2px solid rgba(255, 200, 0, 0.25);
         }
 
         .global-alert .alert-icon {
             color: #f1c40f;
-            font-size: 1.2rem;
+            font-size: 1.8rem;
             flex-shrink: 0;
             margin-top: 2px;
         }
 
         .global-alert .alert-text {
             color: #e8e0d0;
-            font-size: 0.85rem;
-            line-height: 1.5;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         .global-alert .alert-text strong {
             color: #f1c40f;
+            font-size: 1.15rem;
         }
 
         /* ===== КАРТОЧКИ СНАРЯЖЕНИЯ ===== */
@@ -661,52 +662,6 @@
             margin-bottom: 1.2rem;
             padding-bottom: 1.2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* ===== ОПОВЕЩЕНИЯ В КАРТОЧКАХ ===== */
-        .eq-alert {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 0.8rem 1rem;
-            margin-bottom: 0.8rem;
-            border-radius: 12px;
-            background: rgba(255, 200, 0, 0.08);
-            border: 1px solid rgba(255, 200, 0, 0.2);
-        }
-
-        .eq-alert:last-child {
-            margin-bottom: 1.2rem;
-        }
-
-        .eq-alert .alert-icon {
-            color: #f1c40f;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .eq-alert .alert-text {
-            color: #e8e0d0;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        .eq-alert .alert-text strong {
-            color: #f1c40f;
-        }
-
-        .eq-alert.alert-danger {
-            background: rgba(255, 0, 0, 0.08);
-            border-color: rgba(255, 0, 0, 0.25);
-        }
-
-        .eq-alert.alert-danger .alert-icon {
-            color: #e74c3c;
-        }
-
-        .eq-alert.alert-danger .alert-text strong {
-            color: #e74c3c;
         }
 
         .eq-upgrades-title {
@@ -951,6 +906,10 @@
             .equipment-header .eq-icon img { width: 40px; height: 40px; }
             .eq-image-gallery .gallery-img { width: 80px; height: 80px; }
             .eq-example-img-wrapper img { width: 60px; height: 60px; }
+            .global-alert { padding: 0.8rem 1rem; }
+            .global-alert .alert-icon { font-size: 1.3rem; }
+            .global-alert .alert-text { font-size: 0.9rem; }
+            .global-alert .alert-text strong { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -1004,15 +963,15 @@
         </div>
     </div>
 
-    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ (НАЗАД К КАТЕГОРИЯМ) ===== -->
     <div class="breadcrumb">
-        <a href="../roulette.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к рулетке</a>
+        <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
     </div>
 
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <div class="article-wrapper">
         <div class="article-content">
-            <!-- Интро -->
+            <!-- Интро с изображением и названием -->
             <div class="character-intro">
                 <div class="character-image">
                     <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
@@ -1024,11 +983,11 @@
 
             <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ===== -->
             <div class="equipment-description-block">
-                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — снаряжение в игре The Outlast Trials, оборудование реагентов для оказании помощи во время прохождения испытаний. Несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
+                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — снаряжение в игре The Outlast Trials, оборудование реагентов для оказания помощи во время прохождения испытаний. Несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
                 <p>Без улучшения «Подготовка» снаряжению требуется время в начале испытания, что прийти в готовность. После использования снаряжения на испытании устройству требуется время на его восстановление. Однако с помощью одноразовой зарядки снаряжения, которые находятся в областях испытаний, реагент сможет снова активировать устройство. У каждого типа снаряжения своё время для восстановления после использования.</p>
             </div>
 
-            <!-- ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== -->
+            <!-- ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ (УВЕЛИЧЕННОЕ) ===== -->
             <div class="global-alert">
                 <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
                 <div class="alert-text"><strong>ВНИМАНИЕ!</strong> После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.</div>
