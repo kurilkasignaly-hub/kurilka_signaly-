@@ -404,6 +404,22 @@
             max-height: 2000px;
         }
 
+        /* Заголовок "ВНЕШНИЙ ВИД И ОПИСАНИЕ" */
+        .eq-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .eq-section-title i {
+            color: #e16d48;
+        }
+
         .eq-description {
             color: #c2b9d4;
             line-height: 1.6;
@@ -411,6 +427,53 @@
             margin-bottom: 1.2rem;
             padding-bottom: 1.2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ОПОВЕЩЕНИЯ */
+        .eq-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: 12px;
+            background: rgba(255, 200, 0, 0.08);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+        }
+
+        .eq-alert:last-child {
+            margin-bottom: 1.2rem;
+        }
+
+        .eq-alert .alert-icon {
+            color: #f1c40f;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .eq-alert .alert-text {
+            color: #e8e0d0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .eq-alert .alert-text strong {
+            color: #f1c40f;
+        }
+
+        /* Второе оповещение - красное */
+        .eq-alert.alert-danger {
+            background: rgba(255, 0, 0, 0.08);
+            border-color: rgba(255, 0, 0, 0.25);
+        }
+
+        .eq-alert.alert-danger .alert-icon {
+            color: #e74c3c;
+        }
+
+        .eq-alert.alert-danger .alert-text strong {
+            color: #e74c3c;
         }
 
         .eq-upgrades-title {
@@ -421,6 +484,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .eq-upgrades-title i {
+            color: #e16d48;
         }
 
         .eq-upgrades {
@@ -481,6 +548,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .eq-examples-title i {
+            color: #e16d48;
         }
 
         .eq-examples {
@@ -679,6 +750,10 @@
             color: 'color-red',
             image: '../images/оглушение.png',
             description: 'Мощное метательное оружие, поражающее электрическим током, которое временно оглушает и дезориентирует врагов.',
+            alerts: [
+                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
+            ],
             upgrades: [
                 'Активировать — активация снаряжения.',
                 'Увеличенный радиус — увеличивает радиус взрыва.',
@@ -699,6 +774,10 @@
             color: 'color-purple',
             image: '../images/завеса.png',
             description: 'Создаёт плотную дымовую завесу, скрывающую передвижение реагентов и дезориентирующую врагов.',
+            alerts: [
+                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
+            ],
             upgrades: [
                 'Активировать — активация снаряжения.',
                 'Увеличенный радиус — увеличивает площадь дымовой завесы.',
@@ -718,6 +797,10 @@
             color: 'color-teal',
             image: '../images/исцеление.png',
             description: 'Восстанавливает здоровье при использовании. Базовый предмет выживания, который может спасти жизнь в критической ситуации.',
+            alerts: [
+                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
+            ],
             upgrades: [
                 'Активировать — активация снаряжения.',
                 'Увеличенное восстановление — восстанавливает на 40% больше здоровья.',
@@ -737,6 +820,10 @@
             color: 'color-green',
             image: '../images/рентген.png',
             description: 'Позволяет видеть сквозь стены, обнаруживая врагов, ловушки и предметы в радиусе действия.',
+            alerts: [
+                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
+            ],
             upgrades: [
                 'Активировать — активация снаряжения.',
                 'Увеличенный радиус — увеличивает дальность обнаружения.',
@@ -756,6 +843,10 @@
             color: 'color-yellow',
             image: '../images/баррикада.png',
             description: 'Создаёт временное укрепление, блокирующее проход для врагов и дающее укрытие для реагентов.',
+            alerts: [
+                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
+            ],
             upgrades: [
                 'Активировать — активация снаряжения.',
                 'Увеличенная прочность — баррикада выдерживает больше ударов.',
@@ -775,6 +866,10 @@
             color: 'color-orange',
             image: '../images/глушилка.png',
             description: 'Создаёт область тишины, заглушающую звуки передвижения и действий реагентов, позволяя проходить незаметно.',
+            alerts: [
+                'После каждого использование ваше снаряжение требуется время для перезарядки перед повторным использованием',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжение'
+            ],
             upgrades: [
                 'Активировать — активация снаряжения.',
                 'Увеличенный радиус — увеличивает область действия.',
@@ -819,6 +914,18 @@
             body.className = 'equipment-body';
             body.id = bodyId;
 
+            // Оповещения
+            let alertsHtml = '';
+            item.alerts.forEach((alert, idx) => {
+                const dangerClass = idx === 1 ? 'alert-danger' : '';
+                alertsHtml += `
+                    <div class="eq-alert ${dangerClass}">
+                        <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="alert-text"><strong>ВНИМАНИЕ!</strong> ${alert}</div>
+                    </div>
+                `;
+            });
+
             let upgradesHtml = '';
             item.upgrades.forEach((upgrade, idx) => {
                 upgradesHtml += `
@@ -841,10 +948,15 @@
             });
 
             body.innerHTML = `
+                <div class="eq-section-title">
+                    <i class="fas fa-eye"></i> ВНЕШНИЙ ВИД И ОПИСАНИЕ СНАРЯЖЕНИЯ
+                </div>
                 <div class="eq-description">
                     <i class="fas fa-quote-left" style="color: rgba(255,255,255,0.3); margin-right: 6px;"></i>
                     ${item.description}
                 </div>
+
+                ${alertsHtml}
 
                 <div class="eq-upgrades-title">
                     <i class="fas fa-arrow-up"></i> УЛУЧШЕНИЕ ДЛЯ ${item.name.toUpperCase()}
