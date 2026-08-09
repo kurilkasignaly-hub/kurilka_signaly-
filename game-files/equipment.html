@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Снаряжение — The Outlast Trials | Курилка Синьялы</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes smokePulse {
+            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
+            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 1.2rem 2rem;
+            background: rgba(8, 6, 15, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32, #ff9f6e);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: smokePulse 3s ease-in-out infinite;
+        }
+
+        .logo p {
+            font-size: 0.75rem;
+            color: #c2b9d4;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo p i {
+            color: #e16d48;
+            font-size: 0.7rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.7rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(12px);
+            padding: 0.6rem 1.3rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.25);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #e2d9f0;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            transform: translateY(-2px);
+            text-shadow: 0 0 6px rgba(220,90,50,0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.3);
+        }
+
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        .article-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .article-content {
+            padding: 2rem;
+        }
+
+        /* Интро */
+        .character-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+
+        .character-image img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .character-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .character-title {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .character-sub p {
+            margin-bottom: 0.3rem;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        /* Оглавление */
+        .toc {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .toc-title {
+            color: #e16d48;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-title i {
+            transition: transform 0.3s ease;
+        }
+
+        .toc-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 1rem;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list.collapsed {
+            display: none;
+        }
+
+        .toc-list li {
+            margin: 0.5rem 0;
+        }
+
+        .toc-list a {
+            color: #c2b9d4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #e16d48;
+        }
+
+        /* Секции */
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-text {
+            color: #d1cce6;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .section-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* Сетка снаряжения */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .equipment-card {
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            border-color: #e16d48;
+            box-shadow: 0 10px 25px rgba(220, 90, 50, 0.2);
+        }
+
+        .equipment-card .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            display: block;
+        }
+
+        .equipment-card .card-body {
+            padding: 1.2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .equipment-card .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f0eef7;
+            margin-bottom: 0.3rem;
+        }
+
+        .equipment-card .card-category {
+            font-size: 0.7rem;
+            color: #e16d48;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .equipment-card .card-desc {
+            font-size: 0.85rem;
+            color: #c2b9d4;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .equipment-card .card-effect {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(220, 90, 50, 0.15);
+            font-size: 0.8rem;
+            color: #ffbc9a;
+        }
+
+        .equipment-card .card-effect i {
+            color: #e16d48;
+            margin-right: 6px;
+        }
+
+        /* Категории-теги */
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-tab {
+            background: rgba(220, 90, 50, 0.1);
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+            color: #c2b9d4;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .category-tab:hover {
+            background: rgba(220, 90, 50, 0.2);
+            color: white;
+        }
+
+        .category-tab.active {
+            background: rgba(220, 90, 50, 0.3);
+            border-color: #e16d48;
+            color: #e16d48;
+        }
+
+        /* Таблица характеристик */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .stats-table th,
+        .stats-table td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-table th {
+            color: #e16d48;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-table td {
+            color: #d1cce6;
+            font-size: 0.9rem;
+        }
+
+        .stats-table tr:hover td {
+            background: rgba(220, 90, 50, 0.05);
+        }
+
+        .stat-bar {
+            display: inline-block;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #e16d48, #ffbc9a);
+            transition: width 0.3s ease;
+        }
+
+        .stat-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-bar-container .stat-label {
+            min-width: 80px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .stat-bar-container .stat-value {
+            font-size: 0.8rem;
+            color: #ffbc9a;
+            font-weight: 600;
+            min-width: 30px;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo h1 { font-size: 1.5rem; }
+            .character-intro { flex-direction: column; align-items: center; text-align: center; }
+            .character-name { font-size: 1.6rem; text-align: center; }
+            .character-sub { text-align: center; }
+            .article-content { padding: 1.2rem; }
+            .section-title { font-size: 1.3rem; }
+            .equipment-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+            .stats-table { font-size: 0.8rem; }
+            .stats-table th, .stats-table td { padding: 0.5rem; }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .equipment-grid { grid-template-columns: 1fr; }
+            .character-name { font-size: 1.3rem; }
+            .category-tab { padding: 0.3rem 1rem; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+<img class="background-image" src="../фон/Вторжение фон.png" alt="Фон" onerror="this.style.display='none'">
+
+<div class="container">
+    <!-- Шапка -->
+    <div class="header">
+        <div class="logo">
+            <h1><i class="fas fa-smoking"></i> Курилка Синьялы</h1>
+            <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Справочник ролей</a>
+            <a href="../server-news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости сервера</a>
+            <a href="../game-news.html" class="nav-btn"><i class="fas fa-gamepad"></i> Новости игры</a>
+            <a href="../site-news.html" class="nav-btn"><i class="fas fa-code"></i> Новости сайта</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="../about-game.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- Хлебные крошки -->
+    <div class="breadcrumb">
+        <a href="../roulette.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к рулетке</a>
+    </div>
+
+    <!-- Основная статья -->
+    <div class="article-wrapper">
+        <div class="article-content">
+            <!-- Интро -->
+            <div class="character-intro">
+                <div class="character-image">
+                    <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
+                </div>
+                <div class="character-title">
+                    <h1 class="character-name">Снаряжение</h1>
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Категория: Все типы</p>
+                        <p><i class="fas fa-shield-alt"></i> Доступно: 10 предметов</p>
+                        <p><i class="fas fa-sync-alt"></i> Обновлено: Июль 2024</p>
+                    </div>
+                    <div class="info-box">
+                        <p>Снаряжение в The Outlast Trials — это предметы, которые помогают реагентам выживать в испытаниях. Каждый предмет имеет свои уникальные характеристики и может быть улучшен с помощью специальных модификаций.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Оглавление -->
+            <div class="toc">
+                <div class="toc-title" id="tocToggle">
+                    Содержание <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    <li><a href="#overview">1. Обзор снаряжения</a></li>
+                    <li><a href="#categories">2. Категории снаряжения</a></li>
+                    <li><a href="#equipment">3. Полный список</a></li>
+                    <li><a href="#stats">4. Сравнительная таблица</a></li>
+                </ul>
+            </div>
+
+            <!-- Обзор -->
+            <div class="section" id="overview">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Обзор снаряжения</h2>
+                <div class="section-text">
+                    <p>В игре The Outlast Trials представлено множество видов снаряжения, которые можно использовать для прохождения испытаний. Каждый предмет имеет свои особенности и преимущества, позволяя адаптировать стиль игры под конкретную ситуацию.</p>
+                    <p>Снаряжение можно найти в испытаниях, получить за выполнение заданий или открыть через систему прогрессии. Некоторые предметы доступны только на определённых уровнях сложности.</p>
+                </div>
+            </div>
+
+            <!-- Категории -->
+            <div class="section" id="categories">
+                <h2 class="section-title"><i class="fas fa-tags"></i> Категории снаряжения</h2>
+                <div class="section-text">
+                    <p>Всё снаряжение в игре разделено на несколько категорий:</p>
+                </div>
+                <div class="category-tabs" id="categoryTabs">
+                    <button class="category-tab active" data-category="all">Все</button>
+                    <button class="category-tab" data-category="медицинское">Медицинское</button>
+                    <button class="category-tab" data-category="защитное">Защитное</button>
+                    <button class="category-tab" data-category="инструменты">Инструменты</button>
+                    <button class="category-tab" data-category="особое">Особое</button>
+                </div>
+                <div style="margin-top: 0.5rem; font-size: 0.85rem; color: #888;">
+                    <i class="fas fa-mouse-pointer"></i> Нажмите на категорию, чтобы отфильтровать снаряжение
+                </div>
+            </div>
+
+            <!-- Список снаряжения -->
+            <div class="section" id="equipment">
+                <h2 class="section-title"><i class="fas fa-box"></i> Полный список снаряжения</h2>
+                <div class="equipment-grid" id="equipmentGrid">
+                    <!-- Карточки будут сгенерированы через JS -->
+                </div>
+            </div>
+
+            <!-- Сравнительная таблица -->
+            <div class="section" id="stats">
+                <h2 class="section-title"><i class="fas fa-chart-bar"></i> Сравнительная таблица</h2>
+                <div class="section-text">
+                    <p>Сравнение основных характеристик снаряжения:</p>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="stats-table" id="statsTable">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Категория</th>
+                                <th>Эффективность</th>
+                                <th>Надёжность</th>
+                                <th>Универсальность</th>
+                            </tr>
+                        </thead>
+                        <tbody id="statsBody">
+                            <!-- Данные будут сгенерированы через JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- Модальное окно -->
+<div id="galleryModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+
+<script>
+    // ============ ДАННЫЕ О СНАРЯЖЕНИИ ============
+    const equipmentData = [
+        {
+            id: 1,
+            name: 'Аптечка',
+            category: 'медицинское',
+            image: '../images/аптечка.png',
+            description: 'Восстанавливает здоровье при использовании. Базовый предмет выживания.',
+            effect: 'Восстанавливает 40% здоровья за 3 секунды',
+            stats: { efficiency: 85, reliability: 90, versatility: 70 }
+        },
+        {
+            id: 2,
+            name: 'Бинты',
+            category: 'медицинское',
+            image: '../images/бинты.png',
+            description: 'Останавливают кровотечение и восстанавливают часть здоровья.',
+            effect: 'Останавливает кровотечение, восстанавливает 20% здоровья',
+            stats: { efficiency: 70, reliability: 85, versatility: 75 }
+        },
+        {
+            id: 3,
+            name: 'Защитный шлем',
+            category: 'защитное',
+            image: '../images/шлем.png',
+            description: 'Уменьшает урон от ударов по голове. Важный элемент защиты.',
+            effect: 'Снижает урон по голове на 50%',
+            stats: { efficiency: 80, reliability: 95, versatility: 60 }
+        },
+        {
+            id: 4,
+            name: 'Бронежилет',
+            category: 'защитное',
+            image: '../images/бронежилет.png',
+            description: 'Обеспечивает дополнительную защиту от физического урона.',
+            effect: 'Снижает получаемый урон на 25%',
+            stats: { efficiency: 75, reliability: 90, versatility: 65 }
+        },
+        {
+            id: 5,
+            name: 'Отмычка',
+            category: 'инструменты',
+            image: '../images/отмычка.png',
+            description: 'Позволяет открывать запертые двери и замки.',
+            effect: 'Открывает замки уровня 1-2',
+            stats: { efficiency: 90, reliability: 80, versatility: 85 }
+        },
+        {
+            id: 6,
+            name: 'Универсальный ключ',
+            category: 'инструменты',
+            image: '../images/ключ.png',
+            description: 'Продвинутый инструмент для взлома замков любой сложности.',
+            effect: 'Открывает замки любого уровня',
+            stats: { efficiency: 95, reliability: 75, versatility: 90 }
+        },
+        {
+            id: 7,
+            name: 'Тактический фонарь',
+            category: 'инструменты',
+            image: '../images/фонарь.png',
+            description: 'Освещает тёмные зоны и может временно ослепить врагов.',
+            effect: 'Освещает область, может ослепить врагов',
+            stats: { efficiency: 70, reliability: 85, versatility: 80 }
+        },
+        {
+            id: 8,
+            name: 'Сигнальная ракета',
+            category: 'особое',
+            image: '../images/ракета.png',
+            description: 'Привлекает внимание врагов, позволяя отвлечь их.',
+            effect: 'Привлекает врагов в зону на 15 секунд',
+            stats: { efficiency: 60, reliability: 70, versatility: 90 }
+        },
+        {
+            id: 9,
+            name: 'Усиленный стимулятор',
+            category: 'медицинское',
+            image: '../images/стимулятор.png',
+            description: 'Временно увеличивает физические способности.',
+            effect: 'Увеличивает скорость и силу на 30% на 10 секунд',
+            stats: { efficiency: 85, reliability: 65, versatility: 80 }
+        },
+        {
+            id: 10,
+            name: 'Дымовая шашка',
+            category: 'особое',
+            image: '../images/дым.png',
+            description: 'Создаёт облако дыма, скрывающее передвижение.',
+            effect: 'Создаёт дымовую завесу на 8 секунд',
+            stats: { efficiency: 65, reliability: 75, versatility: 85 }
+        }
+    ];
+
+    // ============ ФИЛЬТРАЦИЯ ============
+    let currentCategory = 'all';
+
+    function filterEquipment(category) {
+        currentCategory = category;
+        renderEquipment(category);
+        renderStats(category);
+
+        // Обновляем активную вкладку
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.category === category);
+        });
+    }
+
+    // ============ РЕНДЕРИНГ КАРТОЧЕК ============
+    function renderEquipment(category) {
+        const grid = document.getElementById('equipmentGrid');
+        const filtered = category === 'all' 
+            ? equipmentData 
+            : equipmentData.filter(item => item.category === category);
+
+        grid.innerHTML = '';
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'equipment-card';
+            card.innerHTML = `
+                <img class="card-image" src="${item.image}" alt="${item.name}" 
+                     onerror="this.src='https://placehold.co/280x200/1a1a2e/e16d48?text=${encodeURIComponent(item.name)}'">
+                <div class="card-body">
+                    <div class="card-title">${item.name}</div>
+                    <div class="card-category"><i class="fas fa-tag"></i> ${item.category}</div>
+                    <div class="card-desc">${item.description}</div>
+                    <div class="card-effect"><i class="fas fa-bolt"></i> ${item.effect}</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #888;">
+                    <i class="fas fa-box-open" style="font-size: 3rem; display: block; margin-bottom: 1rem;"></i>
+                    Нет снаряжения в этой категории
+                </div>
+            `;
+        }
+    }
+
+    // ============ РЕНДЕРИНГ ТАБЛИЦЫ ============
+    function renderStats(category) {
+        const tbody = document.getElementById('statsBody');
+        const filtered = category === 'all' 
+            ? equipmentData 
+            : equipmentData.filter(item => item.category === category);
+
+        tbody.innerHTML = '';
+        filtered.forEach(item => {
+            const s = item.stats;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong style="color: #f0eef7;">${item.name}</strong></td>
+                <td><span style="color: #e16d48; font-size: 0.8rem; text-transform: uppercase;">${item.category}</span></td>
+                <td>
+                    <div class="stat-bar-container">
+                        <span class="stat-label">Эффективность</span>
+                        <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; max-width:120px;">
+                            <div class="stat-bar" style="width:${s.efficiency}%;"></div>
+                        </div>
+                        <span class="stat-value">${s.efficiency}%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="stat-bar-container">
+                        <span class="stat-label">Надёжность</span>
+                        <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; max-width:120px;">
+                            <div class="stat-bar" style="width:${s.reliability}%;"></div>
+                        </div>
+                        <span class="stat-value">${s.reliability}%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="stat-bar-container">
+                        <span class="stat-label">Универсальность</span>
+                        <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; max-width:120px;">
+                            <div class="stat-bar" style="width:${s.versatility}%;"></div>
+                        </div>
+                        <span class="stat-value">${s.versatility}%</span>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 2rem; color: #888;">
+                        Нет данных для этой категории
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    // ============ ИНИЦИАЛИЗАЦИЯ ============
+    function init() {
+        // Обработчики вкладок
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                filterEquipment(this.dataset.category);
+            });
+        });
+
+        // Оглавление
+        const tocToggle = document.getElementById('tocToggle');
+        const tocList = document.getElementById('tocList');
+        if (tocToggle && tocList) {
+            tocToggle.addEventListener('click', () => {
+                tocList.classList.toggle('collapsed');
+                tocToggle.classList.toggle('collapsed');
+            });
+        }
+
+        // Плавная прокрутка
+        document.querySelectorAll('.toc-list a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Модальное окно
+        const modal = document.getElementById('galleryModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.querySelector('.modal-close');
+
+        document.querySelectorAll('.equipment-card .card-image').forEach(img => {
+            img.addEventListener('click', () => {
+                modalImg.src = img.src;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+
+        // Первоначальный рендеринг
+        renderEquipment('all');
+        renderStats('all');
+
+        // Анимация появления
+        document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
