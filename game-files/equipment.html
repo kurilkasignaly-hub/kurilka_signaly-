@@ -369,7 +369,7 @@
             padding: 2rem;
         }
 
-        /* ===== ЗАГОЛОВОК И ИНФОРМАЦИЯ ===== */
+        /* ===== ЗАГОЛОВОК ===== */
         .character-intro {
             display: flex;
             flex-wrap: wrap;
@@ -411,37 +411,7 @@
             margin-bottom: 0.8rem;
         }
 
-        /* ===== ИНФОРМАЦИОННЫЙ БЛОК (под заголовком) ===== */
-        .character-sub {
-            font-size: 0.9rem;
-            color: #c2b9d4;
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-
-        .character-sub p {
-            margin-bottom: 0.3rem;
-        }
-
-        .character-sub i {
-            color: #e16d48;
-            width: 20px;
-        }
-
-        .info-box {
-            background: rgba(220, 90, 50, 0.1);
-            border-left: 4px solid #e25d32;
-            padding: 1rem 1.2rem;
-            margin: 0.8rem 0 0 0;
-            border-radius: 12px;
-        }
-
-        .info-box p {
-            color: #d1cce6;
-            line-height: 1.6;
-        }
-
-        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== */
+        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ===== */
         .equipment-description-block {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
@@ -463,35 +433,6 @@
 
         .equipment-description-block strong {
             color: #e16d48;
-        }
-
-        /* ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== */
-        .global-alert {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 0.8rem 1rem;
-            margin-bottom: 1.2rem;
-            border-radius: 12px;
-            background: rgba(255, 200, 0, 0.08);
-            border: 1px solid rgba(255, 200, 0, 0.2);
-        }
-
-        .global-alert .alert-icon {
-            color: #f1c40f;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .global-alert .alert-text {
-            color: #e8e0d0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .global-alert .alert-text strong {
-            color: #f1c40f;
         }
 
         /* ===== КАРТОЧКИ СНАРЯЖЕНИЯ ===== */
@@ -970,7 +911,6 @@
             .volume-slider { width: 100px; }
             .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
             .equipment-description-block p { font-size: 0.8rem; }
-            .global-alert .alert-text { font-size: 0.85rem; }
         }
 
         @media (max-width: 550px) {
@@ -980,9 +920,6 @@
             .equipment-header .eq-icon img { width: 40px; height: 40px; }
             .eq-image-gallery .gallery-img { width: 70px; height: 70px; }
             .eq-example-img-wrapper img { width: 50px; height: 50px; }
-            .global-alert { padding: 0.6rem 0.8rem; }
-            .global-alert .alert-icon { font-size: 1rem; }
-            .global-alert .alert-text { font-size: 0.8rem; }
             .character-image { flex: 0 0 100%; }
             .character-image img { max-width: 200px; margin: 0 auto; }
         }
@@ -1043,36 +980,20 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <div class="article-wrapper">
         <div class="article-content">
-            <!-- ЗАГОЛОВОК И ИНФОРМАЦИЯ -->
+            <!-- ЗАГОЛОВОК -->
             <div class="character-intro">
                 <div class="character-image">
                     <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
                 </div>
                 <div class="character-title">
                     <h1 class="character-name">Снаряжение</h1>
-                    
-                    <div class="character-sub">
-                        <p><i class="fas fa-tag"></i> Категория: Все типы</p>
-                        <p><i class="fas fa-shield-alt"></i> Доступно: 6 предметов</p>
-                        <p><i class="fas fa-sync-alt"></i> Обновлено: Август 2024</p>
-                    </div>
-                    
-                    <div class="info-box">
-                        <p>Снаряжения или Риги (ориг. Rigs) — снаряжение в игре The Outlast Trials, оборудование реагентов для оказания помощи во время прохождения испытаний. Каждый тип снаряжения имеет свои уникальные улучшения и тактики использования.</p>
-                    </div>
                 </div>
             </div>
 
-            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== -->
+            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ ===== -->
             <div class="equipment-description-block">
-                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
+                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — снаряжение в игре The Outlast Trials, оборудование реагентов для оказания помощи во время прохождения испытаний. Несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
                 <p>Без улучшения «Подготовка» снаряжению требуется время в начале испытания, чтобы прийти в готовность. После использования снаряжения на испытании устройству требуется время на его восстановление. Однако с помощью одноразовой зарядки снаряжения, которые находятся в областях испытаний, реагент сможет снова активировать устройство. У каждого типа снаряжения своё время для восстановления после использования.</p>
-            </div>
-
-            <!-- ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== -->
-            <div class="global-alert">
-                <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                <div class="alert-text"><strong>ВНИМАНИЕ!</strong> После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.</div>
             </div>
 
             <!-- Список снаряжения -->
