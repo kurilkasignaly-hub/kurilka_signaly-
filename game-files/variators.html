@@ -411,7 +411,7 @@
             margin-bottom: 0.8rem;
         }
 
-        /* ===== ОПИСАНИЕ ВАРИАТОРОВ ===== */
+        /* ===== ОПИСАНИЕ ===== */
         .variator-description-block {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
@@ -451,115 +451,108 @@
             padding-left: 12px;
         }
 
-        .variator-category {
-            margin-bottom: 1.5rem;
-        }
-
-        .variator-category-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #ffbc9a;
-            margin-bottom: 0.5rem;
-            padding: 0.3rem 0.8rem;
-            background: rgba(220, 90, 50, 0.1);
-            border-radius: 8px;
-            display: inline-block;
-            border-left: 3px solid #e16d48;
-        }
-
-        .variator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1rem;
-        }
-
-        .variator-card {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            border: 1px solid rgba(220, 90, 50, 0.15);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .variator-card:hover {
-            border-color: rgba(220, 90, 50, 0.4);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .variator-card-header {
-            padding: 0.8rem 1rem;
-            background: rgba(220, 90, 50, 0.08);
-            border-bottom: 1px solid rgba(220, 90, 50, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .variator-card-header .var-icon {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .variator-card-header .var-icon img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-        }
-
-        .variator-card-header .var-name {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #f0eef7;
-        }
-
-        .variator-card-body {
-            padding: 0.8rem 1rem;
-            flex: 1;
-        }
-
-        .variator-card-body .var-desc {
-            font-size: 0.8rem;
-            color: #c2b9d4;
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-        }
-
-        .variator-card-body .var-effect {
-            font-size: 0.75rem;
-            color: #ffbc9a;
-            line-height: 1.4;
-            padding: 0.4rem 0.6rem;
+        .variator-table {
+            width: 100%;
+            border-collapse: collapse;
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            border-left: 2px solid #e16d48;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-        .variator-card-body .var-effect i {
-            color: #e16d48;
-            margin-right: 4px;
+        .variator-table thead tr {
+            background: rgba(220, 90, 50, 0.12);
         }
 
-        .variator-tag {
-            display: inline-block;
-            font-size: 0.55rem;
+        .variator-table th {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            font-size: 0.75rem;
             font-weight: 600;
+            color: #ffbc9a;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 0.15rem 0.6rem;
-            border-radius: 20px;
-            background: rgba(220, 90, 50, 0.2);
+            border-bottom: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .variator-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        .variator-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .variator-table tr:hover td {
+            background: rgba(220, 90, 50, 0.04);
+        }
+
+        .variator-table .var-icon-cell {
+            width: 100px;
+            text-align: center;
+        }
+
+        .variator-table .var-icon-cell img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .variator-table .var-icon-cell img:hover {
+            transform: scale(1.08);
+            border-color: rgba(220, 90, 50, 0.4);
+        }
+
+        .variator-table .var-name-cell {
+            font-weight: 700;
+            color: #ffbc9a;
+            white-space: nowrap;
+            min-width: 220px;
+            padding-right: 1rem;
+        }
+
+        .variator-table .var-desc-cell {
+            color: #d1cce6;
+            font-size: 0.85rem;
+        }
+
+        .variator-table .var-desc-cell .highlight {
+            color: #ffbc9a;
+            font-weight: 600;
+        }
+
+        .variator-table .var-desc-cell ul {
+            list-style: none;
+            margin: 0.2rem 0 0 0;
+            padding: 0;
+        }
+
+        .variator-table .var-desc-cell ul li {
+            padding-left: 1.2rem;
+            position: relative;
+            margin-bottom: 0.1rem;
+        }
+
+        .variator-table .var-desc-cell ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
             color: #e16d48;
-            margin-top: 0.4rem;
+        }
+
+        .variator-table .var-desc-cell .invasion-tag {
+            display: inline-block;
+            font-weight: 600;
+            color: #ffbc9a;
         }
 
         /* ===== FOOTER ===== */
@@ -590,7 +583,11 @@
             .character-intro { flex-direction: column; align-items: center; text-align: center; }
             .character-name { font-size: 1.6rem; text-align: center; }
             .article-content { padding: 1.2rem; }
-            .variator-grid { grid-template-columns: 1fr; }
+            .variator-table { font-size: 0.8rem; }
+            .variator-table th, .variator-table td { padding: 0.5rem; }
+            .variator-table .var-name-cell { min-width: 120px; white-space: normal; }
+            .variator-table .var-icon-cell { width: 70px; }
+            .variator-table .var-icon-cell img { width: 55px; height: 55px; }
             .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
             .music-toggle .label { font-size: 0.6rem; }
             .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
@@ -600,15 +597,26 @@
             .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
         }
 
-        @media (max-width: 550px) {
+        @media (max-width: 600px) {
+            .variator-table {
+                font-size: 0.75rem;
+                display: block;
+                overflow-x: auto;
+            }
+            .variator-table th,
+            .variator-table td {
+                padding: 0.4rem 0.6rem;
+            }
+            .variator-table .var-name-cell {
+                min-width: 100px;
+                white-space: nowrap;
+            }
+            .variator-table .var-icon-cell { width: 60px; }
+            .variator-table .var-icon-cell img { width: 45px; height: 45px; }
             .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
             .character-name { font-size: 1.3rem; }
             .character-image { flex: 0 0 100%; }
             .character-image img { max-width: 200px; margin: 0 auto; }
-            .variator-card-header .var-name { font-size: 0.9rem; }
-            .variator-card-header .var-icon { width: 40px; height: 40px; }
-            .variator-card-header .var-icon img { width: 40px; height: 40px; }
-            .variator-card-body .var-desc { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -676,7 +684,7 @@
                 </div>
             </div>
 
-            <!-- ===== ОПИСАНИЕ ВАРИАТОРОВ ===== -->
+            <!-- ===== ОПИСАНИЕ ===== -->
             <div class="variator-description-block">
                 <p><strong>Вариаторы (ориг. Variators)</strong> — это модификаторы испытаний в игре The Outlast Trials, которые изменяют условия прохождения, добавляя новые вызовы и усложняя игровой процесс. Вариаторы могут влиять на плотность врагов, их поведение, доступные ресурсы, а также на общую сложность испытания.</p>
                 <p>Вариаторы делятся на категории в зависимости от их влияния на игровой процесс: от простых модификаторов, облегчающих прохождение, до экстремальных условий, превращающих испытание в настоящее испытание на выживание.</p>
@@ -684,8 +692,90 @@
 
             <!-- ===== ТАБЛИЦА ВАРИАТОРОВ ===== -->
             <div class="variator-table-section">
-                <h2><i class="fas fa-list"></i> Вариаторы</h2>
-                <div id="variatorContainer"></div>
+                <h2><i class="fas fa-list"></i> Список вариаторов</h2>
+                <div id="variatorContainer">
+                    <table class="variator-table">
+                        <thead>
+                            <tr>
+                                <th style="width:25%;">Вариатор</th>
+                                <th style="width:100px; text-align:center;">Иконка</th>
+                                <th>Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- INTRODUCTORY -->
+                            <tr>
+                                <td class="var-name-cell">INTRODUCTORY</td>
+                                <td class="var-icon-cell">
+                                    <img src="../images/вариатор-вводный.webp" alt="Introductory" onerror="this.src='https://placehold.co/80x80/333/666?text=I'">
+                                </td>
+                                <td class="var-desc-cell">
+                                    Минимальная предписанная доза боли для изучения базовых терапевтических техник.
+                                    <ul>
+                                        <li>Снижает плотность экс-попов, урон, чувствительность зрения и слуха, а также скорость передвижения врагов.</li>
+                                        <li>Уменьшает количество ловушек, баррикад и запертых дверей в испытании.</li>
+                                        <li>Увеличивает количество базовых предметов в испытании.</li>
+                                        <li>В соло-режиме счётчик возрождений начинается с пяти.</li>
+                                        <li>Изменяет испытание <span class="highlight">«Убейте стукача»</span> для удобства новичков.</li>
+                                        <li><span class="invasion-tag">Invasion:</span> Вторжение автоматически отключено, независимо от настроек конфиденциальности.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <!-- PSYCHOSURGERY -->
+                            <tr>
+                                <td class="var-name-cell">PSYCHOSURGERY</td>
+                                <td class="var-icon-cell">
+                                    <img src="../images/вариатор-психохирургия.webp" alt="Psychosurgery" onerror="this.src='https://placehold.co/80x80/333/666?text=P'">
+                                </td>
+                                <td class="var-desc-cell">
+                                    Максимальная травма. Увеличенное время перезарядки снаряжения. Меньше места в инвентаре. Без имён игроков. Без разведданных.
+                                    <ul>
+                                        <li>Этот вариатор включает: <span class="highlight">УВЕЛИЧЕННОЕ ВРЕМЯ ПЕРЕЗАРЯДКИ СНАРЯЖЕНИЯ, ОГРАНИЧЕННЫЙ ИНВЕНТАРЬ, БЕЗ ИМЁН ИГРОКОВ, БЕЗ РАЗВЕДДАННЫХ</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <!-- PSYCHOSURGERY (Trial Maker) -->
+                            <tr>
+                                <td class="var-name-cell">PSYCHOSURGERY (Trial Maker)</td>
+                                <td class="var-icon-cell">
+                                    <img src="../images/вариатор-психохирургия.webp" alt="Psychosurgery (Trial Maker)" onerror="this.src='https://placehold.co/80x80/333/666?text=PT'">
+                                </td>
+                                <td class="var-desc-cell">
+                                    Максимальная травма. Максимальная плотность жестоких врагов. Без имён игроков. Экстремальный психоз.
+                                    <ul>
+                                        <li>Этот вариатор включает: <span class="highlight">ПОВЫШЕННАЯ УГРОЗА II, БЕЗ ИМЁН ИГРОКОВ</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <!-- ULTRA -->
+                            <tr>
+                                <td class="var-name-cell">ULTRA</td>
+                                <td class="var-icon-cell">
+                                    <img src="../images/вариатор-ультра.webp" alt="Ultra" onerror="this.src='https://placehold.co/80x80/333/666?text=U'">
+                                </td>
+                                <td class="var-desc-cell">
+                                    Интенсивные враги, меньше предметов в испытании, без разведданных, без имён игроков, больше ловушек и экстремальный психоз.
+                                    <ul>
+                                        <li>Этот вариатор включает: <span class="highlight">ПОВЫШЕННАЯ УГРОЗА II, ОГРАНИЧЕННЫЕ ПРЕДМЕТЫ, БЕЗ РАЗВЕДДАННЫХ, БЕЗ ИМЁН ИГРОКОВ</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <!-- ULTRA II -->
+                            <tr>
+                                <td class="var-name-cell">ULTRA II</td>
+                                <td class="var-icon-cell">
+                                    <img src="../images/вариатор-ультра-2.webp" alt="Ultra II" onerror="this.src='https://placehold.co/80x80/333/666?text=U2'">
+                                </td>
+                                <td class="var-desc-cell">
+                                    Экстремальные враги, очень ограниченное количество предметов в испытании, без разведданных, без имён игроков, множество ловушек и экстремальный психоз.
+                                    <ul>
+                                        <li>Этот вариатор включает: <span class="highlight">ПОВЫШЕННАЯ УГРОЗА II, ОГРАНИЧЕННЫЕ ПРЕДМЕТЫ III, БЕЗ РАЗВЕДДАННЫХ, БЕЗ ИМЁН ИГРОКОВ, БОЛЬШЕ И СМЕРТЕЛЬНЫХ ЛОВУШЕК II</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -704,9 +794,6 @@
     <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
     <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
 </div>
-
-<script src="../variators.js"></script>
-<script src="../variators-all.js"></script>
 
 <script>
     // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
@@ -843,9 +930,6 @@
         slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
         valueDisplay.textContent = initialVal + '%';
         setTimeout(startMainMusic, 1000);
-
-        // Загрузка вариаторов
-        loadVariators();
     });
 
     document.addEventListener('click', function initAudioOnClick() {
@@ -857,107 +941,6 @@
 
     window.toggleMainMusic = toggleMainMusic;
     window.toggleVolumeDropdown = toggleVolumeDropdown;
-
-    // ============ ЗАГРУЗКА ВАРИАТОРОВ ============
-    function loadVariators() {
-        const container = document.getElementById('variatorContainer');
-        
-        // Проверяем наличие данных
-        let allVariators = [];
-        
-        // Пытаемся получить данные из глобальных переменных
-        if (typeof window.VARIATORS !== 'undefined' && window.VARIATORS.length > 0) {
-            allVariators = window.VARIATORS;
-            console.log('✅ Загружено вариаторов из VARIATORS:', allVariators.length);
-        } else if (typeof window.VARIATORS_ALL !== 'undefined' && window.VARIATORS_ALL.length > 0) {
-            allVariators = window.VARIATORS_ALL;
-            console.log('✅ Загружено вариаторов из VARIATORS_ALL:', allVariators.length);
-        } else {
-            console.warn('⚠️ Данные вариаторов не найдены');
-            container.innerHTML = `
-                <div style="text-align:center; padding:2rem; color:#888;">
-                    <i class="fas fa-exclamation-triangle" style="font-size:2rem; display:block; margin-bottom:1rem;"></i>
-                    Данные вариаторов не загружены. Проверьте файлы variators.js и variators-all.js
-                </div>
-            `;
-            return;
-        }
-
-        // Группируем по категориям
-        const categories = {};
-        allVariators.forEach(v => {
-            const cat = v.category || 'Другие';
-            if (!categories[cat]) categories[cat] = [];
-            categories[cat].push(v);
-        });
-
-        // Определяем порядок категорий
-        const categoryOrder = ['Introductory', 'Standard', 'Psychosurgery', 'Extreme', 'Modifiers', 'Другие'];
-        const sortedCategories = categoryOrder.filter(c => categories[c]);
-        const otherCategories = Object.keys(categories).filter(c => !categoryOrder.includes(c));
-        const allSorted = [...sortedCategories, ...otherCategories];
-
-        if (allSorted.length === 0) {
-            container.innerHTML = `
-                <div style="text-align:center; padding:2rem; color:#888;">
-                    <i class="fas fa-box-open" style="font-size:2rem; display:block; margin-bottom:1rem;"></i>
-                    Нет доступных вариаторов
-                </div>
-            `;
-            return;
-        }
-
-        // Рендерим категории
-        let html = '';
-        allSorted.forEach(catName => {
-            const variators = categories[catName] || [];
-            
-            // Иконка для категории
-            let catIcon = 'fa-list';
-            const catLower = catName.toLowerCase();
-            if (catLower.includes('introductory') || catLower.includes('ввод')) catIcon = 'fa-seedling';
-            else if (catLower.includes('psychosurgery') || catLower.includes('психо')) catIcon = 'fa-brain';
-            else if (catLower.includes('standard') || catLower.includes('стандарт')) catIcon = 'fa-shield-halved';
-            else if (catLower.includes('extreme') || catLower.includes('экстремаль')) catIcon = 'fa-skull-crossbones';
-            else if (catLower.includes('modifier') || catLower.includes('модификатор')) catIcon = 'fa-sliders';
-
-            html += `
-                <div class="variator-category">
-                    <div class="variator-category-title"><i class="fas ${catIcon}"></i> ${catName}</div>
-                    <div class="variator-grid">
-            `;
-
-            variators.forEach(v => {
-                const imageSrc = v.image || '../images/placeholder.png';
-                const desc = v.description || v.desc || '';
-                const effect = v.effect || v.effects || '';
-
-                html += `
-                    <div class="variator-card">
-                        <div class="variator-card-header">
-                            <div class="var-icon">
-                                <img src="${imageSrc}" alt="${v.name}" onerror="this.src='https://placehold.co/50x50/333/666?text=${v.name ? v.name.charAt(0) : '?'}'">
-                            </div>
-                            <div class="var-name">${v.name || 'Без названия'}</div>
-                        </div>
-                        <div class="variator-card-body">
-                            <div class="var-desc">${desc}</div>
-                            ${effect ? `<div class="var-effect"><i class="fas fa-chevron-right"></i> ${effect}</div>` : ''}
-                            ${v.tag ? `<span class="variator-tag">${v.tag}</span>` : ''}
-                            ${v.invasion !== undefined ? `<span class="variator-tag">Invasion: ${v.invasion ? 'включено' : 'отключено'}</span>` : ''}
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += `
-                    </div>
-                </div>
-            `;
-        });
-
-        container.innerHTML = html;
-    }
 </script>
 
 </body>
