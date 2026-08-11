@@ -469,7 +469,7 @@
 
         .variator-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 1rem;
         }
 
@@ -495,20 +495,25 @@
             border-bottom: 1px solid rgba(220, 90, 50, 0.1);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .variator-card-header .var-icon {
-            width: 36px;
-            height: 36px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+            border-radius: 12px;
             flex-shrink: 0;
-            color: #e16d48;
-            font-size: 1rem;
+            overflow: hidden;
+        }
+
+        .variator-card-header .var-icon img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
         }
 
         .variator-card-header .var-name {
@@ -601,6 +606,8 @@
             .character-image { flex: 0 0 100%; }
             .character-image img { max-width: 200px; margin: 0 auto; }
             .variator-card-header .var-name { font-size: 0.9rem; }
+            .variator-card-header .var-icon { width: 40px; height: 40px; }
+            .variator-card-header .var-icon img { width: 40px; height: 40px; }
             .variator-card-body .var-desc { font-size: 0.75rem; }
         }
     </style>
@@ -678,201 +685,7 @@
             <!-- ===== ТАБЛИЦА ВАРИАТОРОВ ===== -->
             <div class="variator-table-section">
                 <h2><i class="fas fa-list"></i> Вариаторы</h2>
-
-                <!-- КАТЕГОРИЯ: INTRODUCTORY -->
-                <div class="variator-category">
-                    <div class="variator-category-title"><i class="fas fa-seedling"></i> INTRODUCTORY — Вводные</div>
-                    <div class="variator-grid">
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-graduation-cap"></i></div>
-                                <div class="var-name">Introduction</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Минимальная предписанная доза боли для изучения базовых терапевтических техник.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Снижает плотность экс-попов, урон, чувствительность зрения и слуха, а также скорость передвижения врагов.<br>
-                                    <i class="fas fa-chevron-right"></i> Уменьшает количество ловушек, баррикад и запертых дверей в испытании.<br>
-                                    <i class="fas fa-chevron-right"></i> Увеличивает количество базовых предметов в испытании.<br>
-                                    <i class="fas fa-chevron-right"></i> В соло-режиме счётчик возрождений начинается с пяти.<br>
-                                    <i class="fas fa-chevron-right"></i> Изменяет испытание "Убейте стукача" для удобства новичков.
-                                </div>
-                                <span class="variator-tag">Invasion: отключено</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КАТЕГОРИЯ: PSYCHOSURGERY -->
-                <div class="variator-category">
-                    <div class="variator-category-title"><i class="fas fa-brain"></i> PSYCHOSURGERY — Психокирургия</div>
-                    <div class="variator-grid">
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-skull"></i></div>
-                                <div class="var-name">Psychosurgery (Trial Maker)</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Максимальная травма. Увеличенное время перезарядки снаряжения. Меньше места в инвентаре. Без имён игроков. Без разведданных.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Включает: УВЕЛИЧЕННОЕ ВРЕМЯ ПЕРЕЗАРЯДКИ СНАРЯЖЕНИЯ<br>
-                                    <i class="fas fa-chevron-right"></i> ОГРАНИЧЕННЫЙ ИНВЕНТАРЬ<br>
-                                    <i class="fas fa-chevron-right"></i> БЕЗ ИМЁН ИГРОКОВ<br>
-                                    <i class="fas fa-chevron-right"></i> БЕЗ РАЗВЕДДАННЫХ<br>
-                                    <i class="fas fa-chevron-right"></i> ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ
-                                </div>
-                                <span class="variator-tag">Максимальная сложность</span>
-                            </div>
-                        </div>
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-fire"></i></div>
-                                <div class="var-name">Psychosurgery</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Максимальная травма. Максимальная плотность жестоких врагов. Без имён игроков. Экстремальный психоз.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Включает: ПОВЫШЕННАЯ УГРОЗА II<br>
-                                    <i class="fas fa-chevron-right"></i> БЕЗ ИМЁН ИГРОКОВ<br>
-                                    <i class="fas fa-chevron-right"></i> ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ
-                                </div>
-                                <span class="variator-tag">Максимальная сложность</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КАТЕГОРИЯ: STANDARD -->
-                <div class="variator-category">
-                    <div class="variator-category-title"><i class="fas fa-shield-halved"></i> STANDARD — Стандартные</div>
-                    <div class="variator-grid">
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-eye"></i></div>
-                                <div class="var-name">No Intel</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Разведывательные данные и маркеры задач скрыты.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Карта и маркеры задач не отображаются<br>
-                                    <i class="fas fa-chevron-right"></i> Увеличивает сложность навигации
-                                </div>
-                                <span class="variator-tag">Навигация</span>
-                            </div>
-                        </div>
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-user-slash"></i></div>
-                                <div class="var-name">No Player Names</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Имена игроков скрыты, что затрудняет координацию в команде.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Имена союзников не отображаются<br>
-                                    <i class="fas fa-chevron-right"></i> Усложняет командное взаимодействие
-                                </div>
-                                <span class="variator-tag">Команда</span>
-                            </div>
-                        </div>
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-box"></i></div>
-                                <div class="var-name">Limited Inventory</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Доступное пространство в инвентаре значительно ограничено.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Уменьшенный размер инвентаря<br>
-                                    <i class="fas fa-chevron-right"></i> Необходимость тщательного планирования ресурсов
-                                </div>
-                                <span class="variator-tag">Ресурсы</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КАТЕГОРИЯ: EXTREME -->
-                <div class="variator-category">
-                    <div class="variator-category-title"><i class="fas fa-skull-crossbones"></i> EXTREME — Экстремальные</div>
-                    <div class="variator-grid">
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-clock"></i></div>
-                                <div class="var-name">Rigs Extended Cooldown</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Время восстановления снаряжения значительно увеличено.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Увеличенное время перезарядки всех устройств<br>
-                                    <i class="fas fa-chevron-right"></i> Требует более осознанного использования снаряжения
-                                </div>
-                                <span class="variator-tag">Снаряжение</span>
-                            </div>
-                        </div>
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-robot"></i></div>
-                                <div class="var-name">Increased Threat II</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Максимальная плотность и агрессивность врагов.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Увеличенное количество экс-попов<br>
-                                    <i class="fas fa-chevron-right"></i> Повышенная агрессивность и скорость врагов
-                                </div>
-                                <span class="variator-tag">Враги</span>
-                            </div>
-                        </div>
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-brain"></i></div>
-                                <div class="var-name">Extreme Psychosis</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Экстремальный психоз,严重影响 восприятие реальности.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Постоянные галлюцинации<br>
-                                    <i class="fas fa-chevron-right"></i> Искажение звуков и визуальных эффектов<br>
-                                    <i class="fas fa-chevron-right"></i> Значительно усложняет ориентацию
-                                </div>
-                                <span class="variator-tag">Восприятие</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КАТЕГОРИЯ: MODIFIERS -->
-                <div class="variator-category">
-                    <div class="variator-category-title"><i class="fas fa-sliders"></i> MODIFIERS — Модификаторы</div>
-                    <div class="variator-grid">
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-eye-slash"></i></div>
-                                <div class="var-name">No Player Names</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Имена игроков скрыты для всех участников.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Скрывает имена союзников и врагов
-                                </div>
-                                <span class="variator-tag">Команда</span>
-                            </div>
-                        </div>
-                        <div class="variator-card">
-                            <div class="variator-card-header">
-                                <div class="var-icon"><i class="fas fa-info-circle"></i></div>
-                                <div class="var-name">No Intel</div>
-                            </div>
-                            <div class="variator-card-body">
-                                <div class="var-desc">Разведывательная информация полностью недоступна.</div>
-                                <div class="var-effect">
-                                    <i class="fas fa-chevron-right"></i> Отсутствие маркеров и подсказок
-                                </div>
-                                <span class="variator-tag">Навигация</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="variatorContainer"></div>
             </div>
         </div>
     </div>
@@ -891,6 +704,9 @@
     <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
     <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
 </div>
+
+<script src="../variators.js"></script>
+<script src="../variators-all.js"></script>
 
 <script>
     // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
@@ -1027,6 +843,9 @@
         slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
         valueDisplay.textContent = initialVal + '%';
         setTimeout(startMainMusic, 1000);
+
+        // Загрузка вариаторов
+        loadVariators();
     });
 
     document.addEventListener('click', function initAudioOnClick() {
@@ -1038,6 +857,107 @@
 
     window.toggleMainMusic = toggleMainMusic;
     window.toggleVolumeDropdown = toggleVolumeDropdown;
+
+    // ============ ЗАГРУЗКА ВАРИАТОРОВ ============
+    function loadVariators() {
+        const container = document.getElementById('variatorContainer');
+        
+        // Проверяем наличие данных
+        let allVariators = [];
+        
+        // Пытаемся получить данные из глобальных переменных
+        if (typeof window.VARIATORS !== 'undefined' && window.VARIATORS.length > 0) {
+            allVariators = window.VARIATORS;
+            console.log('✅ Загружено вариаторов из VARIATORS:', allVariators.length);
+        } else if (typeof window.VARIATORS_ALL !== 'undefined' && window.VARIATORS_ALL.length > 0) {
+            allVariators = window.VARIATORS_ALL;
+            console.log('✅ Загружено вариаторов из VARIATORS_ALL:', allVariators.length);
+        } else {
+            console.warn('⚠️ Данные вариаторов не найдены');
+            container.innerHTML = `
+                <div style="text-align:center; padding:2rem; color:#888;">
+                    <i class="fas fa-exclamation-triangle" style="font-size:2rem; display:block; margin-bottom:1rem;"></i>
+                    Данные вариаторов не загружены. Проверьте файлы variators.js и variators-all.js
+                </div>
+            `;
+            return;
+        }
+
+        // Группируем по категориям
+        const categories = {};
+        allVariators.forEach(v => {
+            const cat = v.category || 'Другие';
+            if (!categories[cat]) categories[cat] = [];
+            categories[cat].push(v);
+        });
+
+        // Определяем порядок категорий
+        const categoryOrder = ['Introductory', 'Standard', 'Psychosurgery', 'Extreme', 'Modifiers', 'Другие'];
+        const sortedCategories = categoryOrder.filter(c => categories[c]);
+        const otherCategories = Object.keys(categories).filter(c => !categoryOrder.includes(c));
+        const allSorted = [...sortedCategories, ...otherCategories];
+
+        if (allSorted.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:2rem; color:#888;">
+                    <i class="fas fa-box-open" style="font-size:2rem; display:block; margin-bottom:1rem;"></i>
+                    Нет доступных вариаторов
+                </div>
+            `;
+            return;
+        }
+
+        // Рендерим категории
+        let html = '';
+        allSorted.forEach(catName => {
+            const variators = categories[catName] || [];
+            
+            // Иконка для категории
+            let catIcon = 'fa-list';
+            const catLower = catName.toLowerCase();
+            if (catLower.includes('introductory') || catLower.includes('ввод')) catIcon = 'fa-seedling';
+            else if (catLower.includes('psychosurgery') || catLower.includes('психо')) catIcon = 'fa-brain';
+            else if (catLower.includes('standard') || catLower.includes('стандарт')) catIcon = 'fa-shield-halved';
+            else if (catLower.includes('extreme') || catLower.includes('экстремаль')) catIcon = 'fa-skull-crossbones';
+            else if (catLower.includes('modifier') || catLower.includes('модификатор')) catIcon = 'fa-sliders';
+
+            html += `
+                <div class="variator-category">
+                    <div class="variator-category-title"><i class="fas ${catIcon}"></i> ${catName}</div>
+                    <div class="variator-grid">
+            `;
+
+            variators.forEach(v => {
+                const imageSrc = v.image || '../images/placeholder.png';
+                const desc = v.description || v.desc || '';
+                const effect = v.effect || v.effects || '';
+
+                html += `
+                    <div class="variator-card">
+                        <div class="variator-card-header">
+                            <div class="var-icon">
+                                <img src="${imageSrc}" alt="${v.name}" onerror="this.src='https://placehold.co/50x50/333/666?text=${v.name ? v.name.charAt(0) : '?'}'">
+                            </div>
+                            <div class="var-name">${v.name || 'Без названия'}</div>
+                        </div>
+                        <div class="variator-card-body">
+                            <div class="var-desc">${desc}</div>
+                            ${effect ? `<div class="var-effect"><i class="fas fa-chevron-right"></i> ${effect}</div>` : ''}
+                            ${v.tag ? `<span class="variator-tag">${v.tag}</span>` : ''}
+                            ${v.invasion !== undefined ? `<span class="variator-tag">Invasion: ${v.invasion ? 'включено' : 'отключено'}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
 </script>
 
 </body>
