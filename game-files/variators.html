@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Вариаторы — The Outlast Trials | Курилка Синьялы</title>
+    <title>Ловушки — The Outlast Trials | Курилка Синьялы</title>
     <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
     <link rel="shortcut icon" href="../images/лого.png" type="image/png">
     <link rel="apple-touch-icon" href="../images/лого.png">
@@ -412,7 +412,7 @@
         }
 
         /* ===== ОПИСАНИЕ ===== */
-        .variator-description-block {
+        .traps-description-block {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
             padding: 1rem 1.2rem;
@@ -420,27 +420,27 @@
             border: 1px solid rgba(220, 90, 50, 0.15);
         }
 
-        .variator-description-block p {
+        .traps-description-block p {
             color: #d1cce6;
             line-height: 1.6;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
-        .variator-description-block p:last-child {
+        .traps-description-block p:last-child {
             margin-bottom: 0;
         }
 
-        .variator-description-block strong {
+        .traps-description-block strong {
             color: #e16d48;
         }
 
-        /* ===== ТАБЛИЦА ВАРИАТОРОВ ===== */
-        .variator-table-section {
+        /* ===== ТАБЛИЦА ЛОВУШЕК ===== */
+        .traps-table-section {
             margin-top: 0.5rem;
         }
 
-        .variator-table-section h2 {
+        .traps-table-section h2 {
             font-size: 1.1rem;
             color: #e16d48;
             margin-bottom: 0.8rem;
@@ -451,7 +451,7 @@
             padding-left: 12px;
         }
 
-        .variator-table {
+        .traps-table {
             width: 100%;
             border-collapse: collapse;
             background: rgba(0, 0, 0, 0.2);
@@ -459,11 +459,11 @@
             overflow: hidden;
         }
 
-        .variator-table thead tr {
+        .traps-table thead tr {
             background: rgba(220, 90, 50, 0.12);
         }
 
-        .variator-table th {
+        .traps-table th {
             padding: 0.8rem 1rem;
             text-align: left;
             font-size: 0.75rem;
@@ -474,29 +474,29 @@
             border-bottom: 1px solid rgba(220, 90, 50, 0.15);
         }
 
-        .variator-table td {
+        .traps-table td {
             padding: 0.8rem 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            vertical-align: middle;
+            vertical-align: top;
             font-size: 0.85rem;
             color: #d1cce6;
             line-height: 1.6;
         }
 
-        .variator-table tr:last-child td {
+        .traps-table tr:last-child td {
             border-bottom: none;
         }
 
-        .variator-table tr:hover td {
+        .traps-table tr:hover td {
             background: rgba(220, 90, 50, 0.04);
         }
 
-        .variator-table .var-icon-cell {
+        .traps-table .trap-icon-cell {
             width: 100px;
             text-align: center;
         }
 
-        .variator-table .var-icon-cell img {
+        .traps-table .trap-icon-cell img {
             width: 80px;
             height: 80px;
             object-fit: contain;
@@ -507,49 +507,49 @@
             transition: transform 0.3s ease;
         }
 
-        .variator-table .var-icon-cell img:hover {
+        .traps-table .trap-icon-cell img:hover {
             transform: scale(1.08);
             border-color: rgba(220, 90, 50, 0.4);
         }
 
-        .variator-table .var-name-cell {
+        .traps-table .trap-name-cell {
             font-weight: 700;
             color: #ffbc9a;
             white-space: nowrap;
-            min-width: 220px;
+            min-width: 200px;
             padding-right: 1rem;
         }
 
-        .variator-table .var-desc-cell {
+        .traps-table .trap-desc-cell {
             color: #d1cce6;
             font-size: 0.85rem;
         }
 
-        .variator-table .var-desc-cell .highlight {
+        .traps-table .trap-desc-cell .highlight {
             color: #ffbc9a;
             font-weight: 600;
         }
 
-        .variator-table .var-desc-cell ul {
+        .traps-table .trap-desc-cell ul {
             list-style: none;
             margin: 0.2rem 0 0 0;
             padding: 0;
         }
 
-        .variator-table .var-desc-cell ul li {
+        .traps-table .trap-desc-cell ul li {
             padding-left: 1.2rem;
             position: relative;
             margin-bottom: 0.1rem;
         }
 
-        .variator-table .var-desc-cell ul li::before {
+        .traps-table .trap-desc-cell ul li::before {
             content: "•";
             position: absolute;
             left: 0;
             color: #e16d48;
         }
 
-        .variator-table .var-desc-cell .invasion-tag {
+        .traps-table .trap-desc-cell .invasion-tag {
             display: inline-block;
             font-weight: 600;
             color: #ffbc9a;
@@ -583,11 +583,11 @@
             .character-intro { flex-direction: column; align-items: center; text-align: center; }
             .character-name { font-size: 1.6rem; text-align: center; }
             .article-content { padding: 1.2rem; }
-            .variator-table { font-size: 0.8rem; }
-            .variator-table th, .variator-table td { padding: 0.5rem; }
-            .variator-table .var-name-cell { min-width: 120px; white-space: normal; }
-            .variator-table .var-icon-cell { width: 70px; }
-            .variator-table .var-icon-cell img { width: 55px; height: 55px; }
+            .traps-table { font-size: 0.8rem; }
+            .traps-table th, .traps-table td { padding: 0.5rem; }
+            .traps-table .trap-name-cell { min-width: 120px; white-space: normal; }
+            .traps-table .trap-icon-cell { width: 70px; }
+            .traps-table .trap-icon-cell img { width: 55px; height: 55px; }
             .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
             .music-toggle .label { font-size: 0.6rem; }
             .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
@@ -598,21 +598,21 @@
         }
 
         @media (max-width: 600px) {
-            .variator-table {
+            .traps-table {
                 font-size: 0.75rem;
                 display: block;
                 overflow-x: auto;
             }
-            .variator-table th,
-            .variator-table td {
+            .traps-table th,
+            .traps-table td {
                 padding: 0.4rem 0.6rem;
             }
-            .variator-table .var-name-cell {
+            .traps-table .trap-name-cell {
                 min-width: 100px;
                 white-space: nowrap;
             }
-            .variator-table .var-icon-cell { width: 60px; }
-            .variator-table .var-icon-cell img { width: 45px; height: 45px; }
+            .traps-table .trap-icon-cell { width: 60px; }
+            .traps-table .trap-icon-cell img { width: 45px; height: 45px; }
             .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
             .character-name { font-size: 1.3rem; }
             .character-image { flex: 0 0 100%; }
@@ -677,99 +677,332 @@
             <!-- ЗАГОЛОВОК -->
             <div class="character-intro">
                 <div class="character-image">
-                    <img src="../images/вариаторы.png" alt="Вариаторы" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Вариаторы'">
+                    <img src="../images/ловушки.png" alt="Ловушки" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Ловушки'">
                 </div>
                 <div class="character-title">
-                    <h1 class="character-name">Вариаторы</h1>
+                    <h1 class="character-name">Ловушки</h1>
                 </div>
             </div>
 
             <!-- ===== ОПИСАНИЕ ===== -->
-            <div class="variator-description-block">
-                <p><strong>Вариаторы (ориг. Variators)</strong> — это модификаторы испытаний в игре The Outlast Trials, которые изменяют условия прохождения, добавляя новые вызовы и усложняя игровой процесс. Вариаторы могут влиять на плотность врагов, их поведение, доступные ресурсы, а также на общую сложность испытания.</p>
-                <p>Вариаторы делятся на категории в зависимости от их влияния на игровой процесс: от простых модификаторов, облегчающих прохождение, до экстремальных условий, превращающих испытание в настоящее испытание на выживание.</p>
+            <div class="traps-description-block">
+                <p><strong>Ловушки (ориг. Traps)</strong> — это элементы игрового процесса в The Outlast Trials, которые создают дополнительные препятствия для реагентов. Ловушки могут наносить урон, вызывать психоз, замедлять или дезориентировать игроков, а также привлекать внимание экс-попов.</p>
+                <p>Существует множество типов ловушек: от простых газовых мин до сложных электрических и огненных систем. Некоторые ловушки можно обезвредить или использовать против врагов с помощью специального снаряжения.</p>
             </div>
 
-            <!-- ===== ТАБЛИЦА ВАРИАТОРОВ ===== -->
-            <div class="variator-table-section">
-                <h2><i class="fas fa-list"></i> Список вариаторов</h2>
-                <div id="variatorContainer">
-                    <table class="variator-table">
+            <!-- ===== ТАБЛИЦА ЛОВУШЕК ===== -->
+            <div class="traps-table-section">
+                <h2><i class="fas fa-list"></i> Список ловушек</h2>
+                <div id="trapsContainer">
+                    <table class="traps-table">
                         <thead>
                             <tr>
-                                <th style="width:25%;">Вариатор</th>
+                                <th style="width:25%;">Ловушка</th>
                                 <th style="width:100px; text-align:center;">Иконка</th>
                                 <th>Описание</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- INTRODUCTORY -->
+                            <!-- EXTRA SOUND TRAPS -->
                             <tr>
-                                <td class="var-name-cell">INTRODUCTORY</td>
-                                <td class="var-icon-cell">
-                                    <img src="../images/вариатор-вводный.webp" alt="Introductory" onerror="this.src='https://placehold.co/80x80/333/666?text=I'">
+                                <td class="trap-name-cell">ДОПОЛНИТЕЛЬНЫЕ ЗВУКОВЫЕ ЛОВУШКИ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-звук.webp" alt="Sound Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=S'">
                                 </td>
-                                <td class="var-desc-cell">
-                                    Минимальная предписанная доза боли для изучения базовых терапевтических техник.
+                                <td class="trap-desc-cell">
+                                    Больше звуковых ловушек в испытании.
+                                </td>
+                            </tr>
+
+                            <!-- EXTRA PSYCHOSIS MINES -->
+                            <tr>
+                                <td class="trap-name-cell">ДОПОЛНИТЕЛЬНЫЕ МИНЫ ПСИХОЗА</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-психоз.webp" alt="Psychosis Mines" onerror="this.src='https://placehold.co/80x80/333/666?text=PM'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Больше мин психоза в испытании.
+                                </td>
+                            </tr>
+
+                            <!-- PROXIMITY MINES -->
+                            <tr>
+                                <td class="trap-name-cell">МИНЫ БЛИЗОСТИ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-близость.webp" alt="Proximity Mines" onerror="this.src='https://placehold.co/80x80/333/666?text=PR'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Мины активируются при приближении. Соблюдайте безопасное расстояние, чтобы избежать их срабатывания.
                                     <ul>
-                                        <li>Снижает плотность экс-попов, урон, чувствительность зрения и слуха, а также скорость передвижения врагов.</li>
-                                        <li>Уменьшает количество ловушек, баррикад и запертых дверей в испытании.</li>
-                                        <li>Увеличивает количество базовых предметов в испытании.</li>
-                                        <li>В соло-режиме счётчик возрождений начинается с пяти.</li>
-                                        <li>Изменяет испытание <span class="highlight">«Убейте стукача»</span> для удобства новичков.</li>
-                                        <li><span class="invasion-tag">Invasion:</span> Вторжение автоматически отключено, независимо от настроек конфиденциальности.</li>
+                                        <li>Реагенты могут перепрыгивать через мины, не активируя их.</li>
                                     </ul>
                                 </td>
                             </tr>
-                            <!-- PSYCHOSURGERY -->
+
+                            <!-- EXPLOSIVE MINES -->
                             <tr>
-                                <td class="var-name-cell">PSYCHOSURGERY</td>
-                                <td class="var-icon-cell">
-                                    <img src="../images/вариатор-психохирургия.webp" alt="Psychosurgery" onerror="this.src='https://placehold.co/80x80/333/666?text=P'">
+                                <td class="trap-name-cell">ВЗРЫВНЫЕ МИНЫ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-взрыв.webp" alt="Explosive Mines" onerror="this.src='https://placehold.co/80x80/333/666?text=EX'">
                                 </td>
-                                <td class="var-desc-cell">
-                                    Максимальная травма. Увеличенное время перезарядки снаряжения. Меньше места в инвентаре. Без имён игроков. Без разведданных.
+                                <td class="trap-desc-cell">
+                                    Газовые мины заменены на смертоносные взрывные мины, и в испытании стало больше мин.
                                     <ul>
-                                        <li>Этот вариатор включает: <span class="highlight">УВЕЛИЧЕННОЕ ВРЕМЯ ПЕРЕЗАРЯДКИ СНАРЯЖЕНИЯ, ОГРАНИЧЕННЫЙ ИНВЕНТАРЬ, БЕЗ ИМЁН ИГРОКОВ, БЕЗ РАЗВЕДДАННЫХ</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                        <li>При срабатывании рядом с врагом, меньшие типы врагов получают более длительное оглушение.</li>
                                     </ul>
                                 </td>
                             </tr>
-                            <!-- PSYCHOSURGERY (Trial Maker) -->
+
+                            <!-- FROST MINES -->
                             <tr>
-                                <td class="var-name-cell">PSYCHOSURGERY (Trial Maker)</td>
-                                <td class="var-icon-cell">
-                                    <img src="../images/вариатор-психохирургия.webp" alt="Psychosurgery (Trial Maker)" onerror="this.src='https://placehold.co/80x80/333/666?text=PT'">
+                                <td class="trap-name-cell">МОРОЗНЫЕ МИНЫ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-мороз.webp" alt="Frost Mines" onerror="this.src='https://placehold.co/80x80/333/666?text=FR'">
                                 </td>
-                                <td class="var-desc-cell">
-                                    Максимальная травма. Максимальная плотность жестоких врагов. Без имён игроков. Экстремальный психоз.
+                                <td class="trap-desc-cell">
+                                    Газовые мины заменены на морозные мины, и в испытании стало больше мин.
                                     <ul>
-                                        <li>Этот вариатор включает: <span class="highlight">ПОВЫШЕННАЯ УГРОЗА II, БЕЗ ИМЁН ИГРОКОВ</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                        <li>Реагенты, поражённые холодным воздухом, теряют эффект <span class="highlight">«Тепло»</span> и получают постоянный урон.</li>
+                                        <li>Постоянный урон можно убрать, спрятавшись в укрытие или находясь рядом с источниками тепла.</li>
+                                        <li>При срабатывании холодный воздух остаётся в течение 3 секунд.</li>
+                                        <li>При срабатывании рядом с врагом, меньшие типы врагов получают более длительное оглушение.</li>
+                                        <li>Заменяет опасные вентиляционные газы. Реагенты не могут перепрыгнуть, чтобы избежать эффекта заморозки.</li>
                                     </ul>
                                 </td>
                             </tr>
-                            <!-- ULTRA -->
+
+                            <!-- FIRE MINES -->
                             <tr>
-                                <td class="var-name-cell">ULTRA</td>
-                                <td class="var-icon-cell">
-                                    <img src="../images/вариатор-ультра.webp" alt="Ultra" onerror="this.src='https://placehold.co/80x80/333/666?text=U'">
+                                <td class="trap-name-cell">ОГНЕННЫЕ МИНЫ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-огонь.webp" alt="Fire Mines" onerror="this.src='https://placehold.co/80x80/333/666?text=FI'">
                                 </td>
-                                <td class="var-desc-cell">
-                                    Интенсивные враги, меньше предметов в испытании, без разведданных, без имён игроков, больше ловушек и экстремальный психоз.
+                                <td class="trap-desc-cell">
+                                    Газовые мины заменены на огненные мины, и в испытании стало больше мин.
                                     <ul>
-                                        <li>Этот вариатор включает: <span class="highlight">ПОВЫШЕННАЯ УГРОЗА II, ОГРАНИЧЕННЫЕ ПРЕДМЕТЫ, БЕЗ РАЗВЕДДАННЫХ, БЕЗ ИМЁН ИГРОКОВ</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                        <li>При срабатывании огонь остаётся на полу в течение 20 секунд.</li>
+                                        <li>Заменяет опасные вентиляционные газы. Реагенты могут перепрыгивать без получения урона.</li>
+                                        <li>Реагенты рядом с источниками огня видны экс-попам.</li>
                                     </ul>
                                 </td>
                             </tr>
-                            <!-- ULTRA II -->
+
+                            <!-- HAZARD VENTS -->
                             <tr>
-                                <td class="var-name-cell">ULTRA II</td>
-                                <td class="var-icon-cell">
-                                    <img src="../images/вариатор-ультра-2.webp" alt="Ultra II" onerror="this.src='https://placehold.co/80x80/333/666?text=U2'">
+                                <td class="trap-name-cell">ВЕНТИЛЯЦИОННЫЕ ОПАСНОСТИ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-вентиляция.webp" alt="Hazard Vents" onerror="this.src='https://placehold.co/80x80/333/666?text=HV'">
                                 </td>
-                                <td class="var-desc-cell">
-                                    Экстремальные враги, очень ограниченное количество предметов в испытании, без разведданных, без имён игроков, множество ловушек и экстремальный психоз.
+                                <td class="trap-desc-cell">
+                                    Вентиляционные отверстия, выбрасывающие опасные вещества, заменили мины в испытании.
                                     <ul>
-                                        <li>Этот вариатор включает: <span class="highlight">ПОВЫШЕННАЯ УГРОЗА II, ОГРАНИЧЕННЫЕ ПРЕДМЕТЫ III, БЕЗ РАЗВЕДДАННЫХ, БЕЗ ИМЁН ИГРОКОВ, БОЛЬШЕ И СМЕРТЕЛЬНЫХ ЛОВУШЕК II</span> и <span class="highlight">ЭКСТРЕМАЛЬНЫЙ ПСИХОЗ</span>.</li>
+                                        <li>Вентиляционные отверстия выбрасывают газ психоза. Реагенты не могут перепрыгнуть, чтобы избежать эффекта психоза.</li>
+                                        <li>При включённом вариаторе <span class="highlight">«Морозные мины»</span> газ заменяется на мороз. Реагенты не могут перепрыгнуть, чтобы избежать эффекта заморозки.</li>
+                                        <li>При включённом вариаторе <span class="highlight">«Огненные мины»</span> газ заменяется на огонь. Реагенты могут перепрыгивать без получения урона.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- EXTRA FLOOR TRAPS -->
+                            <tr>
+                                <td class="trap-name-cell">ДОПОЛНИТЕЛЬНЫЕ НАПОЛЬНЫЕ ЛОВУШКИ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-пол.webp" alt="Floor Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=FT'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Больше напольных ловушек в испытании.
+                                    <ul>
+                                        <li>Это влияет только на электрические напольные ловушки <span class="highlight">Лиланда Койла</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- EXTRA EXPLOSIVE TRAPS -->
+                            <tr>
+                                <td class="trap-name-cell">ДОПОЛНИТЕЛЬНЫЕ ВЗРЫВНЫЕ ЛОВУШКИ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-взрывная.webp" alt="Explosive Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=ET'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Больше взрывных ловушек в испытании.
+                                    <ul>
+                                        <li>Это влияет только на взрывные утиные ловушки <span class="highlight">Матушки Гусьберри</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- DEADLY TRAPS -->
+                            <tr>
+                                <td class="trap-name-cell">СМЕРТЕЛЬНЫЕ ЛОВУШКИ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-смертельная.webp" alt="Deadly Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=DT'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Ловушки смертельны.
+                                    <ul>
+                                        <li>Любые ловушки наносят двойной урон здоровью или рассудку.</li>
+                                        <li><span class="invasion-tag">Invasion:</span> Этот вариатор также влияет на урон по захватчикам.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- EXTRA TRAPS -->
+                            <tr>
+                                <td class="trap-name-cell">ДОПОЛНИТЕЛЬНЫЕ ЛОВУШКИ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-дополнительная.webp" alt="Extra Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=XT'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Больше ловушек в испытании.
+                                    <ul>
+                                        <li>Это влияет только на следующие ловушки: битое стекло, жестяные банки, мины психоза, электрические напольные ловушки, взрывные утиные ловушки, растяжки, ловушки тошноты и манекены <span class="highlight">Лилии</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- EXTRA TRAPS II -->
+                            <tr>
+                                <td class="trap-name-cell">ДОПОЛНИТЕЛЬНЫЕ ЛОВУШКИ II</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-дополнительная-2.webp" alt="Extra Traps II" onerror="this.src='https://placehold.co/80x80/333/666?text=XT2'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Максимальное количество ловушек в испытании.
+                                    <ul>
+                                        <li>Это влияет только на следующие ловушки: битое стекло, жестяные банки, мины психоза, электрические напольные ловушки, взрывные утиные ловушки, растяжки, ловушки тошноты и манекены <span class="highlight">Лилии</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- MORE & DEADLY TRAPS -->
+                            <tr>
+                                <td class="trap-name-cell">БОЛЬШЕ И СМЕРТЕЛЬНЫХ ЛОВУШЕК</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-больше-смертельных.webp" alt="More & Deadly Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=MDT'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Дополнительные и смертоносные ловушки.
+                                    <ul>
+                                        <li>Этот вариатор включает: <span class="highlight">ДОПОЛНИТЕЛЬНЫЕ ЛОВУШКИ</span> и <span class="highlight">СМЕРТЕЛЬНЫЕ ЛОВУШКИ</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- MORE & DEADLY TRAPS II -->
+                            <tr>
+                                <td class="trap-name-cell">БОЛЬШЕ И СМЕРТЕЛЬНЫХ ЛОВУШЕК II</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-больше-смертельных-2.webp" alt="More & Deadly Traps II" onerror="this.src='https://placehold.co/80x80/333/666?text=MDT2'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Максимальное количество ловушек в испытании.
+                                    <ul>
+                                        <li>Этот вариатор включает: <span class="highlight">ДОПОЛНИТЕЛЬНЫЕ ЛОВУШКИ II</span> и <span class="highlight">СМЕРТЕЛЬНЫЕ ЛОВУШКИ</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- SHARP GLASS -->
+                            <tr>
+                                <td class="trap-name-cell">ОСТРОЕ СТЕКЛО</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-стекло.webp" alt="Sharp Glass" onerror="this.src='https://placehold.co/80x80/333/666?text=SG'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Ходьба по битому стеклу наносит урон и вызывает кровотечение.
+                                    <ul>
+                                        <li>Битое стекло отображается как <span class="highlight">«Острое стекло»</span>.</li>
+                                        <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- PRIME ASSET TRAPS -->
+                            <tr>
+                                <td class="trap-name-cell">ЛОВУШКИ ГЛАВНЫХ АКТИВОВ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-актив.webp" alt="Prime Asset Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=PA'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Дополнительные ловушки главных активов в испытании.
+                                    <ul>
+                                        <li>Это влияет только на следующие ловушки: электрические напольные ловушки <span class="highlight">Койла</span>, взрывные утиные ловушки <span class="highlight">Гусьберри</span>, растяжки <span class="highlight">Франко</span>, ловушки тошноты <span class="highlight">Отто и Арора</span> и манекены <span class="highlight">Лилии</span>.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- SURVEILLANCE CAMERAS -->
+                            <tr>
+                                <td class="trap-name-cell">КАМЕРЫ НАБЛЮДЕНИЯ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-камера.webp" alt="Surveillance Cameras" onerror="this.src='https://placehold.co/80x80/333/666?text=SC'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Камеры наблюдения установлены по всему испытанию. Обнаружение приведёт к болезненному удару током и оповестит ближайших экс-попов.
+                                    <ul>
+                                        <li>Использование метательных предметов или снаряжения может уничтожить камеры навсегда.</li>
+                                        <li><span class="invasion-tag">Invasion:</span> Камеры захватчиков не подвержены влиянию.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- NAUSEA TRAPS -->
+                            <tr>
+                                <td class="trap-name-cell">ЛОВУШКИ ТОШНОТЫ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-тошнота.webp" alt="Nausea Traps" onerror="this.src='https://placehold.co/80x80/333/666?text=NT'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Подвесные звуковые ловушки заменены на ловушки тошноты.
+                                    <ul>
+                                        <li>При срабатывании реагенты получают эффект отравления на 5 секунд.</li>
+                                        <li>В отравленном состоянии реагенты не могут использовать укрытия.</li>
+                                        <li>Попадание ещё одной отравляющей склянкой сокращает длительность вдвое.</li>
+                                        <li>После окончания эффекта отравления реагенты останавливаются, чтобы вырвать в течение 2,5 секунд и теряют половину здоровья.</li>
+                                        <li>Рвоту можно предотвратить с помощью антидотов или снаряжения <span class="highlight">«Исцеление»</span> (с улучшением <span class="highlight">«Детокс»</span>).</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- NAUSEA TRAPS (дополнительно) -->
+                            <tr>
+                                <td class="trap-name-cell">ЛОВУШКИ ТОШНОТЫ (разрушение)</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-тошнота-разрушение.webp" alt="Nausea Traps Destroy" onerror="this.src='https://placehold.co/80x80/333/666?text=NTD'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Могут быть уничтожены снаряжением или метательными предметами.
+                                    <ul>
+                                        <li>Метательные предметы уничтожают одну склянку за раз. Попадание в склянки сбоку может уничтожить несколько из них.</li>
+                                        <li>Это всё равно использует один заряд кирпичей.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- JAMMER REWIRE -->
+                            <tr>
+                                <td class="trap-name-cell">ПЕРЕНАСТРОЙКА ГЛУШИЛКОЙ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-глушилка.webp" alt="Jammer Rewire" onerror="this.src='https://placehold.co/80x80/333/666?text=JR'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    При перенастройке глушилкой каждая склянка заставляет врагов вырвать три раза. Этот эффект суммируется за каждую активированную склянку.
+                                </td>
+                            </tr>
+
+                            <!-- FLAME THROWERS -->
+                            <tr>
+                                <td class="trap-name-cell">ОГНЕМЁТЫ</td>
+                                <td class="trap-icon-cell">
+                                    <img src="../images/ловушка-огнемёт.webp" alt="Flame Throwers" onerror="this.src='https://placehold.co/80x80/333/666?text=FT'">
+                                </td>
+                                <td class="trap-desc-cell">
+                                    Смертоносные огнемёты установлены в испытании.
+                                    <ul>
+                                        <li>Реагенты могут проскользнуть под огнемётами, не получив ожогов.</li>
+                                        <li>Огнемёты могут быть уничтожены снаряжением или метательными предметами.</li>
+                                        <li>Реагенты рядом с работающими огнемётами видны экс-попам.</li>
+                                        <li><span class="invasion-tag">Invasion:</span> Захватчики не могут остановить огнемёты и могут получить от них урон.</li>
                                     </ul>
                                 </td>
                             </tr>
