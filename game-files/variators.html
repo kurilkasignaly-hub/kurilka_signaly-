@@ -435,9 +435,77 @@
             color: #e16d48;
         }
 
+        /* ===== ОГЛАВЛЕНИЕ ===== */
+        .toc {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .toc-title {
+            color: #e16d48;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-title i {
+            transition: transform 0.3s ease;
+        }
+
+        .toc-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0.5rem;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.3rem 0.8rem;
+        }
+
+        .toc-list.collapsed {
+            display: none;
+        }
+
+        .toc-list li {
+            margin: 0.2rem 0;
+        }
+
+        .toc-list a {
+            color: #c2b9d4;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toc-list a:hover {
+            color: #e16d48;
+        }
+
+        .toc-list a .toc-icon {
+            color: #e16d48;
+            font-size: 0.7rem;
+            width: 18px;
+            text-align: center;
+        }
+
         /* ===== ТАБЛИЦА ВАРИАТОРОВ ===== */
         .variator-table-section {
             margin-top: 0.5rem;
+            scroll-margin-top: 80px;
         }
 
         .variator-table-section h2 {
@@ -458,6 +526,7 @@
             margin-bottom: 0.5rem;
             border-radius: 8px;
             border-left: 3px solid #e16d48;
+            scroll-margin-top: 80px;
         }
 
         .category-header .category-title {
@@ -595,6 +664,42 @@
             margin-bottom: 0.5rem;
         }
 
+        /* ===== КНОПКА "НАВЕРХ" ===== */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(220, 90, 50, 0.2);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e16d48;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn:hover {
+            background: rgba(220, 90, 50, 0.35);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(220, 90, 50, 0.2);
+        }
+
         @media (max-width: 850px) {
             .container { padding: 1rem; }
             .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
@@ -617,6 +722,7 @@
             .volume-dropdown.open { transform: translateX(-50%) scale(1); }
             .volume-slider { width: 100px; }
             .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
+            .toc-list { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 600px) {
@@ -639,6 +745,9 @@
             .character-name { font-size: 1.3rem; }
             .character-image { flex: 0 0 100%; }
             .character-image img { max-width: 200px; margin: 0 auto; }
+            .toc-list { grid-template-columns: 1fr; }
+            .toc-list a { font-size: 0.8rem; }
+            .scroll-top-btn { width: 40px; height: 40px; font-size: 1.1rem; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -712,12 +821,32 @@
                 <p>Вариаторы делятся на категории в зависимости от их влияния на игровой процесс: от простых модификаторов, облегчающих прохождение, до экстремальных условий, превращающих испытание в настоящее испытание на выживание.</p>
             </div>
 
+            <!-- ===== ОГЛАВЛЕНИЕ ===== -->
+            <div class="toc">
+                <div class="toc-title" id="tocToggle">
+                    <span><i class="fas fa-list-ul"></i> Содержание</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    <li><a href="#cat-difficulty"><span class="toc-icon"><i class="fas fa-skull"></i></span> DIFFICULTY — Сложность</a></li>
+                    <li><a href="#cat-traps"><span class="toc-icon"><i class="fas fa-traffic-cone"></i></span> TRAPS — Ловушки</a></li>
+                    <li><a href="#cat-enemy"><span class="toc-icon"><i class="fas fa-skull-crossbones"></i></span> ENEMY — Враги</a></li>
+                    <li><a href="#cat-trial-mechanics"><span class="toc-icon"><i class="fas fa-cogs"></i></span> TRIAL MECHANICS — Механики</a></li>
+                    <li><a href="#cat-classified"><span class="toc-icon"><i class="fas fa-shield-halved"></i></span> CLASSIFIED — Секретные</a></li>
+                    <li><a href="#cat-items"><span class="toc-icon"><i class="fas fa-box"></i></span> ITEMS — Предметы</a></li>
+                    <li><a href="#cat-reagent"><span class="toc-icon"><i class="fas fa-user"></i></span> REAGENT MODIFIERS — Модификаторы</a></li>
+                    <li><a href="#cat-hazardous"><span class="toc-icon"><i class="fas fa-biohazard"></i></span> HAZARDOUS ENVIRONMENT — Опасная среда</a></li>
+                    <li><a href="#cat-psychosis"><span class="toc-icon"><i class="fas fa-brain"></i></span> PSYCHOSIS — Психоз</a></li>
+                    <li><a href="#cat-secondary"><span class="toc-icon"><i class="fas fa-tasks"></i></span> SECONDARY OBJECTIVES — Задачи</a></li>
+                </ul>
+            </div>
+
             <!-- ===== ТАБЛИЦА ВАРИАТОРОВ ===== -->
             <div class="variator-table-section">
                 <h2><i class="fas fa-list"></i> Список вариаторов</h2>
 
                 <!-- ===== КАТЕГОРИЯ: DIFFICULTY ===== -->
-                <div class="category-header">
+                <div class="category-header" id="cat-difficulty">
                     <div class="category-title"><i class="fas fa-skull"></i> DIFFICULTY — Сложность</div>
                 </div>
                 <table class="variator-table">
@@ -798,7 +927,7 @@
                 </table>
 
                 <!-- ===== КАТЕГОРИЯ: TRAPS ===== -->
-                <div class="category-header">
+                <div class="category-header" id="cat-traps">
                     <div class="category-title"><i class="fas fa-traffic-cone"></i> TRAPS — Ловушки</div>
                 </div>
                 <table class="variator-table">
@@ -1054,7 +1183,7 @@
                 </table>
 
                 <!-- ===== КАТЕГОРИЯ: ENEMY ===== -->
-                <div class="category-header">
+                <div class="category-header" id="cat-enemy">
                     <div class="category-title"><i class="fas fa-skull-crossbones"></i> ENEMY — Враги</div>
                 </div>
                 <table class="variator-table">
@@ -1310,7 +1439,7 @@
                 </table>
 
                 <!-- ===== КАТЕГОРИЯ: TRIAL MECHANICS ===== -->
-                <div class="category-header">
+                <div class="category-header" id="cat-trial-mechanics">
                     <div class="category-title"><i class="fas fa-cogs"></i> TRIAL MECHANICS — Механики испытания</div>
                 </div>
                 <table class="variator-table">
@@ -1481,7 +1610,7 @@
                 </table>
 
                 <!-- ===== КАТЕГОРИЯ: CLASSIFIED ===== -->
-                <div class="category-header">
+                <div class="category-header" id="cat-classified">
                     <div class="category-title"><i class="fas fa-shield-halved"></i> CLASSIFIED — Секретные</div>
                 </div>
                 <table class="variator-table">
@@ -1523,7 +1652,7 @@
                 </table>
 
                 <!-- ===== КАТЕГОРИЯ: ITEMS ===== -->
-                <div class="category-header">
+                <div class="category-header" id="cat-items">
                     <div class="category-title"><i class="fas fa-box"></i> ITEMS — Предметы</div>
                 </div>
                 <table class="variator-table">
@@ -1672,6 +1801,690 @@
                     </tbody>
                 </table>
 
+                <!-- ===== КАТЕГОРИЯ: REAGENT MODIFIERS ===== -->
+                <div class="category-header" id="cat-reagent">
+                    <div class="category-title"><i class="fas fa-user"></i> REAGENT MODIFIERS — Модификаторы реагента</div>
+                </div>
+                <table class="variator-table">
+                    <thead>
+                        <tr>
+                            <th style="width:25%;">Вариатор</th>
+                            <th style="width:100px; text-align:center;">Иконка</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="var-name-cell">LIMITED INTEL</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-ограниченная-информация.webp" alt="Limited Intel" onerror="this.src='https://placehold.co/80x80/333/666?text=LI">
+                            </td>
+                            <td class="var-desc-cell">Детали задания ограничены в испытании.</td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">NO INTEL</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-без-информации.webp" alt="No Intel" onerror="this.src='https://placehold.co/80x80/333/666?text=NI'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Детали задания отсутствуют в испытании.
+                                <ul><li>Взаимодействие с задачами может убрать этот эффект.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">HEALTH SICKNESS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-болезнь-здоровья.webp" alt="Health Sickness" onerror="this.src='https://placehold.co/80x80/333/666?text=HS'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Здоровье ограничено, найдите специальные таблетки, чтобы восстановить его.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">PERMANENT DAMAGE</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-постоянный-урон.webp" alt="Permanent Damage" onerror="this.src='https://placehold.co/80x80/333/666?text=PD'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Урон постоянен. Используйте специальные таблетки, чтобы убрать этот эффект.
+                                <ul>
+                                    <li>Частично повреждённую шкалу здоровья всё ещё можно лечить.</li>
+                                    <li>При потере шкалы здоровья она не может быть восстановлена или вылечена, если реагент не использует <span class="highlight">Таблетку здоровья</span> или не будет воскрешён.</li>
+                                    <li>Реагенты будут воскрешены с уменьшенным максимальным здоровьем вместо восстановления до стандартного значения.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">LIMITED INVENTORY</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-ограниченный-инвентарь.webp" alt="Limited Inventory" onerror="this.src='https://placehold.co/80x80/333/666?text=LimInv'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Один слот вашего инвентаря отключён.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">LIMITED INVENTORY II</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-ограниченный-инвентарь-2.webp" alt="Limited Inventory II" onerror="this.src='https://placehold.co/80x80/333/666?text=LimInv2'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Два слота вашего инвентаря отключены.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">NO PLAYER NAMES</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-без-имён-игроков.webp" alt="No Player Names" onerror="this.src='https://placehold.co/80x80/333/666?text=NPN'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Имена игроков скрыты.
+                                <ul><li>Этот вариатор не скрывает значки для недееспособных и мёртвых товарищей по команде.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">RIGS EXTENDED COOLDOWN</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-увеличенная-перезарядка.webp" alt="Rigs Extended Cooldown" onerror="this.src='https://placehold.co/80x80/333/666?text=REC'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Время восстановления снаряжения значительно увеличено.
+                                <ul>
+                                    <li>Время восстановления снаряжения в 2.5 раза дольше.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">LIMITED RIG</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-ограниченное-снаряжение.webp" alt="Limited Rig" onerror="this.src='https://placehold.co/80x80/333/666?text=LR'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Снаряжение не перезаряжается со временем. Используйте зарядные станции.
+                                <ul>
+                                    <li>Ампа <span class="highlight">«Короткое замыкание»</span> всё ещё может перезаряжать снаряжение.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">NO RIG UPGRADES</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-без-улучшений-снаряжения.webp" alt="No Rig Upgrades" onerror="this.src='https://placehold.co/80x80/333/666?text=NRU'">
+                            </td>
+                            <td class="var-desc-cell">Улучшения снаряжения отключены.</td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">DAMAGE DISABLES RIG</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-урон-отключает-снаряжение.webp" alt="Damage Disables Rig" onerror="this.src='https://placehold.co/80x80/333/666?text=DDR'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Таймер отключения снаряжения длится 30 секунд.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">DAMAGE RESTARTS RIG</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-урон-перезапускает-снаряжение.webp" alt="Damage Restarts Rig" onerror="this.src='https://placehold.co/80x80/333/666?text=DRR'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Снаряжение перезапускает своё время восстановления каждый раз, когда реагент получает урон.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">NO RIGS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-без-снаряжения.webp" alt="No Rigs" onerror="this.src='https://placehold.co/80x80/333/666?text=NR'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Снаряжение отключено во время испытания.
+                                <ul>
+                                    <li>Зарядные станции снаряжения не могут быть найдены в испытании.</li>
+                                    <li>Когда активен вариатор <span class="highlight">«Спасение Снаряжения»</span>, снаряжение с трупов всё ещё можно найти.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">THIEF LOADOUT</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-воровской-набор.webp" alt="Thief Loadout" onerror="this.src='https://placehold.co/80x80/333/666?text=TL'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Начните с двумя отмычками, но с большим количеством запертых дверей и ящиков.
+                                <ul><li>Этот вариатор включает: <span class="highlight">ЗАПЕРТЫЕ ПРЕДМЕТЫ</span> и <span class="highlight">ЗАПЕРТЫЕ НА ЗАМОК ДВЕРИ</span>.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">NO AMPS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-без-амп.webp" alt="No Amps" onerror="this.src='https://placehold.co/80x80/333/666?text=NA'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Ампы отключены.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">NO PRESCRIPTIONS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-без-рецептов.webp" alt="No Prescriptions" onerror="this.src='https://placehold.co/80x80/333/666?text=NP'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Рецепты отключены.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">LEVEL ONE</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-уровень-один.webp" alt="Level One" onerror="this.src='https://placehold.co/80x80/333/666?text=L1'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Держитесь рядом с друзьями или получайте урон. Дальность голосового чата ограничена.
+                                <ul>
+                                    <li>Урон не применяется, когда в живых остался только один реагент.</li>
+                                    <li>Реагенты должны находиться в пределах 15 метров друг от друга, чтобы избежать получения урона.</li>
+                                    <li>При разделении за пределами дистанции шоковый урон применяется после задержки в 5 секунд.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">STAY TOGETHER</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-оставайтесь-вместе.webp" alt="Stay Together" onerror="this.src='https://placehold.co/80x80/333/666?text=ST'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Враги могут слышать ваш разговор.
+                                <ul>
+                                    <li>Использование быстрых сигналов связи также может быть услышано врагами.</li>
+                                    <li>Враги не слышат разговоры реагентов, когда они спрятаны в укрытии.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">BLEEDING</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-кровотечение.webp" alt="Bleeding" onerror="this.src='https://placehold.co/80x80/333/666?text=Bleed'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Получение урона вызывает кровотечение. Используйте бинты, чтобы остановить его.
+                                <ul>
+                                    <li>Получение урона от <span class="highlight">Человека-кожи</span> или его щупалец не вызывает кровотечения.</li>
+                                    <li>Попадание в дверную ловушку также может вызвать эффект.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">BOMB COUNTDOWN</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-обратный-отсчёт-бомбы.webp" alt="Bomb Countdown" onerror="this.src='https://placehold.co/80x80/333/666?text=BC'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Реагенты оснащены бомбой с обратным отсчётом. Найдите удлинители времени, иначе вся команда взорвётся, и испытание будет провалено.
+                                <ul>
+                                    <li>Отсчёт бомбы ограничен 5 минутами. Любое время сверх этого теряется.</li>
+                                    <li>Второй уровень для <span class="highlight">«Обратного отсчёта бомбы»</span> уменьшает количество появляющихся удлинителей времени.</li>
+                                    <li>Шансы на возрождение и любые инструменты второго шанса не могут быть использованы для предотвращения взрыва бомбы.</li>
+                                    <li>Таймер бомбы временно приостанавливается после выполнения определённых основных задач, во время определённых секций или пока реагенты воскрешаются/оживают.</li>
+                                    <li>Взрыв бомбы не влияет на реагенты внутри шаттлов испытания. Однако он может активироваться, когда они входят в испытание.</li>
+                                    <li>NPC-самозванцы также могут быть оснащены бомбой, чтобы подражать реагентам.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Захватчики также оснащены бомбой с тем же таймером, что и реагенты. Однако они не могут использовать удлинители времени, и бомба не убьёт их.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">BOMB COUNTDOWN II</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-обратный-отсчёт-бомбы-2.webp" alt="Bomb Countdown II" onerror="this.src='https://placehold.co/80x80/333/666?text=BC2'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Бег запрещён и приведёт к шоковому урону. Однако источники адреналина временно подавляют этот эффект.
+                                <ul>
+                                    <li>Это также запрещает постоянные прыжки и перелезания.</li>
+                                    <li>После того как эффект адреналина заканчивается, реагент получает 5-секундный период отсрочки для бега без получения шокового урона.</li>
+                                    <li>Реагентам даётся одна доза адреналина в начале испытания.</li>
+                                    <li>Увеличивает количество адреналина в испытании.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">NO RUNNING</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-без-бега.webp" alt="No Running" onerror="this.src='https://placehold.co/80x80/333/666?text=NRun'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Перспектива испытания изменена, чтобы ввести реагентов в заблуждение.
+                                <ul><li><span class="invasion-tag">Invasion:</span> Этот вариатор также зеркалирует перспективу захватчиков.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">BROKEN REAGENT</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-сломанный-реагент.webp" alt="Broken Reagent" onerror="this.src='https://placehold.co/80x80/333/666?text=BR'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Реагенты не имеют стартового снаряжения, рецептов, амп, уменьшенная батарея ночного видения и начинают ранеными.
+                                <ul>
+                                    <li>В начале испытания у реагентов одна шкала здоровья, а батарея ночного видения уменьшена на 75%.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Улучшения для захватчиков не затрагиваются, но их батарея ночного видения установлена на 25%.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">HARDCORE</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-хардкор.webp" alt="Hardcore" onerror="this.src='https://placehold.co/80x80/333/666?text=HC'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Урон вызывает постоянную потерю здоровья и сохраняется между испытаниями. Шприцы недоступны, и нет возрождений в одиночной игре.
+                                <ul><li>Этот вариатор включает: <span class="highlight">ПОСТОЯННЫЙ УРОН</span> и <span class="highlight">БЕЗ ВОЗРОЖДЕНИЙ</span>.</li></ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- ===== КАТЕГОРИЯ: HAZARDOUS ENVIRONMENT ===== -->
+                <div class="category-header" id="cat-hazardous">
+                    <div class="category-title"><i class="fas fa-biohazard"></i> HAZARDOUS ENVIRONMENT — Опасная среда</div>
+                </div>
+                <table class="variator-table">
+                    <thead>
+                        <tr>
+                            <th style="width:25%;">Вариатор</th>
+                            <th style="width:100px; text-align:center;">Иконка</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="var-name-cell">COLD SNAP</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-холодный-удар.webp" alt="Cold Snap" onerror="this.src='https://placehold.co/80x80/333/666?text=CS'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Пространство испытания периодически заполняется пронизывающим холодным воздухом. Прячьтесь, чтобы выжить.
+                                <ul>
+                                    <li>Холодный удар активируется каждые 90 секунд, приостанавливается при выполнении определённых задач.</li>
+                                    <li>Холодный удар остаётся активным в течение 20 секунд.</li>
+                                    <li>Когда сигнализация Холодного удара или холодный воздух активны, выполнение определённых основных задач может отменить этот эффект.</li>
+                                    <li>Нахождение рядом с источниками тепла даёт эффект <span class="highlight">«Тепло»</span>, дающий временный иммунитет к холодному воздуху.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Захватчики также подвержены этому вариатору.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">TOXIC SHOCK</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-токсический-шок.webp" alt="Toxic Shock" onerror="this.src='https://placehold.co/80x80/333/666?text=TS'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Пространство испытания периодически заполняется токсичным газом, наносящим постоянный урон. Прячьтесь, чтобы выжить.
+                                <ul>
+                                    <li>Токсический шок активируется каждые 90 секунд, приостанавливается при выполнении определённых задач.</li>
+                                    <li>Токсический шок остаётся активным в течение 20 секунд.</li>
+                                    <li>Когда сигнализация Токсического шока или газ активны, выполнение определённых основных задач может отменить этот эффект.</li>
+                                    <li>Частично повреждённую шкалу здоровья всё ещё можно лечить. Каждый 10-й урон от газа удаляет одну шкалу здоровья.</li>
+                                    <li>Потерянные шкалы здоровья можно восстановить, будучи воскрешённым или используя <span class="highlight">Таблетки здоровья</span>.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Захватчики также подвержены этому вариатору, но они не теряют максимальное здоровье.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">DEEP BURN</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-глубокий-ожог.webp" alt="Deep Burn" onerror="this.src='https://placehold.co/80x80/333/666?text=DB'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Пространство испытания заполнено огнём. Избегайте или сгорите.
+                                <ul>
+                                    <li>Этот вариатор включает: <span class="highlight">ОГНЕННЫЕ МИНЫ, ОГНЕМЁТЫ, ВЕНТИЛЯЦИОННЫЕ ОПАСНОСТИ</span> и <span class="highlight">БОЛЬШЕ МЕТАТЕЛЕЙ</span>.</li>
+                                    <li>Этот вариатор вводит дым в воздухе, который заставляет выносливость реагента истощаться быстрее. Скорость восстановления выносливости также уменьшена, и реагенты будут пассивно кашлять, когда истощены.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Выносливость захватчиков также подвержена этому вариатору.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">PERMAFROST</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-вечная-мерзлота.webp" alt="Permafrost" onerror="this.src='https://placehold.co/80x80/333/666?text=PF'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Постоянные замораживающие температуры в испытании. Найдите источники тепла, чтобы согреться.
+                                <ul>
+                                    <li>Источники тепла размещены на входах в шаттлы и кнопках закрытых комнат.</li>
+                                    <li>Некоторые бочки-укрытия заменены на горящие бочки.</li>
+                                    <li>Реагенты также могут использовать укрытия, чтобы избежать получения урона от заморозки. После выхода из укрытия этот эффект сохраняется временно.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Захватчики также подвержены этому вариатору.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- ===== КАТЕГОРИЯ: PSYCHOSIS ===== -->
+                <div class="category-header" id="cat-psychosis">
+                    <div class="category-title"><i class="fas fa-brain"></i> PSYCHOSIS — Психоз</div>
+                </div>
+                <table class="variator-table">
+                    <thead>
+                        <tr>
+                            <th style="width:25%;">Вариатор</th>
+                            <th style="width:100px; text-align:center;">Иконка</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="var-name-cell">BAD TRIP</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-плохой-трип.webp" alt="Bad Trip" onerror="this.src='https://placehold.co/80x80/333/666?text=BT'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Рассудок никогда не восстанавливается полностью.
+                                <ul>
+                                    <li>Шкала рассудка уменьшена на одну и не может быть восстановлена никакими средствами.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">BAD TRIP II</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-плохой-трип-2.webp" alt="Bad Trip II" onerror="this.src='https://placehold.co/80x80/333/666?text=BT2'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Рассудок едва восстанавливается.
+                                <ul>
+                                    <li>Шкала рассудка уменьшена на две и не может быть восстановлена никакими средствами.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">HALLUCINATIONS?</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-галлюцинации.webp" alt="Hallucinations?" onerror="this.src='https://placehold.co/80x80/333/666?text=H'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Побочные эффекты, травма или что-то ещё?
+                                <ul>
+                                    <li>Реагенты всегда испытывают галлюцинации <span class="highlight">Человека-кожи</span>, несмотря на нормальный рассудок.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">PSYCHOSIS DAMAGE</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-урон-психоз.webp" alt="Psychosis Damage" onerror="this.src='https://placehold.co/80x80/333/666?text=PD'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Урон вызывает психоз рассудка.
+                                <ul>
+                                    <li>Урон от психоза удваивается с вариатором <span class="highlight">«Смертельные ловушки»</span>.</li>
+                                    <li>Эффект психоза от урона применяется только каждые 10 секунд.</li>
+                                    <li>Получение урона под воздействием эффекта психоза не сбрасывает его длительность.</li>
+                                    <li>Попадание в дверную ловушку и брошенные отравляющие склянки также могут вызвать эффект.</li>
+                                    <li>Попадание в прыжок <span class="highlight">Лилии</span> вызывает эффект даже без получения урона.</li>
+                                    <li><span class="invasion-tag">Invasion:</span> Этот вариатор не действует на захватчиков.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">EXTREME PSYCHOSIS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-экстремальный-психоз.webp" alt="Extreme Psychosis" onerror="this.src='https://placehold.co/80x80/333/666?text=EP'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Экс-попы больше не игнорируют вас во время психоза.
+                                <ul>
+                                    <li><span class="highlight">Человек-кожа</span> быстрее и наносит больше урона.</li>
+                                    <li>Длительность эффекта психоза длится 45 секунд вместо 30.</li>
+                                    <li>Этот вариатор включён в: <span class="highlight">PSYCHOSURGERY, ULTRA</span> и <span class="highlight">ULTRA II</span>.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- ===== КАТЕГОРИЯ: SECONDARY OBJECTIVES ===== -->
+                <div class="category-header" id="cat-secondary">
+                    <div class="category-title"><i class="fas fa-tasks"></i> SECONDARY OBJECTIVES — Второстепенные задачи</div>
+                </div>
+                <table class="variator-table">
+                    <thead>
+                        <tr>
+                            <th style="width:25%;">Вариатор</th>
+                            <th style="width:100px; text-align:center;">Иконка</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="var-name-cell">COLLECT THE GIFTS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-собрать-подарки.webp" alt="Collect the Gifts" onerror="this.src='https://placehold.co/80x80/333/666?text=CG'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Соберите все подарки в испытании, чтобы получить дополнительные награды.
+                                <ul><li>Реагенты не обязаны собирать все подарки в испытании. Они могут собрать определённое количество для выполнения задачи.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">COLLECT THE RATS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-собрать-крыс.webp" alt="Collect the Rats" onerror="this.src='https://placehold.co/80x80/333/666?text=CR'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Соберите всех отравленных крыс в испытании для анализа тканей. Выполните задачу для дополнительных наград.
+                                <ul><li>Реагенты не обязаны собирать всех крыс в испытании. Они могут собрать определённое количество для выполнения задачи.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">BREAK THE TELEVISIONS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-разбить-телевизоры.webp" alt="Break the Televisions" onerror="this.src='https://placehold.co/80x80/333/666?text=BT" onerror="this.src='https://placehold.co/80x80/333/666?text=BT'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Разбейте все неисправные телевизоры для дополнительных наград.
+                                <ul>
+                                    <li>Реагенты не обязаны разбивать каждый неисправный телевизор в испытании. Они могут разбить определённое количество для выполнения задачи.</li>
+                                    <li>Неисправные телевизоры, разбитые <span class="highlight">Крикунами</span>, также учитываются.</li>
+                                    <li>Когда варианты главных активов заменяют специалистов, телевизоры показывают их фотографии.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">FIND THE RADIO</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-найти-радио.webp" alt="Find the Radio" onerror="this.src='https://placehold.co/80x80/333/666?text=FR'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Найдите и остановите трансляцию в испытании.
+                                <ul><li>Трансляцию также можно остановить, используя любые метательные предметы или снаряжение <span class="highlight">«Глушилка»</span>.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">EXTRACT ORGAN SAMPLES</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-извлечь-образцы.webp" alt="Extract Organ Samples" onerror="this.src='https://placehold.co/80x80/333/666?text=EOS'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Найдите погибших реагентов и извлеките образцы органов для анализа. Выполните задачу для дополнительных наград.</td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">LOCATE THE BROADCAST</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-найти-трансляцию.webp" alt="Locate the Broadcast" onerror="this.src='https://placehold.co/80x80/333/666?text=LB'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Для вас оставили сообщение в испытании. Найдите телевизионную трансляцию и уничтожьте её до того, как это сделает Меркофф.
+                                <ul>
+                                    <li>Амелия оставила для вас сообщение в испытании. Найдите телевизионную трансляцию и уничтожьте её до того, как это сделает Меркофф.</li>
+                                    <li>Трансляция показывает передачу <span class="highlight">Амелии Коллиер</span> во время события <span class="highlight">«Под наблюдением»</span>.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">COLLECT SCHEMATICS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-собрать-схемы.webp" alt="Collect Schematics" onerror="this.src='https://placehold.co/80x80/333/666?text=CS'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Соберите все схемы в испытании, чтобы получить дополнительные награды.
+                                <ul>
+                                    <li>Реагенты не обязаны собирать все схемы в испытании. Они могут собрать определённое количество для выполнения задачи.</li>
+                                    <li>Найдите схемы терминала комнаты отдыха в испытании. Эта схема активна только во время <span class="highlight">«Под наблюдением. Часть I»</span>.</li>
+                                    <li>Найдите план побега Амелии, разбросанный в испытании. Эта схема активна только во время <span class="highlight">«Под наблюдением. Часть II»</span>.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">REMOVE THE PROPAGANDA</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-убрать-пропаганду.webp" alt="Remove the Propaganda" onerror="this.src='https://placehold.co/80x80/333/666?text=RP'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Удалите все пропагандистские плакаты в испытании. Выполните задачу для дополнительных наград.
+                                <ul><li>Реагенты не обязаны собирать все пропагандистские плакаты в испытании. Они могут собрать определённое количество для выполнения задачи.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">DUAL OBJECTIVES</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-двойные-задачи.webp" alt="Dual Objectives" onerror="this.src='https://placehold.co/80x80/333/666?text=DO'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Две второстепенные задачи выбираются случайным образом.
+                                <ul><li>Две второстепенные задачи должны быть выполнены для получения бонуса за производительность.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">COLLECT EVIDENCE BOXES</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-собрать-улики.webp" alt="Collect Evidence Boxes" onerror="this.src='https://placehold.co/80x80/333/666?text=CEB'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Соберите все ящики с уликами в испытании для проверки. Выполните задачу для дополнительных наград.
+                                <ul><li>Ящики с уликами не могут обойти детекторы предметов.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">DECYPHER BROADCAST</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-расшифровать-трансляцию.webp" alt="Decypher Broadcast" onerror="this.src='https://placehold.co/80x80/333/666?text=DB">
+                            </td>
+                            <td class="var-desc-cell">
+                                Расшифруйте все зашифрованные трансляции в испытании. Выполните задачу для дополнительных наград.
+                                <ul><li>Реагенты не обязаны расшифровывать все зашифрованные трансляции в испытании. Они могут расшифровать определённое количество для выполнения задачи.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">EXTINGUISH THE FIRES</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-потушить-пожары.webp" alt="Extinguish the Fires" onerror="this.src='https://placehold.co/80x80/333/666?text=EF'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Найдите и используйте канистры с водой, чтобы потушить горящие бочки, разбросанные по всему испытанию.
+                                <ul>
+                                    <li>Канистры с водой нельзя использовать для тушения огня от мин или вентиляционных отверстий.</li>
+                                    <li>Канистры с водой не могут обойти детекторы предметов.</li>
+                                    <li>Реагенты рядом с горящими бочками видны экс-попам.</li>
+                                    <li>В <span class="highlight">«Обычной терапии: Выгорание»</span> необходимое количество тушений для выполнения задачи удвоено.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">COLLECT THE AMULETS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-собрать-амулеты.webp" alt="Collect the Amulets" onerror="this.src='https://placehold.co/80x80/333/666?text=CA'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Соберите все амулеты манекенов в испытании. Выполните задачу для дополнительных наград.
+                                <ul>
+                                    <li>Реагенты не обязаны собирать все амулеты в испытании. Они могут собрать определённое количество для выполнения задачи.</li>
+                                    <li>Некоторые манекены и <span class="highlight">Лилия Богомолова</span> не имеют амулетов.</li>
+                                    <li>Когда на манекен направлен ультрафиолет, на его левой ноге всегда будет отображаться символ амулета.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">DELIVER THE COMPONENTS</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-доставить-компоненты.webp" alt="Deliver the Components" onerror="this.src='https://placehold.co/80x80/333/666?text=DC'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Реагенты должны найти и доставить механические компоненты в ящик для утилизации.
+                                <ul><li>Подбор компонента снаряжения использует слот инвентаря.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">MANDATORY SECONDARY OBJECTIVE</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-обязательная-задача.webp" alt="Mandatory Secondary Objective" onerror="this.src='https://placehold.co/80x80/333/666?text=MSO'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Второстепенная задача должна быть выполнена для выхода из испытания.</td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">MANDATORY SECONDARY OBJECTIVE (Invasion)</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-обязательная-задача-вторжение.webp" alt="Mandatory Secondary Objective (Invasion)" onerror="this.src='https://placehold.co/80x80/333/666?text=MSO-I'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Реагенты должны выполнить случайно выбранную второстепенную задачу, чтобы выйти из испытания.
+                                <ul><li>Некоторые второстепенные задачи исключены: <span class="highlight">Извлечение Крови, Сбор Ящиков с Уликами, Сбор Подарков</span> и <span class="highlight">Удаление Пропаганды</span>.</li></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">RANDOM SECONDARY OBJECTIVE</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-случайная-задача.webp" alt="Random Secondary Objective" onerror="this.src='https://placehold.co/80x80/333/666?text=RSO'">
+                            </td>
+                            <td class="var-desc-cell">Второстепенная задача выбирается случайным образом в начале испытания.</td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">REBIRTH</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-перерождение.webp" alt="Rebirth" onerror="this.src='https://placehold.co/80x80/333/666?text=Rebirth'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Вознеситесь и станьте новым собой. Второстепенные задачи должны быть выполнены для выхода из испытания.
+                                <ul>
+                                    <li>Этот вариатор включает: <span class="highlight">ПОВЫШЕННАЯ УГРОЗА</span>.</li>
+                                    <li>Каждый ящик с документами может быть взят только определёнными реагентами. Когда реагент, нужный для ящика, убит или ушёл, любой реагент может забрать и собрать их ящик.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="var-name-cell">BLOOD EXTRACTION</td>
+                            <td class="var-icon-cell">
+                                <img src="../images/вариатор-извлечение-крови.webp" alt="Blood Extraction" onerror="this.src='https://placehold.co/80x80/333/666?text=BE'">
+                            </td>
+                            <td class="var-desc-cell">
+                                Используйте экстракторы крови, найденные в испытании, чтобы сдать кровь. Каждое сдача крови навсегда уменьшает ваше максимальное здоровье до конца испытания.
+                                <ul>
+                                    <li>Реагенты будут воскрешены с уменьшенным максимальным здоровьем вместо восстановления до стандартного значения.</li>
+                                    <li>Прерывание экстракции крови сохранит текущую шкалу здоровья.</li>
+                                    <li>Экстракция крови не вызовет штраф к оценке, если не вызывает кровотечение или эффект психоза.</li>
+                                    <li>Эффект кровотечения не вызовет штраф к оценке, если его быстро остановить с помощью бинта.</li>
+                                    <li>Экстракция крови может вызвать эффекты урона, такие как <span class="highlight">КРОВОТЕЧЕНИЕ, УРОН ВЫЗЫВАЕТ ПСИХОЗ</span> и <span class="highlight">УРОН ПЕРЕЗАПУСКАЕТ СНАРЯЖЕНИЕ</span> и т.д.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
@@ -1683,6 +2496,11 @@
         <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
     </footer>
 </div>
+
+<!-- ===== КНОПКА "НАВЕРХ" ===== -->
+<button class="scroll-top-btn" id="scrollTopBtn" title="Наверх">
+    <i class="fas fa-chevron-up"></i>
+</button>
 
 <!-- ===== АУДИО ===== -->
 <div id="mainAudioContainer" style="display:none;">
@@ -1837,6 +2655,47 @@
 
     window.toggleMainMusic = toggleMainMusic;
     window.toggleVolumeDropdown = toggleVolumeDropdown;
+
+    // ============ ОГЛАВЛЕНИЕ ============
+    const tocToggle = document.getElementById('tocToggle');
+    const tocList = document.getElementById('tocList');
+    if (tocToggle && tocList) {
+        tocToggle.addEventListener('click', () => {
+            tocList.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+        });
+    }
+
+    // ============ ПЛАВНАЯ ПРОКРУТКА ============
+    document.querySelectorAll('.toc-list a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (window.innerWidth <= 850) {
+                    tocList.classList.add('collapsed');
+                    tocToggle.classList.add('collapsed');
+                }
+            }
+        });
+    });
+
+    // ============ КНОПКА "НАВЕРХ" ============
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 </script>
 
 </body>
