@@ -68,7 +68,7 @@
             background: rgba(8, 6, 15, 0.6);
             backdrop-filter: blur(16px);
             border-radius: 80px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             gap: 1rem;
             border: 1px solid rgba(220, 90, 50, 0.2);
             transition: all 0.3s;
@@ -331,7 +331,7 @@
 
         /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
         .breadcrumb {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
             animation: fadeInScale 0.6s ease-out;
         }
 
@@ -357,7 +357,7 @@
 
         /* ===== ЗАГОЛОВОК АМФЫ ===== */
         .amps-header {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .amps-header .title {
@@ -379,8 +379,8 @@
             gap: 1rem;
             flex: 1;
             align-items: flex-start;
-            max-height: calc(100vh - 140px);
-            margin-top: 0.2rem;
+            max-height: calc(100vh - 110px);
+            margin-top: 0;
         }
 
         /* ===== ЛЕВАЯ КОЛОНКА - КАТЕГОРИИ ===== */
@@ -409,7 +409,6 @@
             overflow: hidden;
         }
 
-        /* ВЫДЕЛЕНИЕ АКТИВНОЙ КАТЕГОРИИ */
         .category-block.active {
             border-color: #e16d48;
             box-shadow: 0 0 30px rgba(220, 90, 50, 0.15), inset 0 0 30px rgba(220, 90, 50, 0.05);
@@ -504,7 +503,7 @@
         .category-block.bg-medicine { background-image: url('../images/amps/medicine-bg.jpg'); }
         .category-block.bg-imposter { background-image: url('../images/amps/imposter-bg.jpg'); }
 
-        /* ===== СРЕДНЯЯ КОЛОНКА - СПИСОК АМФ ===== */
+        /* ===== СРЕДНЯЯ КОЛОНКА - СПИСОК АМФ (УВЕЛИЧЕННЫЙ) ===== */
         .amps-list-container {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 14px;
@@ -521,7 +520,7 @@
             animation: fadeInScale 0.25s ease-out;
         }
 
-        .amps-list-container::-webkit-scrollbar { width: 3px; }
+        .amps-list-container::-webkit-scrollbar { width: 4px; }
         .amps-list-container::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
         .amps-list-container::-webkit-scrollbar-thumb { background: rgba(220, 90, 50, 0.3); border-radius: 10px; }
 
@@ -529,7 +528,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1rem;
             border-bottom: 1px solid rgba(220, 90, 50, 0.1);
             position: sticky;
             top: 0;
@@ -539,7 +538,7 @@
         }
 
         .amps-list-header .list-title {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #ffbc9a;
         }
@@ -548,7 +547,7 @@
             background: none;
             border: none;
             color: #888;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s;
             padding: 0.1rem 0.5rem;
@@ -562,8 +561,8 @@
 
         .amp-item {
             display: grid;
-            grid-template-columns: 40px 1fr 32px;
-            padding: 0.5rem 0.8rem;
+            grid-template-columns: 48px 1fr 36px;
+            padding: 0.6rem 0.8rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             cursor: pointer;
             transition: all 0.3s;
@@ -575,37 +574,37 @@
         }
 
         .amp-item .amp-icon {
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
         .amp-item .amp-icon img {
-            width: 32px;
-            height: 32px;
+            width: 38px;
+            height: 38px;
             object-fit: contain;
         }
 
         .amp-item .amp-name {
-            font-size: 0.85rem;
+            font-size: 1rem;
             color: #f0eef7;
             font-weight: 500;
         }
 
         .amp-item .amp-detail-btn {
             color: #555;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             opacity: 0.4;
             transition: all 0.3s ease;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 2px;
+            padding: 4px;
         }
 
         .amp-item:hover .amp-detail-btn {
@@ -721,7 +720,7 @@
             .main-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
-                max-height: calc(100vh - 150px);
+                max-height: calc(100vh - 120px);
             }
             .amp-detail-panel {
                 grid-column: 1 / -1;
@@ -733,7 +732,7 @@
             .main-grid {
                 grid-template-columns: 1fr;
                 gap: 0.8rem;
-                max-height: calc(100vh - 160px);
+                max-height: calc(100vh - 130px);
             }
             .category-list { max-width: 100%; }
             .amps-list-container { max-height: 200px; }
@@ -744,6 +743,10 @@
             .category-block .cat-name { font-size: 1.1rem; }
             .header { flex-direction: column; padding: 0.6rem 1rem; }
             .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+            .amp-item { grid-template-columns: 40px 1fr 32px; }
+            .amp-item .amp-icon { width: 36px; height: 36px; }
+            .amp-item .amp-icon img { width: 30px; height: 30px; }
+            .amp-item .amp-name { font-size: 0.9rem; }
             .amp-detail-panel .detail-header .detail-icon { width: 48px; height: 48px; }
             .amp-detail-panel .detail-header .detail-icon img { width: 40px; height: 40px; }
             .amp-detail-panel .detail-header .detail-title-group .detail-name { font-size: 1.1rem; }
@@ -753,23 +756,23 @@
         @media (max-width: 600px) {
             .container { padding: 0.6rem 0.8rem; }
             .amps-header .title { font-size: 1.6rem; letter-spacing: 1px; }
-            .amps-header { margin-bottom: 0.6rem; }
+            .amps-header { margin-bottom: 0.4rem; }
             .category-list { gap: 0.5rem; }
             .category-block { padding: 0.5rem 0.8rem; min-height: 45px; border-radius: 12px; }
             .category-block .cat-name { font-size: 0.9rem; }
             .category-block .cat-arrow { font-size: 0.8rem; }
-            .amp-item { padding: 0.3rem 0.5rem; grid-template-columns: 32px 1fr 24px; }
-            .amp-item .amp-icon { width: 28px; height: 28px; }
-            .amp-item .amp-icon img { width: 24px; height: 24px; }
-            .amp-item .amp-name { font-size: 0.7rem; }
+            .amp-item { padding: 0.4rem 0.5rem; grid-template-columns: 36px 1fr 28px; }
+            .amp-item .amp-icon { width: 32px; height: 32px; }
+            .amp-item .amp-icon img { width: 26px; height: 26px; }
+            .amp-item .amp-name { font-size: 0.8rem; }
             .amps-list-header { padding: 0.3rem 0.6rem; }
-            .amps-list-header .list-title { font-size: 0.75rem; }
+            .amps-list-header .list-title { font-size: 0.8rem; }
             .amp-detail-panel { padding: 0.6rem; min-height: 80px; }
             .amp-detail-panel .detail-header .detail-icon { width: 40px; height: 40px; }
             .amp-detail-panel .detail-header .detail-icon img { width: 34px; height: 34px; }
             .amp-detail-panel .detail-header .detail-title-group .detail-name { font-size: 0.95rem; }
             .amp-detail-panel .detail-body .detail-desc { font-size: 0.75rem; }
-            .main-grid { max-height: calc(100vh - 160px); }
+            .main-grid { max-height: calc(100vh - 150px); }
             .nav-btn { padding: 0.2rem 0.4rem; font-size: 0.55rem; gap: 2px; }
             .music-toggle { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
             .music-toggle .label { font-size: 0.5rem; }
@@ -777,7 +780,7 @@
             .logo .logo-img { max-height: 28px; }
             .logo .logo-text { font-size: 0.8rem; }
             .back-link { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
-            .breadcrumb { margin-bottom: 0.6rem; }
+            .breadcrumb { margin-bottom: 0.4rem; }
         }
     </style>
 </head>
@@ -1169,7 +1172,6 @@
         const amps = getAmpsByCategory(category);
         itemsContainer.innerHTML = '';
 
-        // Обновляем активную категорию
         document.querySelectorAll('.category-block').forEach(block => {
             block.classList.toggle('active', block.dataset.category === category);
         });
@@ -1229,7 +1231,6 @@
         currentCategory = null;
         currentAmpId = null;
 
-        // Снимаем выделение со всех категорий
         document.querySelectorAll('.category-block').forEach(block => {
             block.classList.remove('active');
         });
