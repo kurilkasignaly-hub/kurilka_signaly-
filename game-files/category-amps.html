@@ -355,7 +355,7 @@
             border-color: #e16d48;
         }
 
-        /* ===== ЗАГОЛОВОК АМФЫ (НА РУССКОМ) ===== */
+        /* ===== ЗАГОЛОВОК АМФЫ ===== */
         .amps-header {
             margin-bottom: 1rem;
         }
@@ -540,8 +540,8 @@
 
         .amp-item {
             display: grid;
-            grid-template-columns: 36px 1fr 32px;
-            padding: 0.4rem 0.8rem;
+            grid-template-columns: 40px 1fr 32px;
+            padding: 0.5rem 0.8rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             cursor: pointer;
             transition: all 0.3s;
@@ -553,8 +553,8 @@
         }
 
         .amp-item .amp-icon {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -564,20 +564,20 @@
         }
 
         .amp-item .amp-icon img {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
         }
 
         .amp-item .amp-name {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: #f0eef7;
             font-weight: 500;
         }
 
         .amp-item .amp-detail-btn {
             color: #555;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             opacity: 0.4;
             transition: all 0.3s ease;
             background: none;
@@ -602,16 +602,16 @@
             border-left: 3px solid #e16d48;
         }
 
-        /* ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ (БЕЗ ЭФФЕКТА) ===== */
+        /* ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ (УВЕЛИЧЕННОЕ) ===== */
         .amp-detail-panel {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 14px;
             border: 1px solid rgba(220, 90, 50, 0.1);
-            padding: 1rem;
+            padding: 1.2rem;
             display: none;
             flex-direction: column;
             width: 100%;
-            min-height: 120px;
+            min-height: 140px;
         }
 
         .amp-detail-panel.active {
@@ -630,38 +630,39 @@
         }
 
         .amp-detail-panel .empty-state i {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: #333;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
         }
 
         .amp-detail-panel .empty-state p {
-            font-size: 0.7rem;
+            font-size: 0.85rem;
         }
 
         .amp-detail-panel .detail-header {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.4rem;
-            padding-bottom: 0.4rem;
+            gap: 1rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .amp-detail-panel .detail-header .detail-icon {
-            width: 40px;
-            height: 40px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .amp-detail-panel .detail-header .detail-icon img {
-            width: 34px;
-            height: 34px;
+            width: 48px;
+            height: 48px;
             object-fit: contain;
         }
 
@@ -670,13 +671,13 @@
         }
 
         .amp-detail-panel .detail-header .detail-title-group .detail-name {
-            font-size: 0.85rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #f0eef7;
         }
 
         .amp-detail-panel .detail-header .detail-title-group .detail-category {
-            font-size: 0.5rem;
+            font-size: 0.65rem;
             color: #e16d48;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -685,8 +686,9 @@
 
         .amp-detail-panel .detail-body .detail-desc {
             color: #c2b9d4;
-            font-size: 0.75rem;
-            line-height: 1.4;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            padding: 0.2rem 0;
         }
 
         .amp-detail-panel .detail-footer {
@@ -700,7 +702,7 @@
             }
             .amp-detail-panel {
                 grid-column: 1 / -1;
-                min-height: 100px;
+                min-height: 120px;
             }
         }
 
@@ -711,7 +713,7 @@
             }
             .category-list { max-width: 100%; }
             .amps-list-container { max-height: 200px; }
-            .amp-detail-panel { min-height: 80px; }
+            .amp-detail-panel { min-height: 100px; }
             .container { padding: 0.8rem 1rem; }
             .amps-header .title { font-size: 2rem; }
             .category-block { padding: 0.8rem 1.2rem; min-height: 60px; }
@@ -719,6 +721,10 @@
             .header { flex-direction: column; padding: 0.6rem 1rem; }
             .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
             .main-grid { max-height: calc(100vh - 220px); }
+            .amp-detail-panel .detail-header .detail-icon { width: 48px; height: 48px; }
+            .amp-detail-panel .detail-header .detail-icon img { width: 40px; height: 40px; }
+            .amp-detail-panel .detail-header .detail-title-group .detail-name { font-size: 1.1rem; }
+            .amp-detail-panel .detail-body .detail-desc { font-size: 0.85rem; }
         }
 
         @media (max-width: 600px) {
@@ -729,17 +735,17 @@
             .category-block { padding: 0.5rem 0.8rem; min-height: 45px; border-radius: 12px; }
             .category-block .cat-name { font-size: 0.9rem; }
             .category-block .cat-arrow { font-size: 0.8rem; }
-            .amp-item { padding: 0.3rem 0.5rem; grid-template-columns: 28px 1fr 24px; }
-            .amp-item .amp-icon { width: 24px; height: 24px; }
-            .amp-item .amp-icon img { width: 20px; height: 20px; }
-            .amp-item .amp-name { font-size: 0.65rem; }
+            .amp-item { padding: 0.3rem 0.5rem; grid-template-columns: 32px 1fr 24px; }
+            .amp-item .amp-icon { width: 28px; height: 28px; }
+            .amp-item .amp-icon img { width: 24px; height: 24px; }
+            .amp-item .amp-name { font-size: 0.7rem; }
             .amps-list-header { padding: 0.3rem 0.6rem; }
             .amps-list-header .list-title { font-size: 0.75rem; }
-            .amp-detail-panel { padding: 0.6rem; }
-            .amp-detail-panel .detail-header .detail-icon { width: 32px; height: 32px; }
-            .amp-detail-panel .detail-header .detail-icon img { width: 28px; height: 28px; }
-            .amp-detail-panel .detail-header .detail-name { font-size: 0.75rem; }
-            .amp-detail-panel .detail-body .detail-desc { font-size: 0.65rem; }
+            .amp-detail-panel { padding: 0.6rem; min-height: 80px; }
+            .amp-detail-panel .detail-header .detail-icon { width: 40px; height: 40px; }
+            .amp-detail-panel .detail-header .detail-icon img { width: 34px; height: 34px; }
+            .amp-detail-panel .detail-header .detail-title-group .detail-name { font-size: 0.95rem; }
+            .amp-detail-panel .detail-body .detail-desc { font-size: 0.75rem; }
             .main-grid { max-height: calc(100vh - 180px); }
             .nav-btn { padding: 0.2rem 0.4rem; font-size: 0.55rem; gap: 2px; }
             .music-toggle { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
@@ -805,7 +811,7 @@
         <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
     </div>
 
-    <!-- ===== ЗАГОЛОВОК АМФЫ (НА РУССКОМ) ===== -->
+    <!-- ===== ЗАГОЛОВОК АМФЫ ===== -->
     <div class="amps-header">
         <span class="title">АМФЫ</span>
     </div>
@@ -858,7 +864,7 @@
             </div>
         </div>
 
-        <!-- ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ ===== -->
+        <!-- ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ (УВЕЛИЧЕННОЕ) ===== -->
         <div class="amp-detail-panel" id="ampDetailPanel">
             <div class="empty-state" id="emptyState">
                 <i class="fas fa-hand-pointer"></i>
