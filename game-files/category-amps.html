@@ -331,7 +331,7 @@
 
         /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
         .breadcrumb {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             animation: fadeInScale 0.6s ease-out;
         }
 
@@ -357,7 +357,7 @@
 
         /* ===== ЗАГОЛОВОК АМФЫ ===== */
         .amps-header {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .amps-header .title {
@@ -372,14 +372,15 @@
             text-align: left;
         }
 
-        /* ===== ОСНОВНАЯ СЕТКА ===== */
+        /* ===== ОСНОВНАЯ СЕТКА (ПОДНЯТА ВВЕРХ) ===== */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 1rem;
             flex: 1;
             align-items: flex-start;
-            max-height: calc(100vh - 180px);
+            max-height: calc(100vh - 140px);
+            margin-top: 0.2rem;
         }
 
         /* ===== ЛЕВАЯ КОЛОНКА - КАТЕГОРИИ ===== */
@@ -393,7 +394,7 @@
 
         .category-block {
             background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(220, 90, 50, 0.15);
+            border: 2px solid rgba(220, 90, 50, 0.15);
             border-radius: 16px;
             padding: 1.5rem 1.8rem;
             cursor: pointer;
@@ -406,6 +407,26 @@
             background-size: cover;
             background-position: center;
             overflow: hidden;
+        }
+
+        /* ВЫДЕЛЕНИЕ АКТИВНОЙ КАТЕГОРИИ */
+        .category-block.active {
+            border-color: #e16d48;
+            box-shadow: 0 0 30px rgba(220, 90, 50, 0.15), inset 0 0 30px rgba(220, 90, 50, 0.05);
+            background: rgba(220, 90, 50, 0.15);
+        }
+
+        .category-block.active .bg-overlay {
+            background: rgba(220, 90, 50, 0.1);
+        }
+
+        .category-block.active .cat-name {
+            color: #ffbc9a;
+        }
+
+        .category-block.active .cat-arrow {
+            opacity: 1;
+            color: #e16d48;
         }
 
         .category-block .bg-overlay {
@@ -462,6 +483,7 @@
             font-weight: 700;
             color: #f0eef7;
             letter-spacing: 1px;
+            transition: color 0.3s ease;
         }
 
         .category-block .cat-arrow {
@@ -602,7 +624,7 @@
             border-left: 3px solid #e16d48;
         }
 
-        /* ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ (УВЕЛИЧЕННОЕ) ===== */
+        /* ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ ===== */
         .amp-detail-panel {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 14px;
@@ -699,6 +721,7 @@
             .main-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
+                max-height: calc(100vh - 150px);
             }
             .amp-detail-panel {
                 grid-column: 1 / -1;
@@ -710,6 +733,7 @@
             .main-grid {
                 grid-template-columns: 1fr;
                 gap: 0.8rem;
+                max-height: calc(100vh - 160px);
             }
             .category-list { max-width: 100%; }
             .amps-list-container { max-height: 200px; }
@@ -720,7 +744,6 @@
             .category-block .cat-name { font-size: 1.1rem; }
             .header { flex-direction: column; padding: 0.6rem 1rem; }
             .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-            .main-grid { max-height: calc(100vh - 220px); }
             .amp-detail-panel .detail-header .detail-icon { width: 48px; height: 48px; }
             .amp-detail-panel .detail-header .detail-icon img { width: 40px; height: 40px; }
             .amp-detail-panel .detail-header .detail-title-group .detail-name { font-size: 1.1rem; }
@@ -746,7 +769,7 @@
             .amp-detail-panel .detail-header .detail-icon img { width: 34px; height: 34px; }
             .amp-detail-panel .detail-header .detail-title-group .detail-name { font-size: 0.95rem; }
             .amp-detail-panel .detail-body .detail-desc { font-size: 0.75rem; }
-            .main-grid { max-height: calc(100vh - 180px); }
+            .main-grid { max-height: calc(100vh - 160px); }
             .nav-btn { padding: 0.2rem 0.4rem; font-size: 0.55rem; gap: 2px; }
             .music-toggle { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
             .music-toggle .label { font-size: 0.5rem; }
@@ -864,7 +887,7 @@
             </div>
         </div>
 
-        <!-- ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ (УВЕЛИЧЕННОЕ) ===== -->
+        <!-- ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ ===== -->
         <div class="amp-detail-panel" id="ampDetailPanel">
             <div class="empty-state" id="emptyState">
                 <i class="fas fa-hand-pointer"></i>
@@ -1146,6 +1169,11 @@
         const amps = getAmpsByCategory(category);
         itemsContainer.innerHTML = '';
 
+        // Обновляем активную категорию
+        document.querySelectorAll('.category-block').forEach(block => {
+            block.classList.toggle('active', block.dataset.category === category);
+        });
+
         amps.forEach((amp) => {
             const div = document.createElement('div');
             div.className = 'amp-item';
@@ -1200,6 +1228,11 @@
         closeDetailPanel();
         currentCategory = null;
         currentAmpId = null;
+
+        // Снимаем выделение со всех категорий
+        document.querySelectorAll('.category-block').forEach(block => {
+            block.classList.remove('active');
+        });
     }
 
     // ============ ОБРАБОТЧИКИ ============
