@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Амфы — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes smokePulse {
+            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
+            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.4);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== */
+        .music-controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .music-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .music-toggle.playing {
+            border-color: rgba(220, 90, 50, 0.3);
+            color: #e25d32;
+        }
+
+        .music-toggle .icon {
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .music-toggle .icon.pulse {
+            animation: musicPulse 1.2s ease-in-out infinite;
+        }
+
+        .music-toggle .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .volume-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.7rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .volume-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .volume-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .volume-toggle-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .volume-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .volume-dropdown.open {
+            display: block;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .volume-dropdown .volume-label {
+            font-size: 0.7rem;
+            color: #8a7a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        .volume-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .volume-slider-wrapper .vol-icon {
+            color: #7a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider-wrapper .vol-icon.active {
+            color: #e25d32;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .volume-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e25d32;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ОСНОВНАЯ СТРАНИЦА АМФ ===== */
+        .amps-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+            padding: 2rem;
+        }
+
+        /* ===== ЗАГОЛОВОК ===== */
+        .amps-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .amps-header .title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .amps-header .badge {
+            background: rgba(220, 90, 50, 0.2);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            border-radius: 30px;
+            padding: 0.2rem 1rem;
+            font-size: 0.8rem;
+            color: #e16d48;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ===== КАТЕГОРИИ ===== */
+        .category-tabs {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            border-radius: 30px;
+            padding: 0.6rem 1.8rem;
+            color: #b5a8c8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-tab:hover {
+            background: rgba(220, 90, 50, 0.1);
+            color: white;
+        }
+
+        .category-tab.active {
+            background: rgba(220, 90, 50, 0.2);
+            border-color: #e16d48;
+            color: #e16d48;
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.1);
+        }
+
+        .category-tab .count {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 0.1rem 0.6rem;
+            font-size: 0.65rem;
+            color: #888;
+        }
+
+        .category-tab.active .count {
+            color: #e16d48;
+        }
+
+        /* ===== ОСНОВНАЯ СЕТКА ===== */
+        .amps-main {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+        }
+
+        /* ===== СПИСОК АМФ ===== */
+        .amps-list {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            overflow: hidden;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .amps-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .amps-list::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .amps-list::-webkit-scrollbar-thumb {
+            background: rgba(220, 90, 50, 0.3);
+            border-radius: 10px;
+        }
+
+        .amps-list .list-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 40px;
+            padding: 0.8rem 1rem;
+            background: rgba(220, 90, 50, 0.05);
+            border-bottom: 1px solid rgba(220, 90, 50, 0.1);
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .amp-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 40px;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+        }
+
+        .amp-item:hover {
+            background: rgba(220, 90, 50, 0.05);
+        }
+
+        .amp-item.active {
+            background: rgba(220, 90, 50, 0.08);
+            border-left: 3px solid #e16d48;
+        }
+
+        .amp-item .amp-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #e16d48;
+        }
+
+        .amp-item .amp-icon img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .amp-item .amp-name {
+            font-size: 0.85rem;
+            color: #f0eef7;
+            font-weight: 500;
+        }
+
+        .amp-item .amp-level {
+            font-size: 0.7rem;
+            color: #888;
+            text-align: right;
+        }
+
+        .amp-item .amp-level .level-num {
+            color: #ffbc9a;
+            font-weight: 600;
+        }
+
+        /* ===== ИНФОРМАЦИЯ ОБ АМФЕ ===== */
+        .amp-detail {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 400px;
+        }
+
+        .amp-detail .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            color: #555;
+            text-align: center;
+        }
+
+        .amp-detail .empty-state i {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .amp-detail .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        .amp-detail-content {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .amp-detail-content.active {
+            display: flex;
+        }
+
+        .amp-detail-content .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .amp-detail-content .detail-header .detail-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            font-size: 1.6rem;
+            color: #e16d48;
+        }
+
+        .amp-detail-content .detail-header .detail-icon img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .amp-detail-content .detail-header .detail-title-group {
+            flex: 1;
+        }
+
+        .amp-detail-content .detail-header .detail-title-group .detail-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f0eef7;
+        }
+
+        .amp-detail-content .detail-header .detail-title-group .detail-category {
+            font-size: 0.7rem;
+            color: #e16d48;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .amp-detail-content .detail-body {
+            flex: 1;
+        }
+
+        .amp-detail-content .detail-body .detail-desc {
+            color: #c2b9d4;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .amp-detail-content .detail-body .detail-effect {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            border-left: 3px solid #e16d48;
+            margin-bottom: 1rem;
+        }
+
+        .amp-detail-content .detail-body .detail-effect .effect-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .amp-detail-content .detail-body .detail-effect .effect-text {
+            color: #ffbc9a;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        .amp-detail-content .detail-body .detail-invasion {
+            background: rgba(255, 50, 50, 0.05);
+            border: 1px solid rgba(255, 50, 50, 0.15);
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-size: 0.8rem;
+            color: #ff6666;
+        }
+
+        .amp-detail-content .detail-body .detail-invasion i {
+            margin-right: 8px;
+        }
+
+        .amp-detail-content .detail-footer {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .amp-detail-content .detail-footer .purchase-btn {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .amp-detail-content .detail-footer .purchase-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
+        }
+
+        /* ===== LISTEN КНОПКА ===== */
+        .listen-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 2rem;
+            color: #e16d48;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            background: rgba(220, 90, 50, 0.1);
+            border: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .listen-btn:hover {
+            color: #ffbc9a;
+            background: rgba(220, 90, 50, 0.2);
+        }
+
+        .listen-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        .footer-logo {
+            max-height: 32px;
+            width: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .amps-main {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .amps-list {
+                max-height: 350px;
+            }
+
+            .amp-detail {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo .logo-img { max-height: 40px; }
+            .logo .logo-text { font-size: 1.1rem; }
+            .amps-wrapper { padding: 1.2rem; }
+            .amps-header .title { font-size: 1.5rem; }
+            .category-tabs { gap: 0.5rem; }
+            .category-tab { padding: 0.4rem 1rem; font-size: 0.75rem; }
+            .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+            .music-toggle .label { font-size: 0.6rem; }
+            .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+            .volume-dropdown { right: auto; left: 50%; transform: translateX(-50%); }
+            .volume-dropdown.open { transform: translateX(-50%) scale(1); }
+            .volume-slider { width: 100px; }
+            .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .amps-header .title { font-size: 1.2rem; }
+            .amps-header .badge { font-size: 0.65rem; padding: 0.1rem 0.6rem; }
+            .category-tab { font-size: 0.65rem; padding: 0.3rem 0.7rem; }
+            .amp-item { padding: 0.5rem 0.6rem; }
+            .amp-item .amp-name { font-size: 0.75rem; }
+            .amp-item .amp-icon { width: 30px; height: 30px; font-size: 0.8rem; }
+            .amp-item .amp-icon img { width: 24px; height: 24px; }
+            .amp-detail { padding: 1rem; min-height: 200px; }
+            .amp-detail-content .detail-header .detail-name { font-size: 1.1rem; }
+            .amp-detail-content .detail-header .detail-icon { width: 44px; height: 44px; font-size: 1.2rem; }
+            .amp-detail-content .detail-header .detail-icon img { width: 34px; height: 34px; }
+            .amp-detail-content .detail-body .detail-desc { font-size: 0.85rem; }
+            .amps-list .list-header { font-size: 0.6rem; padding: 0.5rem 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<img class="background-image" src="../images/amps-background.png" alt="Фон" onerror="this.style.display='none'">
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+
+            <div class="music-controls-wrapper">
+                <div class="music-controls">
+                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                        <span class="icon fa-solid fa-volume-xmark"></span>
+                        <span class="label">Выкл</span>
+                    </button>
+                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
+                        <span class="arrow">▼</span>
+                    </div>
+                </div>
+                <div class="volume-dropdown" id="volumeDropdown">
+                    <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
+                    <div class="volume-slider-wrapper">
+                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
+                        <span class="volume-value" id="volumeValue">40%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
+    </div>
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="amps-wrapper">
+        <!-- ЗАГОЛОВОК -->
+        <div class="amps-header">
+            <span class="title">AMPS</span>
+            <span class="badge"><i class="fas fa-star"></i> Fanats of CVETLAHA • 48</span>
+        </div>
+
+        <!-- КАТЕГОРИИ -->
+        <div class="category-tabs" id="categoryTabs">
+            <button class="category-tab active" data-category="tool">
+                TOOL <span class="count">2/9</span>
+            </button>
+            <button class="category-tab" data-category="skill">
+                SKILL <span class="count">2/9</span>
+            </button>
+            <button class="category-tab" data-category="medicine">
+                MEDICINE <span class="count">2/9</span>
+            </button>
+            <button class="category-tab" data-category="imposter">
+                IMPOSTER GADGETS <span class="count">4/6</span>
+            </button>
+        </div>
+
+        <!-- ОСНОВНАЯ СЕТКА -->
+        <div class="amps-main">
+            <!-- СПИСОК АМФ -->
+            <div class="amps-list" id="ampsList">
+                <div class="list-header">
+                    <span></span>
+                    <span>Название</span>
+                    <span>Уровень</span>
+                </div>
+                <div id="ampsItems">
+                    <!-- Амфы будут сгенерированы через JS -->
+                </div>
+            </div>
+
+            <!-- ИНФОРМАЦИЯ ОБ АМФЕ -->
+            <div class="amp-detail" id="ampDetail">
+                <div class="empty-state" id="emptyState">
+                    <i class="fas fa-hand-pointer"></i>
+                    <p>Выберите амфу, чтобы увидеть информацию</p>
+                </div>
+                <div class="amp-detail-content" id="detailContent">
+                    <div class="detail-header">
+                        <div class="detail-icon" id="detailIcon">
+                            <i class="fas fa-capsules"></i>
+                        </div>
+                        <div class="detail-title-group">
+                            <div class="detail-name" id="detailName">Название амфы</div>
+                            <div class="detail-category" id="detailCategory">Категория</div>
+                        </div>
+                    </div>
+                    <div class="detail-body">
+                        <div class="detail-desc" id="detailDesc">Описание амфы</div>
+                        <div class="detail-effect" id="detailEffect">
+                            <div class="effect-label">Эффект</div>
+                            <div class="effect-text" id="detailEffectText">Эффект амфы</div>
+                        </div>
+                        <div class="detail-invasion" id="detailInvasion">
+                            <i class="fas fa-skull"></i> <span id="detailInvasionText">Информация о вторжении</span>
+                        </div>
+                    </div>
+                    <div class="detail-footer">
+                        <button class="purchase-btn" id="purchaseBtn">PURCHASE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTEN КНОПКА -->
+        <a href="#" class="listen-btn"><i class="fas fa-headphones"></i> LISTEN <i class="fas fa-chevron-right"></i></a>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <img src="../images/лого.png" alt="Курилка Синьялы" class="footer-logo" onerror="this.style.display='none'">
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== АУДИО ===== -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio1" preload="auto"><source src="../images/комната отдыха 1.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
+</div>
+
+<script>
+    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
+    let mainAudioStarted = false;
+    let currentTrackIndex = 0;
+    let mainAudioFiles = [];
+    let currentAudioElement = null;
+    let volumeDropdownOpen = false;
+
+    function initMainAudio() {
+        const container = document.getElementById('mainAudioContainer');
+        if (!container) return;
+        mainAudioFiles = [];
+        const audioElements = container.querySelectorAll('audio');
+        audioElements.forEach(audio => { mainAudioFiles.push(audio); });
+    }
+
+    function playNextMainTrack() {
+        if (!mainAudioStarted) return;
+        if (currentAudioElement) {
+            currentAudioElement.pause();
+            currentAudioElement.currentTime = 0;
+        }
+        currentTrackIndex = (currentTrackIndex + 1) % mainAudioFiles.length;
+        const audio = mainAudioFiles[currentTrackIndex];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+    }
+
+    function startMainMusic() {
+        if (mainAudioStarted) return;
+        initMainAudio();
+        if (mainAudioFiles.length === 0) {
+            setTimeout(startMainMusic, 500);
+            return;
+        }
+        mainAudioStarted = true;
+        currentTrackIndex = 0;
+        const audio = mainAudioFiles[0];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+        updateMusicButton(true);
+    }
+
+    function updateMusicButton(state) {
+        const btn = document.getElementById('musicToggleBtn');
+        if (!btn) return;
+        const icon = btn.querySelector('.icon');
+        const label = btn.querySelector('.label');
+        if (state) {
+            btn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high', 'pulse');
+            }
+            if (label) label.textContent = 'Вкл';
+        } else {
+            btn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-high', 'pulse');
+                icon.classList.add('fa-volume-xmark');
+            }
+            if (label) label.textContent = 'Выкл';
+        }
+    }
+
+    function toggleMainMusic() {
+        if (mainAudioStarted) {
+            mainAudioStarted = false;
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+            }
+            mainAudioFiles.forEach(a => { a.pause(); a.currentTime = 0; });
+            updateMusicButton(false);
+        } else {
+            startMainMusic();
+        }
+    }
+
+    function toggleVolumeDropdown() {
+        volumeDropdownOpen = !volumeDropdownOpen;
+        const dropdown = document.getElementById('volumeDropdown');
+        const arrow = document.querySelector('.volume-toggle-btn .arrow');
+        if (volumeDropdownOpen) {
+            dropdown.classList.add('open');
+            arrow.classList.add('open');
+        } else {
+            dropdown.classList.remove('open');
+            arrow.classList.remove('open');
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        const wrapper = document.querySelector('.music-controls-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            const dropdown = document.getElementById('volumeDropdown');
+            const arrow = document.querySelector('.volume-toggle-btn .arrow');
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            volumeDropdownOpen = false;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('volumeSlider');
+        const valueDisplay = document.getElementById('volumeValue');
+        slider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            valueDisplay.textContent = val + '%';
+            if (currentAudioElement && mainAudioStarted) {
+                currentAudioElement.volume = val / 100;
+            }
+            const percent = val;
+            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
+        });
+        const initialVal = parseInt(slider.value);
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
+        valueDisplay.textContent = initialVal + '%';
+        setTimeout(startMainMusic, 1000);
+    });
+
+    document.addEventListener('click', function initAudioOnClick() {
+        if (!mainAudioStarted) {
+            startMainMusic();
+            document.removeEventListener('click', initAudioOnClick);
+        }
+    }, { once: true });
+
+    window.toggleMainMusic = toggleMainMusic;
+    window.toggleVolumeDropdown = toggleVolumeDropdown;
+
+    // ============ ДАННЫЕ АМФ ============
+    const ampsData = {
+        tool: [
+            {
+                id: 1,
+                name: 'Slippers',
+                category: 'TOOL',
+                icon: 'fa-shoe-prints',
+                image: '../images/amps/slippers.png',
+                description: 'You can walk on broken glass without making any noise.',
+                effect: 'Walking on broken glass does not alert enemies.',
+                invasion: 'Walking on broken glass won\'t alert Imposters.',
+                level: 1,
+                maxLevel: 9
+            },
+            {
+                id: 2,
+                name: 'Short Circuit',
+                category: 'TOOL',
+                icon: 'fa-bolt',
+                image: '../images/amps/short-circuit.png',
+                description: 'Rigs recharge faster when in close proximity to other Reagents.',
+                effect: 'Rig recharge speed increased by 30% when near allies.',
+                invasion: 'No effect on Invaders.',
+                level: 2,
+                maxLevel: 9
+            },
+            {
+                id: 3,
+                name: 'Quick Hands',
+                category: 'TOOL',
+                icon: 'fa-hand',
+                image: '../images/amps/quick-hands.png',
+                description: 'Interact with objects and perform actions faster.',
+                effect: 'Action speed increased by 25%.',
+                invasion: 'No effect on Invaders.',
+                level: 1,
+                maxLevel: 9
+            },
+            {
+                id: 4,
+                name: 'Scout',
+                category: 'TOOL',
+                icon: 'fa-eye',
+                image: '../images/amps/scout.png',
+                description: 'See enemy locations through walls when crouching.',
+                effect: 'Enemies are highlighted within 15 meters.',
+                invasion: 'Invaders are also highlighted.',
+                level: 3,
+                maxLevel: 9
+            }
+        ],
+        skill: [
+            {
+                id: 5,
+                name: 'Adrenaline Rush',
+                category: 'SKILL',
+                icon: 'fa-running',
+                image: '../images/amps/adrenaline.png',
+                description: 'Gain a speed boost after taking damage.',
+                effect: 'Move 30% faster for 5 seconds after taking damage.',
+                invasion: 'No effect on Invaders.',
+                level: 2,
+                maxLevel: 9
+            },
+            {
+                id: 6,
+                name: 'Iron Will',
+                category: 'SKILL',
+                icon: 'fa-shield-alt',
+                image: '../images/amps/iron-will.png',
+                description: 'Resist fear and psychosis effects.',
+                effect: 'Psychosis duration reduced by 40%.',
+                invasion: 'No effect on Invaders.',
+                level: 1,
+                maxLevel: 9
+            },
+            {
+                id: 7,
+                name: 'Stealthy',
+                category: 'SKILL',
+                icon: 'fa-user-secret',
+                image: '../images/amps/stealthy.png',
+                description: 'Move silently while crouched.',
+                effect: 'Footstep noise reduced by 80%.',
+                invasion: 'No effect on Invaders.',
+                level: 2,
+                maxLevel: 9
+            },
+            {
+                id: 8,
+                name: 'Last Stand',
+                category: 'SKILL',
+                icon: 'fa-fist-raised',
+                image: '../images/amps/last-stand.png',
+                description: 'Increased damage when low on health.',
+                effect: '50% more damage when below 20% health.',
+                invasion: 'No effect on Invaders.',
+                level: 3,
+                maxLevel: 9
+            }
+        ],
+        medicine: [
+            {
+                id: 9,
+                name: 'Healing Touch',
+                category: 'MEDICINE',
+                icon: 'fa-heart',
+                image: '../images/amps/healing-touch.png',
+                description: 'Heal allies when reviving them.',
+                effect: 'Revived allies gain 40% health.',
+                invasion: 'No effect on Invaders.',
+                level: 2,
+                maxLevel: 9
+            },
+            {
+                id: 10,
+                name: 'Pain Tolerance',
+                category: 'MEDICINE',
+                icon: 'fa-shield-heart',
+                image: '../images/amps/pain-tolerance.png',
+                description: 'Take reduced damage from enemies.',
+                effect: 'All damage reduced by 15%.',
+                invasion: 'No effect on Invaders.',
+                level: 1,
+                maxLevel: 9
+            },
+            {
+                id: 11,
+                name: 'Field Medic',
+                category: 'MEDICINE',
+                icon: 'fa-briefcase-medical',
+                image: '../images/amps/field-medic.png',
+                description: 'Use medical items more efficiently.',
+                effect: 'Medical items restore 30% more health.',
+                invasion: 'No effect on Invaders.',
+                level: 2,
+                maxLevel: 9
+            }
+        ],
+        imposter: [
+            {
+                id: 12,
+                name: 'Imposter Sight',
+                category: 'IMPOSTER GADGETS',
+                icon: 'fa-mask',
+                image: '../images/amps/imposter-sight.png',
+                description: 'Detect Imposters from farther away.',
+                effect: 'Imposter detection range increased by 50%.',
+                invasion: 'Reveals Invaders on the map.',
+                level: 3,
+                maxLevel: 6
+            },
+            {
+                id: 13,
+                name: 'Disguise Expert',
+                category: 'IMPOSTER GADGETS',
+                icon: 'fa-cloak',
+                image: '../images/amps/disguise-expert.png',
+                description: 'Mimic enemy behavior more convincingly.',
+                effect: 'Reduces suspicion meter build-up.',
+                invasion: 'Harder to detect as an Invader.',
+                level: 2,
+                maxLevel: 6
+            },
+            {
+                id: 14,
+                name: 'Sabotage',
+                category: 'IMPOSTER GADGETS',
+                icon: 'fa-wrench',
+                image: '../images/amps/sabotage.png',
+                description: 'Disable nearby traps and devices.',
+                effect: 'Traps are disabled for 15 seconds.',
+                invasion: 'Affects Invader traps.',
+                level: 4,
+                maxLevel: 6
+            },
+            {
+                id: 15,
+                name: 'Fake Death',
+                category: 'IMPOSTER GADGETS',
+                icon: 'fa-skull',
+                image: '../images/amps/fake-death.png',
+                description: 'Play dead to fool enemies.',
+                effect: 'Enemies ignore you for 10 seconds.',
+                invasion: 'Works on Invaders.',
+                level: 1,
+                maxLevel: 6
+            }
+        ]
+    };
+
+    // ============ СОСТОЯНИЕ ============
+    let currentCategory = 'tool';
+    let selectedAmpId = null;
+
+    // ============ РЕНДЕРИНГ ============
+    function renderCategory(category) {
+        currentCategory = category;
+        const amps = ampsData[category] || [];
+
+        // Обновляем активную вкладку
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.category === category);
+        });
+
+        // Рендерим список
+        const container = document.getElementById('ampsItems');
+        container.innerHTML = '';
+
+        amps.forEach((amp, index) => {
+            const div = document.createElement('div');
+            div.className = 'amp-item' + (selectedAmpId === amp.id ? ' active' : '');
+            div.dataset.id = amp.id;
+
+            // Иконка
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'amp-icon';
+            if (amp.image) {
+                iconDiv.innerHTML = `<img src="${amp.image}" alt="${amp.name}" onerror="this.innerHTML='<i class=\\'fas ${amp.icon}\\'></i>'">`;
+            } else {
+                iconDiv.innerHTML = `<i class="fas ${amp.icon}"></i>`;
+            }
+
+            // Название
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'amp-name';
+            nameDiv.textContent = amp.name;
+
+            // Уровень
+            const levelDiv = document.createElement('div');
+            levelDiv.className = 'amp-level';
+            levelDiv.innerHTML = `<span class="level-num">${amp.level}</span>/${amp.maxLevel}`;
+
+            div.appendChild(iconDiv);
+            div.appendChild(nameDiv);
+            div.appendChild(levelDiv);
+
+            div.addEventListener('click', () => selectAmp(amp.id));
+
+            container.appendChild(div);
+        });
+
+        // Если выбранной амфы нет в текущей категории, сбрасываем выбор
+        if (selectedAmpId) {
+            const found = amps.some(a => a.id === selectedAmpId);
+            if (!found) {
+                selectedAmpId = null;
+                showEmptyState();
+            } else {
+                const amp = amps.find(a => a.id === selectedAmpId);
+                if (amp) showAmpDetail(amp);
+            }
+        } else if (amps.length > 0) {
+            // Автовыбор первой амфы
+            selectedAmpId = amps[0].id;
+            showAmpDetail(amps[0]);
+            updateActiveItem();
+        } else {
+            showEmptyState();
+        }
+    }
+
+    function selectAmp(id) {
+        selectedAmpId = id;
+        const category = currentCategory;
+        const amps = ampsData[category] || [];
+        const amp = amps.find(a => a.id === id);
+
+        if (amp) {
+            showAmpDetail(amp);
+            updateActiveItem();
+        }
+    }
+
+    function showAmpDetail(amp) {
+        document.getElementById('emptyState').style.display = 'none';
+        const content = document.getElementById('detailContent');
+        content.classList.add('active');
+
+        // Иконка
+        const iconContainer = document.getElementById('detailIcon');
+        if (amp.image) {
+            iconContainer.innerHTML = `<img src="${amp.image}" alt="${amp.name}" onerror="this.innerHTML='<i class=\\'fas ${amp.icon}\\'></i>'">`;
+        } else {
+            iconContainer.innerHTML = `<i class="fas ${amp.icon}"></i>`;
+        }
+
+        document.getElementById('detailName').textContent = amp.name;
+        document.getElementById('detailCategory').textContent = amp.category;
+        document.getElementById('detailDesc').textContent = amp.description;
+        document.getElementById('detailEffectText').textContent = amp.effect;
+        document.getElementById('detailInvasionText').textContent = amp.invasion;
+    }
+
+    function showEmptyState() {
+        document.getElementById('emptyState').style.display = 'flex';
+        document.getElementById('detailContent').classList.remove('active');
+    }
+
+    function updateActiveItem() {
+        document.querySelectorAll('.amp-item').forEach(item => {
+            item.classList.toggle('active', parseInt(item.dataset.id) === selectedAmpId);
+        });
+    }
+
+    // ============ ОБРАБОТЧИКИ ============
+    document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const category = this.dataset.category;
+            renderCategory(category);
+        });
+    });
+
+    // ============ ИНИЦИАЛИЗАЦИЯ ============
+    document.addEventListener('DOMContentLoaded', function() {
+        // Устанавливаем начальную категорию
+        renderCategory('tool');
+
+        // Плавное появление
+        document.querySelectorAll('.amps-wrapper').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    });
+</script>
+
+</body>
+</html>
