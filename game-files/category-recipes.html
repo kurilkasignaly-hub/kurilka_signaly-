@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Рецепты — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 1.2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+            flex-shrink: 0;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.4);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== */
+        .music-controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .music-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .music-toggle.playing {
+            border-color: rgba(220, 90, 50, 0.3);
+            color: #e25d32;
+        }
+
+        .music-toggle .icon {
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .music-toggle .icon.pulse {
+            animation: musicPulse 1.2s ease-in-out infinite;
+        }
+
+        .music-toggle .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .volume-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.7rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .volume-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .volume-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .volume-toggle-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .volume-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .volume-dropdown.open {
+            display: block;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .volume-dropdown .volume-label {
+            font-size: 0.7rem;
+            color: #8a7a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        .volume-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .volume-slider-wrapper .vol-icon {
+            color: #7a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider-wrapper .vol-icon.active {
+            color: #e25d32;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .volume-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e25d32;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 0.5rem;
+            animation: fadeInScale 0.6s ease-out;
+            flex-shrink: 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ЗАГОЛОВОК ===== */
+        .recipes-header {
+            margin-bottom: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .recipes-header .title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+            text-shadow: 0 0 60px rgba(220, 90, 50, 0.1);
+            text-align: left;
+        }
+
+        /* ===== ОСНОВНАЯ СЕТКА ===== */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            flex: 1;
+            min-height: 0;
+            margin-top: 0;
+        }
+
+        /* ===== ЛЕВАЯ КОЛОНКА - УРОВНИ ===== */
+        .level-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .level-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(220, 90, 50, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80px;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .level-block.active {
+            border-color: #e16d48;
+            box-shadow: 0 0 30px rgba(220, 90, 50, 0.15), inset 0 0 30px rgba(220, 90, 50, 0.05);
+            background: rgba(220, 90, 50, 0.15);
+        }
+
+        .level-block.active .bg-overlay {
+            background: rgba(220, 90, 50, 0.1);
+        }
+
+        .level-block.active .level-name {
+            color: #ffbc9a;
+        }
+
+        .level-block.active .level-arrow {
+            opacity: 1;
+            color: #e16d48;
+        }
+
+        .level-block .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 16px;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+
+        .level-block:hover .bg-overlay {
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .level-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(220, 90, 50, 0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 16px;
+            z-index: 2;
+        }
+
+        .level-block:hover::before {
+            opacity: 1;
+        }
+
+        .level-block:hover {
+            border-color: rgba(220, 90, 50, 0.4);
+            transform: translateX(4px);
+            box-shadow: 0 8px 30px rgba(220, 90, 50, 0.15);
+        }
+
+        .level-block .level-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .level-block .level-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .level-block .level-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f0eef7;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .level-block .level-sub {
+            font-size: 0.7rem;
+            color: #7a6a8a;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .level-block .level-arrow {
+            color: #888;
+            font-size: 1.1rem;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .level-block:hover .level-arrow {
+            opacity: 1;
+            color: #e16d48;
+            transform: translateX(4px);
+        }
+
+        /* ===== ФОНОВЫЕ ИЗОБРАЖЕНИЯ ДЛЯ УРОВНЕЙ ===== */
+        .level-block.bg-level1 { background-image: url('../images/recipes/уровень1-фон.webp'); }
+        .level-block.bg-level2 { background-image: url('../images/recipes/уровень2-фон.webp'); }
+        .level-block.bg-level3 { background-image: url('../images/recipes/уровень3-фон.webp'); }
+        .level-block.bg-invasion { background-image: url('../images/recipes/вторжение-фон.webp'); }
+
+        /* ===== СРЕДНЯЯ КОЛОНКА - СПИСОК РЕЦЕПТОВ ===== */
+        .recipes-list-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 14px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            padding: 0;
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            min-height: 0;
+            height: 100%;
+        }
+
+        .recipes-list-container.active {
+            display: flex;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .recipes-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.1);
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 14px 14px 0 0;
+        }
+
+        .recipes-list-header .list-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            letter-spacing: 1px;
+        }
+
+        .recipes-list-header .list-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0.1rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .recipes-list-header .list-close:hover {
+            color: #e16d48;
+            background: rgba(220, 90, 50, 0.1);
+        }
+
+        #recipesItems {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.3rem 0;
+        }
+
+        #recipesItems::-webkit-scrollbar { width: 5px; }
+        #recipesItems::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+        #recipesItems::-webkit-scrollbar-thumb { background: rgba(220, 90, 50, 0.3); border-radius: 10px; }
+
+        .recipe-item {
+            display: grid;
+            grid-template-columns: 60px 1fr 44px;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recipe-item:hover {
+            background: rgba(220, 90, 50, 0.06);
+        }
+
+        .recipe-item .recipe-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .recipe-item .recipe-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .recipe-item .recipe-name {
+            font-size: 1.15rem;
+            color: #f0eef7;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .recipe-item .recipe-detail-btn {
+            color: #666;
+            font-size: 1.1rem;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .recipe-item:hover .recipe-detail-btn {
+            opacity: 0.9;
+            color: #e16d48;
+        }
+
+        .recipe-item .recipe-detail-btn:hover {
+            opacity: 1;
+            color: #e16d48;
+            transform: scale(1.15);
+            background: rgba(220, 90, 50, 0.08);
+        }
+
+        .recipe-item.active {
+            background: rgba(220, 90, 50, 0.08);
+            border-left: 3px solid #e16d48;
+        }
+
+        /* ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ ===== */
+        .recipe-detail-panel {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 14px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+            padding: 1.2rem 1.5rem;
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            align-self: flex-start;
+        }
+
+        .recipe-detail-panel.active {
+            display: flex;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .recipe-detail-panel .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            color: #444;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .recipe-detail-panel .empty-state i {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-detail-panel .empty-state p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .recipe-detail-panel .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .recipe-detail-panel .detail-header .detail-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .recipe-detail-panel .detail-header .detail-icon img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .recipe-detail-panel .detail-header .detail-title-group {
+            flex: 1;
+        }
+
+        .recipe-detail-panel .detail-header .detail-title-group .detail-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f0eef7;
+        }
+
+        .recipe-detail-panel .detail-header .detail-title-group .detail-category {
+            font-size: 0.7rem;
+            color: #e16d48;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .recipe-detail-panel .detail-body .detail-desc {
+            color: #c2b9d4;
+            font-size: 1rem;
+            line-height: 1.7;
+            padding: 0.2rem 0;
+            white-space: pre-wrap;
+        }
+
+        .recipe-detail-panel .detail-body .detail-desc .invasion-highlight {
+            color: #e25d32;
+            font-weight: 700;
+            display: block;
+            margin-top: 0.2rem;
+            padding-left: 0.5rem;
+        }
+
+        .recipe-detail-panel .detail-body .detail-desc .invasion-highlight::before {
+            content: "▸ ";
+            color: #e25d32;
+        }
+
+        .recipe-detail-panel .detail-footer {
+            display: none;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .recipe-detail-panel {
+                grid-column: 1 / -1;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .level-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+            }
+            .level-block {
+                flex: 1;
+                min-width: 140px;
+                padding: 0.8rem 1.2rem;
+                min-height: 60px;
+            }
+            .level-block .level-name {
+                font-size: 1rem;
+            }
+            .level-block .level-sub {
+                font-size: 0.6rem;
+            }
+            .container { padding: 0.8rem 1rem; }
+            .recipes-header .title { font-size: 2rem; }
+            .header { flex-direction: column; padding: 0.6rem 1rem; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+            .recipe-item { grid-template-columns: 50px 1fr 38px; padding: 0.6rem 0.8rem; }
+            .recipe-item .recipe-icon { width: 46px; height: 46px; }
+            .recipe-item .recipe-icon img { width: 38px; height: 38px; }
+            .recipe-item .recipe-name { font-size: 1rem; }
+            .recipes-list-container { height: 200px; min-height: 150px; }
+            .recipe-detail-panel { padding: 1rem; }
+            .recipe-detail-panel .detail-header .detail-icon { width: 50px; height: 50px; }
+            .recipe-detail-panel .detail-header .detail-icon img { width: 42px; height: 42px; }
+            .recipe-detail-panel .detail-header .detail-title-group .detail-name { font-size: 1.1rem; }
+            .recipe-detail-panel .detail-body .detail-desc { font-size: 0.9rem; }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 0.5rem 0.6rem; }
+            .recipes-header .title { font-size: 1.4rem; letter-spacing: 1px; }
+            .recipes-header { margin-bottom: 0.3rem; }
+            .level-list { gap: 0.4rem; }
+            .level-block { 
+                padding: 0.5rem 0.8rem; 
+                min-height: 44px; 
+                border-radius: 12px; 
+                min-width: 80px;
+            }
+            .level-block .level-name {
+                font-size: 0.75rem;
+            }
+            .level-block .level-sub {
+                font-size: 0.5rem;
+            }
+            .level-block .level-arrow { 
+                font-size: 0.7rem; 
+                margin-left: 0.5rem;
+            }
+            .recipe-item { padding: 0.5rem 0.6rem; grid-template-columns: 40px 1fr 32px; gap: 0.3rem; }
+            .recipe-item .recipe-icon { width: 38px; height: 38px; }
+            .recipe-item .recipe-icon img { width: 32px; height: 32px; }
+            .recipe-item .recipe-name { font-size: 0.85rem; }
+            .recipes-list-header { padding: 0.4rem 0.6rem; }
+            .recipes-list-header .list-title { font-size: 0.9rem; }
+            .recipes-list-header .list-close { font-size: 1.2rem; }
+            .recipe-detail-panel { padding: 0.6rem 0.8rem; }
+            .recipe-detail-panel .detail-header .detail-icon { width: 42px; height: 42px; }
+            .recipe-detail-panel .detail-header .detail-icon img { width: 36px; height: 36px; }
+            .recipe-detail-panel .detail-header .detail-title-group .detail-name { font-size: 0.95rem; }
+            .recipe-detail-panel .detail-body .detail-desc { font-size: 0.8rem; line-height: 1.5; }
+            .recipe-detail-panel .empty-state i { font-size: 2rem; }
+            .recipe-detail-panel .empty-state p { font-size: 0.75rem; }
+            .nav-btn { padding: 0.2rem 0.4rem; font-size: 0.55rem; gap: 2px; }
+            .music-toggle { font-size: 0.55rem; padding: 0.2rem 0.4rem; }
+            .music-toggle .label { font-size: 0.45rem; }
+            .volume-toggle-btn { font-size: 0.55rem; padding: 0.2rem 0.4rem; }
+            .logo .logo-img { max-height: 28px; }
+            .logo .logo-text { font-size: 0.8rem; }
+            .back-link { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
+            .breadcrumb { margin-bottom: 0.3rem; }
+            .header { margin-bottom: 0.5rem; padding: 0.4rem 0.6rem; border-radius: 40px; }
+            .recipes-list-container { height: 140px; min-height: 100px; }
+            .main-grid { gap: 0.4rem; }
+            .recipe-item .recipe-detail-btn { font-size: 0.9rem; padding: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+<img class="background-image" src="../images/рецепты-фон.webp" alt="Фон" onerror="this.style.display='none'">
+
+<div class="overlay"></div>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+
+            <div class="music-controls-wrapper">
+                <div class="music-controls">
+                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                        <span class="icon fa-solid fa-volume-xmark"></span>
+                        <span class="label">Выкл</span>
+                    </button>
+                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
+                        <span class="arrow">▼</span>
+                    </div>
+                </div>
+                <div class="volume-dropdown" id="volumeDropdown">
+                    <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
+                    <div class="volume-slider-wrapper">
+                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
+                        <span class="volume-value" id="volumeValue">40%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
+    </div>
+
+    <!-- ===== ЗАГОЛОВОК ===== -->
+    <div class="recipes-header">
+        <span class="title">РЕЦЕПТЫ</span>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ СЕТКА ===== -->
+    <div class="main-grid">
+        <!-- ===== ЛЕВАЯ КОЛОНКА - УРОВНИ ===== -->
+        <div class="level-list">
+            <div class="level-block bg-level1" data-level="Уровень 1">
+                <div class="bg-overlay"></div>
+                <div class="level-content">
+                    <div class="level-info">
+                        <span class="level-name">УРОВЕНЬ 1</span>
+                        <span class="level-sub">Рецепты реагентов</span>
+                    </div>
+                    <span class="level-arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+            </div>
+
+            <div class="level-block bg-level2" data-level="Уровень 2">
+                <div class="bg-overlay"></div>
+                <div class="level-content">
+                    <div class="level-info">
+                        <span class="level-name">УРОВЕНЬ 2</span>
+                        <span class="level-sub">Рецепты реагентов</span>
+                    </div>
+                    <span class="level-arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+            </div>
+
+            <div class="level-block bg-level3" data-level="Уровень 3">
+                <div class="bg-overlay"></div>
+                <div class="level-content">
+                    <div class="level-info">
+                        <span class="level-name">УРОВЕНЬ 3</span>
+                        <span class="level-sub">Рецепты реагентов</span>
+                    </div>
+                    <span class="level-arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+            </div>
+
+            <div class="level-block bg-invasion" data-level="Вторжение">
+                <div class="bg-overlay"></div>
+                <div class="level-content">
+                    <div class="level-info">
+                        <span class="level-name">ВТОРЖЕНИЕ</span>
+                        <span class="level-sub">Лекарства самозванца</span>
+                    </div>
+                    <span class="level-arrow"><i class="fas fa-chevron-right"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== СРЕДНЯЯ КОЛОНКА - СПИСОК РЕЦЕПТОВ ===== -->
+        <div class="recipes-list-container" id="recipesListContainer">
+            <div class="recipes-list-header">
+                <span class="list-title" id="listTitle">УРОВЕНЬ 1</span>
+                <button class="list-close" id="closeListBtn">&times;</button>
+            </div>
+            <div id="recipesItems">
+                <!-- Рецепты генерируются через JS -->
+            </div>
+        </div>
+
+        <!-- ===== ПРАВАЯ КОЛОНКА - ОПИСАНИЕ ===== -->
+        <div class="recipe-detail-panel" id="recipeDetailPanel">
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-hand-pointer"></i>
+                <p>Нажмите на стрелку у рецепта<br>чтобы увидеть информацию</p>
+            </div>
+            <div class="detail-content" id="detailContent" style="display:none;">
+                <div class="detail-header">
+                    <div class="detail-icon" id="detailIcon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="detail-title-group">
+                        <div class="detail-name" id="detailName">Название рецепта</div>
+                        <div class="detail-category" id="detailCategory">Уровень 1</div>
+                    </div>
+                </div>
+                <div class="detail-body">
+                    <div class="detail-desc" id="detailDesc">Описание рецепта</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
+    let mainAudioStarted = false;
+    let currentTrackIndex = 0;
+    let mainAudioFiles = [];
+    let currentAudioElement = null;
+    let volumeDropdownOpen = false;
+
+    function initMainAudio() {
+        const container = document.getElementById('mainAudioContainer');
+        if (!container) return;
+        mainAudioFiles = [];
+        const audioElements = container.querySelectorAll('audio');
+        audioElements.forEach(audio => { mainAudioFiles.push(audio); });
+    }
+
+    function playNextMainTrack() {
+        if (!mainAudioStarted) return;
+        if (currentAudioElement) {
+            currentAudioElement.pause();
+            currentAudioElement.currentTime = 0;
+        }
+        currentTrackIndex = (currentTrackIndex + 1) % mainAudioFiles.length;
+        const audio = mainAudioFiles[currentTrackIndex];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+    }
+
+    function startMainMusic() {
+        if (mainAudioStarted) return;
+        initMainAudio();
+        if (mainAudioFiles.length === 0) {
+            setTimeout(startMainMusic, 500);
+            return;
+        }
+        mainAudioStarted = true;
+        currentTrackIndex = 0;
+        const audio = mainAudioFiles[0];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+        updateMusicButton(true);
+    }
+
+    function updateMusicButton(state) {
+        const btn = document.getElementById('musicToggleBtn');
+        if (!btn) return;
+        const icon = btn.querySelector('.icon');
+        const label = btn.querySelector('.label');
+        if (state) {
+            btn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high', 'pulse');
+            }
+            if (label) label.textContent = 'Вкл';
+        } else {
+            btn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-high', 'pulse');
+                icon.classList.add('fa-volume-xmark');
+            }
+            if (label) label.textContent = 'Выкл';
+        }
+    }
+
+    function toggleMainMusic() {
+        if (mainAudioStarted) {
+            mainAudioStarted = false;
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+            }
+            mainAudioFiles.forEach(a => { a.pause(); a.currentTime = 0; });
+            updateMusicButton(false);
+        } else {
+            startMainMusic();
+        }
+    }
+
+    function toggleVolumeDropdown() {
+        volumeDropdownOpen = !volumeDropdownOpen;
+        const dropdown = document.getElementById('volumeDropdown');
+        const arrow = document.querySelector('.volume-toggle-btn .arrow');
+        if (volumeDropdownOpen) {
+            dropdown.classList.add('open');
+            arrow.classList.add('open');
+        } else {
+            dropdown.classList.remove('open');
+            arrow.classList.remove('open');
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        const wrapper = document.querySelector('.music-controls-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            const dropdown = document.getElementById('volumeDropdown');
+            const arrow = document.querySelector('.volume-toggle-btn .arrow');
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            volumeDropdownOpen = false;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('volumeSlider');
+        const valueDisplay = document.getElementById('volumeValue');
+        slider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            valueDisplay.textContent = val + '%';
+            if (currentAudioElement && mainAudioStarted) {
+                currentAudioElement.volume = val / 100;
+            }
+            const percent = val;
+            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
+        });
+        const initialVal = parseInt(slider.value);
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
+        valueDisplay.textContent = initialVal + '%';
+        setTimeout(startMainMusic, 1000);
+    });
+
+    document.addEventListener('click', function initAudioOnClick() {
+        if (!mainAudioStarted) {
+            startMainMusic();
+            document.removeEventListener('click', initAudioOnClick);
+        }
+    }, { once: true });
+
+    window.toggleMainMusic = toggleMainMusic;
+    window.toggleVolumeDropdown = toggleVolumeDropdown;
+
+    // ============ ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ОПИСАНИЯ ============
+    function formatDescription(desc) {
+        if (!desc) return 'Описание отсутствует.';
+        const parts = desc.split(/(ВТОРЖЕНИЕ[:]?\s*)/i);
+        if (parts.length <= 1) {
+            return desc;
+        }
+        let result = '';
+        let invasionFound = false;
+        for (let i = 0; i < parts.length; i++) {
+            if (parts[i].match(/ВТОРЖЕНИЕ[:]?\s*/i)) {
+                const marker = parts[i].trim();
+                const nextPart = parts[i + 1] || '';
+                result += `<span class="invasion-highlight">${marker} ${nextPart.trim()}</span>`;
+                invasionFound = true;
+                i++;
+            } else if (!invasionFound) {
+                result += parts[i];
+            }
+        }
+        return result;
+    }
+
+    // ============ ДАННЫЕ РЕЦЕПТОВ ============
+    const recipesData = [
+        // ===== УРОВЕНЬ 1 =====
+        { name: "Адреналин", image: "../images/recipes/адреналин.webp", level: "Уровень 1", desc: "Временно увеличивает скорость передвижения на 30% на 15 секунд." },
+        { name: "Антидот", image: "../images/recipes/антидот.webp", level: "Уровень 1", desc: "Снимает все негативные эффекты отравления." },
+        { name: "Бинт", image: "../images/recipes/бинт.webp", level: "Уровень 1", desc: "Восстанавливает 1 деление здоровья." },
+        { name: "Бутылка с зажигательной смесью", image: "../images/recipes/бутылка-зажигательная.webp", level: "Уровень 1", desc: "Создаёт зону огня, наносящую урон врагам." },
+        { name: "Дымовая шашка", image: "../images/recipes/дымовая-шашка.webp", level: "Уровень 1", desc: "Создаёт облако дыма, скрывающее вас от врагов." },
+        { name: "Заряженная батарея", image: "../images/recipes/заряженная-батарея.webp", level: "Уровень 1", desc: "Восстанавливает 50% заряда ночного видения." },
+        { name: "Шприц с адреналином", image: "../images/recipes/шприц-адреналин.webp", level: "Уровень 1", desc: "Восстанавливает 1 деление здоровья и даёт временный бонус к скорости." },
+
+        // ===== УРОВЕНЬ 2 =====
+        { name: "Бустер выносливости", image: "../images/recipes/бустер-выносливость.webp", level: "Уровень 2", desc: "Увеличивает максимальную выносливость на 25% до конца испытания." },
+        { name: "Бустер здоровья", image: "../images/recipes/бустер-здоровье.webp", level: "Уровень 2", desc: "Увеличивает максимальное здоровье на 25% до конца испытания." },
+        { name: "Бустер силы", image: "../images/recipes/бустер-сила.webp", level: "Уровень 2", desc: "Увеличивает урон от кирпичей и бутылок на 50%." },
+        { name: "Громовая шашка", image: "../images/recipes/громовая-шашка.webp", level: "Уровень 2", desc: "Издаёт громкий звук, отвлекающий всех врагов в радиусе." },
+        { name: "Двойной антидот", image: "../images/recipes/двойной-антидот.webp", level: "Уровень 2", desc: "Снимает все негативные эффекты и даёт иммунитет к отравлению на 30 секунд." },
+        { name: "Двойные бинты", image: "../images/recipes/двойные-бинты.webp", level: "Уровень 2", desc: "Восстанавливает 2 деления здоровья." },
+        { name: "Заряженная батарея (улучшенная)", image: "../images/recipes/заряженная-батарея-улучш.webp", level: "Уровень 2", desc: "Восстанавливает 100% заряда ночного видения." },
+        { name: "Кислотная бомба", image: "../images/recipes/кислотная-бомба.webp", level: "Уровень 2", desc: "Создаёт облако кислоты, наносящее урон врагам с течением времени." },
+        { name: "Шприц с адреналином (улучшенный)", image: "../images/recipes/шприц-адреналин-улучш.webp", level: "Уровень 2", desc: "Восстанавливает 2 деления здоровья и даёт длительный бонус к скорости." },
+
+        // ===== УРОВЕНЬ 3 =====
+        { name: "Бустер выносливости (улучшенный)", image: "../images/recipes/бустер-выносливость-улучш.webp", level: "Уровень 3", desc: "Увеличивает максимальную выносливость на 50% до конца испытания." },
+        { name: "Бустер здоровья (улучшенный)", image: "../images/recipes/бустер-здоровье-улучш.webp", level: "Уровень 3", desc: "Увеличивает максимальное здоровье на 50% до конца испытания." },
+        { name: "Бустер силы (улучшенный)", image: "../images/recipes/бустер-сила-улучш.webp", level: "Уровень 3", desc: "Увеличивает урон от кирпичей и бутылок на 100%." },
+        { name: "Двойной антидот (улучшенный)", image: "../images/recipes/двойной-антидот-улучш.webp", level: "Уровень 3", desc: "Снимает все негативные эффекты и даёт иммунитет к отравлению на 60 секунд." },
+        { name: "Двойные бинты (улучшенные)", image: "../images/recipes/двойные-бинты-улучш.webp", level: "Уровень 3", desc: "Восстанавливает 3 деления здоровья." },
+        { name: "Шприц с адреналином (ультимативный)", image: "../images/recipes/шприц-адреналин-ульт.webp", level: "Уровень 3", desc: "Восстанавливает полное здоровье и даёт мощный бонус к скорости на 30 секунд." },
+        { name: "Электробомба", image: "../images/recipes/электробомба.webp", level: "Уровень 3", desc: "Оглушает всех врагов в радиусе на 5 секунд." },
+
+        // ===== ВТОРЖЕНИЕ =====
+        { name: "Антидот (лекарство самозванца)", image: "../images/recipes/антидот-самозванец.webp", level: "Вторжение", desc: "Снимает все негативные эффекты, наложенные самозванцем." },
+        { name: "Бинт (лекарство самозванца)", image: "../images/recipes/бинт-самозванец.webp", level: "Вторжение", desc: "Восстанавливает 1 деление здоровья в режиме вторжения." },
+        { name: "Бустер выносливости (вторжение)", image: "../images/recipes/бустер-выносливость-вторж.webp", level: "Вторжение", desc: "Увеличивает выносливость против самозванцев." },
+        { name: "Бустер здоровья (вторжение)", image: "../images/recipes/бустер-здоровье-вторж.webp", level: "Вторжение", desc: "Увеличивает здоровье против самозванцев." },
+        { name: "Двойной антидот (вторжение)", image: "../images/recipes/двойной-антидот-вторж.webp", level: "Вторжение", desc: "Снимает все негативные эффекты самозванца и даёт иммунитет." },
+        { name: "Двойные бинты (вторжение)", image: "../images/recipes/двойные-бинты-вторж.webp", level: "Вторжение", desc: "Восстанавливает 2 деления здоровья в режиме вторжения." },
+        { name: "Заряженная батарея (вторжение)", image: "../images/recipes/заряженная-батарея-вторж.webp", level: "Вторжение", desc: "Восстанавливает заряд ночного видения в режиме вторжения." },
+        { name: "Иммунитет", image: "../images/recipes/иммунитет-вторж.webp", level: "Вторжение", desc: "Даёт временную невосприимчивость к способностям самозванца." },
+        { name: "Сигнальная ракета", image: "../images/recipes/сигнальная-ракета-вторж.webp", level: "Вторжение", desc: "Освещает большую область и помечает самозванца." },
+        { name: "Шприц с адреналином (вторжение)", image: "../images/recipes/шприц-адреналин-вторж.webp", level: "Вторжение", desc: "Восстанавливает здоровье и даёт бонус к скорости против самозванца." },
+        { name: "Электроловушка", image: "../images/recipes/электроловушка-вторж.webp", level: "Вторжение", desc: "Оглушает самозванца при активации на 3 секунды." }
+    ];
+
+    // ============ ПОЛУЧИТЬ РЕЦЕПТЫ ПО УРОВНЮ ============
+    function getRecipesByLevel(level) {
+        return recipesData.filter(recipe => recipe.level === level);
+    }
+
+    // ============ СОСТОЯНИЕ ============
+    let currentLevel = null;
+    let currentRecipeId = null;
+    let activeDetailId = null;
+
+    // ============ ОТКРЫТИЕ/ЗАКРЫТИЕ ОПИСАНИЯ ============
+    function toggleRecipeDetail(recipeName) {
+        const panel = document.getElementById('recipeDetailPanel');
+        const emptyState = document.getElementById('emptyState');
+        const content = document.getElementById('detailContent');
+
+        if (activeDetailId === recipeName) {
+            closeDetailPanel();
+            return;
+        }
+
+        const recipe = recipesData.find(r => r.name === recipeName);
+        if (!recipe) return;
+
+        emptyState.style.display = 'none';
+        content.style.display = 'block';
+        panel.classList.add('active');
+
+        const iconContainer = document.getElementById('detailIcon');
+        iconContainer.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" onerror="this.innerHTML='<i class=\\'fas fa-flask\\'></i>'">`;
+
+        document.getElementById('detailName').textContent = recipe.name;
+        document.getElementById('detailCategory').textContent = recipe.level;
+        document.getElementById('detailDesc').innerHTML = formatDescription(recipe.desc);
+
+        activeDetailId = recipeName;
+    }
+
+    function closeDetailPanel() {
+        const panel = document.getElementById('recipeDetailPanel');
+        const emptyState = document.getElementById('emptyState');
+        const content = document.getElementById('detailContent');
+
+        panel.classList.remove('active');
+        emptyState.style.display = 'flex';
+        content.style.display = 'none';
+        activeDetailId = null;
+    }
+
+    // ============ ОТКРЫТИЕ СПИСКА РЕЦЕПТОВ ============
+    function openRecipesList(level) {
+        closeDetailPanel();
+
+        currentLevel = level;
+        const container = document.getElementById('recipesListContainer');
+        const title = document.getElementById('listTitle');
+        const itemsContainer = document.getElementById('recipesItems');
+
+        const levelMap = {
+            'Уровень 1': 'УРОВЕНЬ 1',
+            'Уровень 2': 'УРОВЕНЬ 2',
+            'Уровень 3': 'УРОВЕНЬ 3',
+            'Вторжение': 'ВТОРЖЕНИЕ'
+        };
+        title.textContent = levelMap[level] || level.toUpperCase();
+
+        const recipes = getRecipesByLevel(level);
+        itemsContainer.innerHTML = '';
+
+        document.querySelectorAll('.level-block').forEach(block => {
+            block.classList.toggle('active', block.dataset.level === level);
+        });
+
+        recipes.forEach((recipe) => {
+            const div = document.createElement('div');
+            div.className = 'recipe-item';
+            div.dataset.id = recipe.name;
+
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'recipe-icon';
+            iconDiv.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" onerror="this.innerHTML='<i class=\\'fas fa-flask\\'></i>'">`;
+
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'recipe-name';
+            nameDiv.textContent = recipe.name;
+
+            const detailBtn = document.createElement('button');
+            detailBtn.className = 'recipe-detail-btn';
+            detailBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            detailBtn.title = 'Подробнее';
+            detailBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleRecipeDetail(recipe.name);
+            });
+
+            div.appendChild(iconDiv);
+            div.appendChild(nameDiv);
+            div.appendChild(detailBtn);
+
+            div.addEventListener('click', function(e) {
+                if (e.target.closest('.recipe-detail-btn')) return;
+                document.querySelectorAll('.recipe-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+                toggleRecipeDetail(recipe.name);
+            });
+
+            itemsContainer.appendChild(div);
+        });
+
+        if (currentRecipeId) {
+            const found = recipes.some(r => r.name === currentRecipeId);
+            if (found) {
+                toggleRecipeDetail(currentRecipeId);
+                document.querySelectorAll('.recipe-item').forEach(el => {
+                    el.classList.toggle('active', el.dataset.id === currentRecipeId);
+                });
+            }
+        }
+
+        container.classList.add('active');
+    }
+
+    function closeRecipesList() {
+        document.getElementById('recipesListContainer').classList.remove('active');
+        closeDetailPanel();
+        currentLevel = null;
+        currentRecipeId = null;
+
+        document.querySelectorAll('.level-block').forEach(block => {
+            block.classList.remove('active');
+        });
+    }
+
+    // ============ ОБРАБОТЧИКИ ============
+    document.querySelectorAll('.level-block').forEach(block => {
+        block.addEventListener('click', function() {
+            const level = this.dataset.level;
+            if (currentLevel === level && document.getElementById('recipesListContainer').classList.contains('active')) {
+                closeRecipesList();
+            } else {
+                openRecipesList(level);
+            }
+        });
+    });
+
+    document.getElementById('closeListBtn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeRecipesList();
+    });
+
+    document.addEventListener('click', function(e) {
+        const container = document.getElementById('recipesListContainer');
+        const levelList = document.querySelector('.level-list');
+        const detailPanel = document.getElementById('recipeDetailPanel');
+        if (container.classList.contains('active') && 
+            !container.contains(e.target) && 
+            !levelList.contains(e.target) &&
+            !detailPanel.contains(e.target)) {
+            closeRecipesList();
+        }
+    });
+
+    // ===== ПЛАВНОЕ ПОЯВЛЕНИЕ =====
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.level-block, .recipes-header, .breadcrumb').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(10px)';
+            el.style.transition = 'all 0.5s ease-out';
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    });
+</script>
+
+<!-- ===== АУДИО ===== -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio1" preload="auto"><source src="../images/комната отдыха 1.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
+</div>
+
+</body>
+</html>
