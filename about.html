@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Об игре — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -22,7 +25,6 @@
             background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
         }
 
-        /* Фоновое изображение */
         .background-image {
             position: fixed;
             top: 0;
@@ -49,16 +51,9 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes smokePulse {
-            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
-            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
-            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
-        }
-
-        @keyframes borderGlow {
-            0% { border-color: rgba(220, 90, 50, 0.3); }
-            50% { border-color: rgba(220, 90, 50, 0.8); }
-            100% { border-color: rgba(220, 90, 50, 0.3); }
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
         }
 
         .container {
@@ -69,19 +64,20 @@
             z-index: 10;
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            padding: 1.2rem 2rem;
+            padding: 0.8rem 2rem;
             background: rgba(8, 6, 15, 0.5);
             backdrop-filter: blur(16px);
             border-radius: 80px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.2rem;
             gap: 1rem;
             border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
             animation: fadeInScale 0.6s ease-out;
         }
 
@@ -90,24 +86,32 @@
             box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
         }
 
-        .logo h1 {
-            font-size: 2rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #fbc2a0, #e25d32, #ff9f6e);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: smokePulse 3s ease-in-out infinite;
+            white-space: nowrap;
         }
 
         .logo p {
-            font-size: 0.75rem;
-            color: #c2b9d4;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
         }
 
         .logo p i {
@@ -115,49 +119,220 @@
             font-size: 0.7rem;
         }
 
-        /* Навигация */
+        /* ===== НАВИГАЦИЯ ===== */
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.7rem;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(15, 10, 20, 0.4);
-            backdrop-filter: blur(12px);
-            padding: 0.6rem 1.3rem;
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
             border-radius: 60px;
-            border: 1px solid rgba(210, 100, 55, 0.25);
+            border: 1px solid rgba(210, 100, 55, 0.15);
         }
 
         .nav-btn {
             background: transparent;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 0.9rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: #e2d9f0;
+            color: #b5a8c8;
+            transition: all 0.3s;
             font-family: inherit;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             text-decoration: none;
         }
 
         .nav-btn:hover {
             color: white;
-            transform: translateY(-2px);
-            text-shadow: 0 0 6px rgba(220,90,50,0.4);
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
-            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.3);
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
-        /* Hero секция */
+        /* ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== */
+        .music-controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .music-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .music-toggle.playing {
+            border-color: rgba(220, 90, 50, 0.3);
+            color: #e25d32;
+        }
+
+        .music-toggle .icon {
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .music-toggle .icon.pulse {
+            animation: musicPulse 1.2s ease-in-out infinite;
+        }
+
+        .music-toggle .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .volume-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.7rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .volume-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .volume-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .volume-toggle-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .volume-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .volume-dropdown.open {
+            display: block;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .volume-dropdown .volume-label {
+            font-size: 0.7rem;
+            color: #8a7a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        .volume-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .volume-slider-wrapper .vol-icon {
+            color: #7a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider-wrapper .vol-icon.active {
+            color: #e25d32;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .volume-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e25d32;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        /* ===== HERO СЕКЦИЯ ===== */
         .hero-section {
             text-align: center;
             padding: 3rem 2rem;
@@ -195,7 +370,7 @@
             font-style: italic;
         }
 
-        /* Описание игры */
+        /* ===== ОПИСАНИЕ ИГРЫ ===== */
         .description-section {
             background: rgba(18, 12, 28, 0.45);
             backdrop-filter: blur(12px);
@@ -232,17 +407,7 @@
             margin-bottom: 1rem;
         }
 
-        .warning-text {
-            background: rgba(220, 90, 50, 0.1);
-            border-left: 4px solid #e25d32;
-            padding: 1rem 1.5rem;
-            margin-top: 1rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            color: #ffbc9a;
-        }
-
-        /* Категории (сетка карточек) */
+        /* ===== КАТЕГОРИИ ===== */
         .categories-section {
             margin-bottom: 2.5rem;
             animation: fadeInScale 0.6s ease-out 0.2s backwards;
@@ -300,25 +465,74 @@
 
         .category-content {
             padding: 1.5rem;
+            text-align: center;
         }
 
         .category-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
+            color: #f0eef7;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .category-card:hover .category-title {
             color: #e16d48;
-            margin-bottom: 0.8rem;
+        }
+
+        /* ===== КАРТОЧКА "СКОРО БУДЕТ БОЛЬШЕ" ===== */
+        .category-card.soon {
+            cursor: default;
+        }
+
+        .category-card.soon:hover {
+            transform: none;
+            border-color: rgba(220, 90, 50, 0.25);
+            box-shadow: none;
+        }
+
+        .category-card.soon .soon-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .category-card.soon .soon-image-placeholder {
+            width: 100%;
+            height: 160px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            color: #333;
+            font-size: 3rem;
         }
 
-        .category-description {
-            font-size: 0.85rem;
-            color: #c2b9d4;
-            line-height: 1.5;
+        .category-card.soon .soon-content {
+            padding: 1.5rem;
+            text-align: center;
         }
 
-        /* Footer */
+        .category-card.soon .soon-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #7a6a8a;
+            letter-spacing: 2px;
+        }
+
+        .category-card.soon .soon-sub {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 0.3rem;
+        }
+
+        .category-card.soon .category-title {
+            color: #7a6a8a;
+        }
+
+        /* ===== FOOTER ===== */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -330,17 +544,19 @@
             border-radius: 50px;
         }
 
-        /* Адаптация */
+        /* ===== АДАПТИВ ===== */
         @media (max-width: 850px) {
             .container { padding: 1rem; }
             .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
             .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
             .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
-            .logo h1 { font-size: 1.5rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
             .hero-title { font-size: 1.8rem; }
             .description-title { font-size: 1.4rem; }
             .section-title { font-size: 1.4rem; }
             .categories-grid { gap: 1.2rem; }
+            .category-card.soon .soon-text { font-size: 1rem; }
         }
 
         @media (max-width: 550px) {
@@ -348,44 +564,75 @@
             .hero-section { padding: 1.5rem; }
             .hero-title { font-size: 1.4rem; }
             .description-section { padding: 1.2rem; }
-            .category-title { font-size: 1.1rem; }
             .category-content { padding: 1rem; }
+            .category-title { font-size: 1rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .music-toggle { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+            .music-toggle .label { font-size: 0.5rem; }
+            .volume-toggle-btn { font-size: 0.6rem; padding: 0.2rem 0.4rem; }
+            .header { padding: 0.6rem; }
+            .category-card.soon .soon-text { font-size: 0.9rem; }
+            .category-card.soon .soon-sub { font-size: 0.65rem; }
+            .category-card.soon .soon-image { height: 120px; }
+            .category-card.soon .soon-image-placeholder { height: 120px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Фоновое изображение -->
-<img class="background-image" src="фон/Вторжение фон.png" alt="Фон" onerror="this.style.display='none'">
+<img class="background-image" src="../images/об-игре-фон.webp" alt="Фон" onerror="this.style.display='none'">
 
 <div class="container">
-    <!-- Шапка -->
+    <!-- ===== HEADER ===== -->
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-smoking"></i> Курилка Синьялы</h1>
-            <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
-            <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Справочник ролей</a>
-            <a href="server-news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости сервера</a>
-            <a href="game-news.html" class="nav-btn"><i class="fas fa-gamepad"></i> Новости игры</a>
-            <a href="site-news.html" class="nav-btn"><i class="fas fa-code"></i> Новости сайта</a>
-            <a href="roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
-            <a href="invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
-            <a href="achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
-            <a href="about.html" class="nav-btn active"><i class="fas fa-book-open"></i> Об игре</a>
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="../about.html" class="nav-btn active"><i class="fas fa-book-open"></i> Об игре</a>
+
+            <div class="music-controls-wrapper">
+                <div class="music-controls">
+                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                        <span class="icon fa-solid fa-volume-xmark"></span>
+                        <span class="label">Выкл</span>
+                    </button>
+                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
+                        <span class="arrow">▼</span>
+                    </div>
+                </div>
+                <div class="volume-dropdown" id="volumeDropdown">
+                    <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
+                    <div class="volume-slider-wrapper">
+                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
+                        <span class="volume-value" id="volumeValue">40%</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Hero секция -->
+    <!-- ===== HERO СЕКЦИЯ ===== -->
     <section class="hero-section">
-        <img src="screenshots/outlast-logo.png" alt="The Outlast Trials" class="hero-logo" onerror="this.style.display='none'">
+        <img src="../images/outlast-logo.png" alt="The Outlast Trials" class="hero-logo" onerror="this.style.display='none'">
         <h1 class="hero-title">The Outlast Trials</h1>
         <p class="hero-subtitle">«Игровой контент может содержать мигание, рябь, религиозные образы/контент/отсылки, многочисленное насилие или кровопролитие, изображение насилия, ужасающий видеоряд, образы, кровь, резню, сцены с сексуальным подтекстом, сексуальное насилие, а также оскорбительную лексику и/или шум.»<br>— Вступление</p>
     </section>
 
-    <!-- Описание игры -->
+    <!-- ===== ОПИСАНИЕ ИГРЫ ===== -->
     <section class="description-section">
         <h2 class="description-title"><i class="fas fa-info-circle"></i> Об игре</h2>
         <div class="description-text">
@@ -396,7 +643,7 @@
         </div>
     </section>
 
-    <!-- Категории -->
+    <!-- ===== КАТЕГОРИИ ===== -->
     <section class="categories-section">
         <h2 class="section-title"><i class="fas fa-grid-2"></i> Игровая энциклопедия</h2>
         <div class="categories-grid" id="categoriesGrid"></div>
@@ -409,115 +656,234 @@
 </div>
 
 <script>
-    // Данные категорий
+    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
+    let mainAudioStarted = false;
+    let currentTrackIndex = 0;
+    let mainAudioFiles = [];
+    let currentAudioElement = null;
+    let volumeDropdownOpen = false;
+
+    function initMainAudio() {
+        const container = document.getElementById('mainAudioContainer');
+        if (!container) return;
+        mainAudioFiles = [];
+        const audioElements = container.querySelectorAll('audio');
+        audioElements.forEach(audio => { mainAudioFiles.push(audio); });
+    }
+
+    function playNextMainTrack() {
+        if (!mainAudioStarted) return;
+        if (currentAudioElement) {
+            currentAudioElement.pause();
+            currentAudioElement.currentTime = 0;
+        }
+        currentTrackIndex = (currentTrackIndex + 1) % mainAudioFiles.length;
+        const audio = mainAudioFiles[currentTrackIndex];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+    }
+
+    function startMainMusic() {
+        if (mainAudioStarted) return;
+        initMainAudio();
+        if (mainAudioFiles.length === 0) {
+            setTimeout(startMainMusic, 500);
+            return;
+        }
+        mainAudioStarted = true;
+        currentTrackIndex = 0;
+        const audio = mainAudioFiles[0];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+        updateMusicButton(true);
+    }
+
+    function updateMusicButton(state) {
+        const btn = document.getElementById('musicToggleBtn');
+        if (!btn) return;
+        const icon = btn.querySelector('.icon');
+        const label = btn.querySelector('.label');
+        if (state) {
+            btn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high', 'pulse');
+            }
+            if (label) label.textContent = 'Вкл';
+        } else {
+            btn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-high', 'pulse');
+                icon.classList.add('fa-volume-xmark');
+            }
+            if (label) label.textContent = 'Выкл';
+        }
+    }
+
+    function toggleMainMusic() {
+        if (mainAudioStarted) {
+            mainAudioStarted = false;
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+            }
+            mainAudioFiles.forEach(a => { a.pause(); a.currentTime = 0; });
+            updateMusicButton(false);
+        } else {
+            startMainMusic();
+        }
+    }
+
+    function toggleVolumeDropdown() {
+        volumeDropdownOpen = !volumeDropdownOpen;
+        const dropdown = document.getElementById('volumeDropdown');
+        const arrow = document.querySelector('.volume-toggle-btn .arrow');
+        if (volumeDropdownOpen) {
+            dropdown.classList.add('open');
+            arrow.classList.add('open');
+        } else {
+            dropdown.classList.remove('open');
+            arrow.classList.remove('open');
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        const wrapper = document.querySelector('.music-controls-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            const dropdown = document.getElementById('volumeDropdown');
+            const arrow = document.querySelector('.volume-toggle-btn .arrow');
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            volumeDropdownOpen = false;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('volumeSlider');
+        const valueDisplay = document.getElementById('volumeValue');
+        slider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            valueDisplay.textContent = val + '%';
+            if (currentAudioElement && mainAudioStarted) {
+                currentAudioElement.volume = val / 100;
+            }
+            const percent = val;
+            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
+        });
+        const initialVal = parseInt(slider.value);
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
+        valueDisplay.textContent = initialVal + '%';
+        setTimeout(startMainMusic, 1000);
+    });
+
+    document.addEventListener('click', function initAudioOnClick() {
+        if (!mainAudioStarted) {
+            startMainMusic();
+            document.removeEventListener('click', initAudioOnClick);
+        }
+    }, { once: true });
+
+    window.toggleMainMusic = toggleMainMusic;
+    window.toggleVolumeDropdown = toggleVolumeDropdown;
+
+    // ============ ДАННЫЕ КАТЕГОРИЙ ============
     const categories = [
         {
             key: "prime-assets",
-            title: "Главные активы",
-            description: "Жестокие, невменяемые и в то же время странно харизматичные личности, которые представляют главную угрозу для реагентов. Обычно они охраняют ключевые цели и являются центральными элементами сценария, на котором строится каждое испытание.",
+            title: "ГЛАВНЫЕ АКТИВЫ",
             icon: "fa-skull",
-            image: "images/prime-assets.png",
+            image: "../images/prime-assets.png",
             file: "game-files/category-prime-assets.html"
         },
         {
             key: "ex-pops",
-            title: "Экс-попы",
-            description: "Экспериментальная популяция, неудачные испытуемые, использующиеся в качестве противников для реагентов на испытаниях корпорации Меркофф на объекте Синьяла.",
+            title: "ЭКС-ПОПЫ",
             icon: "fa-ghost",
-            image: "images/ex-pops.png",
+            image: "../images/ex-pops.png",
             file: "game-files/category-ex-pops.html"
         },
         {
             key: "reagents",
-            title: "Реагенты",
-            description: "Игровые персонажи — подопытные, проходящие испытания, адекватный испытуемый похищенный агентам Мёркофф для прохождения испытаний.",
+            title: "РЕАГЕНТЫ",
             icon: "fa-user-secret",
-            image: "images/реагенты.png",
+            image: "../images/реагенты.png",
             file: "game-files/category-reagents.html"
         },
         {
             key: "specialists",
-            title: "Специалисты",
-            description: "Особые помощники, которые могут быть призваны в испытания для поддержки реагентов.",
+            title: "СПЕЦИАЛИСТЫ",
             icon: "fa-user-md",
-            image: "images/специалисты.png",
+            image: "../images/специалисты.png",
             file: "game-files/category-specialists.html"
         },
         {
-            key: "maps",
-            title: "Карты",
-            description: "Локации и испытания, доступные для прохождения. Каждая карта имеет уникальные механики и противников.",
-            icon: "fa-map",
-            image: "images/карты.png",
-            file: "game-files/category-maps.html"
+            key: "recipes",
+            title: "РЕЦЕПТЫ",
+            icon: "fa-scroll",
+            image: "../images/рецепты.png",
+            file: "game-files/category-recipes.html"
         },
         {
             key: "amps",
-            title: "Ампы",
-            description: "Улучшения, дающие перманентные бонусы к способностям реагента.",
+            title: "АМФЫ",
             icon: "fa-capsules",
-            image: "images/ампы.png",
+            image: "../images/ампы.png",
             file: "game-files/category-amps.html"
         },
         {
             key: "equipment",
-            title: "Снаряжение",
-            description: "Различное оборудование, доступное для экипировки перед испытанием.",
+            title: "СНАРЯЖЕНИЕ",
             icon: "fa-backpack",
-            image: "images/снаряжение.png",
+            image: "../images/снаряжение.png",
             file: "game-files/equipment.html"
         },
         {
             key: "items",
-            title: "Предметы",
-            description: "Расходные предметы, которые можно найти или купить для использования в испытаниях.",
+            title: "ПРЕДМЕТЫ",
             icon: "fa-cube",
-            image: "images/предметы.png",
+            image: "../images/предметы.png",
             file: "game-files/category-items.html"
         },
         {
+            key: "programs",
+            title: "ИСПЫТАТЕЛЬНЫЕ ПРОГРАММЫ",
+            icon: "fa-clipboard-list",
+            image: "../images/программы.png",
+            file: "game-files/category-programs.html"
+        },
+        {
             key: "catalogs",
-            title: "Каталоги",
-            description: "Система наград и разблокируемого контента за выполнение заданий.",
+            title: "КАТАЛОГИ",
             icon: "fa-book",
-            image: "images/каталоги.png",
+            image: "../images/каталоги.png",
             file: "game-files/category-catalogs.html"
         },
         {
-            key: "achievements",
-            title: "Достижения",
-            description: "Специальные награды за выполнение сложных задач. Открывают новые возможности.",
-            icon: "fa-trophy",
-            image: "images/Достижение.png",
-            file: "game-files/category-achievements.html"
-        },
-        {
-            key: "recipes",
-            title: "Рецепты",
-            description: "Схемы для создания предметов и улучшений.",
-            icon: "fa-scroll",
-            image: "images/рецепты.png",
-            file: "game-files/category-recipes.html"
-        },
-        {
             key: "variators",
-            title: "Вариаторы",
-            description: "Модификаторы, меняющие условия прохождения испытаний.",
+            title: "ВАРИАТОРЫ",
             icon: "fa-sliders-h",
-            image: "images/вариаторы.png",
+            image: "../images/вариаторы.png",
             file: "game-files/variators.html"
-        },
-        {
-            key: "programs",
-            title: "Испытательные программы",
-            description: "Различные режимы и программы испытаний с уникальными условиями.",
-            icon: "fa-clipboard-list",
-            image: "images/программы.png",
-            file: "game-files/category-programs.html"
         }
     ];
 
-    // Отображение категорий
+    // ============ ОТОБРАЖЕНИЕ КАТЕГОРИЙ ============
     function displayCategories() {
         const container = document.getElementById('categoriesGrid');
         if (!container) return;
@@ -538,12 +904,10 @@
                     <i class="fas ${category.icon}"></i>
                 </div>
                 <div class="category-content">
-                    <h3 class="category-title"><i class="fas ${category.icon}"></i> ${category.title}</h3>
-                    <p class="category-description">${category.description}</p>
+                    <h3 class="category-title">${category.title}</h3>
                 </div>
             `;
             
-            // Обработчик ошибки загрузки изображения
             const img = card.querySelector('.category-image');
             const placeholder = card.querySelector('.category-image-placeholder');
             if (img) {
@@ -555,9 +919,34 @@
             
             container.appendChild(card);
         });
+
+        // ===== КАРТОЧКА "СКОРО БУДЕТ БОЛЬШЕ..." =====
+        const soonCard = document.createElement('div');
+        soonCard.className = 'category-card soon';
+        soonCard.innerHTML = `
+            <img src="../images/скоро-будет-больше.jpg" class="soon-image" alt="Скоро будет больше" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="soon-image-placeholder" style="display: none;">
+                <i class="fas fa-image"></i>
+            </div>
+            <div class="soon-content">
+                <div class="soon-text">СКОРО БУДЕТ БОЛЬШЕ...</div>
+                <div class="soon-sub">Следите за обновлениями</div>
+            </div>
+        `;
+        
+        const soonImg = soonCard.querySelector('.soon-image');
+        const soonPlaceholder = soonCard.querySelector('.soon-image-placeholder');
+        if (soonImg) {
+            soonImg.addEventListener('error', function() {
+                this.style.display = 'none';
+                if (soonPlaceholder) soonPlaceholder.style.display = 'flex';
+            });
+        }
+        
+        container.appendChild(soonCard);
     }
 
-    // Плавное появление при скролле
+    // ============ ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============
     function initScrollAnimation() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -577,12 +966,19 @@
         });
     }
 
-    // Запуск при загрузке
+    // ============ ЗАПУСК ============
     document.addEventListener('DOMContentLoaded', function() {
         displayCategories();
         initScrollAnimation();
     });
 </script>
+
+<!-- ===== АУДИО ===== -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio1" preload="auto"><source src="../images/комната отдыха 1.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
+</div>
 
 </body>
 </html>
