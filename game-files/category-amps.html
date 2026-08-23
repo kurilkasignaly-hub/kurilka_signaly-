@@ -779,6 +779,21 @@
             font-size: 1rem;
             line-height: 1.7;
             padding: 0.2rem 0;
+            white-space: pre-wrap;
+        }
+
+        /* ===== ВЫДЕЛЕНИЕ СЛОВА "ВТОРЖЕНИЕ" КРАСНЫМ ===== */
+        .amp-detail-panel .detail-body .detail-desc .invasion-highlight {
+            color: #e25d32;
+            font-weight: 700;
+            display: block;
+            margin-top: 0.2rem;
+            padding-left: 0.5rem;
+        }
+
+        .amp-detail-panel .detail-body .detail-desc .invasion-highlight::before {
+            content: "▸ ";
+            color: #e25d32;
         }
 
         .amp-detail-panel .detail-footer {
@@ -968,7 +983,7 @@
                 <div class="bg-overlay"></div>
                 <div class="cat-content">
                     <div class="cat-icon">
-                        <img src="../images/иконка-инструмент.png" alt="Инструмент" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-tools\\'></i>'">
+                        <img src="../images/иконка-инструмент.webp" alt="Инструмент" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-tools\\'></i>'">
                     </div>
                     <span class="cat-name">ИНСТРУМЕНТ</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
@@ -979,7 +994,7 @@
                 <div class="bg-overlay"></div>
                 <div class="cat-content">
                     <div class="cat-icon">
-                        <img src="../images/иконка-навык.png" alt="Навык" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-star\\'></i>'">
+                        <img src="../images/иконка-навык.webp" alt="Навык" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-star\\'></i>'">
                     </div>
                     <span class="cat-name">НАВЫК</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
@@ -990,7 +1005,7 @@
                 <div class="bg-overlay"></div>
                 <div class="cat-content">
                     <div class="cat-icon">
-                        <img src="../images/иконка-лекарство.png" alt="Лекарство" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-pills\\'></i>'">
+                        <img src="../images/иконка-лекарство.webp" alt="Лекарство" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-pills\\'></i>'">
                     </div>
                     <span class="cat-name">ЛЕКАРСТВО</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
@@ -1001,7 +1016,7 @@
                 <div class="bg-overlay"></div>
                 <div class="cat-content">
                     <div class="cat-icon">
-                        <img src="../images/иконка-гаджеты.png" alt="Гаджеты самозванцев" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-mask\\'></i>'">
+                        <img src="../images/иконка-гаджеты.webp" alt="Гаджеты самозванцев" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-mask\\'></i>'">
                     </div>
                     <span class="cat-name">ГАДЖЕТЫ САМОЗВАНЦЕВ</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
@@ -1191,48 +1206,73 @@
     window.toggleMainMusic = toggleMainMusic;
     window.toggleVolumeDropdown = toggleVolumeDropdown;
 
+    // ============ ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ОПИСАНИЯ ============
+    function formatDescription(desc) {
+        if (!desc) return 'Описание отсутствует.';
+        // Разделяем по "ВТОРЖЕНИЕ:" или "ВТОРЖЕНИЕ" с двоеточием или без
+        const parts = desc.split(/(ВТОРЖЕНИЕ[:]?\s*)/i);
+        if (parts.length <= 1) {
+            return desc;
+        }
+        let result = '';
+        let invasionFound = false;
+        for (let i = 0; i < parts.length; i++) {
+            if (parts[i].match(/ВТОРЖЕНИЕ[:]?\s*/i)) {
+                // Это маркер ВТОРЖЕНИЕ — выделяем его красным
+                const marker = parts[i].trim();
+                const nextPart = parts[i + 1] || '';
+                result += `<span class="invasion-highlight">${marker} ${nextPart.trim()}</span>`;
+                invasionFound = true;
+                i++; // пропускаем следующую часть, так как мы её уже использовали
+            } else if (!invasionFound) {
+                result += parts[i];
+            }
+        }
+        return result;
+    }
+
     // ============ ДАННЫЕ АМФ ============
     const ampsData = [
         // ===== ИНСТРУМЕНТЫ =====
-        { name: "Тапочки", image: "../images/амфа-тапочки.webp", category: "Инструмент", desc: "Позволяет ходить по битому стеклу без шума." },
-        { name: "Какофония", image: "../images/амфа-какофония.webp", category: "Инструмент", desc: "Издаёт громкие звуки, отвлекая врагов." },
-        { name: "Уменьшение шума", image: "../images/амфа-уменьшение.webp", category: "Инструмент", desc: "Снижает уровень шума от действий." },
-        { name: "Зарядное устройство", image: "../images/амфа-зарядное.webp", category: "Инструмент", desc: "Восстанавливает заряд батареи ночного видения." },
-        { name: "Поломатор", image: "../images/амфа-поломатор.webp", category: "Инструмент", desc: "Увеличивает урон по ловушкам и баррикадам." },
-        { name: "Вторичное использование", image: "../images/амфа-использование.webp", category: "Инструмент", desc: "Позволяет повторно использовать некоторые предметы." },
-        { name: "Мастер-взломщик", image: "../images/амфа-мастер.webp", category: "Инструмент", desc: "Ускоряет взлом замков и дверей." },
-        { name: "Рюкзак", image: "../images/амфа-рюкзак.webp", category: "Инструмент", desc: "Увеличивает вместимость инвентаря." },
-        { name: "Замыкание", image: "../images/амфа-замыкание.webp", category: "Инструмент", desc: "Отключает электронику на время." },
+        { name: "Тапочки", image: "../images/амфа-тапочки.webp", category: "Инструмент", desc: "Вы можете бесшумно ходить по битому стеклу.\nВТОРЖЕНИЕ: хождение по битому стеклу не привлекает внимания вторгшихся игроков." },
+        { name: "Какофония", image: "../images/амфа-какофония.webp", category: "Инструмент", desc: "Кирпичи и бутылки издают больше шума и эффективнее отвлекают врагов.\nВТОРЖЕНИЕ: кирпичи и бутылки отвлекают вторгшихся игроков, создавая ложные сигналы." },
+        { name: "Уменьшение шума", image: "../images/амфа-уменьшение.webp", category: "Инструмент", desc: "Уменьшает звуки бега и открывания дверей.\nВТОРЖЕНИЕ: у вторгшихся игроков индикаторы звука угасают быстрее." },
+        { name: "Зарядное устройство", image: "../images/амфа-зарядное.webp", category: "Инструмент", desc: "Батарея ночного видения постепенно заряжается, пока не используется." },
+        { name: "Поломатор", image: "../images/амфа-поломатор.webp", category: "Инструмент", desc: "Чтобы открыть запертые контейнеры и двери, сбивайте замки кирпичом." },
+        { name: "Вторичное использование", image: "../images/амфа-использование.webp", category: "Инструмент", desc: "Бутылки из-под использованного лекарства можно бросать." },
+        { name: "Мастер-взломщик", image: "../images/амфа-мастер.webp", category: "Инструмент", desc: "Отмычка гарантировано открывает с первой попытки и используется дважды." },
+        { name: "Рюкзак", image: "../images/амфа-рюкзак.webp", category: "Инструмент", desc: "Расширяет инвентарь на 1 слот." },
+        { name: "Замыкание", image: "../images/амфа-замыкание.webp", category: "Инструмент", desc: "При использовании батареи частично восстанавливается перезарядка снаряжения." },
 
         // ===== НАВЫКИ =====
-        { name: "Прячься и дыши", image: "../images/амфа-дыши.webp", category: "Навык", desc: "Восстанавливает выносливость в укрытиях." },
-        { name: "Прячься и исцеляйся", image: "../images/амфа-прячься.webp", category: "Навык", desc: "Восстанавливает здоровье в укрытиях." },
-        { name: "Прятки с пользой", image: "../images/амфа-прятки.webp", category: "Навык", desc: "Получает бонусы за использование укрытий." },
-        { name: "Быстрый побег", image: "../images/амфа-побег.webp", category: "Навык", desc: "Увеличивает скорость при побеге от врагов." },
-        { name: "Невидимый", image: "../images/амфа-невидимый.webp", category: "Навык", desc: "Временная невидимость в критический момент." },
-        { name: "Взломщик дверных ловушек", image: "../images/амфа-взломщик.webp", category: "Навык", desc: "Обезвреживает ловушки на дверях." },
-        { name: "Вдребезги", image: "../images/амфа-вдребезги.webp", category: "Навык", desc: "Разбивает стекло и хрупкие предметы." },
-        { name: "Сильная рука", image: "../images/амфа-рука.webp", category: "Навык", desc: "Увеличивает дальность броска предметов." },
-        { name: "Манёвр уклонения", image: "../images/амфа-манёвр.webp", category: "Навык", desc: "Позволяет уклоняться от атак." },
+        { name: "Прячься и дыши", image: "../images/амфа-дыши.webp", category: "Навык", desc: "Найдите укрытие, чтобы сразу же восстановить выносливость и получить заряд адреналина. (Короткое время перезарядки перед использованием)." },
+        { name: "Прячься и исцеляйся", image: "../images/амфа-прячься.webp", category: "Навык", desc: "Зайдите в укрытие, чтобы восстановить здоровье на одно деление, регенерация начинается сразу." },
+        { name: "Прятки с пользой", image: "../images/амфа-прятки.webp", category: "Навык", desc: "Зайдите в укрытие, чтобы ускорить зарядку снаряжения." },
+        { name: "Быстрый побег", image: "../images/амфа-побег.webp", category: "Навык", desc: "Получение урона временно увеличивает вашу скорость." },
+        { name: "Невидимый", image: "../images/амфа-невидимый.webp", category: "Навык", desc: "Враги не могут найти вас в укрытии, даже если вы выглядываете оттуда.\nВТОРЖЕНИЕ: вторгшиеся игроки не увидят, как вы выглядываете из укрытий." },
+        { name: "Взломщик дверных ловушек", image: "../images/амфа-взломщик.webp", category: "Навык", desc: "Дверные ловушки ломаются при обычном открывании двери, а при медленном обезвреживаются." },
+        { name: "Вдребезги", image: "../images/амфа-вдребезги.webp", category: "Навык", desc: "Вышибайте двери (в т.ч. совместные двери) и доски одним ударом." },
+        { name: "Сильная рука", image: "../images/амфа-рука.webp", category: "Навык", desc: "Кирпичи и бутылки наносят больший урон, попадая по врагу, но кирпич сразу ломается.\nВТОРЖЕНИЕ: кирпич, попавший в самозванца, не ломается сразу." },
+        { name: "Манёвр уклонения", image: "../images/амфа-манёвр.webp", category: "Навык", desc: "Моментально спасает от вражеской хватки и снимает получаемый урон (требет краткого восстановления перед повторным использованием).\nВТОРЖЕНИЕ: вам проще сопротивляться вторгшимся игрокам." },
 
         // ===== ЛЕКАРСТВА =====
-        { name: "Двойные дозы", image: "../images/амфа-дозы.webp", category: "Лекарство", desc: "Увеличивает эффективность лечения." },
-        { name: "Антитоксин", image: "../images/амфа-антитоксин.webp", category: "Лекарство", desc: "Защищает от отравления и психоза." },
-        { name: "Задел", image: "../images/амфа-задел.webp", category: "Лекарство", desc: "Медленное восстановление здоровья." },
-        { name: "Последний шанс", image: "../images/амфа-шанс.webp", category: "Лекарство", desc: "Автоматическое лечение при смертельной опасности." },
-        { name: "Инкогнито", image: "../images/амфа-инкогнито.webp", category: "Лекарство", desc: "Скрывает следы присутствия." },
-        { name: "Отличная работа", image: "../images/амфа-работа.webp", category: "Лекарство", desc: "Увеличивает эффективность взаимодействия." },
-        { name: "Усиление", image: "../images/амфа-усиление.webp", category: "Лекарство", desc: "Временно увеличивает характеристики." },
-        { name: "Самооживление", image: "../images/амфа-самооживление.webp", category: "Лекарство", desc: "Позволяет самостоятельно оживать." },
-        { name: "Эксперт по бинтам", image: "../images/амфа-эксперт.webp", category: "Лекарство", desc: "Увеличивает эффективность бинтов." },
+        { name: "Двойные дозы", image: "../images/амфа-дозы.webp", category: "Лекарство", desc: "Шприцы можно использовать дважды, а таблетки возрождения дают 2 оживления." },
+        { name: "Антитоксин", image: "../images/амфа-антитоксин.webp", category: "Лекарство", desc: "Через некоторое время восстанавливает полный рассудок, а психоз длится в два раза меньше." },
+        { name: "Задел", image: "../images/амфа-задел.webp", category: "Лекарство", desc: "Начните испытание со случайным предметом в инвентаре (лекарством, антидотом, бутылкой или кирпичом)." },
+        { name: "Последний шанс", image: "../images/амфа-шанс.webp", category: "Лекарство", desc: "Последний урон сокращает ваше здоровье до 1 ОЗ, но не даёт умереть (срабатывает раз в 5 минут).\nВТОРЖЕНИЕ: позволяет один раз за испытание пережить фатальный удар от вторгшегося игрока." },
+        { name: "Инкогнито", image: "../images/амфа-инкогнито.webp", category: "Лекарство", desc: "Ваша скорость ходьбы в приседе увеличена." },
+        { name: "Отличная работа", image: "../images/амфа-работа.webp", category: "Лекарство", desc: "Выполнение задания восстанавливает часть вашего здоровья. (Короткий период перезарядки перед повторным использованием)." },
+        { name: "Усиление", image: "../images/амфа-усиление.webp", category: "Лекарство", desc: "Начните испытание со случайным бустером в инвентаре (бустер здоровья, выносливости или батареи)." },
+        { name: "Самооживление", image: "../images/амфа-самооживление.webp", category: "Лекарство", desc: "Воскресни после смерти (один раз за испытание).\nВТОРЖЕНИЕ: самооживление после того, как вас убьёт вторгшийся игрок, один раз за испытание." },
+        { name: "Эксперт по бинтам", image: "../images/амфа-эксперт.webp", category: "Лекарство", desc: "Бинты применяются быстрее, их можно использовать дважды." },
 
         // ===== ГАДЖЕТЫ САМОЗВАНЦЕВ =====
-        { name: "Мимик", image: "../images/амфа-мимик.webp", category: "Гаджеты самозванцев", desc: "Позволяет копировать внешность врагов для прохода." },
-        { name: "Стимулятор", image: "../images/амфа-стимулятор.webp", category: "Гаджеты самозванцев", desc: "Ускоряет передвижение и реакцию на время." },
-        { name: "Нейрошок", image: "../images/амфа-нейрошок.webp", category: "Гаджеты самозванцев", desc: "Оглушает врагов электрическим разрядом." },
-        { name: "Стальная ловушка", image: "../images/амфа-стальная-ловушка.webp", category: "Гаджеты самозванцев", desc: "Устанавливает ловушку, замедляющую врагов." },
-        { name: "Датчик движения", image: "../images/амфа-датчик-движения.webp", category: "Гаджеты самозванцев", desc: "Обнаруживает движение врагов в радиусе." },
-        { name: "Приманка для экс-попа", image: "../images/амфа-приманка-экс-поп.webp", category: "Гаджеты самозванцев", desc: "Привлекает внимание экс-попа в нужную точку." }
+        { name: "Мимик", image: "../images/амфа-мимик.webp", category: "Гаджеты самозванцев", desc: "Примите обличье реагента. Вы сможете тише передвигаться и бесшумнее готовиться пырнуть врага ножом. Держите фальшивый предмет, чтобы слиться с окружением и не отображаться на отметках." },
+        { name: "Стимулятор", image: "../images/амфа-стимулятор.webp", category: "Гаджеты самозванцев", desc: "Вколите мощный стимулятор - он временно повышает скорость, выносливость и невосприимчивость к снарядам." },
+        { name: "Нейрошок", image: "../images/амфа-нейрошок.webp", category: "Гаджеты самозванцев", desc: "Снаряд, ненадолго дезориентирующий реагента и отключающий его снаряжение. Длительность эффекта зависит от расстояния, пройденного до попадания." },
+        { name: "Стальная ловушка", image: "../images/амфа-стальная-ловушка.webp", category: "Гаджеты самозванцев", desc: "Ловушка, временно обездвиживающая любого реагента, попавшегося в неё." },
+        { name: "Датчик движения", image: "../images/амфа-датчик-движения.webp", category: "Гаджеты самозванцев", desc: "Устанавливаемое устройство, засекающее передвижения реагентов в радиусе действия." },
+        { name: "Приманка для экс-попа", image: "../images/амфа-приманка-экс-поп.webp", category: "Гаджеты самозванцев", desc: "Приманка, которую можно бросить, чтобы побудить экс-попа ВРЕМЯННО патрулировать место её попадания." }
     ];
 
     // ============ КАТЕГОРИИ ============
@@ -1271,7 +1311,7 @@
 
         document.getElementById('detailName').textContent = amp.name;
         document.getElementById('detailCategory').textContent = amp.category;
-        document.getElementById('detailDesc').textContent = amp.desc || 'Описание отсутствует.';
+        document.getElementById('detailDesc').innerHTML = formatDescription(amp.desc);
 
         activeDetailId = ampName;
     }
