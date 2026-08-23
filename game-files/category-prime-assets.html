@@ -286,42 +286,50 @@
             color: #e25d32;
         }
 
+        /* ===== ИСПРАВЛЕННЫЙ СЛАЙДЕР ===== */
         .volume-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 130px;
-            height: 4px;
-            border-radius: 10px;
-            background: linear-gradient(to right, #e25d32, #e25d32);
-            outline: none;
-            transition: all 0.3s;
-            cursor: pointer;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 130px !important;
+            height: 4px !important;
+            border-radius: 10px !important;
+            background: #333 !important;
+            outline: none !important;
+            transition: all 0.3s !important;
+            cursor: pointer !important;
+            flex-shrink: 0;
         }
 
         .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #bc4627, #e25d32);
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
-            transition: all 0.2s;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 16px !important;
+            height: 16px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(135deg, #bc4627, #e25d32) !important;
+            cursor: pointer !important;
+            border: 2px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3) !important;
+            transition: all 0.2s !important;
         }
 
         .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) !important;
         }
 
         .volume-slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #bc4627, #e25d32);
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.15);
+            width: 16px !important;
+            height: 16px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(135deg, #bc4627, #e25d32) !important;
+            cursor: pointer !important;
+            border: 2px solid rgba(255, 255, 255, 0.15) !important;
+        }
+
+        .volume-slider::-moz-range-track {
+            height: 4px !important;
+            border-radius: 10px !important;
+            background: #333 !important;
         }
 
         .volume-value {
@@ -394,7 +402,7 @@
             border-left: 4px solid #e16d48;
         }
 
-        /* ===== СЕТКА КАРТОЧЕК С ФОТО-РАМКОЙ ПОВЕРХ ===== */
+        /* ===== СЕТКА КАРТОЧЕК ===== */
         .assets-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -502,6 +510,7 @@
             .page-title { font-size: 1.8rem; }
             .page-title i { font-size: 1.6rem; }
             .assets-grid { gap: 1.2rem; }
+            .volume-slider { width: 100px !important; }
         }
 
         @media (max-width: 550px) {
@@ -516,6 +525,7 @@
             .header { padding: 0.6rem; }
             .assets-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
             .asset-image { width: 75%; height: 75%; }
+            .volume-slider { width: 80px !important; }
         }
     </style>
 </head>
@@ -720,8 +730,6 @@
         
         // Инициализация слайдера
         const initialVal = parseInt(slider.value);
-        const percent = initialVal;
-        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
         valueDisplay.textContent = initialVal + '%';
         
         // Обработчик изменения громкости
@@ -730,15 +738,12 @@
             valueDisplay.textContent = val + '%';
             
             // Обновляем громкость у всех аудио
-            if (currentAudioElement && mainAudioStarted) {
-                currentAudioElement.volume = val / 100;
-            }
             mainAudioFiles.forEach(audio => {
                 audio.volume = val / 100;
             });
-            
-            const percentVal = val;
-            this.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percentVal}%, rgba(255,255,255,0.15) ${percentVal}%, rgba(255,255,255,0.15) 100%)`;
+            if (currentAudioElement) {
+                currentAudioElement.volume = val / 100;
+            }
         });
 
         // Инициализируем аудио при загрузке
