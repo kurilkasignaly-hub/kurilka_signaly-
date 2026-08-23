@@ -482,22 +482,22 @@
 
         /* === ИКОНКА КАТЕГОРИИ === */
         .category-block .cat-icon {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
         .category-block .cat-icon img {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
             display: block;
         }
@@ -526,26 +526,13 @@
             transform: scale(1.05);
         }
 
-        .category-block .cat-name-wrap {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
         .category-block .cat-name {
             font-size: 1.3rem;
             font-weight: 700;
             color: #f0eef7;
             letter-spacing: 1px;
             transition: color 0.3s ease;
-        }
-
-        .category-block .cat-sub {
-            font-size: 0.6rem;
-            color: #7a6a8a;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            opacity: 0.6;
+            flex: 1;
         }
 
         .category-block .cat-arrow {
@@ -563,11 +550,12 @@
             transform: translateX(4px);
         }
 
-        /* Фоновые изображения для категорий (замените URL на свои) */
-        .category-block.bg-tool { background-image: url('../images/amps/tool-bg.jpg'); }
-        .category-block.bg-skill { background-image: url('../images/amps/skill-bg.jpg'); }
-        .category-block.bg-medicine { background-image: url('../images/amps/medicine-bg.jpg'); }
-        .category-block.bg-imposter { background-image: url('../images/amps/imposter-bg.jpg'); }
+        /* ===== ФОНОВЫЕ ИЗОБРАЖЕНИЯ ДЛЯ КАТЕГОРИЙ ===== */
+        /* Замените пути на свои картинки: инструмент-фон.webp, навык-фон.webp, лекарство-фон.webp, гаджеты-фон.webp */
+        .category-block.bg-tool { background-image: url('../images/инструменты-фон.webp'); }
+        .category-block.bg-skill { background-image: url('../images/навык-фон.webp'); }
+        .category-block.bg-medicine { background-image: url('../images/лекарство-фон.webp'); }
+        .category-block.bg-imposter { background-image: url('../images/гаджеты-фон.webp'); }
 
         /* ===== СРЕДНЯЯ КОЛОНКА - СПИСОК АМФ ===== */
         .amps-list-container {
@@ -826,21 +814,18 @@
                 min-height: 60px;
             }
             .category-block .cat-icon {
-                width: 34px;
-                height: 34px;
+                width: 36px;
+                height: 36px;
             }
             .category-block .cat-icon img {
-                width: 26px;
-                height: 26px;
+                width: 28px;
+                height: 28px;
             }
             .category-block .cat-icon i {
                 font-size: 1.1rem;
             }
             .category-block .cat-name {
                 font-size: 1rem;
-            }
-            .category-block .cat-sub {
-                font-size: 0.5rem;
             }
             .container { padding: 0.8rem 1rem; }
             .amps-header .title { font-size: 2rem; }
@@ -870,21 +855,18 @@
                 min-width: 80px;
             }
             .category-block .cat-icon {
-                width: 28px;
-                height: 28px;
+                width: 30px;
+                height: 30px;
             }
             .category-block .cat-icon img {
-                width: 22px;
-                height: 22px;
+                width: 24px;
+                height: 24px;
             }
             .category-block .cat-icon i {
                 font-size: 0.9rem;
             }
             .category-block .cat-name {
                 font-size: 0.75rem;
-            }
-            .category-block .cat-sub {
-                font-size: 0.4rem;
             }
             .category-block .cat-arrow { 
                 font-size: 0.7rem; 
@@ -988,11 +970,9 @@
                 <div class="cat-content">
                     <div class="cat-icon">
                         <!-- ЗАМЕНИТЕ src НА СВОЮ КАРТИНКУ ДЛЯ ИНСТРУМЕНТОВ -->
-                        <img src="../images/инструменты-фон.webp" alt="Инструмент" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-tools\\'></i>'">
+                        <img src="../images/amps/иконка-инструмент.webp" alt="Инструмент" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-tools\\'></i>'">
                     </div>
-                    <div class="cat-name-wrap">
-                        <span class="cat-name">ИНСТРУМЕНТ</span>
-                    </div>
+                    <span class="cat-name">ИНСТРУМЕНТ</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
             </div>
@@ -1002,12 +982,9 @@
                 <div class="cat-content">
                     <div class="cat-icon">
                         <!-- ЗАМЕНИТЕ src НА СВОЮ КАРТИНКУ ДЛЯ НАВЫКОВ -->
-                        <img src="../images/amps/category-skill.png" alt="Навык" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-star\\'></i>'">
+                        <img src="../images/иконка-навык.webp" alt="Навык" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-star\\'></i>'">
                     </div>
-                    <div class="cat-name-wrap">
-                        <span class="cat-name">НАВЫК</span>
-                        <span class="cat-sub">Пассивные умения</span>
-                    </div>
+                    <span class="cat-name">НАВЫК</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
             </div>
@@ -1017,12 +994,9 @@
                 <div class="cat-content">
                     <div class="cat-icon">
                         <!-- ЗАМЕНИТЕ src НА СВОЮ КАРТИНКУ ДЛЯ ЛЕКАРСТВ -->
-                        <img src="../images/amps/category-medicine.png" alt="Лекарство" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-pills\\'></i>'">
+                        <img src="../images/иконка-лекарство.webp" alt="Лекарство" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-pills\\'></i>'">
                     </div>
-                    <div class="cat-name-wrap">
-                        <span class="cat-name">ЛЕКАРСТВО</span>
-                        <span class="cat-sub">Восстановление</span>
-                    </div>
+                    <span class="cat-name">ЛЕКАРСТВО</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
             </div>
@@ -1032,12 +1006,9 @@
                 <div class="cat-content">
                     <div class="cat-icon">
                         <!-- ЗАМЕНИТЕ src НА СВОЮ КАРТИНКУ ДЛЯ ГАДЖЕТОВ -->
-                        <img src="../images/amps/category-imposter.png" alt="Гаджеты самозванцев" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-mask\\'></i>'">
+                        <img src="../images/иконка-гаджеты.webp" alt="Гаджеты самозванцев" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-mask\\'></i>'">
                     </div>
-                    <div class="cat-name-wrap">
-                        <span class="cat-name">ГАДЖЕТЫ САМОЗВАНЦЕВ</span>
-                        <span class="cat-sub">Обман и саботаж</span>
-                    </div>
+                    <span class="cat-name">ГАДЖЕТЫ САМОЗВАНЦЕВ</span>
                     <span class="cat-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
             </div>
