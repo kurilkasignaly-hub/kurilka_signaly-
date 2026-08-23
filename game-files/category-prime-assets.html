@@ -417,7 +417,6 @@
             transform: translateY(-6px);
         }
 
-        /* Контейнер с картинкой и рамкой поверх */
         .asset-frame {
             position: relative;
             width: 100%;
@@ -430,10 +429,9 @@
             justify-content: center;
         }
 
-        /* Картинка персонажа внутри рамки */
         .asset-image {
-            width: 92%;
-            height: 92%;
+            width: 80%;
+            height: 80%;
             object-fit: contain;
             display: block;
             transition: transform 0.4s ease;
@@ -454,7 +452,6 @@
             color: rgba(220, 90, 50, 0.3);
         }
 
-        /* Рамка поверх картинки (прозрачный PNG) */
         .asset-frame::after {
             content: "";
             position: absolute;
@@ -470,7 +467,6 @@
             z-index: 2;
         }
 
-        /* Имя персонажа снизу */
         .asset-name {
             font-size: 1.2rem;
             font-weight: 700;
@@ -496,7 +492,6 @@
             border-radius: 50px;
         }
 
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 850px) {
             .container { padding: 1rem; }
             .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
@@ -547,6 +542,7 @@
             <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
             <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
             <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
 
             <div class="music-controls-wrapper">
@@ -579,7 +575,7 @@
 
     <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
     <div class="page-header">
-        <h1 class="page-title">ГЛАВНЫЕ АКТИВЫ</h1>
+        <h1 class="page-title"><i class="fas fa-skull"></i> Главные активы</h1>
         <p class="page-description">Главные активы (Prime Asset) — это жестокие, невменяемые и в то же время страшные, излишне личностно, которые представляют главную угрозу для реагентов. Обычно цели и являются центральными элементами сценария, на котором строится каждое испытание.</p>
     </div>
 
@@ -599,17 +595,23 @@
     let mainAudioFiles = [];
     let currentAudioElement = null;
     let volumeDropdownOpen = false;
+    let isInitialized = false;
 
     function initMainAudio() {
+        if (isInitialized) return;
         const container = document.getElementById('mainAudioContainer');
         if (!container) return;
         mainAudioFiles = [];
         const audioElements = container.querySelectorAll('audio');
-        audioElements.forEach(audio => { mainAudioFiles.push(audio); });
+        audioElements.forEach(audio => { 
+            mainAudioFiles.push(audio); 
+            audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        });
+        isInitialized = true;
     }
 
     function playNextMainTrack() {
-        if (!mainAudioStarted) return;
+        if (!mainAudioStarted || mainAudioFiles.length === 0) return;
         if (currentAudioElement) {
             currentAudioElement.pause();
             currentAudioElement.currentTime = 0;
@@ -674,6 +676,7 @@
     }
 
     function toggleMainMusic() {
+        initMainAudio();
         if (mainAudioStarted) {
             mainAudioStarted = false;
             if (currentAudioElement) {
@@ -714,18 +717,33 @@
     document.addEventListener('DOMContentLoaded', function() {
         const slider = document.getElementById('volumeSlider');
         const valueDisplay = document.getElementById('volumeValue');
+        
+        // Инициализация слайдера
+        const initialVal = parseInt(slider.value);
+        const percent = initialVal;
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
+        valueDisplay.textContent = initialVal + '%';
+        
+        // Обработчик изменения громкости
         slider.addEventListener('input', function() {
             const val = parseInt(this.value);
             valueDisplay.textContent = val + '%';
+            
+            // Обновляем громкость у всех аудио
             if (currentAudioElement && mainAudioStarted) {
                 currentAudioElement.volume = val / 100;
             }
-            const percent = val;
-            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
+            mainAudioFiles.forEach(audio => {
+                audio.volume = val / 100;
+            });
+            
+            const percentVal = val;
+            this.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percentVal}%, rgba(255,255,255,0.15) ${percentVal}%, rgba(255,255,255,0.15) 100%)`;
         });
-        const initialVal = parseInt(slider.value);
-        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
-        valueDisplay.textContent = initialVal + '%';
+
+        // Инициализируем аудио при загрузке
+        initMainAudio();
+        
         setTimeout(startMainMusic, 1000);
     });
 
@@ -741,14 +759,13 @@
 
     // ============ ДАННЫЕ ГЛАВНЫХ АКТИВОВ ============
     const primeAssets = [
-        { id: "leland-coyle", name: "ЛИЛАНД КОЙЛ", file: "leland-coyle.html", image: "../images/койл.png" },
-        { id: "mother-gooseberry", name: "МАТУШКА ГУСБЕРРИ", file: "mother-gooseberry.html", image: "../images/гусберри.png" },
-        { id: "franco-barbi", name: "ФРАНКО БАРБИ", file: "franco-barbi.html", image: "../images/барби.png" },
-        { id: "otto-aurora", name: "ОТТО И АРОРА КРЕСС", file: "otto-aurora.html", image: "../images/крессы.png" },
-        { id: "lilia-bogomolova", name: "ЛИЛИЯ БОГОМОЛОВА", file: "lilia-bogomolova.html", image: "../images/богомолова.png" }
+        { id: "leland-coyle", name: "Лиланд Койл", file: "leland-coyle.html", image: "../images/койл.png" },
+        { id: "mother-gooseberry", name: "Матушка Гусберри", file: "mother-gooseberry.html", image: "../images/гусберри.png" },
+        { id: "franco-barbi", name: "Франко Барби", file: "franco-barbi.html", image: "../images/барби.png" },
+        { id: "otto-aurora", name: "Отто и Арора Кресс", file: "otto-aurora.html", image: "../images/крессы.png" },
+        { id: "lilia-bogomolova", name: "Лилия Богомолова", file: "lilia-bogomolova.html", image: "../images/богомолова.png" }
     ];
 
-    // ============ ОТОБРАЖЕНИЕ КАРТОЧЕК ============
     function displayAssets() {
         const container = document.getElementById('assetsGrid');
         if (!container) return;
@@ -786,7 +803,6 @@
         });
     }
 
-    // ============ ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============
     function initScrollAnimation() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -806,7 +822,6 @@
         });
     }
 
-    // ============ ЗАПУСК ============
     document.addEventListener('DOMContentLoaded', function() {
         displayAssets();
         initScrollAnimation();
