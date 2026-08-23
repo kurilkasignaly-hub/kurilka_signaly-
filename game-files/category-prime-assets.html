@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Главные активы — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -22,7 +25,6 @@
             background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
         }
 
-        /* Фоновое видео */
         .background-video {
             position: fixed;
             top: 0;
@@ -49,10 +51,9 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes smokePulse {
-            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
-            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
-            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
         }
 
         .container {
@@ -63,19 +64,20 @@
             z-index: 10;
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            padding: 1.2rem 2rem;
+            padding: 0.8rem 2rem;
             background: rgba(8, 6, 15, 0.5);
             backdrop-filter: blur(16px);
             border-radius: 80px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.2rem;
             gap: 1rem;
             border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
             animation: fadeInScale 0.6s ease-out;
         }
 
@@ -84,24 +86,32 @@
             box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
         }
 
-        .logo h1 {
-            font-size: 2rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #fbc2a0, #e25d32, #ff9f6e);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: smokePulse 3s ease-in-out infinite;
+            white-space: nowrap;
         }
 
         .logo p {
-            font-size: 0.75rem;
-            color: #c2b9d4;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
         }
 
         .logo p i {
@@ -109,49 +119,220 @@
             font-size: 0.7rem;
         }
 
-        /* Навигация */
+        /* ===== НАВИГАЦИЯ ===== */
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.7rem;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(15, 10, 20, 0.4);
-            backdrop-filter: blur(12px);
-            padding: 0.6rem 1.3rem;
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
             border-radius: 60px;
-            border: 1px solid rgba(210, 100, 55, 0.25);
+            border: 1px solid rgba(210, 100, 55, 0.15);
         }
 
         .nav-btn {
             background: transparent;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 0.9rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: #e2d9f0;
+            color: #b5a8c8;
+            transition: all 0.3s;
             font-family: inherit;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             text-decoration: none;
         }
 
         .nav-btn:hover {
             color: white;
-            transform: translateY(-2px);
-            text-shadow: 0 0 6px rgba(220,90,50,0.4);
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
-            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.3);
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
-        /* Хлебные крошки */
+        /* ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== */
+        .music-controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .music-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .music-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .music-toggle.playing {
+            border-color: rgba(220, 90, 50, 0.3);
+            color: #e25d32;
+        }
+
+        .music-toggle .icon {
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .music-toggle .icon.pulse {
+            animation: musicPulse 1.2s ease-in-out infinite;
+        }
+
+        .music-toggle .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .volume-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 0.4rem 0.7rem;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .volume-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(220, 90, 50, 0.3);
+            color: white;
+        }
+
+        .volume-toggle-btn .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .volume-toggle-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .volume-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .volume-dropdown.open {
+            display: block;
+            animation: fadeInScale 0.25s ease-out;
+        }
+
+        .volume-dropdown .volume-label {
+            font-size: 0.7rem;
+            color: #8a7a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        .volume-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .volume-slider-wrapper .vol-icon {
+            color: #7a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider-wrapper .vol-icon.active {
+            color: #e25d32;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .volume-value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e25d32;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
         .breadcrumb {
             margin-bottom: 1.5rem;
             animation: fadeInScale 0.6s ease-out;
@@ -177,7 +358,7 @@
             border-color: #e16d48;
         }
 
-        /* Заголовок страницы */
+        /* ===== ЗАГОЛОВОК СТРАНИЦЫ ===== */
         .page-header {
             margin-bottom: 2rem;
             animation: fadeInScale 0.6s ease-out 0.1s backwards;
@@ -213,80 +394,95 @@
             border-left: 4px solid #e16d48;
         }
 
-        /* Сетка карточек */
+        /* ===== СЕТКА КАРТОЧЕК С ФОТО-РАМКОЙ ===== */
         .assets-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1.8rem;
             animation: fadeInScale 0.6s ease-out 0.2s backwards;
         }
 
         .asset-card {
-            background: rgba(18, 12, 28, 0.5);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
             transition: all 0.3s ease;
             cursor: pointer;
             overflow: hidden;
             text-align: center;
+            padding: 0;
+            background: transparent;
+            border: none;
         }
 
         .asset-card:hover {
             transform: translateY(-6px);
-            border-color: #e16d48;
-            box-shadow: 0 15px 35px rgba(220, 90, 50, 0.15);
+        }
+
+        /* Фото-рамка как фон карточки */
+        .asset-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-image: url('../images/фото-рамка.webp');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12%;
+        }
+
+        /* Контейнер для картинки персонажа внутри рамки */
+        .asset-image-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .asset-image {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: contain;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 10px;
             display: block;
+            padding: 5px;
+            transition: transform 0.4s ease;
+        }
+
+        .asset-card:hover .asset-image {
+            transform: scale(1.05);
         }
 
         .asset-image-placeholder {
             width: 100%;
-            height: 200px;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: rgba(220, 90, 50, 0.4);
+            color: rgba(220, 90, 50, 0.3);
         }
 
-        .asset-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #e25d32, #bc4627);
-            border-radius: 12px;
+        /* Имя персонажа снизу */
+        .asset-name {
             font-size: 1.2rem;
             font-weight: 700;
-            color: white;
-            margin-top: -20px;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .asset-content {
-            padding: 1.2rem 1.5rem 1.5rem;
-        }
-
-        .asset-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #e16d48;
+            color: #f0eef7;
             margin-top: 0.8rem;
-            margin-bottom: 0;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
 
-        /* Footer */
+        .asset-card:hover .asset-name {
+            color: #e16d48;
+        }
+
+        /* ===== FOOTER ===== */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -298,67 +494,96 @@
             border-radius: 50px;
         }
 
+        /* ===== АДАПТИВ ===== */
         @media (max-width: 850px) {
             .container { padding: 1rem; }
             .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
             .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
             .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
-            .logo h1 { font-size: 1.5rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
             .page-title { font-size: 1.8rem; }
             .page-title i { font-size: 1.6rem; }
             .assets-grid { gap: 1.2rem; }
-            .asset-image { height: 180px; }
+            .asset-frame { padding: 10%; }
         }
 
         @media (max-width: 550px) {
             .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
             .page-title { font-size: 1.4rem; }
-            .asset-name { font-size: 1.1rem; }
-            .asset-content { padding: 1rem; }
-            .asset-image { height: 160px; }
+            .asset-name { font-size: 1rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .music-toggle { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+            .music-toggle .label { font-size: 0.5rem; }
+            .volume-toggle-btn { font-size: 0.6rem; padding: 0.2rem 0.4rem; }
+            .header { padding: 0.6rem; }
+            .assets-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
+            .asset-frame { padding: 8%; }
         }
     </style>
 </head>
 <body>
 
-<!-- Фоновое видео -->
 <video class="background-video" autoplay muted loop playsinline>
     <source src="../images/об игре фон.mp4" type="video/mp4">
     Ваш браузер не поддерживает видео.
 </video>
 
 <div class="container">
-    <!-- Шапка -->
+    <!-- ===== HEADER ===== -->
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-smoking"></i> Курилка Синьялы</h1>
-            <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
         </div>
         <div class="nav-links">
             <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
-            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Справочник ролей</a>
-            <a href="../server-news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости сервера</a>
-            <a href="../game-news.html" class="nav-btn"><i class="fas fa-gamepad"></i> Новости игры</a>
-            <a href="../site-news.html" class="nav-btn"><i class="fas fa-code"></i> Новости сайта</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
             <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
             <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
             <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+
+            <div class="music-controls-wrapper">
+                <div class="music-controls">
+                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
+                        <span class="icon fa-solid fa-volume-xmark"></span>
+                        <span class="label">Выкл</span>
+                    </button>
+                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
+                        <span class="arrow">▼</span>
+                    </div>
+                </div>
+                <div class="volume-dropdown" id="volumeDropdown">
+                    <span class="volume-label"><i class="fas fa-sliders-h"></i> Громкость</span>
+                    <div class="volume-slider-wrapper">
+                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
+                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
+                        <span class="volume-value" id="volumeValue">40%</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Хлебные крошки -->
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
     <div class="breadcrumb">
         <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
     </div>
 
-    <!-- Заголовок страницы -->
+    <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
     <div class="page-header">
         <h1 class="page-title"><i class="fas fa-skull"></i> Главные активы</h1>
         <p class="page-description">Главные активы (Prime Asset) — это жестокие, невменяемые и в то же время странно харизматичные личности, которые представляют главную угрозу для реагентов. Обычно они охраняют ключевые цели и являются центральными элементами сценария, на котором строится каждое испытание.</p>
     </div>
 
-    <!-- Сетка карточек -->
+    <!-- ===== СЕТКА КАРТОЧЕК ===== -->
     <div class="assets-grid" id="assetsGrid"></div>
 
     <footer>
@@ -368,15 +593,162 @@
 </div>
 
 <script>
-    // Данные главных активов с правильными путями к изображениям
+    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
+    let mainAudioStarted = false;
+    let currentTrackIndex = 0;
+    let mainAudioFiles = [];
+    let currentAudioElement = null;
+    let volumeDropdownOpen = false;
+
+    function initMainAudio() {
+        const container = document.getElementById('mainAudioContainer');
+        if (!container) return;
+        mainAudioFiles = [];
+        const audioElements = container.querySelectorAll('audio');
+        audioElements.forEach(audio => { mainAudioFiles.push(audio); });
+    }
+
+    function playNextMainTrack() {
+        if (!mainAudioStarted) return;
+        if (currentAudioElement) {
+            currentAudioElement.pause();
+            currentAudioElement.currentTime = 0;
+        }
+        currentTrackIndex = (currentTrackIndex + 1) % mainAudioFiles.length;
+        const audio = mainAudioFiles[currentTrackIndex];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+    }
+
+    function startMainMusic() {
+        if (mainAudioStarted) return;
+        initMainAudio();
+        if (mainAudioFiles.length === 0) {
+            setTimeout(startMainMusic, 500);
+            return;
+        }
+        mainAudioStarted = true;
+        currentTrackIndex = 0;
+        const audio = mainAudioFiles[0];
+        if (!audio) return;
+        currentAudioElement = audio;
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
+        updateMusicButton(true);
+    }
+
+    function updateMusicButton(state) {
+        const btn = document.getElementById('musicToggleBtn');
+        if (!btn) return;
+        const icon = btn.querySelector('.icon');
+        const label = btn.querySelector('.label');
+        if (state) {
+            btn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high', 'pulse');
+            }
+            if (label) label.textContent = 'Вкл';
+        } else {
+            btn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('fa-volume-high', 'pulse');
+                icon.classList.add('fa-volume-xmark');
+            }
+            if (label) label.textContent = 'Выкл';
+        }
+    }
+
+    function toggleMainMusic() {
+        if (mainAudioStarted) {
+            mainAudioStarted = false;
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+            }
+            mainAudioFiles.forEach(a => { a.pause(); a.currentTime = 0; });
+            updateMusicButton(false);
+        } else {
+            startMainMusic();
+        }
+    }
+
+    function toggleVolumeDropdown() {
+        volumeDropdownOpen = !volumeDropdownOpen;
+        const dropdown = document.getElementById('volumeDropdown');
+        const arrow = document.querySelector('.volume-toggle-btn .arrow');
+        if (volumeDropdownOpen) {
+            dropdown.classList.add('open');
+            arrow.classList.add('open');
+        } else {
+            dropdown.classList.remove('open');
+            arrow.classList.remove('open');
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        const wrapper = document.querySelector('.music-controls-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            const dropdown = document.getElementById('volumeDropdown');
+            const arrow = document.querySelector('.volume-toggle-btn .arrow');
+            if (dropdown) dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            volumeDropdownOpen = false;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('volumeSlider');
+        const valueDisplay = document.getElementById('volumeValue');
+        slider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            valueDisplay.textContent = val + '%';
+            if (currentAudioElement && mainAudioStarted) {
+                currentAudioElement.volume = val / 100;
+            }
+            const percent = val;
+            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
+        });
+        const initialVal = parseInt(slider.value);
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
+        valueDisplay.textContent = initialVal + '%';
+        setTimeout(startMainMusic, 1000);
+    });
+
+    document.addEventListener('click', function initAudioOnClick() {
+        if (!mainAudioStarted) {
+            startMainMusic();
+            document.removeEventListener('click', initAudioOnClick);
+        }
+    }, { once: true });
+
+    window.toggleMainMusic = toggleMainMusic;
+    window.toggleVolumeDropdown = toggleVolumeDropdown;
+
+    // ============ ДАННЫЕ ГЛАВНЫХ АКТИВОВ ============
     const primeAssets = [
-        { id: "leland-coyle", number: "01", name: "Лиланд Койл", file: "leland-coyle.html", image: "../images/койл.png" },
-        { id: "mother-gooseberry", number: "02", name: "Матушка Гусберри", file: "mother-gooseberry.html", image: "../images/гусберри.png" },
-        { id: "franco-barbi", number: "03", name: "Франко Барби", file: "franco-barbi.html", image: "../images/барби.png" },
-        { id: "otto-aurora", number: "04", name: "Отто и Арора Кресс", file: "otto-aurora.html", image: "../images/крессы.png" },
-        { id: "lilia-bogomolova", number: "05", name: "Лилия Богомолова", file: "lilia-bogomolova.html", image: "../images/богомолова.png" }
+        { id: "leland-coyle", name: "Лиланд Койл", file: "leland-coyle.html", image: "../images/койл.png" },
+        { id: "mother-gooseberry", name: "Матушка Гусберри", file: "mother-gooseberry.html", image: "../images/гусберри.png" },
+        { id: "franco-barbi", name: "Франко Барби", file: "franco-barbi.html", image: "../images/барби.png" },
+        { id: "otto-aurora", name: "Отто и Арора Кресс", file: "otto-aurora.html", image: "../images/крессы.png" },
+        { id: "lilia-bogomolova", name: "Лилия Богомолова", file: "lilia-bogomolova.html", image: "../images/богомолова.png" }
     ];
 
+    // ============ ОТОБРАЖЕНИЕ КАРТОЧЕК ============
     function displayAssets() {
         const container = document.getElementById('assetsGrid');
         if (!container) return;
@@ -387,23 +759,22 @@
             const card = document.createElement('div');
             card.className = 'asset-card';
             
-            // При клике переходим на файл в той же папке (game-files/)
             card.addEventListener('click', () => {
                 window.location.href = asset.file;
             });
             
             card.innerHTML = `
-                <img src="${asset.image}" class="asset-image" alt="${asset.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="asset-image-placeholder" style="display: none;">
-                    <i class="fas fa-skull"></i>
+                <div class="asset-frame">
+                    <div class="asset-image-wrapper">
+                        <img src="${asset.image}" class="asset-image" alt="${asset.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="asset-image-placeholder" style="display: none;">
+                            <i class="fas fa-skull"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="asset-number">${asset.number}</div>
-                <div class="asset-content">
-                    <h3 class="asset-name">${asset.name}</h3>
-                </div>
+                <div class="asset-name">${asset.name}</div>
             `;
             
-            // Обработчик ошибки загрузки изображения
             const img = card.querySelector('.asset-image');
             const placeholder = card.querySelector('.asset-image-placeholder');
             if (img) {
@@ -417,7 +788,7 @@
         });
     }
 
-    // Плавное появление при скролле
+    // ============ ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============
     function initScrollAnimation() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -437,11 +808,19 @@
         });
     }
 
+    // ============ ЗАПУСК ============
     document.addEventListener('DOMContentLoaded', function() {
         displayAssets();
         initScrollAnimation();
     });
 </script>
+
+<!-- ===== АУДИО ===== -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio1" preload="auto"><source src="../images/комната отдыха 1.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
+</div>
 
 </body>
 </html>
