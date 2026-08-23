@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Экс-попы — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -29,7 +32,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1;
+            z-index: -2;
         }
 
         body::after {
@@ -48,10 +51,9 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes smokePulse {
-            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
-            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
-            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+        @keyframes musicPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
         }
 
         .container {
@@ -62,19 +64,20 @@
             z-index: 10;
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            padding: 1.2rem 2rem;
+            padding: 0.8rem 2rem;
             background: rgba(8, 6, 15, 0.5);
             backdrop-filter: blur(16px);
             border-radius: 80px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.2rem;
             gap: 1rem;
             border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
             animation: fadeInScale 0.6s ease-out;
         }
 
@@ -83,24 +86,32 @@
             box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
         }
 
-        .logo h1 {
-            font-size: 2rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #fbc2a0, #e25d32, #ff9f6e);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: smokePulse 3s ease-in-out infinite;
+            white-space: nowrap;
         }
 
         .logo p {
-            font-size: 0.75rem;
-            color: #c2b9d4;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
         }
 
         .logo p i {
@@ -108,49 +119,48 @@
             font-size: 0.7rem;
         }
 
-        /* Навигация */
+        /* ===== НАВИГАЦИЯ ===== */
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.7rem;
+            align-items: center;
+            gap: 0.4rem;
             background: rgba(15, 10, 20, 0.4);
-            backdrop-filter: blur(12px);
-            padding: 0.6rem 1.3rem;
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
             border-radius: 60px;
-            border: 1px solid rgba(210, 100, 55, 0.25);
+            border: 1px solid rgba(210, 100, 55, 0.15);
         }
 
         .nav-btn {
             background: transparent;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 0.9rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: #e2d9f0;
+            color: #b5a8c8;
+            transition: all 0.3s;
             font-family: inherit;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             text-decoration: none;
         }
 
         .nav-btn:hover {
             color: white;
-            transform: translateY(-2px);
-            text-shadow: 0 0 6px rgba(220,90,50,0.4);
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
-            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.3);
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
-        /* Хлебные крошки */
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
         .breadcrumb {
             margin-bottom: 1.5rem;
             animation: fadeInScale 0.6s ease-out;
@@ -176,7 +186,7 @@
             border-color: #e16d48;
         }
 
-        /* Заголовок страницы */
+        /* ===== ЗАГОЛОВОК СТРАНИЦЫ ===== */
         .page-header {
             margin-bottom: 2rem;
             animation: fadeInScale 0.6s ease-out 0.1s backwards;
@@ -212,80 +222,93 @@
             border-left: 4px solid #e16d48;
         }
 
-        /* Сетка карточек */
+        /* ===== СЕТКА КАРТОЧЕК С ФОТО-РАМКОЙ ПОВЕРХ ===== */
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1.8rem;
             animation: fadeInScale 0.6s ease-out 0.2s backwards;
         }
 
         .item-card {
-            background: rgba(18, 12, 28, 0.5);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 20px;
             transition: all 0.3s ease;
             cursor: pointer;
             overflow: hidden;
             text-align: center;
+            padding: 0;
+            background: transparent;
+            border: none;
         }
 
         .item-card:hover {
             transform: translateY(-6px);
-            border-color: #e16d48;
-            box-shadow: 0 15px 35px rgba(220, 90, 50, 0.15);
+        }
+
+        .item-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .item-image {
-            width: 100%;
-            height: 200px;
+            width: 80%;
+            height: 80%;
             object-fit: contain;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 10px;
             display: block;
+            transition: transform 0.4s ease;
+            border-radius: 4px;
+        }
+
+        .item-card:hover .item-image {
+            transform: scale(1.05);
         }
 
         .item-image-placeholder {
-            width: 100%;
-            height: 200px;
+            width: 80%;
+            height: 80%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: rgba(220, 90, 50, 0.4);
+            color: rgba(220, 90, 50, 0.3);
         }
 
-        .item-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #e25d32, #bc4627);
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: white;
-            margin-top: -20px;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .item-content {
-            padding: 1.2rem 1.5rem 1.5rem;
+        .item-frame::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../images/фото-рамка.webp');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 2;
         }
 
         .item-name {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: #e16d48;
+            color: #f0eef7;
             margin-top: 0.8rem;
-            margin-bottom: 0;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
 
-        /* Footer */
+        .item-card:hover .item-name {
+            color: #e16d48;
+        }
+
+        /* ===== FOOTER ===== */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -302,43 +325,46 @@
             .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
             .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
             .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
-            .logo h1 { font-size: 1.5rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
             .page-title { font-size: 1.8rem; }
             .page-title i { font-size: 1.6rem; }
             .items-grid { gap: 1.2rem; }
-            .item-image { height: 180px; }
         }
 
         @media (max-width: 550px) {
             .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
             .page-title { font-size: 1.4rem; }
-            .item-name { font-size: 1.1rem; }
-            .item-content { padding: 1rem; }
-            .item-image { height: 160px; }
+            .item-name { font-size: 1rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .header { padding: 0.6rem; }
+            .items-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
+            .item-image { width: 75%; height: 75%; }
         }
     </style>
 </head>
 <body>
 
-<!-- Фоновое видео -->
 <video class="background-video" autoplay muted loop playsinline>
     <source src="../images/об игре фон.mp4" type="video/mp4">
     Ваш браузер не поддерживает видео.
 </video>
 
 <div class="container">
-    <!-- Шапка -->
+    <!-- ===== HEADER ===== -->
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-smoking"></i> Курилка Синьялы</h1>
-            <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
         </div>
         <div class="nav-links">
             <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
-            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Справочник ролей</a>
-            <a href="../server-news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости сервера</a>
-            <a href="../game-news.html" class="nav-btn"><i class="fas fa-gamepad"></i> Новости игры</a>
-            <a href="../site-news.html" class="nav-btn"><i class="fas fa-code"></i> Новости сайта</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
             <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
             <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
             <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
@@ -346,18 +372,18 @@
         </div>
     </div>
 
-    <!-- Хлебные крошки -->
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
     <div class="breadcrumb">
-        <a href="../about-game.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
+        <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
     </div>
 
-    <!-- Заголовок страницы -->
+    <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
     <div class="page-header">
         <h1 class="page-title"><i class="fas fa-ghost"></i> Экс-попы</h1>
         <p class="page-description">Экспериментальная популяция, неудачные испытуемые, использующиеся в качестве противников для реагентов на испытаниях корпорации Меркофф на объекте Синьяла.</p>
     </div>
 
-    <!-- Сетка карточек -->
+    <!-- ===== СЕТКА КАРТОЧЕК ===== -->
     <div class="items-grid" id="itemsGrid"></div>
 
     <footer>
@@ -367,22 +393,23 @@
 </div>
 
 <script>
-    // Данные экс-попов с правильными путями к изображениям
+    // ============ ДАННЫЕ ЭКС-ПОПОВ ============
     const exPops = [
-        { id: "regular", number: "01", name: "Обычные экс-попы", file: "regular-ex-pop.html", image: "../images/обычный-экс-поп.png" },
-        { id: "jaeger", number: "02", name: "Егерь", file: "jaeger.html", image: "../images/егерь.png" },
-        { id: "big-ex-pop", number: "03", name: "Большие экс-попы", file: "big-ex-pop.html", image: "../images/большой-экс-поп.png" },
-        { id: "berserker", number: "04", name: "Берсеркер", file: "berserker.html", image: "../images/берсеркер.png" },
-        { id: "night-hunter", number: "05", name: "Night hunter", file: "night-hunter.html", image: "../images/найт хантер.png" },
-        { id: "pusher", number: "06", name: "Pusher", file: "pusher.html", image: "../images/пушер.png" },
-        { id: "pitcher", number: "07", name: "Pitcher", file: "pitcher.html", image: "../images/питчер.png" },
-        { id: "screamer", number: "08", name: "Крикун", file: "screamer.html", image: "../images/крикун.png" },
-        { id: "grabber", number: "09", name: "Хватун", file: "grabber.html", image: "../images/хватун.png" },
-        { id: "scapegoat", number: "10", name: "Козлы отпущения", file: "scapegoat.html", image: "../images/козлы-отпущения.png" },
-        { id: "skinnerman", number: "11", name: "Скиннермэн", file: "skinnerman.html", image: "../images/скиннермэн.png" },
-        { id: "imposters", number: "12", name: "Самозванцы", file: "imposters.html", image: "../images/самозванец 1.1.png" }
+        { id: "regular", name: "Обычные экс-попы", file: "regular-ex-pop.html", image: "../images/обычный-экс-поп.png" },
+        { id: "jaeger", name: "Егерь", file: "jaeger.html", image: "../images/егерь.png" },
+        { id: "big-ex-pop", name: "Большие экс-попы", file: "big-ex-pop.html", image: "../images/большой-экс-поп.png" },
+        { id: "berserker", name: "Берсеркер", file: "berserker.html", image: "../images/берсеркер.png" },
+        { id: "night-hunter", name: "Night hunter", file: "night-hunter.html", image: "../images/найт хантер.png" },
+        { id: "pusher", name: "Pusher", file: "pusher.html", image: "../images/пушер.png" },
+        { id: "pitcher", name: "Pitcher", file: "pitcher.html", image: "../images/питчер.png" },
+        { id: "screamer", name: "Крикун", file: "screamer.html", image: "../images/крикун.png" },
+        { id: "grabber", name: "Хватун", file: "grabber.html", image: "../images/хватун.png" },
+        { id: "scapegoat", name: "Козлы отпущения", file: "scapegoat.html", image: "../images/козлы-отпущения.png" },
+        { id: "skinnerman", name: "Скиннермэн", file: "skinnerman.html", image: "../images/скиннермэн.png" },
+        { id: "imposters", name: "Самозванцы", file: "imposters.html", image: "../images/самозванец 1.1.png" }
     ];
 
+    // ============ ОТОБРАЖЕНИЕ КАРТОЧЕК ============
     function displayItems() {
         const container = document.getElementById('itemsGrid');
         if (!container) return;
@@ -393,23 +420,20 @@
             const card = document.createElement('div');
             card.className = 'item-card';
             
-            // При клике переходим на файл в той же папке (game-files/)
             card.addEventListener('click', () => {
                 window.location.href = item.file;
             });
             
             card.innerHTML = `
-                <img src="${item.image}" class="item-image" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="item-image-placeholder" style="display: none;">
-                    <i class="fas fa-skull"></i>
+                <div class="item-frame">
+                    <img src="${item.image}" class="item-image" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="item-image-placeholder" style="display: none;">
+                        <i class="fas fa-skull"></i>
+                    </div>
                 </div>
-                <div class="item-number">${item.number}</div>
-                <div class="item-content">
-                    <h3 class="item-name">${item.name}</h3>
-                </div>
+                <div class="item-name">${item.name}</div>
             `;
             
-            // Обработчик ошибки загрузки изображения
             const img = card.querySelector('.item-image');
             const placeholder = card.querySelector('.item-image-placeholder');
             if (img) {
@@ -423,7 +447,7 @@
         });
     }
 
-    // Плавное появление при скролле
+    // ============ ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============
     function initScrollAnimation() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
