@@ -51,11 +51,6 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes musicPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
-        }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -160,186 +155,6 @@
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
-        /* ===== УПРАВЛЕНИЕ МУЗЫКОЙ ===== */
-        .music-controls-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-        }
-
-        .music-toggle {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px;
-            padding: 0.4rem 0.9rem;
-            color: #b5a8c8;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
-
-        .music-toggle:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(220, 90, 50, 0.3);
-            color: white;
-        }
-
-        .music-toggle.playing {
-            border-color: rgba(220, 90, 50, 0.3);
-            color: #e25d32;
-        }
-
-        .music-toggle .icon {
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .music-toggle .icon.pulse {
-            animation: musicPulse 1.2s ease-in-out infinite;
-        }
-
-        .music-toggle .label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .volume-toggle-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px;
-            padding: 0.4rem 0.7rem;
-            color: #b5a8c8;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-        }
-
-        .volume-toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(220, 90, 50, 0.3);
-            color: white;
-        }
-
-        .volume-toggle-btn .arrow {
-            transition: transform 0.3s ease;
-            display: inline-block;
-        }
-
-        .volume-toggle-btn .arrow.open {
-            transform: rotate(180deg);
-        }
-
-        .volume-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            background: rgba(18, 12, 28, 0.95);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(220, 90, 50, 0.25);
-            border-radius: 20px;
-            padding: 1rem 1.5rem;
-            min-width: 200px;
-            z-index: 100;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-        }
-
-        .volume-dropdown.open {
-            display: block;
-            animation: fadeInScale 0.25s ease-out;
-        }
-
-        .volume-dropdown .volume-label {
-            font-size: 0.7rem;
-            color: #8a7a9a;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            display: block;
-            text-align: center;
-        }
-
-        .volume-slider-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .volume-slider-wrapper .vol-icon {
-            color: #7a6a8a;
-            font-size: 0.85rem;
-        }
-
-        .volume-slider-wrapper .vol-icon.active {
-            color: #e25d32;
-        }
-
-        /* ===== СЛАЙДЕР ГРОМКОСТИ (как в Снаряжении) ===== */
-        .volume-slider {
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            width: 130px !important;
-            height: 4px !important;
-            border-radius: 10px !important;
-            background: linear-gradient(to right, #e25d32, #e25d32) !important;
-            outline: none !important;
-            transition: all 0.3s !important;
-            cursor: pointer !important;
-            flex-shrink: 0;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            width: 16px !important;
-            height: 16px !important;
-            border-radius: 50% !important;
-            background: linear-gradient(135deg, #bc4627, #e25d32) !important;
-            cursor: pointer !important;
-            border: 2px solid rgba(255, 255, 255, 0.15) !important;
-            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3) !important;
-            transition: all 0.2s !important;
-        }
-
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1) !important;
-        }
-
-        .volume-slider::-moz-range-thumb {
-            width: 16px !important;
-            height: 16px !important;
-            border-radius: 50% !important;
-            background: linear-gradient(135deg, #bc4627, #e25d32) !important;
-            cursor: pointer !important;
-            border: 2px solid rgba(255, 255, 255, 0.15) !important;
-        }
-
-        .volume-slider::-moz-range-track {
-            height: 4px !important;
-            border-radius: 10px !important;
-            background: #333 !important;
-        }
-
-        .volume-value {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #e25d32;
-            min-width: 36px;
-            text-align: center;
-        }
-
         /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
         .breadcrumb {
             margin-bottom: 1.5rem;
@@ -438,8 +253,8 @@
         }
 
         .asset-image {
-            width: 80%;
-            height: 80%;
+            width: 92%;
+            height: 92%;
             object-fit: contain;
             display: block;
             transition: transform 0.4s ease;
@@ -510,7 +325,6 @@
             .page-title { font-size: 1.8rem; }
             .page-title i { font-size: 1.6rem; }
             .assets-grid { gap: 1.2rem; }
-            .volume-slider { width: 100px !important; }
         }
 
         @media (max-width: 550px) {
@@ -519,13 +333,9 @@
             .asset-name { font-size: 1rem; }
             .logo .logo-text { font-size: 1rem; }
             .logo .logo-img { max-height: 32px; }
-            .music-toggle { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
-            .music-toggle .label { font-size: 0.5rem; }
-            .volume-toggle-btn { font-size: 0.6rem; padding: 0.2rem 0.4rem; }
             .header { padding: 0.6rem; }
             .assets-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
             .asset-image { width: 75%; height: 75%; }
-            .volume-slider { width: 80px !important; }
         }
     </style>
 </head>
@@ -552,29 +362,7 @@
             <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
             <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
             <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
-            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
-
-            <div class="music-controls-wrapper">
-                <div class="music-controls">
-                    <button class="music-toggle" id="musicToggleBtn" onclick="toggleMainMusic()" title="Включить/выключить музыку">
-                        <span class="icon fa-solid fa-volume-xmark"></span>
-                        <span class="label">Выкл</span>
-                    </button>
-                    <div class="volume-toggle-btn" id="volumeToggleBtn" onclick="toggleVolumeDropdown()" title="Регулировка громкости">
-                        <span class="arrow">▼</span>
-                    </div>
-                </div>
-                <div class="volume-dropdown" id="volumeDropdown">
-                    <span class="volume-label"><i class="fas fa-sliders-h"></i> ГРОМКОСТЬ</span>
-                    <div class="volume-slider-wrapper">
-                        <span class="vol-icon"><i class="fas fa-volume-low"></i></span>
-                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="40">
-                        <span class="vol-icon active"><i class="fas fa-volume-high"></i></span>
-                        <span class="volume-value" id="volumeValue">40%</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -585,7 +373,7 @@
 
     <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
     <div class="page-header">
-        <h1 class="page-title"><i class="fas fa-skull"></i> Главные активы</h1>
+        <h1 class="page-title">ГЛАВНЫЕ АКТИВЫ</h1>
         <p class="page-description">Главные активы (Prime Asset) — это жестокие, невменяемые и в то же время страшные, излишне личностно, которые представляют главную угрозу для реагентов. Обычно цели и являются центральными элементами сценария, на котором строится каждое испытание.</p>
     </div>
 
@@ -599,170 +387,13 @@
 </div>
 
 <script>
-    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ (полностью как в Снаряжении) ============
-    let mainAudioStarted = false;
-    let currentTrackIndex = 0;
-    let mainAudioFiles = [];
-    let currentAudioElement = null;
-    let volumeDropdownOpen = false;
-
-    function initMainAudio() {
-        const container = document.getElementById('mainAudioContainer');
-        if (!container) return;
-        mainAudioFiles = [];
-        const audioElements = container.querySelectorAll('audio');
-        audioElements.forEach(audio => { 
-            mainAudioFiles.push(audio); 
-        });
-    }
-
-    function playNextMainTrack() {
-        if (!mainAudioStarted) return;
-        if (currentAudioElement) {
-            currentAudioElement.pause();
-            currentAudioElement.currentTime = 0;
-        }
-        currentTrackIndex = (currentTrackIndex + 1) % mainAudioFiles.length;
-        const audio = mainAudioFiles[currentTrackIndex];
-        if (!audio) return;
-        currentAudioElement = audio;
-        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-        audio.addEventListener('ended', function onEnd() {
-            audio.removeEventListener('ended', onEnd);
-            if (!mainAudioStarted) return;
-            playNextMainTrack();
-        });
-    }
-
-    function startMainMusic() {
-        if (mainAudioStarted) return;
-        initMainAudio();
-        if (mainAudioFiles.length === 0) {
-            setTimeout(startMainMusic, 500);
-            return;
-        }
-        mainAudioStarted = true;
-        currentTrackIndex = 0;
-        const audio = mainAudioFiles[0];
-        if (!audio) return;
-        currentAudioElement = audio;
-        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-        audio.addEventListener('ended', function onEnd() {
-            audio.removeEventListener('ended', onEnd);
-            if (!mainAudioStarted) return;
-            playNextMainTrack();
-        });
-        updateMusicButton(true);
-    }
-
-    function updateMusicButton(state) {
-        const btn = document.getElementById('musicToggleBtn');
-        if (!btn) return;
-        const icon = btn.querySelector('.icon');
-        const label = btn.querySelector('.label');
-        if (state) {
-            btn.classList.add('playing');
-            if (icon) {
-                icon.classList.remove('fa-volume-xmark');
-                icon.classList.add('fa-volume-high', 'pulse');
-            }
-            if (label) label.textContent = 'Вкл';
-        } else {
-            btn.classList.remove('playing');
-            if (icon) {
-                icon.classList.remove('fa-volume-high', 'pulse');
-                icon.classList.add('fa-volume-xmark');
-            }
-            if (label) label.textContent = 'Выкл';
-        }
-    }
-
-    function toggleMainMusic() {
-        if (mainAudioStarted) {
-            mainAudioStarted = false;
-            if (currentAudioElement) {
-                currentAudioElement.pause();
-                currentAudioElement.currentTime = 0;
-            }
-            mainAudioFiles.forEach(a => { a.pause(); a.currentTime = 0; });
-            updateMusicButton(false);
-        } else {
-            startMainMusic();
-        }
-    }
-
-    function toggleVolumeDropdown() {
-        volumeDropdownOpen = !volumeDropdownOpen;
-        const dropdown = document.getElementById('volumeDropdown');
-        const arrow = document.querySelector('.volume-toggle-btn .arrow');
-        if (volumeDropdownOpen) {
-            dropdown.classList.add('open');
-            arrow.classList.add('open');
-        } else {
-            dropdown.classList.remove('open');
-            arrow.classList.remove('open');
-        }
-    }
-
-    document.addEventListener('click', function(e) {
-        const wrapper = document.querySelector('.music-controls-wrapper');
-        if (wrapper && !wrapper.contains(e.target)) {
-            const dropdown = document.getElementById('volumeDropdown');
-            const arrow = document.querySelector('.volume-toggle-btn .arrow');
-            if (dropdown) dropdown.classList.remove('open');
-            if (arrow) arrow.classList.remove('open');
-            volumeDropdownOpen = false;
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const slider = document.getElementById('volumeSlider');
-        const valueDisplay = document.getElementById('volumeValue');
-        
-        // ===== ВАЖНО: полный обработчик как в Снаряжении =====
-        slider.addEventListener('input', function() {
-            const val = parseInt(this.value);
-            valueDisplay.textContent = val + '%';
-            
-            // Обновляем громкость текущего аудио
-            if (currentAudioElement && mainAudioStarted) {
-                currentAudioElement.volume = val / 100;
-            }
-            
-            // Обновляем визуальное заполнение слайдера
-            const percent = val;
-            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
-        });
-        
-        // Устанавливаем начальное значение и фон
-        const initialVal = parseInt(slider.value);
-        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
-        valueDisplay.textContent = initialVal + '%';
-        
-        setTimeout(startMainMusic, 1000);
-    });
-
-    document.addEventListener('click', function initAudioOnClick() {
-        if (!mainAudioStarted) {
-            startMainMusic();
-            document.removeEventListener('click', initAudioOnClick);
-        }
-    }, { once: true });
-
-    window.toggleMainMusic = toggleMainMusic;
-    window.toggleVolumeDropdown = toggleVolumeDropdown;
-
     // ============ ДАННЫЕ ГЛАВНЫХ АКТИВОВ ============
     const primeAssets = [
-        { id: "leland-coyle", name: "Лиланд Койл", file: "leland-coyle.html", image: "../images/койл.png" },
-        { id: "mother-gooseberry", name: "Матушка Гусберри", file: "mother-gooseberry.html", image: "../images/гусберри.png" },
-        { id: "franco-barbi", name: "Франко Барби", file: "franco-barbi.html", image: "../images/барби.png" },
-        { id: "otto-aurora", name: "Отто и Арора Кресс", file: "otto-aurora.html", image: "../images/крессы.png" },
-        { id: "lilia-bogomolova", name: "Лилия Богомолова", file: "lilia-bogomolova.html", image: "../images/богомолова.png" }
+        { id: "leland-coyle", name: "ЛИЛАНД КОЙЛ", file: "leland-coyle.html", image: "../images/койл.png" },
+        { id: "mother-gooseberry", name: "МАТУШКА ГУСБЕРРИ", file: "mother-gooseberry.html", image: "../images/гусберри.png" },
+        { id: "franco-barbi", name: "ФРАНКО БАРБИ", file: "franco-barbi.html", image: "../images/барби.png" },
+        { id: "otto-aurora", name: "ОТТО И АРОРА КРЕСС", file: "otto-aurora.html", image: "../images/крессы.png" },
+        { id: "lilia-bogomolova", name: "ЛИЛИЯ БОГОМОЛОВА", file: "lilia-bogomolova.html", image: "../images/богомолова.png" }
     ];
 
     function displayAssets() {
@@ -826,13 +457,6 @@
         initScrollAnimation();
     });
 </script>
-
-<!-- ===== АУДИО ===== -->
-<div id="mainAudioContainer" style="display:none;">
-    <audio id="mainAudio1" preload="auto"><source src="../images/комната отдыха 1.mp3" type="audio/mpeg"></audio>
-    <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
-    <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
-</div>
 
 </body>
 </html>
