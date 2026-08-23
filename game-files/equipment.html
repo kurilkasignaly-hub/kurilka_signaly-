@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Главные активы — The Outlast Trials | Курилка Синьялы</title>
+    <title>Снаряжение — The Outlast Trials | Курилка Синьялы</title>
     <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
     <link rel="shortcut icon" href="../images/лого.png" type="image/png">
     <link rel="apple-touch-icon" href="../images/лого.png">
@@ -25,7 +25,7 @@
             background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
         }
 
-        .background-video {
+        .background-image {
             position: fixed;
             top: 0;
             left: 0;
@@ -42,13 +42,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.78);
+            background: rgba(0, 0, 0, 0.8);
             z-index: -1;
         }
 
         @keyframes fadeInScale {
             0% { opacity: 0; transform: scale(0.96) translateY(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes smokePulse {
+            0% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
+            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
+            100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
         }
 
         @keyframes musicPulse {
@@ -71,19 +77,18 @@
             align-items: center;
             flex-wrap: wrap;
             padding: 0.8rem 2rem;
-            background: rgba(8, 6, 15, 0.5);
+            background: rgba(8, 6, 15, 0.6);
             backdrop-filter: blur(16px);
             border-radius: 80px;
-            margin-bottom: 1.2rem;
+            margin-bottom: 2rem;
             gap: 1rem;
-            border: 1px solid rgba(220, 90, 50, 0.25);
+            border: 1px solid rgba(220, 90, 50, 0.2);
             transition: all 0.3s;
             animation: fadeInScale 0.6s ease-out;
         }
 
         .header:hover {
-            border-color: rgba(220, 90, 50, 0.5);
-            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+            border-color: rgba(220, 90, 50, 0.4);
         }
 
         .logo {
@@ -114,12 +119,6 @@
             margin-top: 0px;
         }
 
-        .logo p i {
-            color: #e16d48;
-            font-size: 0.7rem;
-        }
-
-        /* ===== НАВИГАЦИЯ ===== */
         .nav-links {
             display: flex;
             flex-wrap: wrap;
@@ -286,50 +285,42 @@
             color: #e25d32;
         }
 
-        /* ===== ИСПРАВЛЕННЫЙ СЛАЙДЕР (как в файле Снаряжение) ===== */
         .volume-slider {
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            width: 130px !important;
-            height: 4px !important;
-            border-radius: 10px !important;
-            background: #333 !important;
-            outline: none !important;
-            transition: all 0.3s !important;
-            cursor: pointer !important;
-            flex-shrink: 0;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 130px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e25d32, #e25d32);
+            outline: none;
+            transition: all 0.3s;
+            cursor: pointer;
         }
 
         .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            width: 16px !important;
-            height: 16px !important;
-            border-radius: 50% !important;
-            background: linear-gradient(135deg, #bc4627, #e25d32) !important;
-            cursor: pointer !important;
-            border: 2px solid rgba(255, 255, 255, 0.15) !important;
-            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3) !important;
-            transition: all 0.2s !important;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(188, 70, 39, 0.3);
+            transition: all 0.2s;
         }
 
         .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1) !important;
+            transform: scale(1.1);
         }
 
         .volume-slider::-moz-range-thumb {
-            width: 16px !important;
-            height: 16px !important;
-            border-radius: 50% !important;
-            background: linear-gradient(135deg, #bc4627, #e25d32) !important;
-            cursor: pointer !important;
-            border: 2px solid rgba(255, 255, 255, 0.15) !important;
-        }
-
-        .volume-slider::-moz-range-track {
-            height: 4px !important;
-            border-radius: 10px !important;
-            background: #333 !important;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         .volume-value {
@@ -340,7 +331,6 @@
             text-align: center;
         }
 
-        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
         .breadcrumb {
             margin-bottom: 1.5rem;
             animation: fadeInScale 0.6s ease-out;
@@ -366,126 +356,575 @@
             border-color: #e16d48;
         }
 
-        /* ===== ЗАГОЛОВОК СТРАНИЦЫ ===== */
-        .page-header {
-            margin-bottom: 2rem;
+        .article-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
             animation: fadeInScale 0.6s ease-out 0.1s backwards;
         }
 
-        .page-title {
-            font-size: 2.5rem;
+        .article-content {
+            padding: 2rem;
+        }
+
+        /* ===== ЗАГОЛОВОК И ИНФОРМАЦИЯ ===== */
+        .character-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+
+        .character-image img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .character-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .character-title {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            margin-bottom: 0.8rem;
         }
 
-        .page-title i {
-            font-size: 2.2rem;
+        /* ===== ИНФОРМАЦИОННЫЙ БЛОК (под заголовком) ===== */
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .character-sub p {
+            margin-bottom: 0.3rem;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 0.8rem 0 0 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        /* ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== */
+        .equipment-description-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .equipment-description-block p {
+            color: #d1cce6;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .equipment-description-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .equipment-description-block strong {
             color: #e16d48;
         }
 
-        .page-description {
-            font-size: 1rem;
-            color: #c2b9d4;
-            line-height: 1.6;
-            max-width: 800px;
-            background: rgba(18, 12, 28, 0.45);
-            backdrop-filter: blur(12px);
-            padding: 1rem 1.5rem;
-            border-radius: 24px;
-            border-left: 4px solid #e16d48;
-        }
-
-        /* ===== СЕТКА КАРТОЧЕК ===== */
-        .assets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.8rem;
-            animation: fadeInScale 0.6s ease-out 0.2s backwards;
-        }
-
-        .asset-card {
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            overflow: hidden;
-            text-align: center;
-            padding: 0;
-            background: transparent;
-            border: none;
-        }
-
-        .asset-card:hover {
-            transform: translateY(-6px);
-        }
-
-        .asset-frame {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
+        /* ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== */
+        .global-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.2rem;
             border-radius: 12px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(255, 200, 0, 0.08);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+        }
+
+        .global-alert .alert-icon {
+            color: #f1c40f;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .global-alert .alert-text {
+            color: #e8e0d0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .global-alert .alert-text strong {
+            color: #f1c40f;
+        }
+
+        /* ===== КАРТОЧКИ СНАРЯЖЕНИЯ ===== */
+        .equipment-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .equipment-card {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 24px;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .equipment-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .equipment-card.color-red .equipment-header {
+            border-left: 4px solid #e74c3c;
+            background: rgba(231, 76, 60, 0.12);
+        }
+        .equipment-card.color-red:hover {
+            border-color: #e74c3c;
+        }
+
+        .equipment-card.color-purple .equipment-header {
+            border-left: 4px solid #9b59b6;
+            background: rgba(155, 89, 182, 0.12);
+        }
+        .equipment-card.color-purple:hover {
+            border-color: #9b59b6;
+        }
+
+        .equipment-card.color-teal .equipment-header {
+            border-left: 4px solid #1abc9c;
+            background: rgba(26, 188, 156, 0.12);
+        }
+        .equipment-card.color-teal:hover {
+            border-color: #1abc9c;
+        }
+
+        .equipment-card.color-green .equipment-header {
+            border-left: 4px solid #2ecc71;
+            background: rgba(46, 204, 113, 0.12);
+        }
+        .equipment-card.color-green:hover {
+            border-color: #2ecc71;
+        }
+
+        .equipment-card.color-yellow .equipment-header {
+            border-left: 4px solid #f1c40f;
+            background: rgba(241, 196, 15, 0.12);
+        }
+        .equipment-card.color-yellow:hover {
+            border-color: #f1c40f;
+        }
+
+        .equipment-card.color-orange .equipment-header {
+            border-left: 4px solid #e67e22;
+            background: rgba(230, 126, 34, 0.12);
+        }
+        .equipment-card.color-orange:hover {
+            border-color: #e67e22;
+        }
+
+        .equipment-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.15);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .equipment-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .equipment-header .eq-icon {
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 14px;
+            flex-shrink: 0;
+            overflow: hidden;
         }
 
-        .asset-image {
-            width: 80%;
-            height: 80%;
+        .equipment-header .eq-icon img {
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            display: block;
-            transition: transform 0.4s ease;
-            border-radius: 4px;
         }
 
-        .asset-card:hover .asset-image {
+        .equipment-header .eq-title-group {
+            flex: 1;
+        }
+
+        .equipment-header .eq-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f0eef7;
+        }
+
+        .equipment-header .eq-category {
+            font-size: 0.7rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+        .equipment-header .eq-toggle {
+            color: #888;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .equipment-header .eq-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .color-red .eq-toggle.open { color: #e74c3c; }
+        .color-purple .eq-toggle.open { color: #9b59b6; }
+        .color-teal .eq-toggle.open { color: #1abc9c; }
+        .color-green .eq-toggle.open { color: #2ecc71; }
+        .color-yellow .eq-toggle.open { color: #f1c40f; }
+        .color-orange .eq-toggle.open { color: #e67e22; }
+
+        .equipment-body {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .equipment-body.open {
+            padding: 1.2rem 1.5rem;
+            max-height: 3000px;
+        }
+
+        .eq-section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .eq-section-title i {
+            color: #e16d48;
+        }
+
+        .eq-image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .eq-image-gallery .gallery-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .eq-image-gallery .gallery-img:hover {
+            transform: scale(1.05);
+            border-color: #e16d48;
+        }
+
+        .eq-description {
+            color: #c2b9d4;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .eq-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 0.6rem 0.8rem;
+            margin-bottom: 0.6rem;
+            border-radius: 10px;
+            background: rgba(255, 200, 0, 0.08);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+        }
+
+        .eq-alert:last-child {
+            margin-bottom: 0.8rem;
+        }
+
+        .eq-alert .alert-icon {
+            color: #f1c40f;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .eq-alert .alert-text {
+            color: #e8e0d0;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .eq-alert .alert-text strong {
+            color: #f1c40f;
+        }
+
+        .eq-alert.alert-danger {
+            background: rgba(255, 0, 0, 0.08);
+            border-color: rgba(255, 0, 0, 0.25);
+        }
+
+        .eq-alert.alert-danger .alert-icon {
+            color: #e74c3c;
+        }
+
+        .eq-alert.alert-danger .alert-text strong {
+            color: #e74c3c;
+        }
+
+        .eq-upgrades-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eq-upgrades-title i {
+            color: #e16d48;
+        }
+
+        .eq-upgrades {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .eq-upgrade-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 0.4rem 0.6rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border-left: 2px solid rgba(220, 90, 50, 0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .eq-upgrade-item:hover {
+            border-left-color: #e16d48;
+        }
+
+        .eq-upgrade-item .num {
+            font-size: 0.85rem;
+            font-weight: 800;
+            min-width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid;
+        }
+
+        .color-red .eq-upgrade-item .num {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+        .color-purple .eq-upgrade-item .num {
+            color: #9b59b6;
+            border-color: #9b59b6;
+        }
+        .color-teal .eq-upgrade-item .num {
+            color: #1abc9c;
+            border-color: #1abc9c;
+        }
+        .color-green .eq-upgrade-item .num {
+            color: #2ecc71;
+            border-color: #2ecc71;
+        }
+        .color-yellow .eq-upgrade-item .num {
+            color: #f1c40f;
+            border-color: #f1c40f;
+        }
+        .color-orange .eq-upgrade-item .num {
+            color: #e67e22;
+            border-color: #e67e22;
+        }
+
+        .eq-upgrade-item .text {
+            font-size: 0.8rem;
+            color: #d1cce6;
+            line-height: 1.3;
+        }
+
+        .eq-upgrade-item .text .upgrade-name {
+            font-weight: 700;
+            color: #f0eef7;
+        }
+
+        .eq-examples-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eq-examples-title i {
+            color: #e16d48;
+        }
+
+        .eq-examples-with-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(220, 90, 50, 0.1);
+        }
+
+        .eq-example-img-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .eq-example-img-wrapper:hover {
             transform: scale(1.05);
         }
 
-        .asset-image-placeholder {
-            width: 80%;
-            height: 80%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: rgba(220, 90, 50, 0.3);
+        .eq-example-img-wrapper img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(220, 90, 50, 0.2);
+            transition: border-color 0.3s ease;
         }
 
-        .asset-frame::after {
-            content: "";
-            position: absolute;
+        .eq-example-img-wrapper:hover img {
+            border-color: #e16d48;
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ===== */
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('../images/фото-рамка.webp');
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            z-index: 2;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
         }
 
-        .asset-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #f0eef7;
-            margin-top: 0.8rem;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
+        .modal.active {
+            display: flex;
         }
 
-        .asset-card:hover .asset-name {
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .modal-close:hover {
             color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        .modal-caption {
+            color: #c2b9d4;
+            text-align: center;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
         }
 
         /* ===== FOOTER ===== */
@@ -500,41 +939,58 @@
             border-radius: 50px;
         }
 
+        .footer-logo {
+            max-height: 32px;
+            width: auto;
+            margin-bottom: 0.5rem;
+        }
+
         @media (max-width: 850px) {
             .container { padding: 1rem; }
             .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
             .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
             .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
-            .logo .logo-text { font-size: 1.2rem; }
             .logo .logo-img { max-height: 40px; }
-            .page-title { font-size: 1.8rem; }
-            .page-title i { font-size: 1.6rem; }
-            .assets-grid { gap: 1.2rem; }
-            .volume-slider { width: 100px !important; }
+            .logo .logo-text { font-size: 1.1rem; }
+            .character-intro { flex-direction: column; align-items: center; text-align: center; }
+            .character-name { font-size: 1.6rem; text-align: center; }
+            .article-content { padding: 1.2rem; }
+            .equipment-header { padding: 0.8rem 1rem; }
+            .equipment-header .eq-name { font-size: 1rem; }
+            .equipment-body.open { padding: 0.8rem 1rem; }
+            .eq-upgrades { grid-template-columns: 1fr; }
+            .eq-examples-with-images { justify-content: center; }
+            .eq-image-gallery { justify-content: center; }
+            .eq-image-gallery .gallery-img { width: 80px; height: 80px; }
+            .music-toggle { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+            .music-toggle .label { font-size: 0.6rem; }
+            .volume-toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+            .volume-dropdown { right: auto; left: 50%; transform: translateX(-50%); }
+            .volume-dropdown.open { transform: translateX(-50%) scale(1); }
+            .volume-slider { width: 100px; }
+            .volume-dropdown { min-width: 170px; padding: 0.8rem 1rem; }
+            .equipment-description-block p { font-size: 0.8rem; }
+            .global-alert .alert-text { font-size: 0.85rem; }
         }
 
         @media (max-width: 550px) {
             .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
-            .page-title { font-size: 1.4rem; }
-            .asset-name { font-size: 1rem; }
-            .logo .logo-text { font-size: 1rem; }
-            .logo .logo-img { max-height: 32px; }
-            .music-toggle { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
-            .music-toggle .label { font-size: 0.5rem; }
-            .volume-toggle-btn { font-size: 0.6rem; padding: 0.2rem 0.4rem; }
-            .header { padding: 0.6rem; }
-            .assets-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
-            .asset-image { width: 75%; height: 75%; }
-            .volume-slider { width: 80px !important; }
+            .character-name { font-size: 1.3rem; }
+            .equipment-header .eq-icon { width: 40px; height: 40px; }
+            .equipment-header .eq-icon img { width: 40px; height: 40px; }
+            .eq-image-gallery .gallery-img { width: 70px; height: 70px; }
+            .eq-example-img-wrapper img { width: 50px; height: 50px; }
+            .global-alert { padding: 0.6rem 0.8rem; }
+            .global-alert .alert-icon { font-size: 1rem; }
+            .global-alert .alert-text { font-size: 0.8rem; }
+            .character-image { flex: 0 0 100%; }
+            .character-image img { max-width: 200px; margin: 0 auto; }
         }
     </style>
 </head>
 <body>
 
-<video class="background-video" autoplay muted loop playsinline>
-    <source src="../images/об игре фон.mp4" type="video/mp4">
-    Ваш браузер не поддерживает видео.
-</video>
+<img class="background-image" src="../фон/Вторжение фон.png" alt="Фон" onerror="this.style.display='none'">
 
 <div class="container">
     <!-- ===== HEADER ===== -->
@@ -543,7 +999,7 @@
             <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
             <div>
                 <span class="logo-text">Курилка Синьялы</span>
-                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+                <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
             </div>
         </div>
         <div class="nav-links">
@@ -551,7 +1007,7 @@
             <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
             <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
             <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
-            <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-biohazard"></i> Invasion</a>
             <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
 
@@ -583,19 +1039,68 @@
         <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
     </div>
 
-    <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
-    <div class="page-header">
-        <h1 class="page-title"><i class="fas fa-skull"></i> Главные активы</h1>
-        <p class="page-description">Главные активы (Prime Asset) — это жестокие, невменяемые и в то же время страшные, излишне личностно, которые представляют главную угрозу для реагентов. Обычно цели и являются центральными элементами сценария, на котором строится каждое испытание.</p>
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="article-wrapper">
+        <div class="article-content">
+            <!-- ЗАГОЛОВОК И ИНФОРМАЦИЯ -->
+            <div class="character-intro">
+                <div class="character-image">
+                    <img src="../images/снаряжение.png" alt="Снаряжение" onerror="this.src='https://placehold.co/280x280/1a1a2e/e16d48?text=Снаряжение'">
+                </div>
+                <div class="character-title">
+                    <h1 class="character-name">Снаряжение</h1>
+                    
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Категория: Снаряжение</p>
+                        <p><i class="fas fa-shield-alt"></i> Доступно: 6 снаряжении</p>
+                        <p><i class="fas fa-sync-alt"></i> Обновлено: Актуально с последним обновлением.</p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <p>Снаряжения — оборудование реагентов для оказания помощи во время прохождения испытаний. Каждый тип снаряжения имеет свои уникальные улучшения и тактики использования.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ОПИСАНИЕ СНАРЯЖЕНИЯ (ПОД ИНФО-БЛОКОМ) ===== -->
+            <div class="equipment-description-block">
+                <p><strong>Снаряжения или Риги (ориг. Rigs)</strong> — несколько типов снаряжения для реагента, которые можно активировать и улучшить у инженера Корнелиуса Ноукса в комнате отдыха. Покупка и дальнейшее улучшение снаряжения покупается за ваучеры, которые реагент получает в ходе повышения уровня. Реагент может купить все типы снаряжения, но на испытании он может использовать только одно выбранное. Изменить приобретённое снаряжение реагент может в любое время вне испытания.</p>
+                <p>Без улучшения «Подготовка» снаряжению требуется время в начале испытания, чтобы прийти в готовность. После использования снаряжения на испытании устройству требуется время на его восстановление. Однако с помощью одноразовой зарядки снаряжения, которые находятся в областях испытаний, реагент сможет снова активировать устройство. У каждого типа снаряжения своё время для восстановления после использования.</p>
+            </div>
+
+            <!-- ===== ГЛОБАЛЬНОЕ ОПОВЕЩЕНИЕ ===== -->
+            <div class="global-alert">
+                <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="alert-text"><strong>ВНИМАНИЕ!</strong> После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.</div>
+            </div>
+
+            <!-- Список снаряжения -->
+            <div class="equipment-grid" id="equipmentGrid"></div>
+        </div>
     </div>
 
-    <!-- ===== СЕТКА КАРТОЧЕК ===== -->
-    <div class="assets-grid" id="assetsGrid"></div>
-
+    <!-- ===== FOOTER ===== -->
     <footer>
+        <img src="../images/лого.png" alt="Курилка Синьялы" class="footer-logo" onerror="this.style.display='none'">
         <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
         <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
     </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ===== -->
+<div id="galleryModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное изображение">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+</div>
+
+<!-- ===== АУДИО ===== -->
+<div id="mainAudioContainer" style="display:none;">
+    <audio id="mainAudio1" preload="auto"><source src="../images/комната отдыха 1.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
+    <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
 </div>
 
 <script>
@@ -605,23 +1110,17 @@
     let mainAudioFiles = [];
     let currentAudioElement = null;
     let volumeDropdownOpen = false;
-    let isInitialized = false;
 
     function initMainAudio() {
-        if (isInitialized) return;
         const container = document.getElementById('mainAudioContainer');
         if (!container) return;
         mainAudioFiles = [];
         const audioElements = container.querySelectorAll('audio');
-        audioElements.forEach(audio => { 
-            mainAudioFiles.push(audio); 
-            audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
-        });
-        isInitialized = true;
+        audioElements.forEach(audio => { mainAudioFiles.push(audio); });
     }
 
     function playNextMainTrack() {
-        if (!mainAudioStarted || mainAudioFiles.length === 0) return;
+        if (!mainAudioStarted) return;
         if (currentAudioElement) {
             currentAudioElement.pause();
             currentAudioElement.currentTime = 0;
@@ -686,7 +1185,6 @@
     }
 
     function toggleMainMusic() {
-        initMainAudio();
         if (mainAudioStarted) {
             mainAudioStarted = false;
             if (currentAudioElement) {
@@ -727,28 +1225,18 @@
     document.addEventListener('DOMContentLoaded', function() {
         const slider = document.getElementById('volumeSlider');
         const valueDisplay = document.getElementById('volumeValue');
-        
-        // Инициализация слайдера
-        const initialVal = parseInt(slider.value);
-        valueDisplay.textContent = initialVal + '%';
-        
-        // Обработчик изменения громкости
         slider.addEventListener('input', function() {
             const val = parseInt(this.value);
             valueDisplay.textContent = val + '%';
-            
-            // Обновляем громкость у всех аудио
-            mainAudioFiles.forEach(audio => {
-                audio.volume = val / 100;
-            });
-            if (currentAudioElement) {
+            if (currentAudioElement && mainAudioStarted) {
                 currentAudioElement.volume = val / 100;
             }
+            const percent = val;
+            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
         });
-
-        // Инициализируем аудио при загрузке
-        initMainAudio();
-        
+        const initialVal = parseInt(slider.value);
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
+        valueDisplay.textContent = initialVal + '%';
         setTimeout(startMainMusic, 1000);
     });
 
@@ -762,83 +1250,383 @@
     window.toggleMainMusic = toggleMainMusic;
     window.toggleVolumeDropdown = toggleVolumeDropdown;
 
-    // ============ ДАННЫЕ ГЛАВНЫХ АКТИВОВ ============
-    const primeAssets = [
-        { id: "leland-coyle", name: "Лиланд Койл", file: "leland-coyle.html", image: "../images/койл.png" },
-        { id: "mother-gooseberry", name: "Матушка Гусберри", file: "mother-gooseberry.html", image: "../images/гусберри.png" },
-        { id: "franco-barbi", name: "Франко Барби", file: "franco-barbi.html", image: "../images/барби.png" },
-        { id: "otto-aurora", name: "Отто и Арора Кресс", file: "otto-aurora.html", image: "../images/крессы.png" },
-        { id: "lilia-bogomolova", name: "Лилия Богомолова", file: "lilia-bogomolova.html", image: "../images/богомолова.png" }
+    // ============ ДАННЫЕ О СНАРЯЖЕНИИ ============
+    const equipmentData = [
+        {
+            id: 1,
+            name: 'Оглушение',
+            icon: 'оглушение иконка.webp',
+            color: 'color-red',
+            image: '../images/оглушение.png',
+            description: 'Мощное метательное оружие, поражающее электрическим током, которое временно оглушает и дезориентирует врагов.',
+            galleryImages: [
+                { src: '../images/обычное оглушение.webp', alt: 'Оглушение вид 1' },
+                { src: '../images/оглушение 01.webp', alt: 'Оглушение вид 2' },
+                { src: '../images/оглушение 02.webp', alt: 'Оглушение вид 3' },
+                { src: '../images/оглушение 03.webp', alt: 'Оглушение вид 4' }
+            ],
+            alerts: [
+                'После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжения.'
+            ],
+            upgrades: [
+                { name: 'Активировать', desc: 'активация снаряжения.' },
+                { name: 'Увеличенный радиус', desc: 'увеличивает радиус взрыва.' },
+                { name: 'Разоружение', desc: 'все ловушки, в том числе и дверные, и вражеские мины уничтожаются взрывом.' },
+                { name: 'Увеличенная длительность', desc: 'увеличивает длительность оглушающего эффекта.' },
+                { name: 'Восстановление', desc: 'время перезарядки сокращается, если ни один враг не поражён.' },
+                { name: 'Электрообстер', desc: 'реагенты в радиусе взрыва сразу частично восстанавливают заряд батареи и выносливость.' },
+                { name: 'Сокращённая перезарядка', desc: 'уменьшает время перезарядки снаряжения перед использованием.' },
+                { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
+            ],
+            examples: [
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Электрообстер', image: '../images/пример-электрообстер.png' },
+                { label: 'Сокращённая перезарядка', image: '../images/пример-перезарядка.png' },
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Снаряд', image: '../images/пример-снаряд.png' },
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Снаряд', image: '../images/пример-снаряд.png' }
+            ]
+        },
+        {
+            id: 2,
+            name: 'Завеса',
+            icon: 'завеса иконка.webp',
+            color: 'color-purple',
+            image: '../images/завеса.png',
+            description: 'Мина, испускающая временно ослепляющую дымовую завесу, если на неё наступили враги.',
+            galleryImages: [
+                { src: '../images/обычная завеса.webp', alt: 'Завеса вид 1' },
+                { src: '../images/завеса 01.webp', alt: 'Завеса вид 2' },
+                { src: '../images/завеса 02.webp', alt: 'Завеса вид 3' },
+                { src: '../images/завеса 03.webp', alt: 'Завеса вид 4' }
+            ],
+            alerts: [
+                'После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжения.'
+            ],
+            upgrades: [
+                { name: 'Активировать', desc: 'активация снаряжения.' },
+                { name: 'Увеличенный радиус', desc: 'увеличивает радиус взрыва.' },
+                { name: 'Техника установки', desc: 'ускоряет установку мин.' },
+                { name: 'Увеличенная длительность', desc: 'увеличивает длительность действия дымовой завесы.' },
+                { name: 'Перезарядка', desc: 'мина повторно заряжается после срабатывания (используется один раз).' },
+                { name: 'Безумие', desc: 'прохождение сквозь дым после взрыва даёт заряд адреналина.' },
+                { name: 'Сокращённая перезарядка', desc: 'уменьшает время перезарядки снаряжения перед использованием.' },
+                { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
+            ],
+            examples: [
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Техника установки', image: '../images/пример-установка.png' },
+                { label: 'Увеличенный радиус', image: '../images/пример-радиус.png' },
+                { label: 'Безумие', image: '../images/пример-безумие.png' }
+            ]
+        },
+        {
+            id: 3,
+            name: 'Исцеление',
+            icon: 'исцеление иконка.webp',
+            color: 'color-teal',
+            image: '../images/исцеление.png',
+            description: 'Аэрозольный газ, который восстанавливает ваше здоровье, а также здоровье ваших друзей поблизости.',
+            galleryImages: [
+                { src: '../images/обычное исцеление.webp', alt: 'Исцеление вид 1' },
+                { src: '../images/исцеление 01.webp', alt: 'Исцеление вид 2' },
+                { src: '../images/исцеление 02.webp', alt: 'Исцеление вид 3' },
+                { src: '../images/исцеление 03.webp', alt: 'Исцеление вид 4' }
+            ],
+            alerts: [
+                'После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжения.'
+            ],
+            upgrades: [
+                { name: 'Активировать', desc: 'активация снаряжения.' },
+                { name: 'Увеличенный радиус', desc: 'увеличивает радиус действия целебного эффекта.' },
+                { name: 'Тихая помощь', desc: 'исцеление происходит бесшумно.' },
+                { name: 'Увеличенная длительность', desc: 'увеличивает длительность целебного эффекта.' },
+                { name: 'Детокс', desc: 'целебный газ также излечивает психоз.' },
+                { name: 'Яд', desc: 'целебный газ ненадолго замедляет поражённых врагов.' },
+                { name: 'Сокращённая перезарядка', desc: 'уменьшает время перезарядки снаряжения перед использованием.' },
+                { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
+            ],
+            examples: [
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Тихая помощь', image: '../images/пример-тихая-помощь.png' },
+                { label: 'Детокс', image: '../images/пример-детокс.png' },
+                { label: 'Яд', image: '../images/пример-яд.png' }
+            ]
+        },
+        {
+            id: 4,
+            name: 'Рентген',
+            icon: 'рентген иконка.webp',
+            color: 'color-green',
+            image: '../images/рентген.png',
+            description: 'Устройство, позволяющее видеть сквозь стены, выявляя местоположение врагов и предметов.',
+            galleryImages: [
+                { src: '../images/обычный рентген.webp', alt: 'Рентген вид 1' },
+                { src: '../images/рентген 01.webp', alt: 'Рентген вид 2' },
+                { src: '../images/рентген 02.webp', alt: 'Рентген вид 3' },
+                { src: '../images/рентген 03.webp', alt: 'Рентген вид 4' }
+            ],
+            alerts: [
+                'После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжения.'
+            ],
+            upgrades: [
+                { name: 'Активировать', desc: 'активация снаряжения.' },
+                { name: 'Общая информация', desc: 'союзники могут видеть местоположение помеченных врагов.' },
+                { name: 'Информация о ресурсах', desc: 'рентген показывает расходные предметы поблизости (лекарства, батареи, кирпичи и так далее).' },
+                { name: 'Засекреченная информация', desc: 'рентген показывает важные предметы поблизости (улики, плакаты, ловушки и так далее).' },
+                { name: 'Увеличенная длительность', desc: 'увеличивает длительность действия рентгена.' },
+                { name: 'Преобразование батареи', desc: 'использование рентгена заряжает батарею ночного видения.' },
+                { name: 'Сокращённая перезарядка', desc: 'уменьшает время перезарядки снаряжения перед использованием.' },
+                { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
+            ],
+            examples: [
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Общая информация', image: '../images/пример-общая-информация.png' },
+                { label: 'Информация о ресурсах', image: '../images/пример-ресурсы.png' },
+                { label: 'Засекреченная информация', image: '../images/пример-засекреченная.png' }
+            ]
+        },
+        {
+            id: 5,
+            name: 'Баррикада',
+            icon: 'баррикада иконка.webp',
+            color: 'color-yellow',
+            image: '../images/баррикада.png',
+            description: 'Устройство, позволяющее баррикадировать двери или коридоры, чтобы временно заблокировать или задержать врагов.',
+            galleryImages: [
+                { src: '../images/обычная баррикада.webp', alt: 'Баррикада вид 1' },
+                { src: '../images/баррикада 01.webp', alt: 'Баррикада вид 2' },
+                { src: '../images/баррикада 02.webp', alt: 'Баррикада вид 3' },
+                { src: '../images/баррикада 03.webp', alt: 'Баррикада вид 4' }
+            ],
+            alerts: [
+                'После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжения.'
+            ],
+            upgrades: [
+                { name: 'Активировать', desc: 'активация снаряжения.' },
+                { name: 'Ускоренная перезарядка', desc: 'уменьшает время восстановления перед повторным использованием.' },
+                { name: 'Повышенное сопротивление', desc: 'баррикады более устойчивы к разрушению.' },
+                { name: 'Быстрая установка', desc: 'баррикады устанавливаются быстрее.' },
+                { name: 'Предупреждение о нападении', desc: 'враг автоматически помечается при взломе забаррикадированной двери.' },
+                { name: 'Дружеский прорыв', desc: 'если баррикада сломана вами или союзником, снаряжение восстанавливается быстрее.' },
+                { name: 'Дополнительная баррикада', desc: 'можно ставить до двух баррикад.' },
+                { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
+            ],
+            examples: [
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Ускоренная перезарядка', image: '../images/пример-ускоренная-перезарядка.png' },
+                { label: 'Повышенное сопротивление', image: '../images/пример-сопротивление.png' },
+                { label: 'Дополнительная баррикада', image: '../images/пример-дополнительная.png' }
+            ]
+        },
+        {
+            id: 6,
+            name: 'Глушилка',
+            icon: 'глушилка иконка.webp',
+            color: 'color-orange',
+            image: '../images/глушилка.png',
+            description: 'Устройство, позволяющее оглушать врагов, отключать электронные устройства или открывать запертые двери и контейнеры.',
+            galleryImages: [
+                { src: '../images/обычная глушилка.webp', alt: 'Глушилка вид 1' },
+                { src: '../images/глушилка 01.webp', alt: 'Глушилка вид 2' },
+                { src: '../images/глушилка 02.webp', alt: 'Глушилка вид 3' },
+                { src: '../images/глушилка 03.webp', alt: 'Глушилка вид 4' }
+            ],
+            alerts: [
+                'После каждого использования вашему снаряжению требуется время для перезарядки перед повторным использованием.',
+                'Экс-поп ЕГЕРЬ не восприимчива ни к одному из видов снаряжения.'
+            ],
+            upgrades: [
+                { name: 'Активировать', desc: 'активация снаряжения.' },
+                { name: 'Электрокардиостимулятор', desc: 'автоматическая активация для самооживления. Также можно использовать для оживления истекающего кровью союзника (один раз за испытание).' },
+                { name: 'Сокращённая перезарядка', desc: 'уменьшает время перезарядки снаряжения перед использованием.' },
+                { name: 'Быстрый взлом', desc: 'ускоренный взлом.' },
+                { name: 'Дальнее расстояние', desc: 'взлом устройств с дальней дистанции.' },
+                { name: 'Повторная ловушка', desc: 'перенастройка ловушек на врагов.' },
+                { name: 'Взлом врагов', desc: 'временное оглушение врагов.' },
+                { name: 'Подготовка', desc: 'снаряжение готово к использованию в начале испытания.' }
+            ],
+            examples: [
+                { label: 'Подготовка', image: '../images/пример-подготовка.png' },
+                { label: 'Электрокардиостимулятор', image: '../images/пример-электрокардиостимулятор.png' },
+                { label: 'Быстрый взлом', image: '../images/пример-быстрый-взлом.png' },
+                { label: 'Взлом врагов', image: '../images/пример-взлом-врагов.png' }
+            ]
+        }
     ];
 
-    function displayAssets() {
-        const container = document.getElementById('assetsGrid');
-        if (!container) return;
-        
-        container.innerHTML = '';
-        
-        primeAssets.forEach(asset => {
+    // ============ МОДАЛЬНОЕ ОКНО ============
+    function openModal(src, caption) {
+        const modal = document.getElementById('galleryModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        modalImg.src = src;
+        modalCaption.textContent = caption || '';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('galleryModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ============ РЕНДЕРИНГ КАРТОЧЕК ============
+    function renderEquipment() {
+        const grid = document.getElementById('equipmentGrid');
+        grid.innerHTML = '';
+
+        equipmentData.forEach((item) => {
             const card = document.createElement('div');
-            card.className = 'asset-card';
-            
-            card.addEventListener('click', () => {
-                window.location.href = asset.file;
-            });
-            
-            card.innerHTML = `
-                <div class="asset-frame">
-                    <img src="${asset.image}" class="asset-image" alt="${asset.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="asset-image-placeholder" style="display: none;">
-                        <i class="fas fa-skull"></i>
-                    </div>
+            card.className = `equipment-card ${item.color}`;
+            const bodyId = 'eqBody_' + item.id;
+
+            const header = document.createElement('div');
+            header.className = 'equipment-header';
+            header.innerHTML = `
+                <div class="eq-icon">
+                    <img src="../images/${item.icon}" alt="${item.name}" onerror="this.src='https://placehold.co/50x50/333/666?text=${item.name.charAt(0)}'">
                 </div>
-                <div class="asset-name">${asset.name}</div>
+                <div class="eq-title-group">
+                    <div class="eq-name">${item.name}</div>
+                    <div class="eq-category">СНАРЯЖЕНИЕ</div>
+                </div>
+                <div class="eq-toggle" id="eqToggle_${item.id}">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             `;
-            
-            const img = card.querySelector('.asset-image');
-            const placeholder = card.querySelector('.asset-image-placeholder');
-            if (img) {
-                img.addEventListener('error', function() {
-                    this.style.display = 'none';
-                    if (placeholder) placeholder.style.display = 'flex';
+            card.appendChild(header);
+
+            const body = document.createElement('div');
+            body.className = 'equipment-body';
+            body.id = bodyId;
+
+            let galleryHtml = '';
+            if (item.galleryImages && item.galleryImages.length > 0) {
+                galleryHtml = `<div class="eq-image-gallery">`;
+                item.galleryImages.forEach(img => {
+                    galleryHtml += `
+                        <img class="gallery-img" src="${img.src}" alt="${img.alt}" 
+                             onclick="openModal('${img.src}', '${img.alt}')"
+                             onerror="this.style.display='none'">
+                    `;
                 });
+                galleryHtml += `</div>`;
             }
-            
-            container.appendChild(card);
+
+            let alertsHtml = '';
+            item.alerts.forEach((alert, idx) => {
+                const dangerClass = idx === 1 ? 'alert-danger' : '';
+                alertsHtml += `
+                    <div class="eq-alert ${dangerClass}">
+                        <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="alert-text"><strong>ВНИМАНИЕ!</strong> ${alert}</div>
+                    </div>
+                `;
+            });
+
+            let upgradesHtml = '';
+            item.upgrades.forEach((upgrade, idx) => {
+                upgradesHtml += `
+                    <div class="eq-upgrade-item">
+                        <span class="num">${idx + 1}</span>
+                        <span class="text"><span class="upgrade-name">${upgrade.name}</span> — ${upgrade.desc}</span>
+                    </div>
+                `;
+            });
+
+            let examplesHtml = '';
+            if (item.examples && item.examples.length > 0) {
+                examplesHtml = `<div class="eq-examples-with-images">`;
+                item.examples.forEach(ex => {
+                    examplesHtml += `
+                        <div class="eq-example-img-wrapper" onclick="openModal('${ex.image}', '${ex.label}')">
+                            <img src="${ex.image}" alt="${ex.label}" onerror="this.style.display='none'">
+                        </div>
+                    `;
+                });
+                examplesHtml += `</div>`;
+            }
+
+            body.innerHTML = `
+                <div class="eq-section-title">
+                    <i class="fas fa-eye"></i> ВНЕШНИЙ ВИД И ОПИСАНИЕ СНАРЯЖЕНИЯ
+                </div>
+                ${galleryHtml}
+                <div class="eq-description">
+                    <i class="fas fa-quote-left" style="color: rgba(255,255,255,0.3); margin-right: 6px;"></i>
+                    ${item.description}
+                </div>
+                ${alertsHtml}
+                <div class="eq-upgrades-title">
+                    <i class="fas fa-arrow-up"></i> УЛУЧШЕНИЕ ДЛЯ ${item.name.toUpperCase()}
+                </div>
+                <div class="eq-upgrades">
+                    ${upgradesHtml}
+                </div>
+                <div class="eq-examples-title">
+                    <i class="fas fa-image"></i> ПРИМЕРЫ ИСПОЛЬЗОВАНИЯ СНАРЯЖЕНИЯ
+                </div>
+                ${examplesHtml}
+            `;
+
+            card.appendChild(body);
+            grid.appendChild(card);
+
+            const toggle = document.getElementById('eqToggle_' + item.id);
+            let isOpen = false;
+
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isOpen = !isOpen;
+                body.classList.toggle('open', isOpen);
+                this.classList.toggle('open', isOpen);
+            });
+
+            header.addEventListener('click', function(e) {
+                if (e.target.closest('.eq-toggle')) return;
+                isOpen = !isOpen;
+                body.classList.toggle('open', isOpen);
+                toggle.classList.toggle('open', isOpen);
+            });
         });
     }
 
-    function initScrollAnimation() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-        
-        document.querySelectorAll('.breadcrumb, .page-header, .assets-grid').forEach(el => {
+    // ============ ИНИЦИАЛИЗАЦИЯ ============
+    function init() {
+        const modal = document.getElementById('galleryModal');
+        const modalClose = document.querySelector('.modal-close');
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+
+        renderEquipment();
+
+        document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.6s ease-out';
-            observer.observe(el);
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100);
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        displayAssets();
-        initScrollAnimation();
-    });
+    document.addEventListener('DOMContentLoaded', init);
 </script>
-
-<!-- ===== АУДИО ===== -->
-<div id="mainAudioContainer" style="display:none;">
-    <audio id="mainAudio1" preload="auto"><source src="../images/комната отдыха 1.mp3" type="audio/mpeg"></audio>
-    <audio id="mainAudio2" preload="auto"><source src="../images/комната отдыха 2.mp3" type="audio/mpeg"></audio>
-    <audio id="mainAudio3" preload="auto"><source src="../images/комната отдыха 3.mp3" type="audio/mpeg"></audio>
-</div>
 
 </body>
 </html>
