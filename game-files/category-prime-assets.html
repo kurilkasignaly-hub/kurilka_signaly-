@@ -286,7 +286,7 @@
             color: #e25d32;
         }
 
-        /* ===== ИСПРАВЛЕННЫЙ СЛАЙДЕР (как в файле Снаряжение) ===== */
+        /* ===== ИСПРАВЛЕННЫЙ СЛАЙДЕР ===== */
         .volume-slider {
             -webkit-appearance: none !important;
             appearance: none !important;
@@ -615,9 +615,21 @@
         const audioElements = container.querySelectorAll('audio');
         audioElements.forEach(audio => { 
             mainAudioFiles.push(audio); 
-            audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
         });
         isInitialized = true;
+        // Применяем текущую громкость ко всем аудио
+        updateAllVolumes();
+    }
+
+    // Функция обновляет громкость всех аудио
+    function updateAllVolumes() {
+        const val = parseFloat(document.getElementById('volumeSlider').value) / 100;
+        mainAudioFiles.forEach(audio => {
+            audio.volume = val;
+        });
+        if (currentAudioElement) {
+            currentAudioElement.volume = val;
+        }
     }
 
     function playNextMainTrack() {
@@ -706,10 +718,10 @@
         const arrow = document.querySelector('.volume-toggle-btn .arrow');
         if (volumeDropdownOpen) {
             dropdown.classList.add('open');
-            arrow.classList.add('open');
+            if (arrow) arrow.classList.add('open');
         } else {
             dropdown.classList.remove('open');
-            arrow.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
         }
     }
 
@@ -736,14 +748,8 @@
         slider.addEventListener('input', function() {
             const val = parseInt(this.value);
             valueDisplay.textContent = val + '%';
-            
             // Обновляем громкость у всех аудио
-            mainAudioFiles.forEach(audio => {
-                audio.volume = val / 100;
-            });
-            if (currentAudioElement) {
-                currentAudioElement.volume = val / 100;
-            }
+            updateAllVolumes();
         });
 
         // Инициализируем аудио при загрузке
