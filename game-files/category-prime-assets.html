@@ -286,14 +286,14 @@
             color: #e25d32;
         }
 
-        /* ===== СЛАЙДЕР ГРОМКОСТИ ===== */
+        /* ===== СЛАЙДЕР ГРОМКОСТИ (как в Снаряжении) ===== */
         .volume-slider {
             -webkit-appearance: none !important;
             appearance: none !important;
             width: 130px !important;
             height: 4px !important;
             border-radius: 10px !important;
-            background: #333 !important;
+            background: linear-gradient(to right, #e25d32, #e25d32) !important;
             outline: none !important;
             transition: all 0.3s !important;
             cursor: pointer !important;
@@ -599,100 +599,63 @@
 </div>
 
 <script>
-    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ ============
+    // ============ УПРАВЛЕНИЕ МУЗЫКОЙ (полностью как в Снаряжении) ============
     let mainAudioStarted = false;
     let currentTrackIndex = 0;
     let mainAudioFiles = [];
     let currentAudioElement = null;
     let volumeDropdownOpen = false;
 
-    // Функция для получения текущей громкости
-    function getCurrentVolume() {
-        const slider = document.getElementById('volumeSlider');
-        return parseFloat(slider.value) / 100;
-    }
-
-    // Функция обновляет громкость ВСЕХ аудио
-    function updateAllVolumes() {
-        const volume = getCurrentVolume();
-        
-        // Обновляем все аудио в массиве
-        mainAudioFiles.forEach(audio => {
-            if (audio) {
-                audio.volume = volume;
-            }
-        });
-        
-        // Обновляем текущий аудио элемент
-        if (currentAudioElement) {
-            currentAudioElement.volume = volume;
-        }
-    }
-
-    // Инициализация аудио
     function initMainAudio() {
         const container = document.getElementById('mainAudioContainer');
         if (!container) return;
-        
         mainAudioFiles = [];
         const audioElements = container.querySelectorAll('audio');
-        
-        audioElements.forEach(audio => {
-            mainAudioFiles.push(audio);
-            audio.volume = getCurrentVolume();
+        audioElements.forEach(audio => { 
+            mainAudioFiles.push(audio); 
         });
     }
 
-    // Воспроизведение следующего трека
     function playNextMainTrack() {
-        if (!mainAudioStarted || mainAudioFiles.length === 0) return;
-        
+        if (!mainAudioStarted) return;
         if (currentAudioElement) {
             currentAudioElement.pause();
             currentAudioElement.currentTime = 0;
         }
-        
         currentTrackIndex = (currentTrackIndex + 1) % mainAudioFiles.length;
         const audio = mainAudioFiles[currentTrackIndex];
         if (!audio) return;
-        
         currentAudioElement = audio;
-        audio.volume = getCurrentVolume();
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
         audio.currentTime = 0;
         audio.play().catch(() => {});
-        
-        audio.removeEventListener('ended', onTrackEnd);
-        audio.addEventListener('ended', onTrackEnd);
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
     }
 
-    function onTrackEnd() {
-        if (!mainAudioStarted) return;
-        playNextMainTrack();
-    }
-
-    // Запуск музыки
     function startMainMusic() {
         if (mainAudioStarted) return;
-        
+        initMainAudio();
         if (mainAudioFiles.length === 0) {
-            initMainAudio();
             setTimeout(startMainMusic, 500);
             return;
         }
-        
         mainAudioStarted = true;
         currentTrackIndex = 0;
         const audio = mainAudioFiles[0];
         if (!audio) return;
-        
         currentAudioElement = audio;
-        audio.volume = getCurrentVolume();
+        audio.volume = parseFloat(document.getElementById('volumeSlider').value) / 100;
         audio.currentTime = 0;
         audio.play().catch(() => {});
-        
-        audio.removeEventListener('ended', onTrackEnd);
-        audio.addEventListener('ended', onTrackEnd);
-        
+        audio.addEventListener('ended', function onEnd() {
+            audio.removeEventListener('ended', onEnd);
+            if (!mainAudioStarted) return;
+            playNextMainTrack();
+        });
         updateMusicButton(true);
     }
 
@@ -701,7 +664,6 @@
         if (!btn) return;
         const icon = btn.querySelector('.icon');
         const label = btn.querySelector('.label');
-        
         if (state) {
             btn.classList.add('playing');
             if (icon) {
@@ -726,10 +688,7 @@
                 currentAudioElement.pause();
                 currentAudioElement.currentTime = 0;
             }
-            mainAudioFiles.forEach(a => {
-                a.pause();
-                a.currentTime = 0;
-            });
+            mainAudioFiles.forEach(a => { a.pause(); a.currentTime = 0; });
             updateMusicButton(false);
         } else {
             startMainMusic();
@@ -740,17 +699,15 @@
         volumeDropdownOpen = !volumeDropdownOpen;
         const dropdown = document.getElementById('volumeDropdown');
         const arrow = document.querySelector('.volume-toggle-btn .arrow');
-        
         if (volumeDropdownOpen) {
             dropdown.classList.add('open');
-            if (arrow) arrow.classList.add('open');
+            arrow.classList.add('open');
         } else {
             dropdown.classList.remove('open');
-            if (arrow) arrow.classList.remove('open');
+            arrow.classList.remove('open');
         }
     }
 
-    // Закрываем dropdown при клике вне
     document.addEventListener('click', function(e) {
         const wrapper = document.querySelector('.music-controls-wrapper');
         if (wrapper && !wrapper.contains(e.target)) {
@@ -762,32 +719,33 @@
         }
     });
 
-    // ============ ИНИЦИАЛИЗАЦИЯ ============
     document.addEventListener('DOMContentLoaded', function() {
-        // Инициализируем слайдер
         const slider = document.getElementById('volumeSlider');
         const valueDisplay = document.getElementById('volumeValue');
         
-        // Устанавливаем начальное значение
-        const initialVal = parseInt(slider.value);
-        valueDisplay.textContent = initialVal + '%';
-        
-        // Обработчик изменения громкости
+        // ===== ВАЖНО: полный обработчик как в Снаряжении =====
         slider.addEventListener('input', function() {
             const val = parseInt(this.value);
             valueDisplay.textContent = val + '%';
-            // ОБНОВЛЯЕМ ГРОМКОСТЬ ВСЕХ АУДИО
-            updateAllVolumes();
+            
+            // Обновляем громкость текущего аудио
+            if (currentAudioElement && mainAudioStarted) {
+                currentAudioElement.volume = val / 100;
+            }
+            
+            // Обновляем визуальное заполнение слайдера
+            const percent = val;
+            slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${percent}%, rgba(255,255,255,0.15) ${percent}%, rgba(255,255,255,0.15) 100%)`;
         });
-
-        // Инициализируем аудио
-        initMainAudio();
         
-        // Запускаем музыку через 1 секунду
+        // Устанавливаем начальное значение и фон
+        const initialVal = parseInt(slider.value);
+        slider.style.background = `linear-gradient(to right, #e25d32 0%, #e25d32 ${initialVal}%, rgba(255,255,255,0.15) ${initialVal}%, rgba(255,255,255,0.15) 100%)`;
+        valueDisplay.textContent = initialVal + '%';
+        
         setTimeout(startMainMusic, 1000);
     });
 
-    // Запуск при клике на страницу (для автозапуска)
     document.addEventListener('click', function initAudioOnClick() {
         if (!mainAudioStarted) {
             startMainMusic();
@@ -795,10 +753,8 @@
         }
     }, { once: true });
 
-    // Экспортируем функции для глобального доступа
     window.toggleMainMusic = toggleMainMusic;
     window.toggleVolumeDropdown = toggleVolumeDropdown;
-    window.updateAllVolumes = updateAllVolumes;
 
     // ============ ДАННЫЕ ГЛАВНЫХ АКТИВОВ ============
     const primeAssets = [
