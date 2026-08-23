@@ -425,15 +425,19 @@
             overflow: hidden;
             border-radius: 12px;
             background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Картинка персонажа — фон внутри рамки */
+        /* Картинка персонажа внутри рамки */
         .asset-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
             display: block;
             transition: transform 0.4s ease;
+            border-radius: 4px;
         }
 
         .asset-card:hover .asset-image {
@@ -441,8 +445,8 @@
         }
 
         .asset-image-placeholder {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -516,6 +520,7 @@
             .volume-toggle-btn { font-size: 0.6rem; padding: 0.2rem 0.4rem; }
             .header { padding: 0.6rem; }
             .assets-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
+            .asset-image { width: 75%; height: 75%; }
         }
     </style>
 </head>
