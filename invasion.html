@@ -523,7 +523,6 @@
             margin-top: 0.2rem;
         }
 
-        /* ===== ВЕРХНЯЯ БОЛЬШАЯ КАРТИНКА ===== */
         .big-banner {
             width: 100%;
             border-radius: 28px;
@@ -541,7 +540,6 @@
             object-fit: cover;
         }
 
-        /* ===== ALERT БЛОК ===== */
         .alert-block {
             background: rgba(220, 90, 50, 0.12);
             border-left: 4px solid #e25d32;
@@ -572,7 +570,6 @@
             font-weight: 700;
         }
 
-        /* ===== БАННЕРЫ ЭСКАЛАЦИЯ / ВТОРЖЕНИЕ СВЕРХУ ===== */
         .mode-banners {
             display: flex;
             gap: 1.5rem;
@@ -629,7 +626,6 @@
             color: #e25d32;
         }
 
-        /* ===== СЕКЦИЯ С ТАБЛИЦЕЙ ===== */
         .leaderboard-section {
             background: rgba(18, 12, 28, 0.45);
             backdrop-filter: blur(12px);
@@ -681,7 +677,6 @@
             margin-right: 5px;
         }
 
-        /* ===== ВКЛАДКИ ВНУТРИ СЕКЦИИ ===== */
         .sub-tabs {
             display: flex;
             gap: 0.8rem;
@@ -715,35 +710,78 @@
             background: rgba(220, 90, 50, 0.08);
         }
 
-        /* ===== ТАБЛИЦЫ ===== */
+        /* ===== ТАБЛИЦА С ФОНОВЫМ ИЗОБРАЖЕНИЕМ ===== */
         .table-wrapper {
             padding: 0.5rem 0.5rem 0.5rem 0.5rem;
             overflow-x: auto;
             flex: 1;
+            position: relative;
+            border-radius: 0 0 28px 28px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 400px;
+        }
+
+        .table-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 0 0 28px 28px;
+            z-index: 1;
+        }
+
+        .table-wrapper table {
+            position: relative;
+            z-index: 2;
+        }
+
+        .table-wrapper .table-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 0 0 28px 28px;
+            z-index: 1;
+        }
+
+        /* Фоны для разных таблиц */
+        .table-wrapper.bg-escalation {
+            background-image: url('images/фон-эскалация.webp');
+        }
+        .table-wrapper.bg-reagent {
+            background-image: url('images/фон-реагент.webp');
+        }
+        .table-wrapper.bg-impostor {
+            background-image: url('images/фон-самозванец.webp');
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
         }
 
         th {
             text-align: center;
             padding: 0.8rem 0.6rem;
-            background: rgba(220, 90, 50, 0.08);
+            background: rgba(220, 90, 50, 0.15);
             color: #ffbc9a;
             font-weight: 700;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            backdrop-filter: blur(4px);
         }
 
         td {
             text-align: center;
             padding: 0.7rem 0.6rem;
-            border-bottom: 1px solid rgba(220, 90, 50, 0.06);
+            border-bottom: 1px solid rgba(220, 90, 50, 0.08);
             vertical-align: middle;
+            backdrop-filter: blur(2px);
         }
 
         td:first-child {
@@ -771,24 +809,21 @@
             gap: 6px;
         }
 
-        tr:hover {
-            background: rgba(220, 90, 50, 0.04);
+        tr:hover td {
+            background: rgba(220, 90, 50, 0.08);
         }
 
         .rank-1 {
-            background: linear-gradient(90deg, rgba(255, 215, 0, 0.10), rgba(255, 215, 0, 0.01));
             border-left: 3px solid #ffd700;
         }
         .rank-1 td:first-child { color: #ffd700; font-weight: bold; }
 
         .rank-2 {
-            background: linear-gradient(90deg, rgba(192, 192, 192, 0.08), rgba(192, 192, 192, 0.01));
             border-left: 3px solid #c0c0c0;
         }
         .rank-2 td:first-child { color: #c0c0c0; font-weight: bold; }
 
         .rank-3 {
-            background: linear-gradient(90deg, rgba(205, 127, 50, 0.08), rgba(205, 127, 50, 0.01));
             border-left: 3px solid #cd7f32;
         }
         .rank-3 td:first-child { color: #cd7f32; font-weight: bold; }
@@ -802,7 +837,12 @@
         .medal-silver { color: #c0c0c0; }
         .medal-bronze { color: #cd7f32; }
 
-        /* ===== ФУТЕР ===== */
+        .unranked-text {
+            color: #7a6a8a;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -825,11 +865,6 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes smokePulse {
-            0%, 100% { text-shadow: 0 0 3px #ff9f6e, 0 0 8px #c2512c; }
-            50% { text-shadow: 0 0 12px #ffa366, 0 0 20px #c4451b; }
-        }
-
         @media (max-width: 850px) {
             .main-wrapper { padding: 1rem; }
             .header { flex-direction: column; padding: 0.8rem 1rem; }
@@ -849,6 +884,7 @@
             .sub-tab { font-size: 0.75rem; padding: 0.35rem 1rem; }
             th, td { padding: 0.4rem 0.3rem; font-size: 0.75rem; }
             .platform-icon { width: 18px; height: 18px; margin-right: 4px; }
+            .table-wrapper { min-height: 300px; }
             .connect-logo .line1 { font-size: 1.8rem; letter-spacing: 6px; }
             .connect-logo .logo-img { max-width: 260px; }
             .connect-logo .line3 { font-size: 1.4rem; letter-spacing: 4px; }
@@ -879,6 +915,7 @@
             th, td { padding: 0.3rem 0.2rem; font-size: 0.6rem; }
             .platform-icon { width: 14px; height: 14px; margin-right: 2px; }
             .medal { width: 20px; font-size: 0.6rem; }
+            .table-wrapper { min-height: 250px; }
             .footer-logo { max-height: 18px; }
             .connect-logo .line1 { font-size: 1.3rem; letter-spacing: 4px; }
             .connect-logo .logo-img { max-width: 200px; }
@@ -1189,8 +1226,9 @@
                 <span class="sub-tab" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
             </div>
 
-            <!-- Таблица -->
-            <div class="table-wrapper">
+            <!-- Таблица с фоновым изображением -->
+            <div class="table-wrapper bg-escalation" id="tableWrapper">
+                <div class="table-bg-overlay"></div>
                 <div id="tableContainer"></div>
             </div>
         </div>
@@ -1387,57 +1425,95 @@
         }, 800);
     });
 
-    // ===== ДАННЫЕ =====
-    const platforms = ['xbox', 'steam', 'ps', 'epic'];
+    // ===== ДАННЫЕ С ФИКСИРОВАННЫМИ ПЛАТФОРМАМИ =====
+    const playerPlatforms = {
+        'DASCERA': 'xbox',
+        'TSUQUOIA': 'steam',
+        'BLUE F': 'ps',
+        '魔法桃心蛋 (证人BUG不修)': 'epic',
+        '绿猫大人': 'xbox',
+        'LEI_GE': 'steam',
+        '小虎阿': 'ps',
+        '冰': 'epic',
+        '封心': 'xbox',
+        '蓉蓉': 'steam',
+        '荔枝冻': 'ps',
+        '它的狗': 'epic',
+        'Legend_Player': 'steam',
+        'Infinity_Master': 'xbox',
+        'Endless_Runner': 'ps',
+        'Бесконечность': 'epic',
+        'Nightmare_Endless': 'xbox',
+        'Reagent_Master': 'steam',
+        'Survivor_King': 'ps',
+        'Reagent_Pro': 'xbox',
+        'Эксперимент_13': 'epic',
+        'Лабораторный': 'steam',
+        'Реагент_X': 'xbox',
+        'Подопытный_7': 'ps',
+        'Образец_09': 'epic',
+        'Тестовая_группа': 'steam',
+        'Реагент_001': 'xbox',
+        'Impostor_Elite': 'ps',
+        'The_Shadow': 'epic',
+        'Самозванец_Х': 'steam',
+        'Двойник_7': 'xbox',
+        'Маскировка': 'ps',
+        'Имитация': 'epic',
+        'Фальшивка': 'steam',
+        'Призрак': 'xbox',
+        'Копия': 'ps',
+        'Обман': 'epic'
+    };
 
     const escalationData = {
         weekly: [
-            { rank: 1, name: "DASCERA", level: 150, time: "28:50" },
-            { rank: 2, name: "TSUQUOIA", level: 150, time: "28:50" },
-            { rank: 3, name: "BLUE F", level: 99, time: "13:12" },
-            { rank: 4, name: "魔法桃心蛋 (证人BUG不修)", level: 99, time: "13:12" },
-            { rank: 5, name: "绿猫大人", level: 70, time: "09:04" },
-            { rank: 6, name: "LEI_GE", level: 68, time: "08:32" },
-            { rank: 7, name: "小虎阿", level: 66, time: "06:08" },
-            { rank: 8, name: "冰", level: 66, time: "06:08" },
-            { rank: 9, name: "封心", level: 65, time: "06:01" },
-            { rank: 10, name: "蓉蓉", level: 65, time: "06:01" },
-            { rank: 11, name: "荔枝冻", level: 65, time: "07:16" },
-            { rank: 12, name: "它的狗", level: 65, time: "07:23" }
+            { rank: 1, name: "DASCERA", level: "unranked", time: "unranked" },
+            { rank: 2, name: "TSUQUOIA", level: "unranked", time: "unranked" },
+            { rank: 3, name: "BLUE F", level: "unranked", time: "unranked" },
+            { rank: 4, name: "魔法桃心蛋 (证人BUG不修)", level: "unranked", time: "unranked" },
+            { rank: 5, name: "绿猫大人", level: "unranked", time: "unranked" },
+            { rank: 6, name: "LEI_GE", level: "unranked", time: "unranked" },
+            { rank: 7, name: "小虎阿", level: "unranked", time: "unranked" },
+            { rank: 8, name: "冰", level: "unranked", time: "unranked" },
+            { rank: 9, name: "封心", level: "unranked", time: "unranked" },
+            { rank: 10, name: "蓉蓉", level: "unranked", time: "unranked" },
+            { rank: 11, name: "荔枝冻", level: "unranked", time: "unranked" },
+            { rank: 12, name: "它的狗", level: "unranked", time: "unranked" }
         ],
         infinite: [
-            { rank: 1, name: "Legend_Player", level: 250, time: "45:20" },
-            { rank: 2, name: "Infinity_Master", level: 230, time: "42:15" },
-            { rank: 3, name: "Endless_Runner", level: 210, time: "38:45" },
-            { rank: 4, name: "Бесконечность", level: 185, time: "35:10" },
-            { rank: 5, name: "Nightmare_Endless", level: 170, time: "32:30" }
+            { rank: 1, name: "Legend_Player", level: "unranked", time: "unranked" },
+            { rank: 2, name: "Infinity_Master", level: "unranked", time: "unranked" },
+            { rank: 3, name: "Endless_Runner", level: "unranked", time: "unranked" },
+            { rank: 4, name: "Бесконечность", level: "unranked", time: "unranked" },
+            { rank: 5, name: "Nightmare_Endless", level: "unranked", time: "unranked" }
         ]
     };
 
     const invasionData = {
         reagent: [
-            { rank: 1, name: "Reagent_Master", points: 8750, matches: 52 },
-            { rank: 2, name: "Survivor_King", points: 7340, matches: 48 },
-            { rank: 3, name: "Reagent_Pro", points: 6980, matches: 45 },
-            { rank: 4, name: "Эксперимент_13", points: 6210, matches: 41 },
-            { rank: 5, name: "Лабораторный", points: 5890, matches: 38 },
-            { rank: 6, name: "Реагент_X", points: 5540, matches: 42 },
-            { rank: 7, name: "Подопытный_7", points: 5210, matches: 39 },
-            { rank: 8, name: "Образец_09", points: 4980, matches: 36 },
-            { rank: 9, name: "Тестовая_группа", points: 4650, matches: 34 },
-            { rank: 10, name: "Реагент_001", points: 4320, matches: 32 }
+            { rank: 1, name: "Reagent_Master", points: "unranked", matches: "unranked" },
+            { rank: 2, name: "Survivor_King", points: "unranked", matches: "unranked" },
+            { rank: 3, name: "Reagent_Pro", points: "unranked", matches: "unranked" },
+            { rank: 4, name: "Эксперимент_13", points: "unranked", matches: "unranked" },
+            { rank: 5, name: "Лабораторный", points: "unranked", matches: "unranked" },
+            { rank: 6, name: "Реагент_X", points: "unranked", matches: "unranked" },
+            { rank: 7, name: "Подопытный_7", points: "unranked", matches: "unranked" },
+            { rank: 8, name: "Образец_09", points: "unranked", matches: "unranked" },
+            { rank: 9, name: "Тестовая_группа", points: "unranked", matches: "unranked" },
+            { rank: 10, name: "Реагент_001", points: "unranked", matches: "unranked" }
         ],
         impostor: [
-            { rank: 1, name: "Impostor_Elite", points: 8200, matches: 150 },
-            { rank: 2, name: "The_Shadow", points: 7100, matches: 135 },
-            { rank: 3, name: "Самозванец_Х", points: 6650, matches: 120 },
-            { rank: 4, name: "Двойник_7", points: 5900, matches: 108 },
-            { rank: 5, name: "Маскировка", points: 5400, matches: 95 },
-            { rank: 6, name: "Имитация", points: 5000, matches: 88 },
-            { rank: 7, name: "Фальшивка", points: 4700, matches: 80 },
-            { rank: 8, name: "Призрак", points: 4300, matches: 72 },
-            { rank: 9, name: "Копия", points: 3900, matches: 65 },
-            { rank: 10, name: "Обман", points: 3500, matches: 58 }
+            { rank: 1, name: "Impostor_Elite", points: "unranked", matches: "unranked" },
+            { rank: 2, name: "The_Shadow", points: "unranked", matches: "unranked" },
+            { rank: 3, name: "Самозванец_Х", points: "unranked", matches: "unranked" },
+            { rank: 4, name: "Двойник_7", points: "unranked", matches: "unranked" },
+            { rank: 5, name: "Маскировка", points: "unranked", matches: "unranked" },
+            { rank: 6, name: "Имитация", points: "unranked", matches: "unranked" },
+            { rank: 7, name: "Фальшивка", points: "unranked", matches: "unranked" },
+            { rank: 8, name: "Призрак", points: "unranked", matches: "unranked" },
+            { rank: 9, name: "Копия", points: "unranked", matches: "unranked" },
+            { rank: 10, name: "Обман", points: "unranked", matches: "unranked" }
         ]
     };
 
@@ -1456,6 +1532,10 @@
         return '';
     }
 
+    function getPlatformForPlayer(name) {
+        return playerPlatforms[name] || 'steam';
+    }
+
     function getRankClass(rank) {
         if (rank === 1) return 'rank-1';
         if (rank === 2) return 'rank-2';
@@ -1468,6 +1548,17 @@
         if (rank === 2) return '<span class="medal medal-silver"><i class="fas fa-medal"></i></span>';
         if (rank === 3) return '<span class="medal medal-bronze"><i class="fas fa-medal"></i></span>';
         return `${rank}`;
+    }
+
+    function isUnranked(value) {
+        return value === 'unranked';
+    }
+
+    function formatCell(value) {
+        if (isUnranked(value)) {
+            return `<span class="unranked-text">unranked</span>`;
+        }
+        return value;
     }
 
     // ===== ПЕРЕКЛЮЧЕНИЕ =====
@@ -1496,9 +1587,14 @@
         const container = document.getElementById('tableContainer');
         const title = document.getElementById('sectionTitle');
         const subTabs = document.getElementById('subTabs');
+        const tableWrapper = document.getElementById('tableWrapper');
+        
+        // Сбрасываем классы фона
+        tableWrapper.classList.remove('bg-escalation', 'bg-reagent', 'bg-impostor');
         
         if (currentMode === 'escalation') {
             title.textContent = 'ЭСКАЛАЦИЯ';
+            tableWrapper.classList.add('bg-escalation');
             
             if (currentSubTab === 'weekly') {
                 subTabs.innerHTML = `
@@ -1515,18 +1611,24 @@
                     <tbody>`;
                 
                 data.forEach(player => {
+                    const platform = getPlatformForPlayer(player.name);
                     const rankDisplay = player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ? '🥉' : '#' + player.rank;
                     const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
+                    const levelDisplay = isUnranked(player.level) ? formatCell(player.level) : player.level;
+                    const timeDisplay = isUnranked(player.time) ? formatCell(player.time) : player.time;
                     
                     html += `
                         <tr class="${getRankClass(player.rank)}">
                             <td style="font-weight: bold; color: ${color};">${rankDisplay}</td>
                             <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
-                                <span class="player-name">${player.name}</span>
+                                <span class="player-name">
+                                    ${getPlatformIcon(platform)}
+                                    ${player.name}
+                                </span>
                             </td>
-                            <td>${player.level}</td>
-                            <td>${player.level}</td>
-                            <td>${player.time}</td>
+                            <td>${levelDisplay}</td>
+                            <td>${levelDisplay}</td>
+                            <td>${timeDisplay}</td>
                         </tr>
                     `;
                 });
@@ -1535,7 +1637,6 @@
                 container.innerHTML = html;
                 
             } else {
-                // Бесконечная
                 subTabs.innerHTML = `
                     <span class="sub-tab" data-sub="weekly" onclick="switchSubTab('weekly')">Еженедельная</span>
                     <span class="sub-tab active" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
@@ -1550,17 +1651,23 @@
                     <tbody>`;
                 
                 data.forEach(player => {
+                    const platform = getPlatformForPlayer(player.name);
                     const rankDisplay = player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ? '🥉' : '#' + player.rank;
                     const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
+                    const levelDisplay = isUnranked(player.level) ? formatCell(player.level) : player.level;
+                    const timeDisplay = isUnranked(player.time) ? formatCell(player.time) : player.time;
                     
                     html += `
                         <tr class="${getRankClass(player.rank)}">
                             <td style="font-weight: bold; color: ${color};">${rankDisplay}</td>
                             <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
-                                <span class="player-name">${player.name}</span>
+                                <span class="player-name">
+                                    ${getPlatformIcon(platform)}
+                                    ${player.name}
+                                </span>
                             </td>
                             <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'};">
-                                ${player.level} (${player.time})
+                                ${levelDisplay} (${timeDisplay})
                             </td>
                         </tr>
                     `;
@@ -1571,7 +1678,6 @@
             }
             
         } else {
-            // Invasion
             title.textContent = 'ВТОРЖЕНИЕ';
             
             if (currentSubTab === 'reagent') {
@@ -1579,6 +1685,8 @@
                     <span class="sub-tab active" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
                     <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
                 `;
+                
+                tableWrapper.classList.add('bg-reagent');
                 
                 const data = invasionData.reagent;
                 
@@ -1589,9 +1697,11 @@
                     <tbody>`;
                 
                 data.forEach(player => {
-                    const platform = platforms[Math.floor(Math.random() * platforms.length)];
-                    const rating = Math.floor(player.points / 10 + player.matches);
+                    const platform = getPlatformForPlayer(player.name);
                     const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
+                    const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
+                    const matchesDisplay = isUnranked(player.matches) ? formatCell(player.matches) : player.matches;
+                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.matches));
                     
                     html += `
                         <tr class="${getRankClass(player.rank)}">
@@ -1603,10 +1713,10 @@
                                 </span>
                             </td>
                             <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
-                                ${player.points.toLocaleString()}
+                                ${pointsDisplay}
                             </td>
-                            <td>${player.matches}</td>
-                            <td>${rating}</td>
+                            <td>${matchesDisplay}</td>
+                            <td>${ratingDisplay}</td>
                         </tr>
                     `;
                 });
@@ -1615,11 +1725,12 @@
                 container.innerHTML = html;
                 
             } else {
-                // Самозванец
                 subTabs.innerHTML = `
                     <span class="sub-tab" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
                     <span class="sub-tab active" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
                 `;
+                
+                tableWrapper.classList.add('bg-impostor');
                 
                 const data = invasionData.impostor;
                 
@@ -1630,9 +1741,11 @@
                     <tbody>`;
                 
                 data.forEach(player => {
-                    const platform = platforms[Math.floor(Math.random() * platforms.length)];
-                    const rating = Math.floor(player.points / 10 + player.matches);
+                    const platform = getPlatformForPlayer(player.name);
                     const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
+                    const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
+                    const matchesDisplay = isUnranked(player.matches) ? formatCell(player.matches) : player.matches;
+                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.matches));
                     
                     html += `
                         <tr class="${getRankClass(player.rank)}">
@@ -1644,10 +1757,10 @@
                                 </span>
                             </td>
                             <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
-                                ${player.points.toLocaleString()}
+                                ${pointsDisplay}
                             </td>
-                            <td>${player.matches}</td>
-                            <td>${rating}</td>
+                            <td>${matchesDisplay}</td>
+                            <td>${ratingDisplay}</td>
                         </tr>
                     `;
                 });
