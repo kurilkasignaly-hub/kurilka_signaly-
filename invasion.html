@@ -63,7 +63,7 @@
         .bg-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.50);
+            background: rgba(0, 0, 0, 0.45);
             z-index: -1;
         }
 
@@ -723,37 +723,23 @@
             min-height: 400px;
         }
 
-        .table-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            border-radius: 0 0 28px 28px;
-            z-index: 1;
-        }
-
-        .table-wrapper table {
-            position: relative;
-            z-index: 2;
-        }
-
         .table-wrapper .table-bg-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.45);
             border-radius: 0 0 28px 28px;
             z-index: 1;
         }
 
         /* Фоны для разных таблиц */
         .table-wrapper.bg-escalation {
-            background-image: url('images/фон эскалация.webp');
+            background-image: url('images/leaderboard-эскалация-фон.webp');
         }
         .table-wrapper.bg-reagent {
-            background-image: url('images/фон-реагент.webp');
+            background-image: url('images/leaderboard-самозванец-фон.webp');
         }
         .table-wrapper.bg-impostor {
-            background-image: url('images/фон-самозванец.webp');
+            background-image: url('images/leaderboard-реагент-фон.webp');
         }
 
         table {
@@ -1686,7 +1672,8 @@
                     <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
                 `;
                 
-                tableWrapper.classList.add('bg-reagent');
+                // Фон для Реагента — bg-impostor (самозванец)
+                tableWrapper.classList.add('bg-impostor');
                 
                 const data = invasionData.reagent;
                 
@@ -1730,7 +1717,8 @@
                     <span class="sub-tab active" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
                 `;
                 
-                tableWrapper.classList.add('bg-impostor');
+                // Фон для Самозванца — bg-reagent (реагент)
+                tableWrapper.classList.add('bg-reagent');
                 
                 const data = invasionData.impostor;
                 
