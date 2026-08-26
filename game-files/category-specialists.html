@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Специалисты — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.78);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 1.2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .logo p i {
+            color: #e16d48;
+            font-size: 0.7rem;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ЗАГОЛОВОК СТРАНИЦЫ ===== */
+        .page-header {
+            margin-bottom: 2rem;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-title i {
+            font-size: 2.2rem;
+            color: #e16d48;
+        }
+
+        /* ===== СЕТКА КАРТОЧЕК ===== */
+        .specialists-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            animation: fadeInScale 0.6s ease-out 0.2s backwards;
+            max-width: 100%;
+        }
+
+        .specialist-card {
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            text-align: center;
+            padding: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .specialist-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .specialist-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .specialist-image {
+            width: 92%;
+            height: 92%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.4s ease;
+            border-radius: 4px;
+        }
+
+        .specialist-card:hover .specialist-image {
+            transform: scale(1.05);
+        }
+
+        .specialist-image-placeholder {
+            width: 80%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(220, 90, 50, 0.3);
+        }
+
+        .specialist-frame::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../images/фото-рамка.webp');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .specialist-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f0eef7;
+            margin-top: 0.8rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .specialist-card:hover .specialist-name {
+            color: #e16d48;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
+            .page-title { font-size: 1.8rem; }
+            .page-title i { font-size: 1.6rem; }
+            .specialists-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .page-title { font-size: 1.4rem; }
+            .specialist-name { font-size: 0.9rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .header { padding: 0.6rem; }
+            .specialists-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+            .specialist-image { width: 75%; height: 75%; }
+        }
+
+        @media (max-width: 400px) {
+            .specialists-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+            .specialist-name { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="../images/об игре фон.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
+    </div>
+
+    <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
+    <div class="page-header">
+        <h1 class="page-title">СПЕЦИАЛИСТЫ</h1>
+    </div>
+
+    <!-- ===== СЕТКА КАРТОЧЕК ===== -->
+    <div class="specialists-grid" id="specialistsGrid"></div>
+
+    <footer>
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<script>
+    // ============ ДАННЫЕ СПЕЦИАЛИСТОВ ============
+    const specialists = [
+        { id: "cornelius-nokes", name: "КАРНЕЛИУС НОКС", file: "cornelius-nokes.html", image: "../images/нокс.webp" },
+        { id: "emily-barlow", name: "ЭМИЛИ БАРЛОУ", file: "emily-barlow.html", image: "../images/барлоу.webp" },
+        { id: "doris-ritter", name: "ДОРРИС РИТТЕР", file: "doris-ritter.html", image: "../images/дорис.webp" },
+        { id: "henrietta-grabs", name: "ГЕНРИЕТТА ГРАБС", file: "henrietta-grabs.html", image: "../images/грабс.webp" },
+        { id: "amelia-collier", name: "АМЕЛИЯ КОЛЛЬЕР", file: "amelia-collier.html", image: "../images/колльер.webp" },
+        { id: "hendrick-easterman", name: "ХЕНДРИК ИСТЕРМАН", file: "hendrick-easterman.html", image: "../images/истерман.webp" }
+    ];
+
+    function displaySpecialists() {
+        const container = document.getElementById('specialistsGrid');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        specialists.forEach(specialist => {
+            const card = document.createElement('div');
+            card.className = 'specialist-card';
+            
+            card.addEventListener('click', () => {
+                window.location.href = specialist.file;
+            });
+            
+            card.innerHTML = `
+                <div class="specialist-frame">
+                    <img src="${specialist.image}" class="specialist-image" alt="${specialist.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="specialist-image-placeholder" style="display: none;">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                </div>
+                <div class="specialist-name">${specialist.name}</div>
+            `;
+            
+            const img = card.querySelector('.specialist-image');
+            const placeholder = card.querySelector('.specialist-image-placeholder');
+            if (img) {
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    if (placeholder) placeholder.style.display = 'flex';
+                });
+            }
+            
+            container.appendChild(card);
+        });
+    }
+
+    function initScrollAnimation() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        document.querySelectorAll('.breadcrumb, .page-header, .specialists-grid').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        displaySpecialists();
+        initScrollAnimation();
+    });
+</script>
+
+</body>
+</html>
