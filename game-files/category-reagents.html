@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Реагенты — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .logo p i {
+            color: #e16d48;
+            font-size: 0.7rem;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ОСНОВНАЯ СТАТЬЯ ===== */
+        .article-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .article-content {
+            padding: 2rem;
+        }
+
+        /* ===== ИНТРО С ИЗОБРАЖЕНИЕМ ===== */
+        .character-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+
+        .character-image img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .character-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .character-title {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        /* ===== ОГЛАВЛЕНИЕ ===== */
+        .toc {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .toc-title {
+            color: #e16d48;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-title i {
+            transition: transform 0.3s ease;
+        }
+
+        .toc-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 1rem;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list.collapsed {
+            display: none;
+        }
+
+        .toc-list li {
+            margin: 0.5rem 0;
+        }
+
+        .toc-list a {
+            color: #c2b9d4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #e16d48;
+        }
+
+        /* ===== СЕКЦИИ ===== */
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-text {
+            color: #d1cce6;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .section-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* ===== ВНЕШНИЙ ВИД И КАСТОМИЗАЦИЯ ===== */
+        .gender-section {
+            margin-top: 1.5rem;
+        }
+
+        .gender-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffbc9a;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #e16d48;
+            padding-left: 1rem;
+        }
+
+        .customization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+
+        .customization-item {
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .customization-item:hover {
+            transform: translateY(-4px);
+            border-color: #e16d48;
+            box-shadow: 0 8px 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .customization-item .custom-image-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .customization-item .custom-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .customization-item:hover .custom-image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .customization-item .custom-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(220, 90, 50, 0.2);
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .customization-item .custom-name {
+            padding: 0.6rem 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #f0eef7;
+            letter-spacing: 0.3px;
+            border-top: 1px solid rgba(220, 90, 50, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .customization-item:hover .custom-name {
+            color: #e16d48;
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        /* ===== ИЗВЕСТНЫЕ РЕАГЕНТЫ ===== */
+        .reagents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .reagent-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            border-left: 3px solid #e16d48;
+            transition: all 0.3s ease;
+        }
+
+        .reagent-item:hover {
+            background: rgba(220, 90, 50, 0.08);
+        }
+
+        .reagent-item .reagent-id {
+            font-size: 0.7rem;
+            color: #7a6a8a;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .reagent-item .reagent-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #f0eef7;
+        }
+
+        .reagent-item .reagent-desc {
+            font-size: 0.75rem;
+            color: #c2b9d4;
+            line-height: 1.3;
+            margin-top: 0.2rem;
+        }
+
+        /* ===== ИНТЕРЕСНЫЕ ФАКТЫ ===== */
+        .trivia-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+
+        .trivia-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #d1cce6;
+        }
+
+        .trivia-list li i {
+            color: #e16d48;
+            margin-top: 3px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
+            .character-intro { flex-direction: column; align-items: center; text-align: center; }
+            .character-name { font-size: 1.6rem; text-align: center; }
+            .character-sub { text-align: center; }
+            .article-content { padding: 1.2rem; }
+            .section-title { font-size: 1.3rem; }
+            .customization-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            .reagents-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .header { padding: 0.6rem; }
+            .customization-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.6rem; }
+            .customization-item .custom-name { font-size: 0.65rem; padding: 0.3rem 0.2rem; }
+            .reagents-grid { grid-template-columns: 1fr; }
+            .character-name { font-size: 1.3rem; }
+            .modal-close { top: 10px; right: 15px; font-size: 28px; }
+            .modal-content img { max-height: 70vh; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="../images/об игре фон.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="category-reagents.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к реагентам</a>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ СТАТЬЯ ===== -->
+    <div class="article-wrapper">
+        <div class="article-content">
+            <!-- ===== ИНТРО ===== -->
+            <div class="character-intro">
+                <div class="character-image">
+                    <img src="../images/реагенты.png" alt="Реагенты" onerror="this.style.display='none'">
+                </div>
+                <div class="character-title">
+                    <h1 class="character-name">Реагенты</h1>
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Игровые персонажи</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Локация: Объект Синьяла</p>
+                        <p><i class="fas fa-user-secret"></i> Статус: Испытуемые</p>
+                    </div>
+                    <div class="info-box">
+                        <p>Реагенты (ориг. Reagents) — главные герои игры The Outlast Trials, многочисленные обманутые испытуемые проекта «Тенева 2», ради обещанного освобождения проходящие испытания Меркофф на объекте Синьяла.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ОГЛАВЛЕНИЕ ===== -->
+            <div class="toc">
+                <div class="toc-title" id="tocToggle">
+                    Содержание <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    <li><a href="#introduction">1. The Outlast Trials</a></li>
+                    <li><a href="#prehistory">1.1. Предыстория</a></li>
+                    <li><a href="#tutorial">1.2. Вводное испытание</a></li>
+                    <li><a href="#sleeping-room">1.3. Комната отдыха</a></li>
+                    <li><a href="#dead-reagents">1.4. Погибшие реагенты</a></li>
+                    <li><a href="#customization">2. Внешний вид и кастомизация</a></li>
+                    <li><a href="#known-reagents">3. Известные реагенты</a></li>
+                    <li><a href="#trivia">4. Интересные мелочи</a></li>
+                </ul>
+            </div>
+
+            <!-- ===== THE OUTLAST TRIALS ===== -->
+            <div class="section" id="introduction">
+                <h2 class="section-title"><i class="fas fa-gamepad"></i> The Outlast Trials</h2>
+                
+                <!-- Предыстория -->
+                <div class="section" id="prehistory" style="margin-top: 1rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-history" style="color: #e16d48;"></i> Предыстория
+                    </h3>
+                    <div class="section-text">
+                        <p>В 1958 году Корпорация Меркофф на секретном объекте Синьяла в Аризоне запускает проект «Тенева 2», где испытуемые должны проходить испытания, где путём неявного внушения их запрограммируют стать специальными агентами. Под видом благотворительности Меркофф открывает в городах по всей стране благотворительные центры, где якобы оказывают помощь людям с низким социальным статусом. Реклама была очень информативной, и все узнали про подобные центры.</p>
+                        <p>Многие несчастные, такие как безработные, бездомные, алкоголики и прочие иные люди с низким социальными статусом начали обращаться в благотворительные центры Меркофф. Однако там сотрудники Меркофф похищали этих людей и доставляли на объект Синьяла в качестве испытуемых реагентов для участия на испытаниях. Начиная с лета 1958 года люди нескончаемо обращались в центры Меркофф, и практически всех их превращали в реагентов.</p>
+                    </div>
+                </div>
+
+                <!-- Вводное испытание -->
+                <div class="section" id="tutorial" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-door-open" style="color: #e16d48;"></i> Вводное испытание
+                    </h3>
+                    <div class="section-text">
+                        <p>По прибытию на объект Синьяла реагента-новичка доставляют в лабораторию и приковывают к стулу, где он видит все окружающие его ужасы, которые творили с людьми сотрудники Меркофф. Доктора вводят реагенту-новичку лекарство и включают для него начальное обращение директора проекта доктора Хендрика Джолиета Истермана, объясняющего, что испытуемому не стоит бояться, ведь дальнейшие испытания сделают их всех лучше.</p>
+                        <p>После этого одна из сотрудниц Меркофф показывает реагенту-новичку коробку с его персональными данными, а затем просит согласиться со всеми условиями. В этот момент другой сотрудник Меркофф просто качает голову пленника своей рукой, заставляя его автоматически согласиться. После этого они надевают реагенту-новичку прибор ночного видения и болезненно вживляют ему в череп с помощью сверла.</p>
+                        <p>Реагент приходит в себя на полигоне «Особняк», где он начинает своё первое испытание. Через различные оставленные записи реагент-новичок больше узнаёт о докторе Истермане, который своего рода готовил испытуемого к будущим трудностям проекта. Именно на этом полигоне все реагенты впервые встречают экс-попов. Они были испытуемыми закрытой первой фазы «Теневы», целью которых было выслеживать и убивать всех реагентов на протяжении всех испытаний.</p>
+                        <p>Помимо реальных недоброжелателей, реагент-новичок из-за распыления пушера получает психоз и начинает видеть нереального, но опасного Скиннермэна. Ближе к концу вводного испытания было необходимо найти 2 коробки с его публичной и личной информацией, которые он после нахождения уничтожает в промышленном измельчителе. После завершения обучающего испытания, в шаттле по пути в комнату отдыха включается новое обращение доктора Истермана, который объясняет новичку, что это прекрасно, когда всё происходящее находится под контролем.</p>
+                    </div>
+                </div>
+
+                <!-- Комната отдыха -->
+                <div class="section" id="sleeping-room" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-bed" style="color: #e16d48;"></i> Комната отдыха
+                    </h3>
+                    <div class="section-text">
+                        <p>В комнате отдыха у реагентов есть время отдохнуть в своих индивидуальных камерах, а также приобретать амфы и рецепты, а также снаряжения, которые в дальнейшем можно улучшать. Всё это можно сделать у специалистов: реагента Доррис Риттер, медсестры Эмили Барлоу и инженера Корнелиуса Ноукса. Все эти вещи реагенты приобретают за ваучеры, которые они получают в ходе повышения уровня.</p>
+                        <p>Реагенты могут изменять свою одежду и внешний вид, а также интерьер своей личной камеры. Однако одежда и вещи интерьера случайно выдаются им за прохождения испытаний. Также за прохождение испытаний и выполнение дополнительных задач реагентам платят марки, с помощью которых они могут покупать вещи и предметы с каталогов. За временные испытания реагенты получают жетоны событий, которые они могут потратить на ограниченные временем каталоги. На территории комнаты отдыха также есть игровые развлекательные зоны, где реагенты могут поиграть друг с другом в армрестлинг, шахматы, тест струпа и терминальный теннис.</p>
+                        <p>В комнате отдыха находится терминал для вызова шаттла, на котором реагенты могут отправиться на любое выбранное из перечня испытание. Напротив шаттла с другой стороны комнаты отдыха находится проход на последнее испытание «Перерождение». Охранник Меркофф с интервалом впускает туда только тех реагентов, которые в ходе прохождения испытаний смогли заработать 100 жетонов освобождения.</p>
+                    </div>
+                </div>
+
+                <!-- Погибшие реагенты -->
+                <div class="section" id="dead-reagents" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-skull" style="color: #e16d48;"></i> Погибшие реагенты
+                    </h3>
+                    <div class="section-text">
+                        <p>Окончательно умершие реагенты в большинстве случаев используются сотрудниками Меркофф в качестве декораций на полигонах. Некоторые погибшие во время испытания реагенты оставлялись на полигоне в том же положении. Однако единицы таких реагентов всё ещё живы, когда на испытании участвует уже новая группа. Иногда такие выжившие могут попробовать быстро забрать свой предмет, если реагент попытался взять что-то с тела. Как правило, они всё равно умирают по ходу уже не своего испытания.</p>
+                        <p>Большинство погибших реагентов или то, что от них осталось, в конечном итоге сливаются в помещение для биоотходов, где они разлагаются одной братской могилой. Однако корпорация Меркофф также имеет в наличии специальные мясорубки, перемалывающие тела полностью. После такого процесса человеческие останки практически невозможно опознать.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ВНЕШНИЙ ВИД И КАСТОМИЗАЦИЯ ===== -->
+            <div class="section" id="customization">
+                <h2 class="section-title"><i class="fas fa-tshirt"></i> Внешний вид и кастомизация</h2>
+                <div class="section-text">
+                    <p>Реагенты имеют возможность изменять свой внешний вид и кастомизировать личную камеру. Всё это доступно в комнате отдыха через специалистов и терминалы.</p>
+                </div>
+
+                <!-- Мужские персонажи -->
+                <div class="gender-section">
+                    <div class="gender-title">Мужские персонажи</div>
+                    <div class="customization-grid" id="maleCharacters">
+                        <!-- Генерация через JS -->
+                    </div>
+                </div>
+
+                <!-- Женские персонажи -->
+                <div class="gender-section">
+                    <div class="gender-title">Женские персонажи</div>
+                    <div class="customization-grid" id="femaleCharacters">
+                        <!-- Генерация через JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ИЗВЕСТНЫЕ РЕАГЕНТЫ ===== -->
+            <div class="section" id="known-reagents">
+                <h2 class="section-title"><i class="fas fa-users"></i> Известные реагенты</h2>
+                <div class="reagents-grid">
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 0486</div>
+                        <div class="reagent-name">Доррис Риттер</div>
+                        <div class="reagent-desc">Контрабандистка амфам для реагентов, больше не участвует на испытаниях.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 0741</div>
+                        <div class="reagent-name">Тео Нордакер</div>
+                        <div class="reagent-desc">Соучастник Амелии Кольер, судьба неизвестна.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 0877</div>
+                        <div class="reagent-name">Перерождённый</div>
+                        <div class="reagent-desc">После освобождения был испытуемым в Лос-Аламосе, позже стал сотрудником на Синьяле.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 0985</div>
+                        <div class="reagent-name">Генриетта Граббс</div>
+                        <div class="reagent-desc">Бывшая любовница Доррис Риттер, превращена в большого экс-попа, позже в Егеря.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 0946</div>
+                        <div class="reagent-name">Перерождённый</div>
+                        <div class="reagent-desc">После освобождения стал вести себя неадекватно и был убит Клайдом Перри.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 1616</div>
+                        <div class="reagent-name">Салливан Нот</div>
+                        <div class="reagent-desc">Главный антагонист Outlast 2, перерождённый.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 1733</div>
+                        <div class="reagent-name">Подруга Амелии</div>
+                        <div class="reagent-desc">Умерла во время допроса Меркофф.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент ????</div>
+                        <div class="reagent-name">Дэймон Грин</div>
+                        <div class="reagent-desc">Парень Амелии Кольер, убит Клайдом Перри во время допроса.</div>
+                    </div>
+                    <div class="reagent-item">
+                        <div class="reagent-id">Реагент 2427</div>
+                        <div class="reagent-name">Амелия Кольер</div>
+                        <div class="reagent-desc">Первый реагент, сбежавший с области испытания. Позже поймана и вывешена в качестве предупреждения.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ИНТЕРЕСНЫЕ МЕЛОЧИ ===== -->
+            <div class="section" id="trivia">
+                <h2 class="section-title"><i class="fas fa-lightbulb"></i> Интересные мелочи</h2>
+                <ul class="trivia-list">
+                    <li><i class="fas fa-user"></i> В отличие от предыдущих протагонистов серии, реагенты являются первыми, чьи лица видны.</li>
+                    <li><i class="fas fa-door-open"></i> Реагенты первые протагонисты в серии, которые могут выламывать закрытые двери, а также использовать метательное оружие против своих противников.</li>
+                    <li><i class="fas fa-skull"></i> Салливан Нот, главный антагонист игры Outlast 2, был реагентом, известным как «Реагент 1616».</li>
+                    <li><i class="fas fa-tshirt"></i> Реагенты это первые протагонисты, которых игрок может кастомизировать и одеть по своему усмотрению.</li>
+                    <li><i class="fas fa-venus-mars"></i> Если игрок выбрал женского персонажа, то реагенты это первые протагонисты женского пола.</li>
+                    <li><i class="fas fa-microphone"></i> В закрытом бета-тесте игры реагента мужского пола озвучивал Шон Байчу, который ранее также озвучил главных героев Outlast, Outlast: Whistleblower и Outlast 2.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ КАСТОМИЗАЦИИ ===== -->
+<div id="customizationModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+
+<script>
+    // ===== ОГЛАВЛЕНИЕ =====
+    const tocToggle = document.getElementById('tocToggle');
+    const tocList = document.getElementById('tocList');
+    if (tocToggle && tocList) {
+        tocToggle.addEventListener('click', () => {
+            tocList.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+        });
+    }
+
+    // ===== ПЛАВНАЯ ПРОКРУТКА ПО ЯКОРЯМ =====
+    document.querySelectorAll('.toc-list a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ===== МОДАЛЬНОЕ ОКНО ДЛЯ КАСТОМИЗАЦИИ =====
+    const modal = document.getElementById('customizationModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        modalImg.src = '';
+    }
+
+    modalClose.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeModal();
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    function openModal(imgSrc) {
+        modalImg.src = imgSrc;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // ===== ГЕНЕРАЦИЯ ПЕРСОНАЖЕЙ =====
+    function generateCharacters() {
+        const maleContainer = document.getElementById('maleCharacters');
+        const femaleContainer = document.getElementById('femaleCharacters');
+        
+        // 23 мужских персонажа
+        for (let i = 1; i <= 23; i++) {
+            const item = document.createElement('div');
+            item.className = 'customization-item';
+            item.setAttribute('data-img', `../images/реагент-муж-${i}.webp`);
+            
+            item.innerHTML = `
+                <div class="custom-image-wrapper">
+                    <img src="../images/реагент-муж-${i}.webp" alt="Мужской персонаж ${i}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'custom-image-placeholder\\'><i class=\\'fas fa-user\\'></i></div>'">
+                </div>
+                <div class="custom-name">Персонаж ${i}</div>
+            `;
+            
+            item.addEventListener('click', function() {
+                const imgSrc = this.getAttribute('data-img');
+                openModal(imgSrc);
+            });
+            
+            maleContainer.appendChild(item);
+        }
+        
+        // 23 женских персонажа
+        for (let i = 1; i <= 23; i++) {
+            const item = document.createElement('div');
+            item.className = 'customization-item';
+            item.setAttribute('data-img', `../images/реагент-жен-${i}.webp`);
+            
+            item.innerHTML = `
+                <div class="custom-image-wrapper">
+                    <img src="../images/реагент-жен-${i}.webp" alt="Женский персонаж ${i}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'custom-image-placeholder\\'><i class=\\'fas fa-user\\'></i></div>'">
+                </div>
+                <div class="custom-name">Персонаж ${i}</div>
+            `;
+            
+            item.addEventListener('click', function() {
+                const imgSrc = this.getAttribute('data-img');
+                openModal(imgSrc);
+            });
+            
+            femaleContainer.appendChild(item);
+        }
+    }
+
+    // ===== ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ =====
+    function initScrollAnimation() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        generateCharacters();
+        initScrollAnimation();
+    });
+</script>
+
+</body>
+</html>
