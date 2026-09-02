@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Егерь — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .logo p i {
+            color: #e16d48;
+            font-size: 0.7rem;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ОСНОВНАЯ СТАТЬЯ ===== */
+        .article-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .article-content {
+            padding: 2rem;
+        }
+
+        /* ===== ИНТРО С ИЗОБРАЖЕНИЕМ ===== */
+        .character-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+
+        .character-image img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .character-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .character-title {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        /* ===== ОГЛАВЛЕНИЕ ===== */
+        .toc {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .toc-title {
+            color: #e16d48;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-title i {
+            transition: transform 0.3s ease;
+        }
+
+        .toc-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 1rem;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list.collapsed {
+            display: none;
+        }
+
+        .toc-list li {
+            margin: 0.5rem 0;
+        }
+
+        .toc-list a {
+            color: #c2b9d4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #e16d48;
+        }
+
+        /* ===== СЕКЦИИ ===== */
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-text {
+            color: #d1cce6;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .section-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* ===== ГАЛЕРЕЯ ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .gallery-item {
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: #e16d48;
+            box-shadow: 0 10px 25px rgba(220, 90, 50, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ===== ИНТЕРЕСНЫЕ ФАКТЫ ===== */
+        .trivia-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+
+        .trivia-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #d1cce6;
+        }
+
+        .trivia-list li i {
+            color: #e16d48;
+            margin-top: 3px;
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ГАЛЕРЕИ ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
+            .character-intro { flex-direction: column; align-items: center; text-align: center; }
+            .character-name { font-size: 1.6rem; text-align: center; }
+            .character-sub { text-align: center; }
+            .article-content { padding: 1.2rem; }
+            .section-title { font-size: 1.3rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .modal-close { top: 10px; right: 15px; font-size: 30px; }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .header { padding: 0.6rem; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+            .gallery-item img { height: 140px; }
+            .character-name { font-size: 1.3rem; }
+            .modal-close { top: 10px; right: 15px; font-size: 28px; }
+            .modal-content img { max-height: 70vh; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="../images/об игре фон.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-skull-crossbones"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="category-ex-pops.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к экс-попам</a>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ СТАТЬЯ ===== -->
+    <div class="article-wrapper">
+        <div class="article-content">
+            <!-- ===== ИНТРО ===== -->
+            <div class="character-intro">
+                <div class="character-image">
+                    <img src="../images/егерь.webp" alt="Егерь" onerror="this.style.display='none'">
+                </div>
+                <div class="character-title">
+                    <h1 class="character-name">Егерь</h1>
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Экс-поп</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Локация: Все локации</p>
+                    </div>
+                    <div class="info-box">
+                        <p>Генриетта Граббс или Егерь (ориг. Henrietta Grubbs/Jaeger) — антагонист игры The Outlast Trials, в прошлом любовница Доррис Риттер и бывший реагент на объекте Синьяла, которую превратили в большого экс-попа.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ОГЛАВЛЕНИЕ ===== -->
+            <div class="toc">
+                <div class="toc-title" id="tocToggle">
+                    Содержание <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    <li><a href="#biography">1. Биография</a></li>
+                    <li><a href="#reagent-0985">1.1. Реагент 0985</a></li>
+                    <li><a href="#big-ex-pop">1.2. Большой экс-поп</a></li>
+                    <li><a href="#escape">1.3. Побег реагентов</a></li>
+                    <li><a href="#jaeger">1.4. Егерь</a></li>
+                    <li><a href="#gallery">2. Галерея</a></li>
+                    <li><a href="#trivia">3. Интересные мелочи</a></li>
+                </ul>
+            </div>
+
+            <!-- ===== БИОГРАФИЯ ===== -->
+            <div class="section" id="biography">
+                <h2 class="section-title"><i class="fas fa-book-open"></i> Биография</h2>
+                
+                <!-- Реагент 0985 -->
+                <div class="section" id="reagent-0985" style="margin-top: 1rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                         Реагент 0985
+                    </h3>
+                    <div class="section-text">
+                        <p>Генриетта Граббс была обычной девушкой, которая оказалась на объекте Синьяла в качестве реагента в рамках проекта «Тенева 2». Там же она знакомится с другим реагентом Доррис Риттер, с которой они сильно сближаются и начинают проходить испытания вместе. Вскоре у них начинаются романтические отношения, хотя директор проекта доктор Хендрик Истерман считал Генриетту обычной сексуальной извращенкой.</p>
+                        <p>Они должны были вместе освободиться из Синьялы, однако в какой-то момент Доррис задумывается, что здесь что-то не так и решает больше не участвовать на испытаниях. Из-за этого Генриетта ссорится с Доррис, говоря ей, что она просто не хочет выбираться из Синьялы и ей нравится это место. Из-за того, что после романтических отношений участие Граббс на испытаниях сократилось, сотрудники Меркофф усилили терапию гормонами и терапию сном. Из-за этого Генриетта Граббс получила многочисленные ранения, несовместимые с жизнью, но ей всё же удалось выжить. 17 переломов, разрыв селезёнки, коллапс лёгкого и внутреннее кровоизлияние не убили Генриетту.</p>
+                        <p>Сотрудники Меркофф наблюдали за Генриеттой и сделали вывод, что она является хорошим кандидатом на участие в терапевтической программе для экспериментальной популяции.</p>
+                    </div>
+                </div>
+
+                <!-- Большой экс-поп -->
+                <div class="section" id="big-ex-pop" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                         Большой экс-поп
+                    </h3>
+                    <div class="section-text">
+                        <p>Учёные Синьялы стали проводить эксперименты над Генриеттой, и она показала исключительные реакции на гормональную ванну и удлинение костей. В итоге как эксперименты были закончены, Генриетта, изменённая как физически, так и психически, вернулась на испытания, но уже в качестве большого экс-попа. Однако она была неуправляемой и не поддавалась влиянию главных активов, и вскоре Граббс напала на Лиланда Койла. Главный актив нанёс ей смертельные ранения, и сотрудники Меркофф посчитали, что Генриетта окончательно погибла.</p>
+                        <p>Генриетта была помещена в вагон-труповозку и сброшена в объект по утилизации биоотходов Синьялы, который вскоре был закрыт после приобретения Меркофф специальных промышленных мясорубок для перемалывания трупов. Однако Генриетта Граббс снова выжила, и обезумевшая, но всё ещё верная Доррис, она начала скитаться в старом комплексе, и для выживания ей пришлось прибегнуть к каннибализму. Доррис Риттер скучала по Генриетте, но она не ничего не знала о её судьбе, предполагая, что женщина могла покинуть Синьялу или погибнуть.</p>
+                        <p>Никто больше не хотел ничего знать о Генриетте, а доктор Истерман настойчиво говорил, что она стопроцентно мертва. Однако 11 апреля 1960 года реагент Амелия Кольер сбегает с зоны испытательной среды и скрывается в закрытом объекте по утилизации биоотходов, где она увидела Генриетту.</p>
+                    </div>
+                </div>
+
+                <!-- Побег реагентов -->
+                <div class="section" id="escape" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                         Побег реагентов
+                    </h3>
+                    <div class="section-text">
+                        <p>21 апреля 1960 года Амелия Кольер вдохновляет столько реагентов, что большинство их них устраивают бунт в комнате отдыха. Амелия взламывает терминал и проводит реагентов через закрытое помещение для утилизации биоотходов. На объекте Синьяла происходит массовый побег реагентов, из-за чего работа проекта «Тенева 2» приостанавливается.</p>
+                        <p>Когда реагенты спускаются в помещение для биоотходов, то встречают там обезумевшую Генриетту Граббс, которой уже несколько месяцев скиталась там и питалась человеческими останками. В большом помещении Генриетта нападает на сбежавших реагентов, задерживая их процесс побега. Вооружившись палкой с куском бетона она начала преследовать испытуемых, попутно плача о Доррис Риттер. Но тем не менее реагентам удаётся выполнить все критерии и открыть герметичную дверь, ведущую в шахты. Уже там Генриетта Граббс останавливает свои попытки догнать реагентов, позволяя им уйти к выходу в пустыню.</p>
+                        <p>Сотрудники охраны Меркофф пытались сдержать побег реагентов, и им также пришлось посещать закрытое помещение для биоотходов. Однако внизу с посетителями разбирается Генриетта Граббс, формально обнаруживая своё местонахождение для правления Синьялы.</p>
+                    </div>
+                </div>
+
+                <!-- Егерь -->
+                <div class="section" id="jaeger" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                       Егерь
+                    </h3>
+                    <div class="section-text">
+                        <p>24 апреля 1960 года проблема с побегом реагентов была устранена, а Амелия Кольер успешно поймана. Генриетта Граббс также была схвачена, и доктор Истерман решает усовершенствовать её и снова выпустить на территорию испытаний в качестве нового экс-попа — Егерь.</p>
+                        <p>В ходе новых экспериментов Генриетте вкрутили в кости протяжённые внешние фиксаторы, которые поддерживали её и ограничивали дальнейший рост костей. Данный рост был побочным эффектом гормонального лечения и травматерапии. Также на Граббс был надет наголовник с установленным там радиоприёмником, через который ей можно передавать инструкции и наставления, а также назначать цели.</p>
+                        <p>Генриетту в качестве Егеря начали выпускать на испытания, и её выход сопровождался на полигоне громким гудком. Для реагентов Генриетта оказалась чрезвычайно серьёзной угрозой. Несмотря на свою медленную скорость, она стремительно преследовала попавшегося на глаза реагента. Несчастного реагента она будет преследовать до конца, всегда зная, куда по итогу он убежал или спрятался. Она сильна и устойчива к снаряжению, а монокль ночного видения на её наголовнике позволял ей ориентироваться в темноте.</p>
+                        <p>Доррис Риттер конечно же узнала о судьбе Генриетты, и ей было очень тяжело даже думать об этом. Раз сотрудники Меркофф не смогли убить Граббс, то превратили её в монстра, и Доррис считает, что умереть для неё было бы куда гуманнее.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ГАЛЕРЕЯ ===== -->
+            <div class="section" id="gallery">
+                <h2 class="section-title"><i class="fas fa-images"></i> Галерея</h2>
+                <div class="gallery-grid" id="galleryGrid">
+                    <div class="gallery-item" data-img="../images/егерь-1.webp">
+                        <img src="../images/егерь-1.webp" alt="Егерь 1" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+1'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/егерь-2.webp">
+                        <img src="../images/егерь-2.webp" alt="Егерь 2" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+2'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/егерь-3.webp">
+                        <img src="../images/егерь-3.webp" alt="Егерь 3" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+3'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/егерь-4.webp">
+                        <img src="../images/егерь-4.webp" alt="Егерь 4" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+4'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ИНТЕРЕСНЫЕ МЕЛОЧИ ===== -->
+            <div class="section" id="trivia">
+                <h2 class="section-title"><i class="fas fa-lightbulb"></i> Интересные мелочи</h2>
+                <ul class="trivia-list">
+                    <li><i class="fas fa-heart"></i> Генриетта была в романтических отношениях с Доррис Риттер, которая до сих пор не знала о её судьбе, предполагая, что Генриетта могла покинуть Синьялу или погибнуть.</li>
+                    <li><i class="fas fa-crosshairs"></i> Егерь — единственный экс-поп, чей выход на полигоне сопровождается громким гудком, предупреждающим реагентов об опасности.</li>
+                    <li><i class="fas fa-shield-alt"></i> Егерь — единственный экс-поп, который не восприимчив ни к одному из видов снаряжения.</li>
+                    <li><i class="fas fa-eye"></i> Монокль ночного видения на наголовнике Егеря позволяет ей ориентироваться в темноте и преследовать реагентов.</li>
+                    <li><i class="fas fa-fist-raised"></i> Несмотря на свою медленную скорость, Егерь стремительно преследует жертву, всегда зная, куда она убежала или спряталась.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ГАЛЕРЕИ ===== -->
+<div id="galleryModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+
+<script>
+    // ===== ОГЛАВЛЕНИЕ =====
+    const tocToggle = document.getElementById('tocToggle');
+    const tocList = document.getElementById('tocList');
+    if (tocToggle && tocList) {
+        tocToggle.addEventListener('click', () => {
+            tocList.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+        });
+    }
+
+    // ===== ПЛАВНАЯ ПРОКРУТКА ПО ЯКОРЯМ =====
+    document.querySelectorAll('.toc-list a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ===== МОДАЛЬНОЕ ОКНО ДЛЯ ГАЛЕРЕИ =====
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        modalImg.src = '';
+    }
+
+    modalClose.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeModal();
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const imgSrc = this.getAttribute('data-img');
+            if (imgSrc) {
+                modalImg.src = imgSrc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    // ===== ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ =====
+    function initScrollAnimation() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initScrollAnimation();
+    });
+</script>
+
+</body>
+</html>
