@@ -340,33 +340,108 @@
             margin-bottom: 1rem;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
+        /* ===== ГАЛЕРЕЯ С КАРУСЕЛЬЮ ===== */
+        .gallery-wrapper {
+            position: relative;
             margin-top: 1.2rem;
+            overflow: hidden;
+            border-radius: 20px;
+            background: rgba(18, 12, 28, 0.3);
+            border: 1px solid rgba(220, 90, 50, 0.1);
+        }
+
+        .gallery-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            will-change: transform;
         }
 
         .gallery-item {
-            background: rgba(18, 12, 28, 0.6);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(220, 90, 50, 0.25);
-            transition: all 0.3s ease;
+            flex: 0 0 calc(100% / 4);
+            aspect-ratio: 16 / 11;
+            padding: 0.5rem;
             cursor: pointer;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            border-color: #e16d48;
-            box-shadow: 0 10px 25px rgba(220, 90, 50, 0.2);
+            transition: all 0.3s ease;
         }
 
         .gallery-item img {
             width: 100%;
-            height: 180px;
+            height: 100%;
             object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.15);
+            transition: all 0.3s ease;
             display: block;
+        }
+
+        .gallery-item:hover img {
+            border-color: #e16d48;
+            transform: scale(1.02);
+        }
+
+        /* Кнопки навигации */
+        .gallery-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-btn:hover {
+            background: rgba(220, 90, 50, 0.4);
+            border-color: #e16d48;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-btn.prev {
+            left: 8px;
+        }
+
+        .gallery-btn.next {
+            right: 8px;
+        }
+
+        /* Индикаторы (точки) */
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.8rem 0 0.3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .gallery-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .gallery-dot.active {
+            background: #e16d48;
+            transform: scale(1.2);
+            box-shadow: 0 0 12px rgba(225, 109, 72, 0.4);
+        }
+
+        .gallery-dot:hover {
+            background: rgba(225, 109, 72, 0.5);
         }
 
         .modal {
@@ -439,7 +514,8 @@
             .character-sub { text-align: center; }
             .article-content { padding: 1.2rem; }
             .section-title { font-size: 1.3rem; }
-            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .gallery-item { flex: 0 0 calc(100% / 2); }
+            .gallery-btn { width: 36px; height: 36px; font-size: 1rem; }
         }
 
         @media (max-width: 550px) {
@@ -447,9 +523,15 @@
             .logo .logo-text { font-size: 1rem; }
             .logo .logo-img { max-height: 32px; }
             .header { padding: 0.6rem; }
-            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-            .gallery-item img { height: 140px; }
             .character-name { font-size: 1.3rem; }
+            .gallery-item { flex: 0 0 calc(100% / 1.5); }
+            .gallery-btn { width: 30px; height: 30px; font-size: 0.8rem; }
+            .gallery-btn.prev { left: 4px; }
+            .gallery-btn.next { right: 4px; }
+        }
+
+        @media (max-width: 400px) {
+            .gallery-item { flex: 0 0 100%; }
         }
     </style>
 </head>
@@ -475,7 +557,7 @@
             <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
             <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
             <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
-            <a href="../invasion.html" class="nav-btn"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="../invasion.html" class="nav-btn active"><i class="fas fa-trophy"></i> Leaderboard</a>
             <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
         </div>
     </div>
@@ -849,20 +931,39 @@
             <!-- ===== ГАЛЕРЕЯ ===== -->
             <div class="section" id="gallery">
                 <h2 class="section-title"><i class="fas fa-images"></i> Галерея</h2>
-                <div class="gallery-grid" id="galleryGrid">
-                    <div class="gallery-item" data-img="../images/вторжение-1.webp">
-                        <img src="../images/вторжение-1.webp" alt="Вторжение 1" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+1'">
+                <div class="gallery-wrapper">
+                    <div class="gallery-slider" id="gallerySlider">
+                        <div class="gallery-item" data-img="../images/вторжение баннер.png">
+                            <img src="../images/вторжение баннер.png" alt="Вторжение 1" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+1'">
+                        </div>
+                        <div class="gallery-item" data-img="../images/вторжение-1.webp">
+                            <img src="../images/вторжение-1.webp" alt="Вторжение 2" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+2'">
+                        </div>
+                        <div class="gallery-item" data-img="../images/вторжение-2.webp">
+                            <img src="../images/вторжение-2.webp" alt="Вторжение 3" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+3'">
+                        </div>
+                        <div class="gallery-item" data-img="../images/вторжение-3.webp">
+                            <img src="../images/вторжение-3.webp" alt="Вторжение 4" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+4'">
+                        </div>
+                        <div class="gallery-item" data-img="../images/вторжение-4.webp">
+                            <img src="../images/вторжение-4.webp" alt="Вторжение 5" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+5'">
+                        </div>
+                        <div class="gallery-item" data-img="../images/вторжение-5.webp">
+                            <img src="../images/вторжение-5.webp" alt="Вторжение 6" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+6'">
+                        </div>
+                        <div class="gallery-item" data-img="../images/вторжение-6.webp">
+                            <img src="../images/вторжение-6.webp" alt="Вторжение 7" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+7'">
+                        </div>
+                        <div class="gallery-item" data-img="../images/вторжение-7.webp">
+                            <img src="../images/вторжение-7.webp" alt="Вторжение 8" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+8'">
+                        </div>
                     </div>
-                    <div class="gallery-item" data-img="../images/вторжение-2.webp">
-                        <img src="../images/вторжение-2.webp" alt="Вторжение 2" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+2'">
-                    </div>
-                    <div class="gallery-item" data-img="../images/вторжение-3.webp">
-                        <img src="../images/вторжение-3.webp" alt="Вторжение 3" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+3'">
-                    </div>
-                    <div class="gallery-item" data-img="../images/вторжение-4.webp">
-                        <img src="../images/вторжение-4.webp" alt="Вторжение 4" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+4'">
-                    </div>
+
+                    <button class="gallery-btn prev" id="galleryPrev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="gallery-btn next" id="galleryNext"><i class="fas fa-chevron-right"></i></button>
                 </div>
+
+                <div class="gallery-dots" id="galleryDots"></div>
             </div>
         </div>
     </div>
@@ -904,7 +1005,100 @@
         });
     });
 
-    // ===== МОДАЛЬНОЕ ОКНО =====
+    // ===== ГАЛЕРЕЯ КАРУСЕЛЬ =====
+    const slider = document.getElementById('gallerySlider');
+    const prevBtn = document.getElementById('galleryPrev');
+    const nextBtn = document.getElementById('galleryNext');
+    const dotsContainer = document.getElementById('galleryDots');
+    const items = slider.querySelectorAll('.gallery-item');
+    const totalItems = items.length;
+    let currentIndex = 0;
+    let itemsPerView = 4;
+    let autoSlideTimer = null;
+
+    function getItemsPerView() {
+        if (window.innerWidth <= 400) return 1;
+        if (window.innerWidth <= 550) return 1.5;
+        if (window.innerWidth <= 850) return 2;
+        return 4;
+    }
+
+    function updateSlider() {
+        itemsPerView = getItemsPerView();
+        const slideWidth = 100 / itemsPerView;
+        const offset = currentIndex * slideWidth;
+        slider.style.transform = `translateX(-${offset}%)`;
+
+        // Обновляем активные точки
+        const totalDots = Math.ceil(totalItems / Math.floor(itemsPerView));
+        document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === Math.floor(currentIndex / Math.floor(itemsPerView)));
+        });
+    }
+
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        const totalDots = Math.ceil(totalItems / Math.floor(getItemsPerView()));
+        for (let i = 0; i < totalDots; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => {
+                currentIndex = i * Math.floor(itemsPerView);
+                if (currentIndex > totalItems - Math.floor(itemsPerView)) {
+                    currentIndex = totalItems - Math.floor(itemsPerView);
+                }
+                if (currentIndex < 0) currentIndex = 0;
+                updateSlider();
+                resetAutoSlide();
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    function nextSlide() {
+        const maxIndex = totalItems - Math.floor(itemsPerView);
+        if (currentIndex >= maxIndex) {
+            currentIndex = 0;
+        } else {
+            currentIndex = Math.min(currentIndex + 1, maxIndex);
+        }
+        updateSlider();
+        resetAutoSlide();
+    }
+
+    function prevSlide() {
+        if (currentIndex <= 0) {
+            currentIndex = totalItems - Math.floor(itemsPerView);
+        } else {
+            currentIndex = Math.max(currentIndex - 1, 0);
+        }
+        updateSlider();
+        resetAutoSlide();
+    }
+
+    function resetAutoSlide() {
+        if (autoSlideTimer) {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = null;
+        }
+        autoSlideTimer = setInterval(nextSlide, 4000);
+    }
+
+    // Обработчики кнопок
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Обновление при изменении размера окна
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            createDots();
+            updateSlider();
+        }, 200);
+    });
+
+    // ===== МОДАЛЬНОЕ ОКНО ДЛЯ ГАЛЕРЕИ =====
     const modal = document.getElementById('galleryModal');
     const modalImg = document.getElementById('modalImage');
     const modalClose = document.querySelector('.modal-close');
@@ -912,6 +1106,7 @@
     document.querySelectorAll('.gallery-item').forEach(item => {
         item.addEventListener('click', () => {
             const imgSrc = item.getAttribute('data-img');
+            const imgEl = item.querySelector('img');
             if (imgSrc) {
                 modalImg.src = imgSrc;
                 modal.classList.add('active');
@@ -954,7 +1149,20 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        createDots();
+        updateSlider();
         initScrollAnimation();
+        resetAutoSlide();
+
+        // Остановка автопрокрутки при наведении на галерею
+        const galleryWrapper = document.querySelector('.gallery-wrapper');
+        galleryWrapper.addEventListener('mouseenter', () => {
+            if (autoSlideTimer) {
+                clearInterval(autoSlideTimer);
+                autoSlideTimer = null;
+            }
+        });
+        galleryWrapper.addEventListener('mouseleave', resetAutoSlide);
     });
 </script>
 
