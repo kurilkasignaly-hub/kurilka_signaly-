@@ -413,20 +413,6 @@
             background: linear-gradient(135deg, #1a1a2e, #16213e);
         }
 
-        .customization-item .custom-name {
-            padding: 0.6rem 0.5rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #f0eef7;
-            letter-spacing: 0.3px;
-            border-top: 1px solid rgba(220, 90, 50, 0.1);
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .customization-item:hover .custom-name {
-            color: #e16d48;
-        }
-
         /* ===== МОДАЛЬНОЕ ОКНО ===== */
         .modal {
             display: none;
@@ -581,7 +567,6 @@
             .logo .logo-img { max-height: 32px; }
             .header { padding: 0.6rem; }
             .customization-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.6rem; }
-            .customization-item .custom-name { font-size: 0.65rem; padding: 0.3rem 0.2rem; }
             .reagents-grid { grid-template-columns: 1fr; }
             .character-name { font-size: 1.3rem; }
             .modal-close { top: 10px; right: 15px; font-size: 28px; }
@@ -619,7 +604,7 @@
 
     <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
     <div class="breadcrumb">
-        <a href="category-reagents.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к реагентам</a>
+        <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
     </div>
 
     <!-- ===== ОСНОВНАЯ СТАТЬЯ ===== -->
@@ -722,17 +707,13 @@
                 <!-- Мужские персонажи -->
                 <div class="gender-section">
                     <div class="gender-title">Мужские персонажи</div>
-                    <div class="customization-grid" id="maleCharacters">
-                        <!-- Генерация через JS -->
-                    </div>
+                    <div class="customization-grid" id="maleCharacters"></div>
                 </div>
 
                 <!-- Женские персонажи -->
                 <div class="gender-section">
                     <div class="gender-title">Женские персонажи</div>
-                    <div class="customization-grid" id="femaleCharacters">
-                        <!-- Генерация через JS -->
-                    </div>
+                    <div class="customization-grid" id="femaleCharacters"></div>
                 </div>
             </div>
 
@@ -883,13 +864,12 @@
         for (let i = 1; i <= 23; i++) {
             const item = document.createElement('div');
             item.className = 'customization-item';
-            item.setAttribute('data-img', `../images/муж-${i}.webp`);
+            item.setAttribute('data-img', `../images/реагент-муж-${i}.webp`);
             
             item.innerHTML = `
                 <div class="custom-image-wrapper">
-                    <img src="../images/муж-${i}.webp" alt="Мужской персонаж ${i}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'custom-image-placeholder\\'><i class=\\'fas fa-user\\'></i></div>'">
+                    <img src="../images/реагент-муж-${i}.webp" alt="Мужской персонаж ${i}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'custom-image-placeholder\\'><i class=\\'fas fa-user\\'></i></div>'">
                 </div>
-                <div class="custom-name">Персонаж ${i}</div>
             `;
             
             item.addEventListener('click', function() {
@@ -904,13 +884,12 @@
         for (let i = 1; i <= 23; i++) {
             const item = document.createElement('div');
             item.className = 'customization-item';
-            item.setAttribute('data-img', `../images/жен-${i}.webp`);
+            item.setAttribute('data-img', `../images/реагент-жен-${i}.webp`);
             
             item.innerHTML = `
                 <div class="custom-image-wrapper">
-                    <img src="../images/жен-${i}.webp" alt="Женский персонаж ${i}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'custom-image-placeholder\\'><i class=\\'fas fa-user\\'></i></div>'">
+                    <img src="../images/реагент-жен-${i}.webp" alt="Женский персонаж ${i}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'custom-image-placeholder\\'><i class=\\'fas fa-user\\'></i></div>'">
                 </div>
-                <div class="custom-name">Персонаж ${i}</div>
             `;
             
             item.addEventListener('click', function() {
