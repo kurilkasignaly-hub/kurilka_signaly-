@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Хендрик Истерман — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .logo p i {
+            color: #e16d48;
+            font-size: 0.7rem;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ОСНОВНАЯ СТАТЬЯ ===== */
+        .article-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .quote-header {
+            background: rgba(220, 90, 50, 0.08);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.2);
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #e16d48;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            font-size: 0.85rem;
+            color: #c2b9d4;
+            margin-top: 0.8rem;
+        }
+
+        .article-content {
+            padding: 2rem;
+        }
+
+        .character-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+
+        .character-image img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .character-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .character-title {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        .toc {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .toc-title {
+            color: #e16d48;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-title i {
+            transition: transform 0.3s ease;
+        }
+
+        .toc-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 1rem;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list.collapsed {
+            display: none;
+        }
+
+        .toc-list li {
+            margin: 0.5rem 0;
+        }
+
+        .toc-list a {
+            color: #c2b9d4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #e16d48;
+        }
+
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-text {
+            color: #d1cce6;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .section-text p {
+            margin-bottom: 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .gallery-item {
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: #e16d48;
+            box-shadow: 0 10px 25px rgba(220, 90, 50, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .trivia-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+
+        .trivia-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #d1cce6;
+        }
+
+        .trivia-list li i {
+            color: #e16d48;
+            margin-top: 3px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10001;
+        }
+
+        .modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
+            .character-intro { flex-direction: column; align-items: center; text-align: center; }
+            .character-name { font-size: 1.6rem; text-align: center; }
+            .character-sub { text-align: center; }
+            .article-content { padding: 1.2rem; }
+            .quote-text { font-size: 1rem; }
+            .section-title { font-size: 1.3rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .header { padding: 0.6rem; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+            .gallery-item img { height: 140px; }
+            .character-name { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="../images/об игре фон.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="category-specialists.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к специалистам</a>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ СТАТЬЯ ===== -->
+    <div class="article-wrapper">
+        <div class="quote-header">
+            <div class="quote-text">«Выбирайте добро. Прислушайтесь к Богу внутри вас. Ты знаешь, что делать, ты знаешь, чего я хочу. Вот что такое любовь. Это дар. Новый инстинкт. Лучший инстинкт. Прислушайся к Богу. Прислушайся к моему голосу.»</div>
+            <div class="quote-author">— Хендрик Истерман</div>
+        </div>
+
+        <div class="article-content">
+            <div class="character-intro">
+                <div class="character-image">
+                    <img src="../images/истерман.webp" alt="Хендрик Истерман" onerror="this.style.display='none'">
+                </div>
+                <div class="character-title">
+                    <h1 class="character-name">Хендрик Истерман</h1>
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Директор проекта | Учёный</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Локация: Объект Синьяла</p>
+                        <p><i class="fas fa-brain"></i> Роль: Руководитель проекта «Тенева 2»</p>
+                    </div>
+                    <div class="info-box">
+                        <p>Хендрик Джолиет Истерман (ориг. Hendrick Joliet Easterman) — главный антагонист игры The Outlast Trials, весомый учёный корпорации Мёркофф и директор проекта «Тенева 2» на объекте Синьяла.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ОГЛАВЛЕНИЕ ===== -->
+            <div class="toc">
+                <div class="toc-title" id="tocToggle">
+                    Содержание <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    <li><a href="#biography">1. Биография</a></li>
+                    <li><a href="#early-life">1.1. Ранняя жизнь</a></li>
+                    <li><a href="#cia">1.2. Вербовка ЦРУ</a></li>
+                    <li><a href="#los-alamos">1.3. Лос-Аламос</a></li>
+                    <li><a href="#sinyala">1.4. Синьяла</a></li>
+                    <li><a href="#project-teneva">1.5. Проект «Тенева» и его крах</a></li>
+                    <li><a href="#project-teneva-2">1.6. Проект «Тенева 2»</a></li>
+                    <li><a href="#new-year-1960">1.7. Новый 1960 год</a></li>
+                    <li><a href="#divorce">1.8. Развод с женой</a></li>
+                    <li><a href="#amelia-escape">1.9. Побег Амелии Колльер</a></li>
+                    <li><a href="#isolation">1.10. Изоляция</a></li>
+                    <li><a href="#amelia-capture">1.11. Плен Амелии</a></li>
+                    <li><a href="#trials">2. The Outlast Trials</a></li>
+                    <li><a href="#gallery">3. Галерея</a></li>
+                    <li><a href="#trivia">4. Интересные мелочи</a></li>
+                </ul>
+            </div>
+
+            <!-- ===== БИОГРАФИЯ ===== -->
+            <div class="section" id="biography">
+                <h2 class="section-title"><i class="fas fa-user-circle"></i> Биография</h2>
+                
+                <!-- Ранняя жизнь -->
+                <div class="section" id="early-life" style="margin-top: 1rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Ранняя жизнь
+                    </h3>
+                    <div class="section-text">
+                        <p>В первой половине 20 века Хендрик Истерман и его брат Стэнли жили со своей матерью, которая поддерживала в доме жестокую дисциплину. Она издевалась над своими сыновьями, вырывая им волосы с головы. У брата Стэнли ещё с детства были суицидальные наклонности, но мать скрывала это от «хрупкого сыночка» Хендрика. Издевательства со стороны матери закончились, когда братья Истерманы повзрослели и покинули дом.</p>
+                        <p>В начале 1950-ых годов, когда началась Корейская война, его брат Стэнли Истерман ушёл служить в корпус тылового обеспечения, где вскоре покончил жизнь самоубийством. Сам Стэнли в самой Корее никогда не был, но его смерть стала очень таинственной и трагичной для Хендрика Истермана, который из-за всего этого начал интересоваться промыванием мозгов, считая, что его брату просто-напросто промыли мозги солдаты Корейской народной армии.</p>
+                    </div>
+                </div>
+
+                <!-- Вербовка ЦРУ -->
+                <div class="section" id="cia" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Вербовка ЦРУ
+                    </h3>
+                    <div class="section-text">
+                        <p>В какой-то момент Хендрик Джолиет Истерман посещает выступление Аллена Даллеса в городе Принстон, где его замечают сотрудники ЦРУ. В январе 1953 года ЦРУ принимает решение завербовать Хендрика Истермана, с которым в Чикаго начинает собеседование сотрудник разведки Джеймсон Лоулер. Во времена Холодной войны сотрудники ЦРУ были заинтересованы «промывкой мозгов», поскольку им были известны случаи, когда американцы решали остаться на территории коммунистического Китая. Во время беседы Лоулер упоминает Стэнли Истермана, и именно его смерть стала предлогом, чтобы Хендрик согласился с предложением ЦРУ.</p>
+                        <p>В феврале Хендрик Истерман прибывает в Гонконг, где он был уверен, что найдёт доказательства, опровергающие самоубийство его брата Стэнли. Он начинает расспрашивать ветеранов, гражданских и военнопленных КНА, чтобы найти убедительные доказательства специфического психологического программирования.</p>
+                        <p>Через год, в начале 1954 года за 3 дня до повторного посещения Гонконга, доктор Хендрик Истерман прибывает в послевоенный Берлин, который напомнил ему о Второй мировой войне. Он даже задумался, что чтобы ни говорили о национал-социализме, всё это могло бы научить их инфраструктуре, пропаганде и руководству. Через несколько дней Истерман вновь прилетает в Гонконг, где он начинает тщательно изучать китайскую технику промывания мозгов. Он начинает исследовать всех жертв промывки мозгов, узнав от рядового Реймоуса про некого «невидимого призрака» Доктора Скиннера, которого он видел в своих галлюцинациях.</p>
+                    </div>
+                </div>
+
+                <!-- Лос-Аламос -->
+                <div class="section" id="los-alamos" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Лос-Аламос
+                    </h3>
+                    <div class="section-text">
+                        <p>В апреле 1954 года с Истерманом связывается Оливье Баранчик, являющийся помощником директора по поведенческой медицине лечебницы Маунт-Мэссив. Оказывается, какое-то время назад Лоулер поделился с Баранчиком открытиями, которые Истерман совершил в Гонконге. Теперь доктор Баранчик хочет, чтобы Истерман прибыл в Лос-Аламос и познакомился с работой учёных в их лабораториях. Спустя немного времени Хендрик Истерман отправился в Лос-Аламос, также ознакамливаясь с записями доктора Рудольфа Вернике. Доктор Истерман хотел бы, чтобы его жена Ирен также прибыла туда, но отдел кадров Мёркофф постоянно отклонял его просьбы.</p>
+                        <p>В мае Истерман решается побеседовать с доктором Вернике, поскольку Оливье Баранчик считал, что исследования Хендрика должны органично сочетаться с работой немца с микроволновыми сигналами и «управляемой визуальной стимуляцией». Во время беседы Хендрик Истерман пытался заставить доктора Вернике прояснить намерения его экспериментов, однако немец сводил каждый разговор к психотерапевтическому подтексту германского фольклора. Рудольф Вернике также рассказывал на изначально обречённую природу всех гетеросексуальных отношений. После беседы Истерман был впечатлён доктором Вернике, считая его жизнерадостным и красивым мужчиной.</p>
+                    </div>
+                </div>
+
+                <!-- Синьяла -->
+                <div class="section" id="sinyala" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Синьяла
+                    </h3>
+                    <div class="section-text">
+                        <p>Летом 1954 года сотрудники Мёркофф и ЦРУ с помощью Истермана решают провести на объекте Синьяла в Аризоне огромный проект, который по их словам может положить конец всем проблемам в будущем. В разгар Холодной войны они хотели создать послушных солдат для сражений на коммунистических территориях. В августе 1955 года доктор Хендрик Истерман отправляется в Синьялу, и в тот момент отдел сбора информации Мёркофф занялся поисками людей для данного глобального эксперимента. В Синьяле доктор Истерман знакомится со многими новыми людьми, в том числе и с Брэдли Авелльянос, которая была администратором данного комплекса.</p>
+                        <p>В декабре доктор Истерман поручает сотруднику Клайду Перри найти харизматичных кандидатов на роль главных активов для будущего проекта «Тенева», которые будут контролировать остальных испытуемых. В конце концов на протяжении 1956 года Перри удаётся найти сумасшедшего сержанта полиции Лиланда Койла и не менее безумную бывшую телеведущую Филлис Футтерман. Для «Теневы» также было найдено огромное количество различных людей, в том числе подопытных из Маунт-Мэссив и Лос-Аламоса, которые стали экс-попами на полигонах.</p>
+                    </div>
+                </div>
+
+                <!-- Проект Тенева и его крах -->
+                <div class="section" id="project-teneva" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Проект «Тенева» и его крах
+                    </h3>
+                    <div class="section-text">
+                        <p>В какой-то момент проект «Тенева» на Синьяле был запущен, однако к лету 1958 года ситуация постепенно начала выходить из-под контроля. Количество жертв одних только экс-попов превысило за сотню, не говоря уже о сотрудниках Мёркофф. В итоге из-за небезопасности проекта стали поступать настоятельные рекомендации о немедленном прекращении работы. Доктор Истерман брал на себя полную ответственность за все инциденты, в то же время понимая, что он мало, что мог бы сделать. Несмотря на все усилия, Мёркофф не смогли сдерживать контроль над испытуемыми, и проект «Тенева» был прикрыт. Главные активы и экс-попы планировались в кратчайшие сроки быть ликвидированными, однако по какой-то причине они были оставлены.</p>
+                    </div>
+                </div>
+
+                <!-- Проект Тенева 2 -->
+                <div class="section" id="project-teneva-2" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Проект «Тенева 2»
+                    </h3>
+                    <div class="section-text">
+                        <p>После краха «Теневы» доктор Истерман горел желанием запустить вторую фазу проекта, слегка отличавшуюся от первой. Оставленные главные активы и экс-попы, а также зоны испытаний могли бы послужить «наковальней» для других испытуемых. Хендрик Истерман поручил найти новых людей, но не сумасшедших травмированных безумцев, а тех, кто нелюбим и неприметен.</p>
+                        <p>В итоге главное управление Мёркофф разрешило эксплуатацию проекта «Тенева 2», и его явным отличием являлось то, что «терапия нейронного вмешательства» будет заменена на «терапию неявного внушения». Расходы на новый проект оказываются значительно меньше, поскольку многие вещи с первой фазы, такие как экс-попы и полигоны будут перенесены в «Теневу 2». Новыми испытуемыми оказываются реагенты, которых доктор Истерман хотел превратить в «ничто» и сделать из них послушных триггерных агентов для операций Холодной войны. Однако здесь Истерман решает физически не появляться перед испытуемыми, желая, чтобы реагенты и экс-попы видели в нём фигуру «любящего отца».</p>
+                        <p>В конце лета 1958 года проект «Тенева 2» был запущен, и приток финансирования был настолько огромным, что Хендрик Истерман на мгновение подумал, что это результат какой-то бухгалтерской ошибки. Вскоре после запуска второй фазы примерно в 1959 году в Синьялу из Лос-Аламоса прибывает сам доктор Вернике, однако его особо не интересовала работа учёных, ведь более интересным занятием он посчитал следить через защитное стекло за деятельностью испытуемых реагентов, которые восстанавливались в комнате для отдыха. Немецкий учёный и не предполагал, что Истерман всё время наблюдает за ним из своего укрытия, анализируя его поведение и действия.</p>
+                        <p>Порой Истерману приходилось беседовать с Брэдли Авелльянос, которая хотела узнать от доктора всю информацию, связанную с Синьялой. Осенью 1959 года на объект прибывает новый кандидат на роль главного актива, безумный гангстер Франко Барби. Доктор Истерман, также как с Койлом и Гусберри несколько лет назад, придумывает для реагентов новое испытание с присутствием Барби, а также как должен будет выглядеть полигон.</p>
+                    </div>
+                </div>
+
+                <!-- Новый 1960 год -->
+                <div class="section" id="new-year-1960" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Новый 1960 год
+                    </h3>
+                    <div class="section-text">
+                        <p>Зимой, во время празднования нового 1960 года, в Синьяле среди сотрудников Мёркофф прошла вечеринка, и сам доктор Хендрик Истерман был не против немного повеселиться. Сотрудники начали веселиться в корпоративном кафетерии, но вскоре опустились вниз, чтобы посмотреть на Франко Барби, которого благодаря Клайду Перри недавно доставили в Синьялу. После этого выпившие сотрудники Мёркофф вместе с Истерманом отправились в аптеку Синьялы, чтобы испробовать на себе больше так называемых «дурманящих» препаратов для большего веселья. Вскоре, когда вечеринка уже подходила к концу, пьяный доктор Истерман встретил Сидни Готтлиба.</p>
+                        <p>После празднования нового года у доктора Истермана было сильное трёхдневное похмелье, и утром 3 января он замечает, что у него выпало слишком много волос. Этим же днём доктор Истерман, не желая расставаться со своей шевелюрой, отправился на процедуры с берлинской лазурью. Вечером он в ужасе находит в кармане своей одежды с вечеринки чуть больше грамма таллия, понимая, что кто-то хотел его отравить во время празднования нового года. Выпадение волос было не из-за опьянения, вызванного подозрительным алкоголем, как изначально думал Истерман, а из-за отравления таллием. В итоге доктор Истерман ходил на процедуры с берлинской лазурью три дня, а к 6 января ему к счастью удалось избавиться от трёхдневного запора.</p>
+                    </div>
+                </div>
+
+                <!-- Развод с женой -->
+                <div class="section" id="divorce" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Развод с женой
+                    </h3>
+                    <div class="section-text">
+                        <p>Вскоре управление одобрило в Синьяле новую временную программу «Обратный отсчёт», где у реагентов было ограниченное время для испытаний путём взрывного устройства на их груди. В конце марта 1960 года доктор Истерман и Мозес Скарфиотти наведываются к инженеру Корнелиусу Ноуксу, чтобы попросить его сделать данные взрывные устройства. В ходе диалога Истерман упоминает слова своей жены Ирен, на что получает поправку от Скарфиотти, что она уже бывшая жена.</p>
+                        <p>Хендрик Истерман не мог ничего понять, но вскоре он находит у себя в папке свидетельство о разводе, который якобы произошёл ещё более шести месяцев назад. Истерман приходит в недоумение, ведь он не помнит этого, а в свидетельстве была его идеальная подпись. Он узнаёт, что Ирен развелась с ним за пренебрежение браком, так как не виделась с ним уже несколько лет, не получая при этом никаких писем и звонков. После этого доктору становится морально нехорошо, ведь он всё ещё любит её, но в тот же время он яростно надеется, что она уже умерла. Хендрик Истерман так и не понял, либо его так сильно начала подводить память или же развод с женой произошёл и вовсе без его ведома.</p>
+                    </div>
+                </div>
+
+                <!-- Побег Амелии Колльер -->
+                <div class="section" id="amelia-escape" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                       Побег Амелии Колльер
+                    </h3>
+                    <div class="section-text">
+                        <p>11 апреля 1960 года реагенту Амелии Колльер удаётся сбежать из зоны испытаний и скрыться где-то за стенами комплекса. После этого среди сотрудников Мёркофф начинается суматоха, и все улики сводились к тому, что некому испытуемому действительно удалось покинуть полигон. За расследование немедленно берётся директор отдела исторических изысканий Клайд Перри, но его допросы к сожалению для Мёркофф не приносят никаких результатов. Слухи о беглянке по итогу доходят и доктора Истермана, который был совершенно не готов к таким событиями, где его контроль был нарушен. Среди администрации Синьялы начинается суета, и о сбежавшем реагенте узнаёт администратор комплекса Брэдли Авелльянос.</p>
+                        <p>Истерман был в панике, не понимая, как реагенту удалось это сделать, ведь они считали, что побег с полигона невозможен. Доктор в полном страхе начал думать, что теперь правление Мёркофф избавится от них, но Авелльянос попыталась его успокоить. В паранойе Истерман начал употреблять таблетки, находясь в полном возмущении, ведь влиятельные сотрудники Мёркофф недоговаривали ему всю информацию. 14 апреля в порыве безысходности Истерман решает применить на испытуемых наркотические вещества, под действием которых один из реагентов произносит имя «Амелия».</p>
+                        <p>16 апреля Истерман с Авелльянос находят всё больше файлов с упоминанием Амелии, и тогда они решают допросить реагента Доррис Риттер. В итоге доктор Истерман обращается к Клайду Перри, и в ходе диалога они вспоминают Генриетту Граббс. Директор отдела исторических изысканий был уверен, что история с Генриеттой могла бы пригодиться на допросе с Доррис, однако Истерман решительно отклонил эту идею. В ходе диалога он также подчеркнул, что Перри может пугать Доррис, но ни в коем случае не должен причинять ей боль. В тот же день Клайд Перри посещает комнату отдыха и допрашивает Доррис, узнав, что у Амелии фамилия Колльер и слух, что она искала своего партнёра Дэймона Грина. Клайд Перри по итогу допрашивает Дэймона, но поскольку тот на прорез отказывался что-либо рассказывать про Амелию, тот убивает его.</p>
+                        <p>17 апреля Истермана всё больше окутывает паранойя, и это замечают его коллеги, в особенности Клайд Перри. Доктор начинает косо смотреть даже на других сотрудников Мёркофф, особенно на архитектора Мозеса Скарфиотти. Истерман повсюду замечает его отпечатки, а один из сообщников Амелии называет имя «Мозес». По итогу Хендрик приказывает другим сотрудникам скопировать в целях безопасности всю документацию Мёркофф и строго доставить к нему в кабинет. Тем временем доктору также сообщают, что смерть его брата Стэнли гораздо более мутная, чем он ещё считал всё это время. Однако для Истермана всё это было лживыми слухами, и рассудок доктора ещё больше начинает стремительно уходить вниз.</p>
+                    </div>
+                </div>
+
+                <!-- Изоляция -->
+                <div class="section" id="isolation" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Изоляция
+                    </h3>
+                    <div class="section-text">
+                        <p>Доктор Истерман по итогу не выдерживает все происходящие события, и в полном безумии и паранойи баррикадируется в своём кабинете. Имя из запасов лишь джин с амфетамином, директор проекта перестал выходить на связь, заставляя сотрудников Синьялы усомниться в его вменяемости. К 21 апреля активность Амелии Колльер на объекте значительно повысилась, и руководство Синьялы думало, как решить эту неприятную для них проблему.</p>
+                        <p>Мозес Скарфиотти рассказывает, что все табельные карточки для управления шаттлом находятся в кабинете Истермана, который всё также забаррикадирован. Тем же утром Клайд Перри и Мозес Скарфиотти в сопровождении охраны вышибают дверь в кабинет Истермана, обнаруживая доктора с расширенными зрачками, голым и вымазанным кровью вперемешку с экскрементами. Имя множественные рассечения по всему телу, обезумевший Истерман выкрикивал неразборчивые слова, связанные с солнцем и Скиннермэном. Когда его схватывают сотрудники Мёркофф, он начинает биться в припадке и пускать пену изо рта. Из-за всего этого сотрудникам пришлось усыпить доктора и зафиксировать его бессознательное тело на медицинской койке.</p>
+                        <p>22 апреля Брэдли Авелльянос начинает допрашивать Истермана, который в полной ярости требовал его немедленного освобождения. Он обвинял их в том, что все лгали ему, также подчеркивая, что он знает все секреты Синьялы. Тем временем Амелия Колльер провоцирует давно спланированный бунт реагентов и устраивает им побег. В комплексе начинается тревога, и правлению Синьялы пришлось отправить охранников Мёркофф для урегулирования бунта. Истерман по итогу восстанавливается, но его отчаянию не было предела, ведь мало того, что он остался без семьи, дак теперь ещё и его испытуемые пытаются сбежать от него.</p>
+                        <p>К 24 апреля жертв побега, как реагентов и экс-попов, так и сотрудников Синьялы, стало слишком много. Многие охранники Мёркофф погибли от руки Генриетты Граббс, которая как оказалось всё ещё жива и несколько месяцев живёт в закрытом пункте по утилизации биоотходов. Тем не менее другой проблемой для корпорации было то, что десятки реагентов оказались на свободе.</p>
+                    </div>
+                </div>
+
+                <!-- Плен Амелии -->
+                <div class="section" id="amelia-capture" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Плен Амелии
+                    </h3>
+                    <div class="section-text">
+                        <p>24 апреля во время расследования Клайду Перри по итогу удаётся обнаружить Амелию Колльер в тоннеле Синьялы, нанеся ей огнестрельное ранение. В ходе схватки Клайд Перри погибает, оказавшись разрезанным пополам проехавшим вагоном. Амелию же схватывают и усыпляют сотрудники охраны Мёркофф. Экс-поп Генриетта Граббс, тайно живущая на старом объекте по утилизации биоотходов также была успешно схвачена. По итогу Истерман, смотря на камеру с Генриеттой, решает усовершенствовать её и снова выпустить на испытания в качестве нового экс-попа Егеря.</p>
+                        <p>Доктор Истерман со скорбью принял смерть Клайда Перри, но особой грусти в его глазах не было, ведь тот для него был всего лишь так называемым «гадким маленьким цепным псом». Истерман решает выставить именно Перри виновником для правления Мёркофф, поскольку теперь он не сможет ничего возразить. Пленную Амелию же выставили напоказ в комнате отдыха, в качестве предупреждения для реагентов, и Истерман был в восторге, что такая угроза наконец устранена и получила свою участь.</p>
+                        <p>Тем не менее среди правления Синьялы всё ещё шли обсуждения по поводу сбежавших во время побега реагентов, ведь их достаточно немало. Доктор Истерман решает, что со сбежавшими реагентами может разобраться давно выпущенный испытуемый Салливан Нот, которого они всё ещё могут контролировать. Им всего лишь стоит придумать и внушить ему красивую легенду и тем самым сделать неким пастырем для сбежавших реагентов.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== THE OUTLAST TRIALS ===== -->
+            <div class="section" id="trials">
+                <h2 class="section-title"><i class="fas fa-skull"></i> The Outlast Trials</h2>
+                <div class="section-text">
+                    <p>Когда нового пойманного реагента доставляют в Синьялу, первым делом учёные Мёркофф включают ему телевизор с обращением доктора Истермана. Глава проекта рассказывает, что не стоит бояться, ведь испытания помогут ему и сделают лучше. Он попытался внушить реагентам, что испытательные программы изменят жизнь человека в лучшую сторону, и после так называемого перерождения они якобы выйдут на свободу. После обращения Истермана учёные надевают на пленника прибор ночного видения и болезненно приковывают его к голове. После этого реагент отправляется на полигон «Особняк», где он начинает своё первое и вводное испытание. Там через записи он больше знакомится с доктором Истерманом, который таким образом подготавливал человека к будущим испытаниям.</p>
+                    <p>После завершения вводного испытания, на пути в комнату отдыха, реагент снова смотрит по телевизору обращение доктора Истермана, который рассказывает, что это прекрасно, когда всё происходящее находится под контролем. После этого он советует ему в комнате отдыха поразмыслить над всем, что он узнал и готовиться к следующим испытаниям.</p>
+                    <p>Разные телевизионные обращения доктора Истермана реагенты будут смотреть всегда, когда они отправляются на шаттле на испытания. После прохождения испытания, Истерман будет оценивать человека, и если оценка будет отличной, он с радостью похвалит реагента. Однако, если же оценка будет ниже среднего или испытуемый и вовсе провалил испытание, то Хендрик Истерман морально оскорбит реагента, сравнивая его с чем-то отвратительным.</p>
+                    <p>После накопления 100 жетонов в ходе прохождения испытаний реагент становится готовым к протоколу освобождения, и его снова отправляют на полигон «Особняк». По пути туда человеку вновь приходится смотреть телевизионное обращение доктора Истермана, который обещает, что после данного финального теста реагент наконец-то покинет это место. Он признаётся, что реагент будет идеальным оружием и самым невинным дитя, и за ним будущее. После этого реагента выпускают на полигон и он отправляется на своё последнее испытание, которое в конечном итоге выпустит его из Синьялы, но всё же не дарует обещанную свободу.</p>
+                </div>
+            </div>
+
+            <!-- ===== ГАЛЕРЕЯ ===== -->
+            <div class="section" id="gallery">
+                <h2 class="section-title"><i class="fas fa-images"></i> Галерея</h2>
+                <div class="gallery-grid" id="galleryGrid">
+                    <div class="gallery-item" data-img="../images/истерман-1.webp">
+                        <img src="../images/истерман-1.webp" alt="Хендрик Истерман 1" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+1'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/истерман-2.webp">
+                        <img src="../images/истерман-2.webp" alt="Хендрик Истерман 2" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+2'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/истерман-3.webp">
+                        <img src="../images/истерман-3.webp" alt="Хендрик Истерман 3" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+3'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/истерман-4.webp">
+                        <img src="../images/истерман-4.webp" alt="Хендрик Истерман 4" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+4'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ИНТЕРЕСНЫЕ МЕЛОЧИ ===== -->
+            <div class="section" id="trivia">
+                <h2 class="section-title"><i class="fas fa-lightbulb"></i> Интересные мелочи</h2>
+                <ul class="trivia-list">
+                    <li><i class="fas fa-capsules"></i> Известно, что Хендрик Истерман употребляет запрещённые вещества, такие как ЛСД и амфетамин.</li>
+                    <li><i class="fas fa-microphone"></i> В файлах игры можно найти его ранние реплики, которые озвучил сценарист Джей Ти Петти.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ===== -->
+<div id="galleryModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+
+<script>
+    // ===== ОГЛАВЛЕНИЕ =====
+    const tocToggle = document.getElementById('tocToggle');
+    const tocList = document.getElementById('tocList');
+    if (tocToggle && tocList) {
+        tocToggle.addEventListener('click', () => {
+            tocList.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+        });
+    }
+
+    // ===== ПЛАВНАЯ ПРОКРУТКА =====
+    document.querySelectorAll('.toc-list a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ===== МОДАЛЬНОЕ ОКНО =====
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.getAttribute('data-img');
+            if (imgSrc) {
+                modalImg.src = imgSrc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+
+    // ===== ПЛАВНОЕ ПОЯВЛЕНИЕ =====
+    function initScrollAnimation() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initScrollAnimation();
+    });
+</script>
+
+</body>
+</html>
