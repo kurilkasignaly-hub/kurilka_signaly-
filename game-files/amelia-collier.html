@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Амелия Колльер — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .logo p i {
+            color: #e16d48;
+            font-size: 0.7rem;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ОСНОВНАЯ СТАТЬЯ ===== */
+        .article-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .quote-header {
+            background: rgba(220, 90, 50, 0.08);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.2);
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #e16d48;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            font-size: 0.85rem;
+            color: #c2b9d4;
+            margin-top: 0.8rem;
+        }
+
+        .article-content {
+            padding: 2rem;
+        }
+
+        .character-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+
+        .character-image img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .character-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .character-title {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        .toc {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .toc-title {
+            color: #e16d48;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-title i {
+            transition: transform 0.3s ease;
+        }
+
+        .toc-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 1rem;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list.collapsed {
+            display: none;
+        }
+
+        .toc-list li {
+            margin: 0.5rem 0;
+        }
+
+        .toc-list a {
+            color: #c2b9d4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #e16d48;
+        }
+
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-text {
+            color: #d1cce6;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .section-text p {
+            margin-bottom: 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .gallery-item {
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: #e16d48;
+            box-shadow: 0 10px 25px rgba(220, 90, 50, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .trivia-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+
+        .trivia-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #d1cce6;
+        }
+
+        .trivia-list li i {
+            color: #e16d48;
+            margin-top: 3px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10001;
+        }
+
+        .modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
+            .character-intro { flex-direction: column; align-items: center; text-align: center; }
+            .character-name { font-size: 1.6rem; text-align: center; }
+            .character-sub { text-align: center; }
+            .article-content { padding: 1.2rem; }
+            .quote-text { font-size: 1rem; }
+            .section-title { font-size: 1.3rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .header { padding: 0.6rem; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+            .gallery-item img { height: 140px; }
+            .character-name { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="../images/об игре фон.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="category-reagents.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к реагентам</a>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ СТАТЬЯ ===== -->
+    <div class="article-wrapper">
+        <div class="quote-header">
+            <div class="quote-text">«Ждите моего слова. Будьте готовы. Они заплатят за то, что сделали с нами.»</div>
+            <div class="quote-author">— Амелия Колльер</div>
+        </div>
+
+        <div class="article-content">
+            <div class="character-intro">
+                <div class="character-image">
+                    <img src="../images/колльер.webp" alt="Амелия Колльер" onerror="this.style.display='none'">
+                </div>
+                <div class="character-title">
+                    <h1 class="character-name">Амелия Колльер</h1>
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> Реагент | Лидер восстания</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Локация: Объект Синьяла</p>
+                        <p><i class="fas fa-flag"></i> Роль: Организатор побега реагентов</p>
+                    </div>
+                    <div class="info-box">
+                        <p>Амелия Колльер (ориг. Amelia Collier) — персонаж игры The Outlast Trials, одна из реагентов на объекте Синьяла, которой удалось сбежать с области испытания и вдохновлять других испытуемых бороться с корпорацией Мёркофф.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ОГЛАВЛЕНИЕ ===== -->
+            <div class="toc">
+                <div class="toc-title" id="tocToggle">
+                    Содержание <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    <li><a href="#biography">1. Биография</a></li>
+                    <li><a href="#sinyala">1.1. Объект Синьяла</a></li>
+                    <li><a href="#investigation">1.2. Расследование Мёркофф</a></li>
+                    <li><a href="#activity">1.3. Активность Амелии</a></li>
+                    <li><a href="#escape">1.4. Побег реагентов</a></li>
+                    <li><a href="#capture">1.5. Плен Мёркофф</a></li>
+                    <li><a href="#trials">2. The Outlast Trials</a></li>
+                    <li><a href="#gallery">3. Галерея</a></li>
+                    <li><a href="#trivia">4. Интересные мелочи</a></li>
+                </ul>
+            </div>
+
+            <!-- ===== БИОГРАФИЯ ===== -->
+            <div class="section" id="biography">
+                <h2 class="section-title"><i class="fas fa-user-circle"></i> Биография</h2>
+                <div class="section-text">
+                    <p>Амелия Колльер родилась 3 июня 1934 года в городе Спрингфилд в штате Иллинойс в семье проститутки и мошенника. Её мать в итоге либо ушла из семьи, либо скончалась, так как отцу Амелии пришлось в одиночку воспитывать дочь. Очевидно, что такое воспитание сильно отразилось на Амелии, которая по мере взросления сама начала заниматься мошенничеством и угоном автомобилей. Когда Амелии исполнилось 13 лет, её отец погибает в таинственной автокатастрофе.</p>
+                    <p>Вскоре Амелии удалось завести отношения с Дэймоном Грином, который был добропорядочным гражданином, но пристрастившимся к алкоголю. Где-то в 1959 году Дэймон посещает благотворительный центр Мёркофф и таинственно пропадает, и Амелия решает заняться его поисками. Она также посещает данный центр, но в какой-то момент её охватывает сомнение и она уходит от сотрудников Мёркофф. Однако через 3 дня она возвращается туда и её также, как и остальных посетителей, похищают агенты Мёркофф и доставляют на объект Синьяла в пустыне Аризоны.</p>
+                </div>
+
+                <!-- Объект Синьяла -->
+                <div class="section" id="sinyala" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-building" style="color: #e16d48;"></i> Объект Синьяла
+                    </h3>
+                    <div class="section-text">
+                        <p>На объекте Синьяла девушка становится реагентом в ходе проекта «Тенева 2», и тогда Амелия понимает, что Дэймон Грин также находится где-то в комплексе. Однако сколько бы она ни искала возлюбленного, ей никогда не удавалось найти его, а всё потому что Дэймон находился в совершенно другой комнате отдыха. На объекте Амелия Колльер знакомится с другими реагентами, делясь с ними своими планами по побегу и отмщению директору проекта доктору Хендрику Истерману и всем остальным сотрудникам Синьялы.</p>
+                        <p>В какой-то период времени на Синьяле была запущена временная программа «Обратный отсчёт», и 11 апреля 1960 года Амелия Колльер с тремя другими реагентами на шаттле отправилась на испытание на полигон «Пристань». Однако там Амелия решает наконец воплотить свой план и сбегает из испытания через двери для экс-попов, попутно также вырубая пушера. Амелия также ломает некоторое оборудование Мёркофф и забирает компоненты, которые могли бы ей пригодится в будущем.</p>
+                        <p>Трое реагентов, с которыми Амелия отправилась на испытание, благополучно прошли его и вернулись в комнату отдыха. Однако сотрудники Мёркофф сразу же заметили несостыковку, ведь один реагент отсутствовал, и поэтому они приступили к немедленному расследованию.</p>
+                    </div>
+                </div>
+
+                <!-- Расследование Мёркофф -->
+                <div class="section" id="investigation" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-search" style="color: #e16d48;"></i> Расследование Мёркофф
+                    </h3>
+                    <div class="section-text">
+                        <p>Команда уборщиков Мёркофф прошлась по области испытания, но не обнаружила трупа не вернувшегося реагента и даже его останков. Однако им на глаза попался бессознательный экс-поп пушер. Также на полигоне были замечены следы босых ног и поломанное оборудование, что даёт сотрудникам Мёркофф точную информацию, что один из реагентов действительно сбежал с зоны испытания. Глава отдела исторических изысканий Клайд Перри немедленно принялся допрашивать пушера и реагентов из группы беглянки, но ни один из допросов не дал весомых результатов. Все трое из группы Амелии яро отрицали, что с ними был четвёртый союзник. Амелия Колльер тем временем обустраивает себе небольшое убежище в старом закрытом пункте по утилизации биоотходов, которое неактивно с мая 1959 года.</p>
+                        <p>Слухи о беглянке доходят и до доктора Истермана, который был совершенно не готов к событиям, где его контроль был нарушен. Среди администрации Синьялы начинается суета, и об беглянке узнаёт администратор комплекса Брэдли Авелльянос. В порыве безысходности Истерман решает применить на испытуемых наркотические вещества, под действием которых один из реагентов произносит имя «Амелия».</p>
+                        <p>Когда у Истермана появилась зацепка, он немедленно сообщает имя беглянки Клайду Перри, который тут же принялся допрашивать реагента Доррис Риттер. В ходе допроса её пришлось назвать фамилию Амелии и информацию, что она искала своего парня Дэймона Грина. Зная полное имя беглянки и имея на руках её досье, Клайд Перри начинает допрашивать Дэймона Грина, но не получив по итогу никакой информации, он убивает его. После чего тело Дэймона Грина сливается в помещение для биоотходов, где в тот момент находилась Амелия. Она с ужасом узнаёт среди трупов своего парня, и убитая горем, она клянётся отомстить доктору Истерману и корпорации Мёркофф любой ценой.</p>
+                    </div>
+                </div>
+
+                <!-- Активность Амелии -->
+                <div class="section" id="activity" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Активность Амелии
+                    </h3>
+                    <div class="section-text">
+                        <p>Пока сотрудники Мёркофф занимаются расследованием, Амелия Колльер продолжает свою активность на Синьяле. Девушка даже не страшится убивать сотрудников Мёркофф, которые оказались не в том месте и не в то время. Имея доступ к межшаттловой системе и ко всем полигонам, она тайно проникает туда и оставляет на стенах граффити для других реагентов, которые вдохновлялись тем, что она делает. Она изо всех сил пыталась сказать остальным реагентам, что Мёркофф не даруют им свободу и всё, что говорит им Истерман — ложь.</p>
+                        <p>Она также взламывает трансляцию для реагентов, и теперь испытуемые помимо пропаганды Мёркофф по радио могли услышать и сообщения Амелии. Девушка также взламывает телеобращение доктора Истермана перед испытаниями, давая реагентам надежду о побеге. Всё больше впадавший в паническое состояние Истерман пытался подавить активность Амелии и доказать реагентам, что не стоит ей верить. По итогу доктор Истерман в панике и безумии запирается в своём кабинете на несколько дней. Всё больше и больше реагентов начали замечать Амелию Колльер на испытаниях, когда она рисовала граффити или взламывала какие-нибудь системы Мёркофф.</p>
+                    </div>
+                </div>
+
+                <!-- Побег реагентов -->
+                <div class="section" id="escape" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                      Побег реагентов
+                    </h3>
+                    <div class="section-text">
+                        <p>21 апреля 1960 года Амелия Колльер вдохновляет столько реагентов, что большинство их них устраивают бунт в комнате отдыха. Амелия взламывает терминал в комнате отдыха и осведомляет реагентов, что настал момент, когда они смогут действительно сбежать из объекта Синьяла. В комплексе начинается тревога, и правлению Синьялы пришлось отправить охранников Мёркофф для урегулирования бунта.</p>
+                        <p>Амелии тем временем удаётся перенаправить шаттл с реагентами к помещению для утилизации биоотходов, но в тоннеле межшаттловой системы им необходимо сделать пересадку в вагон-труповозку. Однако на полпути вагон останавливается и Амелия сообщает по связи, что сотрудники Мёркофф судя по всему прознали о побеге и остановили труповозку. Из-за этого реагентам пришлось идти дальше пешим ходом, но к счастью помещение для утилизации биоотходов было уже неподалёку.</p>
+                        <p>Амелия сделала всё, чтобы реагенты справились с побегом, и поэтому она оставила подсказки на стенах, как им необходимо действовать. Несмотря на угрозу со стороны экс-попа Генриетты Граббс, которая тайно жила в тех катакомбах, реагентам действительно удалось проникнуть в шахты и через них выйти на поверхность пустыни Аризоны. Сама же Амелия Колльер остаётся на объекте, чтобы помогать другим реагентам также выбраться из Синьялы.</p>
+                    </div>
+                </div>
+
+                <!-- Плен Мёркофф -->
+                <div class="section" id="capture" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        Плен Мёркофф
+                    </h3>
+                    <div class="section-text">
+                        <p>24 апреля 1960 года проблема с бунтом реагентов была решена, но Амелия Колльер не собиралась так просто опускать руки. Когда она была в рельсовом тоннеле и устанавливала мину-завесу, Клайд Перри наконец-то находит её и стреляет ей в ногу из револьвера. Однако Амелия, корчась от боли, заявляет, что ей хочется просто умереть после смерти Дэймона Грина. Тогда директор исторических изысканий с оскалом признаётся, что именно он жестоко убил Дэймона. После этого Клайд Перри наступает на мину, установленную ранее Амелией, и на мгновение теряется в пространстве. В этот момент Амелия хватает кирпич и бьёт Перри по лицу, из-за чего тот падает прямо на рельсы и попадает под шаттл. Клайда Перри смертельно разрезает напополам, а убегавшую Амелию схватывают охранники Мёркофф. Они жестоко избивают девушку дубинками и ломают ей пальцы, а после чего рядом стоящий учёный Мёркофф усыпляет её.</p>
+                        <p>После этого Амелию доставляют в медицинский центр Синьялы для частичного восстановления, и пока она была без сознания, её даже посещает восстановившийся доктор Истерман. По итогу после частичного выздоровления её живой в качестве предупреждения вывешивают в комнате отдыха, тем самым показывая другим реагентам, что будет, если им также вдруг вздумается сбежать. Доктор Истерман также решает, что делать со сбежавшими реагентами, и для этого он хочет использовать их давно выпущенного испытуемого Салливана Нота, которого они всё ещё могут контролировать.</p>
+                        <p>По ходу идущих дней реагенты всё ещё были верны Амелии Колльер, и среди испытуемых появляются подражатели. Некоторые реагенты начали делать граффити на стенах испытаний, как это делала в своё время Амелия. Уборочный персонал Мёркофф старался очищать надписи подражателей, но реагенты всё также принципиально рисовали на стенах позже. Мозес Скарфиотти был удивлён тем, что граффити написаны почерком Амелии, но доктор Истерман предположил, что терапия делает реагентов уязвимыми к влиянию харизмы, и поэтому испытуемые просто стали зависимыми от бывшей беглянки.</p>
+                        <p>1 июня 1960 года Амелия Колльер всё ещё висела в комнате отдыха, однако за эти тяжёлые месяцы она начала испытывать гипоксию и обезвоживание. Чтобы избежать смерти Амелии, доктор Хендрик Истерман распорядился, чтобы её наконец-то сняли со стены. Амелию Колльер по итогу поместили в отделение неотложной помощи Мёркофф для обеспечения её выживаемости.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== THE OUTLAST TRIALS ===== -->
+            <div class="section" id="trials">
+                <h2 class="section-title"><i class="fas fa-skull"></i> The Outlast Trials</h2>
+                <div class="section-text">
+                    <p>Амелия Колльер стала одной из самых известных фигур в истории Синьяла. Её побег и последовавшее за ним восстание реагентов стали поворотным моментом в проекте «Тенева 2». Её история вдохновила многих испытуемых на сопротивление и продолжает жить в памяти тех, кто пережил те события.</p>
+                    <p>Несмотря на то, что Амелия была поймана и подвергнута публичному наказанию, её идеи не были уничтожены. Она показала реагентам, что сопротивление возможно, и что даже в самых безнадёжных условиях можно бороться за свою свободу. Её имя стало символом надежды для тех, кто всё ещё находится в стенах Синьяла.</p>
+                </div>
+            </div>
+
+            <!-- ===== ГАЛЕРЕЯ ===== -->
+            <div class="section" id="gallery">
+                <h2 class="section-title"><i class="fas fa-images"></i> Галерея</h2>
+                <div class="gallery-grid" id="galleryGrid">
+                    <div class="gallery-item" data-img="../images/колльер-1.webp">
+                        <img src="../images/колльер-1.webp" alt="Амелия Колльер 1" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+1'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/колльер-2.webp">
+                        <img src="../images/колльер-2.webp" alt="Амелия Колльер 2" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+2'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/колльер-3.webp">
+                        <img src="../images/колльер-3.webp" alt="Амелия Колльер 3" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+3'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/колльер-4.webp">
+                        <img src="../images/колльер-4.webp" alt="Амелия Колльер 4" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+4'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ИНТЕРЕСНЫЕ МЕЛОЧИ ===== -->
+            <div class="section" id="trivia">
+                <h2 class="section-title"><i class="fas fa-lightbulb"></i> Интересные мелочи</h2>
+                <ul class="trivia-list">
+                    <li><i class="fas fa-brain"></i> У Амелии отличные результаты по тесту Струпа.</li>
+                    <li><i class="fas fa-book"></i> В журнале разработки «Project Breach» Амелия описывается как очень находчивая, умная, хитрая, мстительная и ненавидящая хулиганов.</li>
+                    <li><i class="fas fa-comic"></i> Амелии Колльер посвящена 4 и частично 5 главы комикса The Murkoff Collections.</li>
+                    <li><i class="fas fa-star"></i> Амелия стала первым реагентом, которому удалось сбежать с зоны испытательной среды.</li>
+                    <li><i class="fas fa-heart"></i> Её отношения с Дэймоном Грином стали одной из главных движущих сил её борьбы против Мёркофф.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ===== -->
+<div id="galleryModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+
+<script>
+    // ===== ОГЛАВЛЕНИЕ =====
+    const tocToggle = document.getElementById('tocToggle');
+    const tocList = document.getElementById('tocList');
+    if (tocToggle && tocList) {
+        tocToggle.addEventListener('click', () => {
+            tocList.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+        });
+    }
+
+    // ===== ПЛАВНАЯ ПРОКРУТКА =====
+    document.querySelectorAll('.toc-list a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ===== МОДАЛЬНОЕ ОКНО =====
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.getAttribute('data-img');
+            if (imgSrc) {
+                modalImg.src = imgSrc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+
+    // ===== ПЛАВНОЕ ПОЯВЛЕНИЕ =====
+    function initScrollAnimation() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initScrollAnimation();
+    });
+</script>
+
+</body>
+</html>
