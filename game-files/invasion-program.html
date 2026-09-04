@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Вторжение — The Outlast Trials | Курилка Синьялы</title>
+    <link rel="icon" href="../images/лого.png" type="image/png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/лого.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/лого.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f0eef7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at 20% 30%, #0a0a0f 0%, #010101 100%);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            background: rgba(8, 6, 15, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .header:hover {
+            border-color: rgba(220, 90, 50, 0.5);
+            box-shadow: 0 0 20px rgba(220, 90, 50, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo .logo-img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        .logo .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbc2a0, #e25d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #7a6a8a;
+            margin-top: 0px;
+        }
+
+        .logo p i {
+            color: #e16d48;
+            font-size: 0.7rem;
+        }
+
+        /* ===== НАВИГАЦИЯ ===== */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(15, 10, 20, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 0.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(210, 100, 55, 0.15);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #b5a8c8;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            color: white;
+            box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
+        }
+
+        /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e16d48;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: rgba(18, 12, 28, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+            border-color: #e16d48;
+        }
+
+        /* ===== ОСНОВНАЯ СТАТЬЯ ===== */
+        .article-wrapper {
+            background: rgba(18, 12, 28, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            overflow: hidden;
+            animation: fadeInScale 0.6s ease-out 0.1s backwards;
+        }
+
+        .article-content {
+            padding: 2rem;
+        }
+
+        .character-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+
+        .character-image img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .character-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .character-title {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #e25d32, #ffbc9a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .character-sub {
+            font-size: 0.9rem;
+            color: #c2b9d4;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .character-sub i {
+            color: #e16d48;
+            width: 20px;
+        }
+
+        .info-box {
+            background: rgba(220, 90, 50, 0.1);
+            border-left: 4px solid #e25d32;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .info-box p {
+            color: #d1cce6;
+            line-height: 1.6;
+        }
+
+        .toc {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .toc-title {
+            color: #e16d48;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-title i {
+            transition: transform 0.3s ease;
+        }
+
+        .toc-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 1rem;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list.collapsed {
+            display: none;
+        }
+
+        .toc-list li {
+            margin: 0.5rem 0;
+        }
+
+        .toc-list a {
+            color: #c2b9d4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #e16d48;
+        }
+
+        .section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e16d48;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-text {
+            color: #d1cce6;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .section-text p {
+            margin-bottom: 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .gallery-item {
+            background: rgba(18, 12, 28, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: #e16d48;
+            box-shadow: 0 10px 25px rgba(220, 90, 50, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 2px solid rgba(220, 90, 50, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10001;
+        }
+
+        .modal-close:hover {
+            color: #e16d48;
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(105, 58, 40, 0.3);
+            font-size: 0.75rem;
+            background: rgba(8, 6, 15, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 1rem; }
+            .header { flex-direction: column; border-radius: 40px; padding: 1rem; }
+            .nav-links { width: 100%; justify-content: center; padding: 0.6rem; gap: 0.4rem; }
+            .nav-btn { padding: 0.35rem 0.8rem; font-size: 0.7rem; }
+            .logo .logo-text { font-size: 1.2rem; }
+            .logo .logo-img { max-height: 40px; }
+            .character-intro { flex-direction: column; align-items: center; text-align: center; }
+            .character-name { font-size: 1.6rem; text-align: center; }
+            .character-sub { text-align: center; }
+            .article-content { padding: 1.2rem; }
+            .section-title { font-size: 1.3rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        }
+
+        @media (max-width: 550px) {
+            .nav-btn { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+            .logo .logo-text { font-size: 1rem; }
+            .logo .logo-img { max-height: 32px; }
+            .header { padding: 0.6rem; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+            .gallery-item img { height: 140px; }
+            .character-name { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="../images/об игре фон.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <img src="../images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
+            <div>
+                <span class="logo-text">Курилка Синьялы</span>
+                <p><i class="fas fa-skull"></i> Убежище безумия · The Outlast Trials</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+            <a href="../roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+            <a href="../news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="../roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+            <a href="../invasion.html" class="nav-btn active"><i class="fas fa-trophy"></i> Invasion</a>
+            <a href="../achievements.html" class="nav-btn"><i class="fas fa-medal"></i> Достижения</a>
+            <a href="../about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+        </div>
+    </div>
+
+    <!-- ===== ХЛЕБНЫЕ КРОШКИ ===== -->
+    <div class="breadcrumb">
+        <a href="../about.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к категориям</a>
+    </div>
+
+    <!-- ===== ОСНОВНАЯ СТАТЬЯ ===== -->
+    <div class="article-wrapper">
+        <div class="article-content">
+            <div class="character-intro">
+                <div class="character-image">
+                    <img src="../images/Вторжение.webp" alt="Вторжение" onerror="this.style.display='none'">
+                </div>
+                <div class="character-title">
+                    <h1 class="character-name">Вторжение</h1>
+                    <div class="character-sub">
+                        <p><i class="fas fa-tag"></i> PvP режим</p>
+                        <p><i class="fas fa-calendar-plus"></i> Добавлен: 21 октября 2025</p>
+                        <p><i class="fas fa-users"></i> 1-4 игроков</p>
+                    </div>
+                    <div class="info-box">
+                        <p>Вторжение (ориг. Invasion) — это режим в игре The Outlast Trials, представляющий из себя PvP режим, в котором к игрокам, играющих за реагентов, вторгаются в испытание другие игроки в роли реагентов-самозванцев.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ОГЛАВЛЕНИЕ ===== -->
+            <div class="toc">
+                <div class="toc-title" id="tocToggle">
+                    Содержание <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    <li><a href="#description">1. Описание</a></li>
+                    <li><a href="#sides">1.1. Стороны</a></li>
+                    <li><a href="#gameplay">1.2. Геймплей</a></li>
+                    <li><a href="#difficulty">1.3. Сложность</a></li>
+                    <li><a href="#global-invasions">1.4. Глобальные вторжения</a></li>
+                    <li><a href="#invasion-2-0">2. ВТОРЖЕНИЕ 2.0</a></li>
+                    <li><a href="#impostor-equipment">2.1. Новая система экипировки Самозванца</a></li>
+                    <li><a href="#struggle">2.2. Новая мини-игра «Схватка»</a></li>
+                    <li><a href="#nv">2.3. Новое ночное видение Самозванца</a></li>
+                    <li><a href="#impostor-changes">2.4. Изменения в игровом процессе Самозванца</a></li>
+                    <li><a href="#reagents-changes">2.5. Изменения Реагентов</a></li>
+                    <li><a href="#maps">2.6. Карты в режиме Вторжения</a></li>
+                    <li><a href="#general-changes">2.7. Общие изменения режима Вторжения</a></li>
+                    <li><a href="#matchmaking">2.8. Поиск матчей в режиме Вторжения</a></li>
+                    <li><a href="#gallery">3. Галерея</a></li>
+                </ul>
+            </div>
+
+            <!-- ===== ОПИСАНИЕ ===== -->
+            <div class="section" id="description">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Описание</h2>
+                <div class="section-text">
+                    <p>Вторжение (ориг. Invasion) — это режим в игре The Outlast Trials, представляющий из себя PvP режим, в котором к игрокам, играющих за реагентов, вторгаются в испытание другие игроки в роли реагентов-самозванцев.</p>
+                    <p>Каждая сторона может иметь от 1 до 4 игроков. Цель игроков, играющих за сторону самозванцев — нейтрализовать команду реагентов. Цель реагентов же — пережить вторжение и пройти испытание.</p>
+                    <p>Режим был введён в игру 21 октября 2025 года.</p>
+                </div>
+
+                <!-- Стороны -->
+                <div class="section" id="sides" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-users" style="color: #e16d48;"></i> Стороны
+                    </h3>
+                    <div class="section-text">
+                        <p><strong style="color: #ffbc9a;">Реагенты</strong> — основная и действующая сторона, задачей которых выступает пережить вторжение и пройти испытание. Реагенты могут иметь снаряжение, амфы, рецепты и использовать разные предметы для оказания сопротивления самозванцам.</p>
+                        <p><strong style="color: #ffbc9a;">Самозванцы</strong> — сторона, задачей которой является воспрепятствование прохождению испытания и убийство реагентов. Самозванцы в своем снаряжении имеют нож, а также могут носить при себе случайный предмет с целью маскировки под реагента. Внешне самозванцы непосредственно выглядят как реагенты, которые находятся в испытании. У самозванцев отсутствуют амфы, снаряжение и рецепты. Вместо обычных рецептов, которые используют реагенты, самозванцам предоставляется их отдельная категория.</p>
+                    </div>
+                </div>
+
+                <!-- Геймплей -->
+                <div class="section" id="gameplay" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-gamepad" style="color: #e16d48;"></i> Геймплей
+                    </h3>
+                    <div class="section-text">
+                        <p>Режим «вторжение» начинается на одной из случайной мк-стимуляции. При вторжении самозванцев в испытание, игра уведомляет об этом реагентов, сопровождая это характерным звуком и всплывающей надписью. Если реагенты не выполнили первое задание в испытании, то самозванцам необходимо ожидать 3 минуты, прежде чем они смогут начать главную стадию вторжения.</p>
+                        <p>В зависимости от количества реагентов в испытании, напрямую зависит количество самозванцев. Так, если в испытании 4 реагента, то и вторгнуться могут от 2 до 4 самозванцев. Если же в испытании от одного до двух реагентов, то обычно вторгаются 1-2 самозванца. Стоит отметить, что эти правила не действуют на вторжения к друзьям.</p>
+                        <p>Если реагент играет в одиночку, ему даётся 3 жизни для возрождения, чтобы компенсировать отсутствие союзников. В случае вторжения двух самозванцев к одному реагенту, они не смогут выйти на полигон совместно.</p>
+                        <p>Как и реагенты, самозванцы всегда имеют 3 попытки, чтобы возродиться.</p>
+                        <p>После выхода на полигон у самозванца есть 3 минуты, чтобы найти и нейтрализовать реагента с помощью ножа, у которого 2 вида атаки:</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Быстрый удар</strong> — отнимает 1.5 полоски здоровья.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Удар с захватом</strong> — если реагент падает в нокдаун, у самозванца есть 30 секунд, чтобы покинуть полигон через шаттл.</span>
+                            </li>
+                        </ul>
+                        <p>Если самозванец нанесёт удар с захватом реагенту и он упадет в нокдаун, у первого будет 30 секунд, чтобы покинуть полигон через шаттл, откуда выходят экс-попы и большие экс-попы. За это время самозванец может казнить жертву, либо попробовать найти других реагентов. Если самозванец не уйдет в шаттл, то по истечению тридцатисекундного таймера его начнут бить разряды тока, и он, в конечном итоге, умрет. Также, реагенты могут убить самозванцев, используя риги, бутылки, кирпичи или другие способы, которые наносят урон вторгнувшимся.</p>
+                        <p>Реагенты также имеют возможность контратаковать удар с захватом, если у них в инвентаре есть бутылка или кирпич. При этом самозванец не получит урон вовсе, а реагент потеряет здоровье, в зависимости от его изначального количества.</p>
+                        <p>Если у реагента 100 единиц здоровья, то после контратаки у него останется 50 единиц. Если реагент имеет от 26 до 50 единиц здоровья, то впоследствии контратаки у останется лишь 1 единица здоровья. При 25 единицах и менее — контратака невозможна. Когда у реагента 1.5 полоски здоровья (37.5 единиц) и менее, а самозванец наносит удар быстрой атакой, то такой удар будет с захватом, который убьет реагента.</p>
+                        <p>Важно заметить, что самозванцы хоть и имеют 4 полоски здоровья, но у них отсутствует регенерация здоровья во время их непосредственного присутствия на полигоне, они смогут его восстановить только тогда, когда уйдут в шаттл.</p>
+                        <p>В случае убийства всех реагентов в испытании, игра заканчивается победой самозванцев.</p>
+                        <p>Количество реагентов в испытании также влияет на число самозванцев, которые могут выйти на полигон одновременно:</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">1-2 реагента:</strong> может выйти лишь 1 самозванец.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">3-4 реагента:</strong> могут выйти 2 самозванца.</span>
+                            </li>
+                        </ul>
+                        <p>Также, если реагент проходит испытание в одиночку, то в конце испытания, после вызова шаттла может выйти 1 самозванец, а если 2 и более, то выходят все самозванцы.</p>
+                    </div>
+                </div>
+
+                <!-- Сложность -->
+                <div class="section" id="difficulty" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-chart-line" style="color: #e16d48;"></i> Сложность
+                    </h3>
+                    <div class="section-text">
+                        <p>Сложность испытания в данном режиме зависит от количества сыгранных матчей:</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">1-10</strong> — начальная сложность.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">11-50</strong> — нормальная сложность.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">50 и более</strong> — высокая сложность.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Глобальные вторжения -->
+                <div class="section" id="global-invasions" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-globe" style="color: #e16d48;"></i> Глобальные вторжения
+                    </h3>
+                    <div class="section-text">
+                        <p>Помимо экспериментальной терапии «Вторжение», с 30 уровня игрок может разрешить глобальные вторжения в настройках приватности. Есть также отдельная возможность, позволяющая вторгаться в испытание только друзьям. Глобальные вторжения не работают в:</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><i class="fas fa-times-circle" style="color: #e16d48; width: 20px;"></i> Конструкторе испытаний</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><i class="fas fa-times-circle" style="color: #e16d48; width: 20px;"></i> Эскалации</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><i class="fas fa-times-circle" style="color: #e16d48; width: 20px;"></i> Перерождении</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ВТОРЖЕНИЕ 2.0 ===== -->
+            <div class="section" id="invasion-2-0">
+                <h2 class="section-title"><i class="fas fa-skull"></i> ВТОРЖЕНИЕ 2.0</h2>
+                <div class="section-text">
+                    <p>14 июля 2025 года The Outlast Trials получил крупное обновление под названием "Project Boneyard" где было добавлено много новых игровых механик: Новый испытательный полигон, 2-новые МК стимуляции, Новый экс-поп, Новый каталог, Новый временный ивент, Обновление режима ЭСКАЛАЦИИ а так же и обновление режима ВТОРЖЕНИЕ под заголовочным названием "ВТОРЖЕНИЕ 2.0"</p>
+                </div>
+
+                <!-- Новая система экипировки Самозванца -->
+                <div class="section" id="impostor-equipment" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-user-secret" style="color: #e16d48;"></i> Новая система экипировки Самозванца
+                    </h3>
+                    <div class="section-text">
+                        <p>Быть Самозванцем — значит не просто владеть ножом. Теперь вам доступны специализированные гаджеты, чтобы выслеживать, дезориентировать и уничтожать свою жертву.</p>
+                        <p>У Самозванцев появилась полноценная система экипировки, позволяющая настраивать тактику ещё до входа в Испытание. Гаджеты можно приобрести у Доррис за Ваучеры и экипировать через новое меню «Снаряжение Самозванца».</p>
+                        <p><strong style="color: #ffbc9a;">Доступные гаджеты:</strong></p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <i class="fas fa-mask" style="color: #e16d48; width: 20px;"></i>
+                                <span><strong style="color: #ffbc9a;">МИМИК</strong> — Принимает облик Реагента. Вы становитесь тише при движении и подготовке к удару. Держите поддельный предмет в руках, чтобы слиться с толпой и оставаться незаметным для пингов.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <i class="fas fa-bolt" style="color: #e16d48; width: 20px;"></i>
+                                <span><strong style="color: #ffbc9a;">НЕЙРОШОК</strong> — Метательный снаряд, который кратковременно дезориентирует Реагента и отключает его костюм. Длительность эффекта зависит от расстояния, которое преодолел заряд перед попаданием.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <i class="fas fa-syringe" style="color: #e16d48; width: 20px;"></i>
+                                <span><strong style="color: #ffbc9a;">СТИМУЛЯТОР</strong> — Вводит мощный стимулятор, временно повышая скорость, выносливость и даруя иммунитет к снарядам.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <i class="fas fa-shield-alt" style="color: #e16d48; width: 20px;"></i>
+                                <span><strong style="color: #ffbc9a;">СТАЛЬНАЯ ЛОВУШКА</strong> — Устанавливает капкан, который на мгновение обездвиживает любого попавшегося Реагента.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <i class="fas fa-eye" style="color: #e16d48; width: 20px;"></i>
+                                <span><strong style="color: #ffbc9a;">ДАТЧИК ДВИЖЕНИЯ</strong> — Размещаемое устройство, обнаруживающее движение Реагентов в радиусе действия.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <i class="fas fa-skull" style="color: #e16d48; width: 20px;"></i>
+                                <span><strong style="color: #ffbc9a;">ПРИМАНКА ДЛЯ ЭКС-ПОПА</strong> — Приманка, которая привлекает Экс-Попа, заставляя его патрулировать место где она была сброшена.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Новая мини-игра Схватка -->
+                <div class="section" id="struggle" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-hand-fist" style="color: #e16d48;"></i> Новая мини-игра «Схватка»
+                    </h3>
+                    <div class="section-text">
+                        <p>Теперь удар ножом переводит Самозванца и Реагента в режим СХВАТКИ.</p>
+                        <p><strong style="color: #ffbc9a;">Самозванец:</strong> Многократно нажимайте кнопку, чтобы нанести как можно больше урона.</p>
+                        <p><strong style="color: #ffbc9a;">Реагент:</strong> Многократно нажимайте кнопку, чтобы сопротивляться атаке и снижать входящий урон.</p>
+                        <p>Оставшееся здоровье Реагента напрямую влияет на исход схватки. Чем серьёзнее ранен Реагент, тем сложнее ему выжить в этой дуэли.</p>
+                        <p>С введением СХВАТОК Реагенты теперь могут активно противостоять атаке Самозванца. В связи с этим бутылки и кирпичи больше не позволяют мгновенно контратаковать, если находятся в инвентаре.</p>
+                    </div>
+                </div>
+
+                <!-- Новое ночное видение Самозванца -->
+                <div class="section" id="nv" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-eye" style="color: #e16d48;"></i> Новое ночное видение Самозванца
+                    </h3>
+                    <div class="section-text">
+                        <p>Самозванцы получили собственное ночное видение. В отличие от версии Реагентов, его эффективность ограничена — это делает тьму более надёжным убежищем для Реагентов, но при этом даёт Самозванцам возможность выслеживать цели и ориентироваться в условиях слабой освещённости. Такой подход усиливает динамику противостояния хищника и жертвы.</p>
+                        <p>Ночное видение Самозванца быстро разряжается и не восстанавливается со временем. Чтобы пополнить заряд, нужно отступить к Вратам Вторжения. Пользуйтесь им осмотрительно — только при крайней необходимости.</p>
+                    </div>
+                </div>
+
+                <!-- Изменения в игровом процессе Самозванца -->
+                <div class="section" id="impostor-changes" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-user-secret" style="color: #e16d48;"></i> Изменения в игровом процессе Самозванца
+                    </h3>
+                    <div class="section-text">
+                        <p>Геймплей за Самозванца был глубоко переработан в пользу охоты как основной механики.</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Урон от удара ножом снижен до 25</strong> (ранее 33).</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Перезарядка между ударами сокращена до 1.5 секунды</strong> (ранее 3 секунды). Во время перезарядки Самозванец может только идти, бег недоступен.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Добавлен УДАР В СПИНУ</strong> — новая атака, мгновенно убивающая Реагента. Этот приём полностью игнорирует мини-игру «Схватка» и не подлежит контратаке. Чтобы разблокировать этот Хим-усилитель, обратитесь к Барлоу.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Красный индикатор</strong> — над ближайшими Реагентами теперь отображается красный индикатор с именем и уровнем здоровья.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Мимикрия</strong> — Самозванец больше не имитирует случайного Реагента по умолчанию.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Режим «При смерти»</strong> — удары ножом больше не убивают мгновенно.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Виджет группы</strong> — теперь постоянно отображается в режиме камеры.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Совместное появление</strong> — при вторжении 2 Самозванцев они появляются вместе.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Индивидуальный таймер возрождения</strong> — у каждого Самозванца свой таймер.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Новый Хим-усилитель «Удар в спину»</strong> — открывает добивающую атаку.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Время пинга сокращено до 5 секунд</strong> (было 10).</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Финальная фаза</strong> — на этапе «Покинуть зону» у Самозванцев нет ограничения по времени.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Активное время вторжения</strong> — 1 Самозванец — 5 минут, 2 — 3 минуты, 3-4 — 2 минуты.</span>
+                            </li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-style: italic; color: #c2b9d4;">Комментарий разработчиков: Мы переработали Самозванцев, чтобы они лучше выполняли роль постоянной угрозы на протяжении всего Испытания, и оснастили их разнообразными гаджетами для разных тактик и стилей охоты. Внимательные Реагенты по-прежнему могут уйти от погони и выжить при столкновении, поэтому успешные Самозванцы должны полагаться на тайминг, скрытность, координацию и тщательно спланированные засады, а не на грубую силу. Новые инструменты дают дополнительную возможность противостоять опытным Реагентам, создавая более сбалансированную и увлекательную динамику противостояния хищника и жертвы для обеих сторон.</p>
+                    </div>
+                </div>
+
+                <!-- Изменения Реагентов -->
+                <div class="section" id="reagents-changes" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-users" style="color: #e16d48;"></i> Изменения Реагентов
+                    </h3>
+                    <div class="section-text">
+                        <p>Геймплей Реагентов переориентирован на выживание, срыв планов противника и побег, а не на прямые столкновения.</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Минимальный урон</strong> — Реагенты наносят минимальный урон Самозванцам.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Тактика с бесконечным оглушением</strong> — больше не работает.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Реакция после удара</strong> — вместо полной остановки — вздрагивание.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Двери шаттла</strong> — открываются автоматически после финальной задачи.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Система пингов</strong> — Реагенты могут отмечать Самозванцев всегда.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Переработана система начисления очков</strong> — снижены штрафы, увеличены награды.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Снаряжение «Глушилка»</strong> — теперь накладывает электрический сбой вместо рвоты.</span>
+                            </li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-style: italic; color: #c2b9d4;">Комментарий разработчиков: Мы переработали опыт игры за Реагента, сделав его более доступным для игроков любого уровня. У них появилось больше возможностей оправиться от ошибок, изучить механики и постепенно совершенствовать навыки. Инструменты Реагента теперь сосредоточены на скрытности, выживании и задержке преследователя, а не на прямом бою. Успех приходит к тем, кто грамотно использует свои инструменты, остаётся в тени и создаёт возможности для побега.</p>
+                    </div>
+                </div>
+
+                <!-- Карты в режиме Вторжения -->
+                <div class="section" id="maps" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-map" style="color: #e16d48;"></i> Карты в режиме Вторжения
+                    </h3>
+                    <div class="section-text">
+                        <p>Карты Испытаний в режиме Вторжения переработаны для улучшения общей динамики.</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Более открытая планировка</strong> — уменьшено число заблокированных дверей, замков и тупиков.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Исключены карты</strong> — из ротации исключены карты с критическими узкими местами.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Доступность</strong> — все Испытания доступны для глобального вторжения.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Общие изменения -->
+                <div class="section" id="general-changes" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-list" style="color: #e16d48;"></i> Общие изменения режима Вторжения
+                    </h3>
+                    <div class="section-text">
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Нет возврата</strong> — игроки не могут выходить и возвращаться после начала вторжения.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Межкомандная голосовая связь</strong> — возможность общаться с противниками.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Амфы теперь работают</strong> — Уклонение, Второй шанс, Самореанимация, Сильная рука.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Награды за глобальное вторжение</strong> — игроки получают награды за включение функции.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Поиск матчей -->
+                <div class="section" id="matchmaking" style="margin-top: 1.5rem;">
+                    <h3 style="color: #ffbc9a; font-size: 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-search" style="color: #e16d48;"></i> Поиск матчей в режиме Вторжения
+                    </h3>
+                    <div class="section-text">
+                        <p>Система подбора игроков переработана для более честных и сбалансированных матчей.</p>
+                        <ul style="list-style: none; margin-top: 0.5rem; padding-left: 0;">
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Учитываются параметры</strong> — уровень Вторжения, Рецидива и Терапии.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Критерии поиска</strong> — постепенно расширяются для приемлемого времени ожидания.</span>
+                            </li>
+                            <li style="padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; color: #d1cce6;">
+                                <span><strong style="color: #ffbc9a;">Мониторинг</strong> — данные в реальном времени и корректировки на сервере.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ГАЛЕРЕЯ ===== -->
+            <div class="section" id="gallery">
+                <h2 class="section-title"><i class="fas fa-images"></i> Галерея</h2>
+                <div class="gallery-grid" id="galleryGrid">
+                    <div class="gallery-item" data-img="../images/вторжение-1.webp">
+                        <img src="../images/вторжение-1.webp" alt="Вторжение 1" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+1'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/вторжение-2.webp">
+                        <img src="../images/вторжение-2.webp" alt="Вторжение 2" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+2'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/вторжение-3.webp">
+                        <img src="../images/вторжение-3.webp" alt="Вторжение 3" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+3'">
+                    </div>
+                    <div class="gallery-item" data-img="../images/вторжение-4.webp">
+                        <img src="../images/вторжение-4.webp" alt="Вторжение 4" onerror="this.src='https://placehold.co/400x250/1a1a2e/e16d48?text=Фото+4'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+        <p style="margin-top: 8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+    </footer>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ===== -->
+<div id="galleryModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+
+<script>
+    // ===== ОГЛАВЛЕНИЕ =====
+    const tocToggle = document.getElementById('tocToggle');
+    const tocList = document.getElementById('tocList');
+    if (tocToggle && tocList) {
+        tocToggle.addEventListener('click', () => {
+            tocList.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+        });
+    }
+
+    // ===== ПЛАВНАЯ ПРОКРУТКА =====
+    document.querySelectorAll('.toc-list a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ===== МОДАЛЬНОЕ ОКНО =====
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.getAttribute('data-img');
+            if (imgSrc) {
+                modalImg.src = imgSrc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+
+    // ===== ПЛАВНОЕ ПОЯВЛЕНИЕ =====
+    function initScrollAnimation() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        
+        document.querySelectorAll('.article-wrapper, .breadcrumb').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initScrollAnimation();
+    });
+</script>
+
+</body>
+</html>
