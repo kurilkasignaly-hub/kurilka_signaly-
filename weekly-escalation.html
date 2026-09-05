@@ -748,7 +748,6 @@
             line-height: 1.2;
         }
 
-        /* Выделение еженедельного вариатора */
         .variator-list .var-item.weekly {
             border: 2px solid #f1c40f;
             border-radius: 12px;
@@ -1262,7 +1261,15 @@
     </div>
 </div>
 
-<!-- ===== ВСЯ ЛОГИКА В ОДНОМ ФАЙЛЕ (ВСТРОЕННЫЙ JS) ===== -->
+<!-- ===== ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ С ДАННЫМИ ===== -->
+<script src="maps.js"></script>
+<script src="variators.js"></script>
+<script src="variators-all.js"></script>
+<script src="amps.js"></script>
+<script src="equipment.js"></script>
+<script src="trials.js"></script>
+
+<!-- ===== ВСТРОЕННАЯ ЛОГИКА ===== -->
 <script>
 // ============================================================
 // ЕЖЕНЕДЕЛЬНЫЙ ВАРИАТОР (ЗАДАЁТСЯ ВРУЧНУЮ)
@@ -1270,81 +1277,10 @@
 // 🔧 ИЗМЕНИТЕ ЗДЕСЬ НАЗВАНИЕ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
 // Доступные варианты: 'Таймер бомбы', 'Вечная мерзлота', 'Глубокий ожог', 'Кровотечение'
 // ============================================================
-var WEEKLY_VARIATOR_NAME = 'Таймер бомбы'; // <-- ИЗМЕНИТЕ ЗДЕСЬ
+var WEEKLY_VARIATOR_NAME = 'Таймер бомбы';
 
 // ============================================================
-// ВСТРОЕННЫЕ ДАННЫЕ (если внешние файлы не загружены)
-// ============================================================
-var mapsData = [
-    { id: 'map1', name: 'Полигон', image: 'images/полигон.webp' },
-    { id: 'map2', name: 'Орфан', image: 'images/орфан.webp' },
-    { id: 'map3', name: 'Фантом', image: 'images/фантом.webp' },
-    { id: 'map4', name: 'Колизей', image: 'images/колизей.webp' },
-    { id: 'map5', name: 'Лаборатория', image: 'images/лаборатория.webp' }
-];
-
-var allVariatorsData = [
-    { id: 'var1', name: 'Туман', image: 'images/туман.webp', category: 'obstacles' },
-    { id: 'var2', name: 'Гроза', image: 'images/гроза.webp', category: 'obstacles' },
-    { id: 'var3', name: 'Тьма', image: 'images/тьма.webp', category: 'obstacles' },
-    { id: 'var4', name: 'Шум', image: 'images/шум.webp', category: 'obstacles' },
-    { id: 'var5', name: 'Ярость', image: 'images/ярость.webp', category: 'hunters' },
-    { id: 'var6', name: 'Холод', image: 'images/холод.webp', category: 'damage' },
-    { id: 'var7', name: 'Жара', image: 'images/жара.webp', category: 'damage' },
-    { id: 'var8', name: 'Таймер бомбы', image: 'images/таймер бомбы.webp', category: 'special' },
-    { id: 'var9', name: 'Вечная мерзлота', image: 'images/вечная мерзлота.webp', category: 'damage' },
-    { id: 'var10', name: 'Глубокий ожог', image: 'images/глубокий ожог.webp', category: 'damage' },
-    { id: 'var11', name: 'Кровотечение', image: 'images/кровотечение.webp', category: 'damage' },
-    { id: 'var12', name: 'Психохирургия', image: 'images/психохирургия.webp', category: 'psycho' },
-    { id: 'var13', name: 'Двойные задания', image: 'images/двойные задания.webp', category: 'collection_special' },
-    { id: 'var14', name: 'Ностофобия', image: 'images/ностофобия.webp', category: 'psycho' }
-];
-
-var equipmentData = [
-    { id: 'eq1', name: 'Оглушение', image: 'images/оглушение.webp', category: 'Оглушение' },
-    { id: 'eq2', name: 'Завеса', image: 'images/завеса.webp', category: 'Завеса' },
-    { id: 'eq3', name: 'Исцеление', image: 'images/исцеление.webp', category: 'Исцеление' },
-    { id: 'eq4', name: 'Глушилка', image: 'images/глушилка.webp', category: 'Глушилка' },
-    { id: 'eq5', name: 'Рентген', image: 'images/рентген.webp', category: 'Рентген' },
-    { id: 'eq6', name: 'Баррикада', image: 'images/баррикада.webp', category: 'Баррикада' }
-];
-
-var ampsData = [
-    { id: 'amp1', name: 'Адреналин', image: 'images/адреналин.webp', category: 'Скорость' },
-    { id: 'amp2', name: 'Регенерация', image: 'images/регенерация.webp', category: 'Здоровье' },
-    { id: 'amp3', name: 'Маскировка', image: 'images/маскировка.webp', category: 'Стелс' },
-    { id: 'amp4', name: 'Ярость', image: 'images/ярость.webp', category: 'Сила' },
-    { id: 'amp5', name: 'Щит', image: 'images/щит.webp', category: 'Защита' },
-    { id: 'amp6', name: 'Скорость', image: 'images/скорость.webp', category: 'Скорость' },
-    { id: 'amp7', name: 'Лечение', image: 'images/лечение.webp', category: 'Здоровье' },
-    { id: 'amp8', name: 'Тень', image: 'images/тень.webp', category: 'Стелс' },
-    { id: 'amp9', name: 'Удар', image: 'images/удар.webp', category: 'Сила' },
-    { id: 'amp10', name: 'Броня', image: 'images/броня.webp', category: 'Защита' }
-];
-
-var ampCategories = ['Скорость', 'Здоровье', 'Стелс', 'Сила', 'Защита'];
-
-var trialsData = {
-    'Полигон': {
-        image: 'images/полигон.webp',
-        trials: [
-            { name: 'Сбор данных', desc: 'Соберите все образцы и эвакуируйтесь' },
-            { name: 'Эвакуация', desc: 'Проведите команду к точке эвакуации' },
-            { name: 'Очистка', desc: 'Уничтожьте всех врагов в зоне' }
-        ]
-    },
-    'Орфан': {
-        image: 'images/орфан.webp',
-        trials: [
-            { name: 'СПАСЕНИЕ', desc: 'Спасите выживших из заражённой зоны' },
-            { name: 'Исследование', desc: 'Исследуйте аномалию и вернитесь с образцами' },
-            { name: 'Защита', desc: 'Защитите объект от нападения' }
-        ]
-    }
-};
-
-// ============================================================
-// ЛОГИКА ЭСКАЛАЦИИ
+// СОСТОЯНИЕ ЭСКАЛАЦИИ
 // ============================================================
 
 let escState = {
@@ -1367,6 +1303,34 @@ let escState = {
     nostophobiaCount: 0,
     weeklyVariator: null
 };
+
+// ============================================================
+// ПРОВЕРКА ЗАГРУЗКИ ДАННЫХ
+// ============================================================
+
+function checkDataLoaded() {
+    if (typeof mapsData === 'undefined') {
+        console.warn('⏳ mapsData не загружен');
+        return false;
+    }
+    if (typeof allVariatorsData === 'undefined') {
+        console.warn('⏳ allVariatorsData не загружен');
+        return false;
+    }
+    if (typeof equipmentData === 'undefined') {
+        console.warn('⏳ equipmentData не загружен');
+        return false;
+    }
+    if (typeof ampsData === 'undefined') {
+        console.warn('⏳ ampsData не загружен');
+        return false;
+    }
+    if (typeof trialsData === 'undefined') {
+        console.warn('⏳ trialsData не загружен');
+        return false;
+    }
+    return true;
+}
 
 // ============================================================
 // ПОЛУЧЕНИЕ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
@@ -1394,7 +1358,7 @@ function updateWeeklyVariatorDisplay() {
                 escState.weeklyVariator = weekly;
                 nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weekly.name;
             } else {
-                nameEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не найден';
+                nameEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не найден: ' + WEEKLY_VARIATOR_NAME;
             }
         }
     }
@@ -1459,7 +1423,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
         if (variatorName === 'Без Имён' || variatorName === 'Без Рации') return false;
     }
     
-    // Базовые проверки совместимости
     if (variatorName === 'Таймер бомбы' && trialName === 'Устранение устаревшего оборудования') return false;
     
     if (variatorName === 'Глубокий Ожог') {
@@ -1470,7 +1433,6 @@ function isVariatorCompatible(variator, selectedVariators, trialName, playerCoun
     }
     
     if (variatorName === 'Сильнее Вместе' && playerCount === 1) return false;
-    
     if (variatorName === 'Низкая Плотность Врагов' && level > 5) return false;
     
     if (level < 21) {
@@ -1525,7 +1487,7 @@ function getVariatorsForLevel(level, mapName, playerCount) {
         console.log('✅ Еженедельный:', weeklyVar.name);
     }
     
-    // 2. Определяем количество вариаторов для уровня
+    // 2. Определяем количество вариаторов
     var count;
     if (level === 1) count = 2;
     else if (level >= 2 && level <= 3) count = 3;
@@ -1729,12 +1691,41 @@ function renderEscPlayerNames() {
         }
     }
     container.appendChild(grid);
+    
+    // Активация кнопки "Далее" после ввода ников
+    var inputs = container.querySelectorAll('input');
+    var nextBtn = document.getElementById('escStep2Next');
+    
+    function checkNamesFilled() {
+        var allFilled = true;
+        inputs.forEach(function(input) {
+            if (input.value.trim() === '') {
+                allFilled = false;
+            }
+        });
+        if (nextBtn) {
+            nextBtn.disabled = !allFilled;
+        }
+        return allFilled;
+    }
+    
+    inputs.forEach(function(input) {
+        input.addEventListener('input', checkNamesFilled);
+        input.addEventListener('change', checkNamesFilled);
+    });
+    
+    setTimeout(checkNamesFilled, 100);
 }
 
 function renderEscEquipment() {
     var container = document.getElementById('escStep3Content');
     if (!container) return;
     container.innerHTML = '';
+    
+    if (typeof equipmentData === 'undefined' || equipmentData.length === 0) {
+        container.innerHTML = '<div style="color: #e16d48; text-align: center; padding: 2rem;">Ошибка: данные снаряжения не загружены</div>';
+        return;
+    }
     
     var equipColors = {
         'Оглушение': { bg: 'rgba(231, 76, 60, 0.2)', border: '#e74c3c' },
@@ -1856,6 +1847,11 @@ function renderEscAmps() {
     var container = document.getElementById('escStep4Content');
     if (!container) return;
     container.innerHTML = '';
+    
+    if (typeof ampsData === 'undefined' || ampsData.length === 0) {
+        container.innerHTML = '<div style="color: #e16d48; text-align: center; padding: 2rem;">Ошибка: данные амф не загружены</div>';
+        return;
+    }
     
     var header = document.createElement('div');
     header.style.cssText = 'text-align: center; margin-bottom: 20px;';
@@ -2178,10 +2174,6 @@ function prepareFullResult(mapName, mapImage, trial, difficulty) {
     renderEscResultPlayers();
 }
 
-// ============================================================
-// ОТРИСОВКА ИГРОКОВ В РЕЗУЛЬТАТЕ
-// ============================================================
-
 function renderEscResultPlayers() {
     var container = document.getElementById('escResultPlayers');
     if (!container) return;
@@ -2189,7 +2181,7 @@ function renderEscResultPlayers() {
     
     escState.players.forEach(function(player, idx) {
         var equip = escState.equipSelections[idx] || 'Не выбрано';
-        var equipData = equipmentData.find(function(e) { return e.name === equip; }) || null;
+        var equipData = typeof equipmentData !== 'undefined' ? equipmentData.find(function(e) { return e.name === equip; }) : null;
         var allUsed = checkAllAmpsUsed(idx);
         
         var section = document.createElement('div');
@@ -2234,7 +2226,7 @@ function renderEscResultPlayers() {
         
         ampCategories.forEach(function(category) {
             var ampName = getAmpForCategory(idx, category);
-            var ampData = ampsData.find(function(a) { return a.name === ampName; }) || null;
+            var ampData = typeof ampsData !== 'undefined' ? ampsData.find(function(a) { return a.name === ampName; }) : null;
             var isComplete = isCategoryComplete(idx, category);
             
             var block = document.createElement('div');
@@ -2291,10 +2283,36 @@ function renderEscResultPlayers() {
 function initEscalation() {
     console.log('🚀 Запуск еженедельной эскалации...');
     
+    // Проверяем загрузку данных
+    if (!checkDataLoaded()) {
+        console.log('⏳ Ожидание загрузки данных...');
+        var checkInterval = setInterval(function() {
+            if (checkDataLoaded()) {
+                clearInterval(checkInterval);
+                doInit();
+            }
+        }, 500);
+        
+        setTimeout(function() {
+            clearInterval(checkInterval);
+            console.warn('⚠️ Таймаут загрузки данных, пробуем инициализировать');
+            doInit();
+        }, 10000);
+        return;
+    }
+    
+    doInit();
+}
+
+function doInit() {
+    console.log('✅ Данные загружены, инициализация...');
+    
     var weekly = getWeeklyVariator();
     if (weekly) {
         escState.weeklyVariator = weekly;
         console.log('📌 Еженедельный вариатор:', weekly.name);
+    } else {
+        console.warn('⚠️ Еженедельный вариатор "' + WEEKLY_VARIATOR_NAME + '" не найден в данных!');
     }
     updateWeeklyVariatorDisplay();
 
@@ -2309,6 +2327,7 @@ function initEscalation() {
     var nextLevelBtn = document.getElementById('escNextLevelBtn');
     var exitBtn = document.getElementById('escExitBtn');
 
+    // ШАГ 1
     if (options) {
         options.forEach(function(btn) {
             btn.addEventListener('click', function() {
@@ -2327,6 +2346,7 @@ function initEscalation() {
         });
     }
 
+    // ШАГ 2
     if (step2Back) {
         step2Back.addEventListener('click', function() { goToEscStep(1); });
     }
@@ -2349,6 +2369,7 @@ function initEscalation() {
         });
     }
 
+    // ШАГ 3
     if (step3Back) {
         step3Back.addEventListener('click', function() { goToEscStep(2); });
     }
@@ -2360,6 +2381,7 @@ function initEscalation() {
         });
     }
 
+    // ШАГ 4
     if (step4Back) {
         step4Back.addEventListener('click', function() { goToEscStep(3); });
     }
@@ -2383,6 +2405,7 @@ function initEscalation() {
         });
     }
 
+    // Кнопки в результатах
     if (nextLevelBtn) {
         nextLevelBtn.addEventListener('click', function() {
             escState.level++;
@@ -2434,7 +2457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('escalationWrapper')) {
         setTimeout(function() {
             initEscalation();
-        }, 200);
+        }, 300);
     }
 });
 </script>
