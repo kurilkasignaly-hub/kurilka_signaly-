@@ -55,8 +55,20 @@ var WEEKLY_VARIATOR_POOL = [
 // ============================================================
 
 function getVariatorByName(name) {
-    if (typeof allVariatorsData === 'undefined') return null;
-    return allVariatorsData.find(function(v) { return v.name === name; }) || null;
+    // Проверяем разные возможные источники данных
+    if (typeof allVariatorsData !== 'undefined' && allVariatorsData.length > 0) {
+        var found = allVariatorsData.find(function(v) { return v.name === name; });
+        if (found) return found;
+    }
+    
+    // Проверяем VARIATORS (из variators.js)
+    if (typeof VARIATORS !== 'undefined' && VARIATORS.length > 0) {
+        var found2 = VARIATORS.find(function(v) { return v.name === name; });
+        if (found2) return found2;
+    }
+    
+    console.warn('⚠️ Вариатор "' + name + '" не найден в данных');
+    return null;
 }
 
 // ============================================================
@@ -72,13 +84,35 @@ function getWeekNumber(date) {
 }
 
 // ============================================================
+// ПРОВЕРКА ЗАГРУЗКИ ДАННЫХ
+// ============================================================
+
+function isDataLoaded() {
+    var hasMaps = typeof mapsData !== 'undefined' && mapsData.length > 0;
+    var hasVariators = (typeof allVariatorsData !== 'undefined' && allVariatorsData.length > 0) || 
+                       (typeof VARIATORS !== 'undefined' && VARIATORS.length > 0);
+    var hasAmps = typeof ampsData !== 'undefined' && ampsData.length > 0;
+    var hasEquipment = typeof equipmentData !== 'undefined' && equipmentData.length > 0;
+    var hasTrials = typeof trialsData !== 'undefined' && Object.keys(trialsData).length > 0;
+    
+    console.log('📊 Проверка данных:', {
+        maps: hasMaps,
+        variators: hasVariators,
+        amps: hasAmps,
+        equipment: hasEquipment,
+        trials: hasTrials
+    });
+    
+    return hasMaps && hasVariators && hasAmps && hasEquipment && hasTrials;
+}
+
+// ============================================================
 // ПРОВЕРКА НУЖНО ЛИ СБРОСИТЬ ЕЖЕНЕДЕЛЬНЫЙ ВАРИАТОР
-// (ВТОРНИК ПОСЛЕ 21:00)
 // ============================================================
 
 function isWeeklyResetNeeded() {
     var now = new Date();
-    var day = now.getDay(); // 0=воскресенье, 1=понедельник, 2=вторник
+    var day = now.getDay();
     var hours = now.getHours();
     var minutes = now.getMinutes();
     
@@ -89,7 +123,6 @@ function isWeeklyResetNeeded() {
             var lastResetDate = new Date(lastReset);
             var lastResetWeek = getWeekNumber(lastResetDate);
             var currentWeek = getWeekNumber(now);
-            // Если номер недели совпадает - сброс уже был
             if (lastResetWeek === currentWeek) {
                 return false;
             }
@@ -128,7 +161,6 @@ function loadWeeklyVariator() {
         
         if (saved && savedWeek && parseInt(savedWeek) === currentWeek) {
             var variator = JSON.parse(saved);
-            // Проверяем, что вариатор существует в allVariatorsData
             if (variator && variator.name) {
                 var existing = getVariatorByName(variator.name);
                 if (existing) {
@@ -206,8 +238,10 @@ function updateWeeklyVariatorDisplay() {
     if (nameEl) {
         if (weeklyEscState.weeklyVariator) {
             nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
+            console.log('✅ Обновлено отображение:', weeklyEscState.weeklyVariator.name);
         } else {
-            nameEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не выбран';
+            nameEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Загрузка...';
+            console.log('⏳ Ожидание загрузки вариатора...');
         }
     }
 }
@@ -244,7 +278,7 @@ function resetWeeklyEscalation() {
         weeklyLastResetLevel: 1
     };
     
-    // Сохраняем состояние в localStorage
+    // Сохраняем состояние
     try {
         localStorage.setItem(STORAGE_KEYS.WEEKLY_STATE, JSON.stringify({
             level: weeklyEscState.level,
@@ -272,31 +306,32 @@ function resetWeeklyEscalation() {
 // ============================================================
 
 function restoreWeeklyEscalation() {
+    console.log('🔄 Восстановление еженедельной эскалации...');
+    
     // Проверяем сброс по неделе
     if (isWeeklyResetNeeded()) {
         console.log('🔄 Наступила новая неделя, сбрасываем еженедельную эскалацию...');
         return resetWeeklyEscalation();
     }
     
-    // Восстанавливаем еженедельный вариатор
+    // Получаем еженедельный вариатор
     var weeklyVariator = getCurrentWeeklyVariator();
     weeklyEscState.weeklyVariator = weeklyVariator;
     if (weeklyVariator) {
         weeklyEscState.weeklyFixedVariators = [weeklyVariator];
     }
     
-    // Восстанавливаем остальное состояние
+    // Восстанавливаем прогресс
     try {
         var savedState = localStorage.getItem(STORAGE_KEYS.WEEKLY_STATE);
         if (savedState) {
             var parsed = JSON.parse(savedState);
-            // Проверяем, что сохраненный вариатор совпадает с текущим
             if (parsed.weeklyVariator && parsed.weeklyVariator.name === weeklyVariator.name) {
                 weeklyEscState.level = parsed.level || 1;
                 weeklyEscState.weeklyAddedVariators = parsed.weeklyAddedVariators || [];
                 weeklyEscState.weeklyLevelCounter = parsed.weeklyLevelCounter || 1;
                 weeklyEscState.weeklyLastResetLevel = parsed.weeklyLastResetLevel || 1;
-                console.log('📥 Восстановлено состояние эскалации, уровень:', weeklyEscState.level);
+                console.log('📥 Восстановлено состояние, уровень:', weeklyEscState.level);
             } else {
                 console.log('📥 Вариатор изменился, сбрасываем прогресс');
                 weeklyEscState.level = 1;
@@ -318,20 +353,25 @@ function restoreWeeklyEscalation() {
 // ============================================================
 
 function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
-    if (typeof allVariatorsData === 'undefined') {
-        console.error('❌ allVariatorsData не загружен');
+    // Проверяем наличие данных
+    var variatorsData = null;
+    if (typeof allVariatorsData !== 'undefined' && allVariatorsData.length > 0) {
+        variatorsData = allVariatorsData;
+    } else if (typeof VARIATORS !== 'undefined' && VARIATORS.length > 0) {
+        variatorsData = VARIATORS;
+    }
+    
+    if (!variatorsData) {
+        console.error('❌ Данные вариаторов не загружены');
         return [];
     }
     
     console.log('🔄 Генерация вариаторов для еженедельной эскалации, уровень:', level);
     console.log('📌 Еженедельный вариатор:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
     
-    // ============================================================
-    // МАКСИМАЛЬНОЕ КОЛИЧЕСТВО ВАРИАТОРОВ - 8
-    // ============================================================
     var MAX_VARIATORS = 8;
     
-    // Проверяем, нужно ли сбросить добавочные вариаторы (каждые 10 уровней)
+    // Проверяем сброс добавочных вариаторов
     if (level > 1 && (level - 1) % 10 === 0 && level <= 20) {
         weeklyEscState.weeklyLevelCounter = 1;
         weeklyEscState.weeklyAddedVariators = [];
@@ -339,24 +379,20 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
         console.log('🔄 Сброс добавочных вариаторов на уровне:', level);
     }
     
-    // ============================================================
-    // ФОРМИРУЕМ РЕЗУЛЬТИРУЮЩИЙ СПИСОК
-    // ============================================================
-    
     var result = [];
     var usedNames = [];
     
-    // 1. Еженедельный вариатор (всегда первый)
+    // 1. Еженедельный вариатор
     if (weeklyEscState.weeklyVariator) {
         result.push(weeklyEscState.weeklyVariator);
         usedNames.push(weeklyEscState.weeklyVariator.name);
         console.log('✅ Еженедельный:', weeklyEscState.weeklyVariator.name);
     }
     
-    // 2. Психохирургия и Двойные задания (после 20 уровня)
+    // 2. Психохирургия и Двойные задания
     if (level >= 21) {
-        var psycho = allVariatorsData.find(function(v) { return v.name === "Психохирургия"; });
-        var doubleTasks = allVariatorsData.find(function(v) { return v.name === "Двойные задания"; });
+        var psycho = variatorsData.find(function(v) { return v.name === "Психохирургия"; });
+        var doubleTasks = variatorsData.find(function(v) { return v.name === "Двойные задания"; });
         
         if (psycho && usedNames.indexOf(psycho.name) === -1) {
             result.push(psycho);
@@ -370,7 +406,7 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
         }
     }
     
-    // 3. Добавляем все НАКОПЛЕННЫЕ добавочные вариаторы
+    // 3. Накопленные добавочные вариаторы
     weeklyEscState.weeklyAddedVariators.forEach(function(v) {
         if (usedNames.indexOf(v.name) === -1) {
             result.push(v);
@@ -378,17 +414,15 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
         }
     });
     
-    // 4. Проверяем, сколько еще можно добавить
     var currentCount = result.length;
     var maxAllowed = MAX_VARIATORS - currentCount;
     
     console.log('📊 Текущее количество:', currentCount, 'Можно добавить:', maxAllowed);
     
-    // 5. Добавляем новые вариаторы (до 8)
+    // 4. Добавляем новые вариаторы
     if (maxAllowed > 0) {
-        // Исключаем уже использованные и еженедельные вариаторы
         var weeklyNames = WEEKLY_VARIATOR_POOL;
-        var available = allVariatorsData.filter(function(v) {
+        var available = variatorsData.filter(function(v) {
             if (usedNames.indexOf(v.name) !== -1) return false;
             if (weeklyNames.indexOf(v.name) !== -1) return false;
             if (v.name === 'Ностофобия') return false;
@@ -404,17 +438,24 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
         var added = false;
         for (var i = 0; i < shuffled.length && !added && result.length < MAX_VARIATORS; i++) {
             var candidate = shuffled[i];
-            if (isVariatorCompatible(candidate, result, trialName, playerCount, level)) {
+            if (typeof isVariatorCompatible === 'function' && 
+                isVariatorCompatible(candidate, result, trialName, playerCount, level)) {
                 result.push(candidate);
                 usedNames.push(candidate.name);
                 weeklyEscState.weeklyAddedVariators.push(candidate);
                 console.log('✅ Добавлен новый вариатор:', candidate.name);
                 added = true;
+            } else if (typeof isVariatorCompatible !== 'function') {
+                // Если функция не определена, добавляем без проверки
+                result.push(candidate);
+                usedNames.push(candidate.name);
+                weeklyEscState.weeklyAddedVariators.push(candidate);
+                console.log('✅ Добавлен вариатор (без проверки):', candidate.name);
+                added = true;
             }
         }
     }
     
-    // Обновляем состояние
     weeklyEscState.variators = result;
     weeklyEscState.weeklyLevelCounter++;
     
@@ -433,8 +474,6 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
     }
     
     console.log('✅ ИТОГ (' + result.length + ' вариаторов):', result.map(function(v) { return v.name; }).join(', '));
-    console.log('📌 Еженедельный:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
-    console.log('📌 Накопленные:', weeklyEscState.weeklyAddedVariators.map(function(v) { return v.name; }).join(', ') || 'нет');
     
     return result;
 }
@@ -476,7 +515,6 @@ function getWeeklyMapAndTrial(level) {
         }
     }
     
-    // Если все испытания использованы - сбрасываем список
     if (availableTrials.length === 0) {
         console.log('🔄 Сброс списка использованных испытаний');
         if (isBigLevel) {
@@ -564,7 +602,6 @@ function generateWeeklyEscResult() {
         weeklyEscState.playerCount
     );
     
-    // Скрываем шаги
     var step1 = document.getElementById('escStep1');
     var step2 = document.getElementById('escStep2');
     var step3 = document.getElementById('escStep3');
@@ -575,7 +612,6 @@ function generateWeeklyEscResult() {
     if (step3) step3.classList.add('hidden');
     if (step4) step4.classList.add('hidden');
     
-    // Показываем результат
     prepareWeeklyFullResult(mapName, mapImage, trial, difficulty);
 }
 
@@ -660,7 +696,6 @@ function prepareWeeklyFullResult(mapName, mapImage, trial, difficulty) {
         }
     }
     
-    // Показываем результат
     setTimeout(function() {
         resultContainer.style.display = 'block';
         resultContainer.classList.add('active');
@@ -678,21 +713,58 @@ function prepareWeeklyFullResult(mapName, mapImage, trial, difficulty) {
 function initWeeklyEscalation() {
     console.log('🚀 Запуск еженедельной эскалации...');
     
+    // Проверяем загрузку данных
+    if (!isDataLoaded()) {
+        console.log('⏳ Данные еще не загружены, ждем...');
+        var checkInterval = setInterval(function() {
+            if (isDataLoaded()) {
+                clearInterval(checkInterval);
+                console.log('✅ Данные загружены');
+                doInit();
+            }
+        }, 500);
+        
+        setTimeout(function() {
+            clearInterval(checkInterval);
+            console.warn('⚠️ Таймаут загрузки данных, пробуем инициализировать');
+            doInit();
+        }, 10000);
+        return;
+    }
+    
+    doInit();
+}
+
+function doInit() {
+    console.log('🔄 Инициализация...');
+    
     // Восстанавливаем состояние
     restoreWeeklyEscalation();
     
     // Обновляем отображение еженедельного вариатора
     updateWeeklyVariatorDisplay();
     
-    // Проверяем загрузку данных
-    if (typeof mapsData === 'undefined' || typeof allVariatorsData === 'undefined') {
-        console.error('❌ Данные не загружены!');
-        return;
+    // Проверяем наличие необходимых функций
+    if (typeof goToEscStep !== 'function') {
+        console.warn('⚠️ Функция goToEscStep не определена');
+    }
+    if (typeof renderEscPlayerNames !== 'function') {
+        console.warn('⚠️ Функция renderEscPlayerNames не определена');
+    }
+    if (typeof setupEscNavigation !== 'function') {
+        console.warn('⚠️ Функция setupEscNavigation не определена');
+    }
+    if (typeof initAmpModal !== 'function') {
+        console.warn('⚠️ Функция initAmpModal не определена');
+    }
+    if (typeof initConfirmModal !== 'function') {
+        console.warn('⚠️ Функция initConfirmModal не определена');
+    }
+    if (typeof updateLevelCounter !== 'function') {
+        console.warn('⚠️ Функция updateLevelCounter не определена');
     }
     
-    console.log('✅ Данные загружены, инициализация...');
-    
-    // Настройка кнопок выбора количества игроков
+    // Настройка кнопок
     var options = document.querySelectorAll('#escPlayerCountOptions .player-count-btn');
     var step1Next = document.getElementById('escStep1Next');
     
@@ -709,20 +781,22 @@ function initWeeklyEscalation() {
     
     if (step1Next) {
         step1Next.addEventListener('click', function() {
-            goToEscStep(2);
-            renderEscPlayerNames();
+            if (typeof goToEscStep === 'function') {
+                goToEscStep(2);
+                if (typeof renderEscPlayerNames === 'function') {
+                    renderEscPlayerNames();
+                }
+            }
         });
     }
     
-    // Остальные кнопки навигации
-    setupEscNavigation();
-    
-    // Настройка модальных окон
-    initAmpModal();
-    initConfirmModal();
+    // Настройка остальных кнопок
+    setupStepButtons();
     
     // Обновление счетчика уровня
-    updateLevelCounter();
+    if (typeof updateLevelCounter === 'function') {
+        updateLevelCounter();
+    }
     
     console.log('✅ Еженедельная эскалация инициализирована!');
     console.log('📌 Еженедельный вариатор:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
@@ -730,41 +804,162 @@ function initWeeklyEscalation() {
 }
 
 // ============================================================
+// НАСТРОЙКА КНОПОК ШАГОВ
+// ============================================================
+
+function setupStepButtons() {
+    var step2Back = document.getElementById('escStep2Back');
+    var step2Next = document.getElementById('escStep2Next');
+    var step3Back = document.getElementById('escStep3Back');
+    var step3Next = document.getElementById('escStep3Next');
+    var step4Back = document.getElementById('escStep4Back');
+    var step4Next = document.getElementById('escStep4Next');
+    var nextLevelBtn = document.getElementById('escNextLevelBtn');
+    var exitBtn = document.getElementById('escExitBtn');
+    
+    if (step2Back) {
+        step2Back.addEventListener('click', function() {
+            if (typeof goToEscStep === 'function') goToEscStep(1);
+        });
+    }
+    
+    if (step2Next) {
+        step2Next.addEventListener('click', function() {
+            var inputs = document.querySelectorAll('#escPlayerNameInputs input');
+            weeklyEscState.players = [];
+            inputs.forEach(function(input, i) {
+                weeklyEscState.players.push(input.value.trim() || 'Игрок ' + (i + 1));
+            });
+            weeklyEscState.players.forEach(function(_, idx) {
+                if (!weeklyEscState.usedAmps[idx]) weeklyEscState.usedAmps[idx] = [];
+                if (!weeklyEscState.ampSelections[idx]) weeklyEscState.ampSelections[idx] = {};
+                if (!weeklyEscState.unlockedAmps[idx]) weeklyEscState.unlockedAmps[idx] = [];
+                weeklyEscState.allAmpsUsed[idx] = false;
+            });
+            if (typeof goToEscStep === 'function') {
+                goToEscStep(3);
+                if (typeof renderEscEquipment === 'function') {
+                    renderEscEquipment();
+                }
+            }
+        });
+    }
+    
+    if (step3Back) {
+        step3Back.addEventListener('click', function() {
+            if (typeof goToEscStep === 'function') goToEscStep(2);
+        });
+    }
+    
+    if (step3Next) {
+        step3Next.addEventListener('click', function() {
+            if (typeof goToEscStep === 'function') {
+                goToEscStep(4);
+                if (typeof renderEscAmps === 'function') {
+                    renderEscAmps();
+                }
+            }
+        });
+    }
+    
+    if (step4Back) {
+        step4Back.addEventListener('click', function() {
+            if (typeof goToEscStep === 'function') goToEscStep(3);
+        });
+    }
+    
+    if (step4Next) {
+        step4Next.addEventListener('click', function() {
+            weeklyEscState.players.forEach(function(_, idx) {
+                var selected = weeklyEscState.ampSelections[idx] || {};
+                Object.keys(selected).forEach(function(category) {
+                    var ampName = selected[category];
+                    if (ampName) {
+                        if (!weeklyEscState.usedAmps[idx]) weeklyEscState.usedAmps[idx] = [];
+                        if (weeklyEscState.usedAmps[idx].indexOf(ampName) === -1) {
+                            weeklyEscState.usedAmps[idx].push(ampName);
+                        }
+                        if (typeof unlockAmpForPlayer === 'function') {
+                            unlockAmpForPlayer(idx, ampName);
+                        }
+                    }
+                });
+            });
+            generateWeeklyEscResult();
+        });
+    }
+    
+    if (nextLevelBtn) {
+        nextLevelBtn.addEventListener('click', function() {
+            weeklyEscState.level++;
+            console.log('🔄 Переход на уровень:', weeklyEscState.level);
+            if (typeof updateLevelCounter === 'function') {
+                updateLevelCounter();
+            }
+            
+            var allComplete = weeklyEscState.players.every(function(_, idx) {
+                if (typeof areAllCategoriesComplete === 'function') {
+                    return areAllCategoriesComplete(idx);
+                }
+                return true;
+            });
+            
+            if (allComplete && typeof areAllCategoriesComplete === 'function') {
+                alert('Не осталось выбора улучшения. Все улучшения были применены.');
+                generateWeeklyEscResult();
+            } else if (typeof showBreakModal === 'function') {
+                showBreakModal();
+            } else {
+                generateWeeklyEscResult();
+            }
+        });
+    }
+    
+    if (exitBtn) {
+        exitBtn.addEventListener('click', function() {
+            var modal = document.getElementById('confirmModal');
+            if (modal) modal.classList.add('active');
+        });
+    }
+}
+
+// ============================================================
 // ЗАПУСК
 // ============================================================
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 DOM загружен');
+// Ждем загрузки DOM и данных
+var initAttempts = 0;
+var maxAttempts = 20;
+
+function tryInit() {
+    initAttempts++;
+    console.log('🔄 Попытка инициализации #' + initAttempts);
     
-    if (document.getElementById('escalationWrapper')) {
-        console.log('✅ Страница еженедельной эскалации найдена');
-        
-        // Ждем загрузки данных
-        var checkInterval = setInterval(function() {
-            if (typeof mapsData !== 'undefined' && typeof allVariatorsData !== 'undefined') {
-                clearInterval(checkInterval);
-                console.log('✅ Данные загружены');
-                initWeeklyEscalation();
-            }
-        }, 300);
-        
-        // Таймаут
-        setTimeout(function() {
-            clearInterval(checkInterval);
-            if (typeof mapsData === 'undefined') {
-                console.error('❌ Данные не загружены!');
-                var wrapper = document.querySelector('.escalation-wrapper');
-                if (wrapper) {
-                    wrapper.innerHTML = `
-                        <div style="text-align: center; padding: 3rem; color: #e16d48;">
-                            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; display: block; margin-bottom: 1rem;"></i>
-                            <h2>Ошибка загрузки данных</h2>
-                            <p style="color: #c2b9d4; margin-top: 0.5rem;">Не удалось загрузить необходимые данные.<br>Проверьте подключение JS файлов.</p>
-                            <a href="roulette.html" style="display: inline-block; margin-top: 1.5rem; color: #e16d48; text-decoration: none; border: 1px solid #e16d48; padding: 0.5rem 2rem; border-radius: 30px;">Вернуться к рулетке</a>
-                        </div>
-                    `;
-                }
-            }
-        }, 10000);
+    if (isDataLoaded()) {
+        console.log('✅ Данные загружены, инициализируем');
+        initWeeklyEscalation();
+        return true;
     }
-});
+    
+    if (initAttempts >= maxAttempts) {
+        console.error('❌ Превышено количество попыток инициализации');
+        return false;
+    }
+    
+    setTimeout(tryInit, 1000);
+    return false;
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 DOM загружен');
+        if (document.getElementById('escalationWrapper')) {
+            tryInit();
+        }
+    });
+} else {
+    console.log('🚀 DOM уже загружен');
+    if (document.getElementById('escalationWrapper')) {
+        tryInit();
+    }
+}
