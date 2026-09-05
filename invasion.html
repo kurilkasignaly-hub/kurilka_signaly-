@@ -16,7 +16,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
         }
 
@@ -73,14 +74,24 @@
             pointer-events: none;
             z-index: 0;
             background: radial-gradient(ellipse at 10% 80%, rgba(120, 60, 30, 0.05) 0%, transparent 50%),
-                        radial-gradient(ellipse at 90% 20%, rgba(160, 80, 40, 0.03) 0%, transparent 40%);
+                radial-gradient(ellipse at 90% 20%, rgba(160, 80, 40, 0.03) 0%, transparent 40%);
         }
 
         @keyframes floatParticle {
-            0% { transform: translateY(0) scale(0.8); opacity: 0; }
-            30% { opacity: 0.12; }
-            80% { opacity: 0.06; }
-            100% { transform: translateY(-180px) scale(2.2); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(0.8);
+                opacity: 0;
+            }
+            30% {
+                opacity: 0.12;
+            }
+            80% {
+                opacity: 0.06;
+            }
+            100% {
+                transform: translateY(-180px) scale(2.2);
+                opacity: 0;
+            }
         }
 
         .smoke-particle {
@@ -212,8 +223,12 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .connect-status .label {
@@ -229,8 +244,13 @@
         }
 
         @keyframes pulseText {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
         }
 
         .connect-hint {
@@ -274,7 +294,7 @@
             max-width: 580px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(200, 60, 40, 0.15);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(200, 60, 40, 0.15);
             animation: fadeInScale 0.5s ease-out;
         }
 
@@ -444,18 +464,13 @@
 
         .nav-btn:hover {
             color: white;
-            text-shadow: 0 0 8px rgba(220,90,50,0.3);
+            text-shadow: 0 0 8px rgba(220, 90, 50, 0.3);
         }
 
         .nav-btn.active {
             background: linear-gradient(135deg, #bc4627, #e25d32);
             color: white;
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
-        }
-
-        /* ===== МУЗЫКА ТОЛЬКО НА ЭКРАНЕ ПОДКЛЮЧЕНИЯ ===== */
-        .music-toggle {
-            display: none !important;
         }
 
         /* ===== СТРАНИЦА LEADERBOARD ===== */
@@ -571,13 +586,13 @@
             left: 0;
             right: 0;
             padding: 0.8rem 1rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
             font-size: 1.1rem;
             font-weight: 700;
             color: #fff;
             text-align: center;
             letter-spacing: 1px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .mode-banner.active .banner-label {
@@ -689,9 +704,8 @@
             z-index: 1;
         }
 
-        /* Фоны для разных таблиц */
         .table-wrapper.bg-escalation {
-            background-image: url('images/фон эскалация.webp');
+            background-image: url('images/фон-эскалация.webp');
         }
         .table-wrapper.bg-general {
             background-image: url('images/фон-общая.webp');
@@ -763,26 +777,41 @@
         .rank-1 {
             border-left: 3px solid #ffd700;
         }
-        .rank-1 td:first-child { color: #ffd700; font-weight: bold; }
+        .rank-1 td:first-child {
+            color: #ffd700;
+            font-weight: bold;
+        }
 
         .rank-2 {
             border-left: 3px solid #c0c0c0;
         }
-        .rank-2 td:first-child { color: #c0c0c0; font-weight: bold; }
+        .rank-2 td:first-child {
+            color: #c0c0c0;
+            font-weight: bold;
+        }
 
         .rank-3 {
             border-left: 3px solid #cd7f32;
         }
-        .rank-3 td:first-child { color: #cd7f32; font-weight: bold; }
+        .rank-3 td:first-child {
+            color: #cd7f32;
+            font-weight: bold;
+        }
 
         .medal {
             display: inline-block;
             width: 28px;
             text-align: center;
         }
-        .medal-gold { color: #ffd700; }
-        .medal-silver { color: #c0c0c0; }
-        .medal-bronze { color: #cd7f32; }
+        .medal-gold {
+            color: #ffd700;
+        }
+        .medal-silver {
+            color: #c0c0c0;
+        }
+        .medal-bronze {
+            color: #cd7f32;
+        }
 
         .unranked-text {
             color: #7a6a8a;
@@ -808,810 +837,1679 @@
         }
 
         @keyframes fadeInScale {
-            0% { opacity: 0; transform: scale(0.96) translateY(12px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+            0% {
+                opacity: 0;
+                transform: scale(0.96) translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* ===== СОРТИРОВОЧНЫЙ БАР ===== */
+        .sort-bar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.4rem 1.5rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.08);
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .sort-bar .sort-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7a6a8a;
+            margin-right: 0.3rem;
+        }
+
+        .sort-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(220, 90, 50, 0.12);
+            padding: 0.3rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            letter-spacing: 0.3px;
+        }
+
+        .sort-btn:hover {
+            background: rgba(220, 90, 50, 0.1);
+            color: #fff;
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        .sort-btn.active {
+            background: rgba(220, 90, 50, 0.15);
+            color: #e25d32;
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        /* ===== ВЫПАДАЮЩИЙ СПИСОК ПЛАТФОРМ ===== */
+        .platform-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .platform-dropdown-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(220, 90, 50, 0.12);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #b5a8c8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .platform-dropdown-btn:hover {
+            background: rgba(220, 90, 50, 0.1);
+            color: #fff;
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        .platform-dropdown-btn.active {
+            background: rgba(220, 90, 50, 0.15);
+            color: #e25d32;
+            border-color: rgba(220, 90, 50, 0.3);
+        }
+
+        .platform-dropdown-btn .arrow {
+            margin-left: 4px;
+            font-size: 0.6rem;
+            transition: transform 0.3s;
+        }
+
+        .platform-dropdown-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .platform-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 90, 50, 0.2);
+            border-radius: 16px;
+            min-width: 160px;
+            overflow: hidden;
+            display: none;
+            z-index: 100;
+            padding: 4px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .platform-dropdown-menu.open {
+            display: block;
+            animation: fadeInScale 0.2s ease-out;
+        }
+
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem 1.2rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #b5a8c8;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-family: inherit;
+            text-align: left;
+        }
+
+        .platform-dropdown-item:hover {
+            background: rgba(220, 90, 50, 0.1);
+            color: #fff;
+        }
+
+        .platform-dropdown-item.active {
+            background: rgba(220, 90, 50, 0.15);
+            color: #e25d32;
+        }
+
+        .platform-dropdown-item .item-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .platform-dropdown-item .item-label {
+            flex: 1;
         }
 
         @media (max-width: 850px) {
-            .main-wrapper { padding: 1rem; }
-            .header { flex-direction: column; padding: 0.8rem 1rem; }
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-            .logo .logo-img { max-height: 40px; }
-            .logo .logo-text { font-size: 1.1rem; }
-            .logo p { font-size: 0.55rem; }
-            .page-title h1 { font-size: 2rem; }
-            .big-banner { border-radius: 20px; }
-            .mode-banners { flex-direction: column; gap: 1rem; }
-            .mode-banner { min-width: unset; aspect-ratio: 16/9; }
-            .mode-banner .banner-label { font-size: 0.9rem; padding: 0.5rem 0.8rem; }
-            .alert-block { font-size: 0.8rem; padding: 0.8rem 1rem; flex-wrap: wrap; }
-            .alert-block i { font-size: 1.2rem; }
-            .leaderboard-section .section-header { flex-direction: column; align-items: flex-start; padding: 0.6rem 1rem; }
-            .sub-tabs { padding: 0.4rem 0.8rem; gap: 0.5rem; }
-            .sub-tab { font-size: 0.75rem; padding: 0.35rem 1rem; }
-            th, td { padding: 0.4rem 0.3rem; font-size: 0.75rem; }
-            .platform-icon { width: 18px; height: 18px; margin-right: 4px; }
-            .table-wrapper { min-height: 300px; }
-            .connect-logo .line1 { font-size: 1.8rem; letter-spacing: 6px; }
-            .connect-logo .logo-img { max-width: 260px; }
-            .connect-logo .line3 { font-size: 1.4rem; letter-spacing: 4px; }
-            .connect-prompt { font-size: 1rem; padding: 0.6rem 1.6rem; }
-            .connect-status .label { font-size: 1.4rem; }
-            .connect-status .spinner { width: 32px; height: 32px; }
-            .error-box { padding: 2rem 1.5rem; }
-            .error-box h2 { font-size: 1.8rem; }
-            .error-box .error-icon { font-size: 3rem; }
+            .main-wrapper {
+                padding: 1rem;
+            }
+            .header {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .logo .logo-img {
+                max-height: 40px;
+            }
+            .logo .logo-text {
+                font-size: 1.1rem;
+            }
+            .logo p {
+                font-size: 0.55rem;
+            }
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            .big-banner {
+                border-radius: 20px;
+            }
+            .mode-banners {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .mode-banner {
+                min-width: unset;
+                aspect-ratio: 16/9;
+            }
+            .mode-banner .banner-label {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.8rem;
+            }
+            .alert-block {
+                font-size: 0.8rem;
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+            }
+            .alert-block i {
+                font-size: 1.2rem;
+            }
+            .leaderboard-section .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.6rem 1rem;
+            }
+            .sub-tabs {
+                padding: 0.4rem 0.8rem;
+                gap: 0.5rem;
+            }
+            .sub-tab {
+                font-size: 0.75rem;
+                padding: 0.35rem 1rem;
+            }
+            th,
+            td {
+                padding: 0.4rem 0.3rem;
+                font-size: 0.75rem;
+            }
+            .platform-icon {
+                width: 18px;
+                height: 18px;
+                margin-right: 4px;
+            }
+            .table-wrapper {
+                min-height: 300px;
+            }
+            .connect-logo .line1 {
+                font-size: 1.8rem;
+                letter-spacing: 6px;
+            }
+            .connect-logo .logo-img {
+                max-width: 260px;
+            }
+            .connect-logo .line3 {
+                font-size: 1.4rem;
+                letter-spacing: 4px;
+            }
+            .connect-prompt {
+                font-size: 1rem;
+                padding: 0.6rem 1.6rem;
+            }
+            .connect-status .label {
+                font-size: 1.4rem;
+            }
+            .connect-status .spinner {
+                width: 32px;
+                height: 32px;
+            }
+            .error-box {
+                padding: 2rem 1.5rem;
+            }
+            .error-box h2 {
+                font-size: 1.8rem;
+            }
+            .error-box .error-icon {
+                font-size: 3rem;
+            }
+            .sort-bar {
+                padding: 0.3rem 0.8rem;
+                gap: 0.3rem;
+            }
+            .sort-btn {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.6rem;
+            }
+            .sort-bar .sort-label {
+                font-size: 0.6rem;
+            }
+            .platform-dropdown-btn {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.6rem;
+                min-width: 90px;
+            }
+            .platform-dropdown-menu {
+                min-width: 130px;
+            }
+            .platform-dropdown-item {
+                font-size: 0.65rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .platform-dropdown-item .item-icon {
+                width: 16px;
+                height: 16px;
+            }
         }
 
         @media (max-width: 500px) {
-            .main-wrapper { padding: 0.8rem; }
-            .header { padding: 0.6rem 0.8rem; }
-            .nav-btn { font-size: 0.55rem; padding: 0.2rem 0.5rem; }
-            .logo .logo-img { max-height: 28px; }
-            .logo .logo-text { font-size: 0.85rem; }
-            .page-title h1 { font-size: 1.4rem; }
-            .page-title .sub { font-size: 0.7rem; }
-            .big-banner { border-radius: 16px; }
-            .mode-banner .banner-label { font-size: 0.75rem; padding: 0.3rem 0.5rem; }
-            .alert-block { font-size: 0.7rem; padding: 0.6rem 0.8rem; gap: 10px; }
-            .alert-block i { font-size: 1rem; }
-            .leaderboard-section .section-header .title { font-size: 0.85rem; }
-            .leaderboard-section .section-header .sub-title { font-size: 0.6rem; padding: 0.2rem 0.6rem; }
-            .sub-tabs { gap: 0.3rem; padding: 0.3rem 0.5rem; }
-            .sub-tab { font-size: 0.6rem; padding: 0.25rem 0.6rem; }
-            th, td { padding: 0.3rem 0.2rem; font-size: 0.6rem; }
-            .platform-icon { width: 14px; height: 14px; margin-right: 2px; }
-            .medal { width: 20px; font-size: 0.6rem; }
-            .table-wrapper { min-height: 250px; }
-            .footer-logo { max-height: 18px; }
-            .connect-logo .line1 { font-size: 1.3rem; letter-spacing: 4px; }
-            .connect-logo .logo-img { max-width: 200px; }
-            .connect-logo .line3 { font-size: 1rem; letter-spacing: 3px; }
-            .connect-prompt { font-size: 0.8rem; padding: 0.5rem 1.2rem; margin-top: 2rem; }
-            .connect-status .label { font-size: 1.1rem; letter-spacing: 2px; }
-            .connect-status .spinner { width: 28px; height: 28px; }
-            .connect-status { gap: 1rem; margin-top: 2rem; }
-            .connect-hint { bottom: 1.5rem; font-size: 0.6rem; }
-            .error-box { padding: 1.5rem 1rem; }
-            .error-box h2 { font-size: 1.4rem; }
-            .error-box .error-icon { font-size: 2.5rem; }
-            .error-box .error-desc { font-size: 0.8rem; }
-            .error-actions { flex-direction: column; align-items: center; }
-            .error-btn { width: 100%; justify-content: center; }
+            .main-wrapper {
+                padding: 0.8rem;
+            }
+            .header {
+                padding: 0.6rem 0.8rem;
+            }
+            .nav-btn {
+                font-size: 0.55rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .logo .logo-img {
+                max-height: 28px;
+            }
+            .logo .logo-text {
+                font-size: 0.85rem;
+            }
+            .page-title h1 {
+                font-size: 1.4rem;
+            }
+            .page-title .sub {
+                font-size: 0.7rem;
+            }
+            .big-banner {
+                border-radius: 16px;
+            }
+            .mode-banner .banner-label {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.5rem;
+            }
+            .alert-block {
+                font-size: 0.7rem;
+                padding: 0.6rem 0.8rem;
+                gap: 10px;
+            }
+            .alert-block i {
+                font-size: 1rem;
+            }
+            .leaderboard-section .section-header .title {
+                font-size: 0.85rem;
+            }
+            .leaderboard-section .section-header .sub-title {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.6rem;
+            }
+            .sub-tabs {
+                gap: 0.3rem;
+                padding: 0.3rem 0.5rem;
+            }
+            .sub-tab {
+                font-size: 0.6rem;
+                padding: 0.25rem 0.6rem;
+            }
+            th,
+            td {
+                padding: 0.3rem 0.2rem;
+                font-size: 0.6rem;
+            }
+            .platform-icon {
+                width: 14px;
+                height: 14px;
+                margin-right: 2px;
+            }
+            .medal {
+                width: 20px;
+                font-size: 0.6rem;
+            }
+            .table-wrapper {
+                min-height: 250px;
+            }
+            .footer-logo {
+                max-height: 18px;
+            }
+            .connect-logo .line1 {
+                font-size: 1.3rem;
+                letter-spacing: 4px;
+            }
+            .connect-logo .logo-img {
+                max-width: 200px;
+            }
+            .connect-logo .line3 {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
+            .connect-prompt {
+                font-size: 0.8rem;
+                padding: 0.5rem 1.2rem;
+                margin-top: 2rem;
+            }
+            .connect-status .label {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+            }
+            .connect-status .spinner {
+                width: 28px;
+                height: 28px;
+            }
+            .connect-status {
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            .connect-hint {
+                bottom: 1.5rem;
+                font-size: 0.6rem;
+            }
+            .error-box {
+                padding: 1.5rem 1rem;
+            }
+            .error-box h2 {
+                font-size: 1.4rem;
+            }
+            .error-box .error-icon {
+                font-size: 2.5rem;
+            }
+            .error-box .error-desc {
+                font-size: 0.8rem;
+            }
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .error-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .sort-bar {
+                padding: 0.2rem 0.5rem;
+                gap: 0.2rem;
+            }
+            .sort-btn {
+                font-size: 0.5rem;
+                padding: 0.15rem 0.5rem;
+            }
+            .sort-bar .sort-label {
+                font-size: 0.5rem;
+                margin-right: 0.1rem;
+            }
+            .platform-dropdown-btn {
+                font-size: 0.5rem;
+                padding: 0.15rem 0.5rem;
+                min-width: 70px;
+            }
+            .platform-dropdown-menu {
+                min-width: 100px;
+            }
+            .platform-dropdown-item {
+                font-size: 0.55rem;
+                padding: 0.3rem 0.6rem;
+            }
+            .platform-dropdown-item .item-icon {
+                width: 14px;
+                height: 14px;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- Фоновый слайдер -->
-<div class="bg-slider" id="bgSlider"></div>
-<div class="bg-overlay"></div>
-<div class="smoke-overlay"></div>
+    <!-- Фоновый слайдер -->
+    <div class="bg-slider" id="bgSlider"></div>
+    <div class="bg-overlay"></div>
+    <div class="smoke-overlay"></div>
 
-<!-- Аудио для загрузки -->
-<audio id="bgAudio" loop preload="auto" style="display:none;"></audio>
+    <!-- Аудио для загрузки -->
+    <audio id="bgAudio" loop preload="auto" style="display:none;"></audio>
 
-<script>
-    // ===== ГЕНЕРАЦИЯ ФОНОВЫХ ИЗОБРАЖЕНИЙ =====
-    (function initBackgrounds() {
-        const bgSlider = document.getElementById('bgSlider');
-        const bgFiles = [
-            'фон-1.webp', 'фон-2.webp', 'фон-3.webp', 'фон-4.webp', 'фон-5.webp',
-            'фон-6.webp', 'фон-7.webp', 'фон-8.webp', 'фон-9.webp', 'фон-10.webp'
-        ];
+    <div class="main-wrapper">
+        <!-- ====== ЭКРАН ПОДКЛЮЧЕНИЯ ====== -->
+        <div id="connectScreen" class="connect-screen">
+            <div class="connect-content">
+                <div class="connect-logo">
+                    <span class="line1">ДОБРО ПОЖАЛОВАТЬ В</span>
+                    <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img">
+                    <span class="line3">LEADERBOARD</span>
+                </div>
+                <div id="connectPrompt" class="connect-prompt">
+                    <i class="fas fa-hand-pointer"></i> нажмите любую кнопку для подключения
+                </div>
+                <div id="connectStatus" class="connect-status">
+                    <div class="spinner"></div>
+                    <div class="label">ПОДОЖДИТЕ, ИДЕТ ЗАГРУЗКА ДАННЫХ...</div>
+                </div>
+            </div>
+            <div class="connect-hint"><i class="fas fa-shield-alt"></i> защищенный канал</div>
+        </div>
 
-        bgFiles.forEach((file, index) => {
-            const img = document.createElement('img');
-            img.src = 'images/' + file;
-            img.alt = 'фон ' + (index + 1);
-            if (index === 0) img.classList.add('active');
-            bgSlider.appendChild(img);
-        });
+        <!-- ====== ЭКРАН ОШИБКИ ====== -->
+        <div id="errorScreen" class="error-screen">
+            <div class="error-box">
+                <span class="error-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                <h2>ОШИБКА СОЕДИНЕНИЯ!</h2>
+                <p class="error-sub">Не удалось установить соединение с сервером</p>
+                <p class="error-desc">
+                    К сожалению, возникла непредвиденная ошибка.<br>
+                    Попробуйте повторить операцию. Если ошибка повторится, попробуйте перезагрузить страницу или обратитесь к администратору.
+                </p>
+                <div class="error-code">ERR_CONNECTION_RESET</div>
+                <div class="error-actions">
+                    <button class="error-btn error-btn-primary" id="retryBtn">
+                        <i class="fas fa-sync-alt"></i> Перезагрузить
+                    </button>
+                </div>
+            </div>
+        </div>
 
-        const imgs = bgSlider.querySelectorAll('img');
-        let current = 0;
-        const total = imgs.length;
-        let isTransitioning = false;
-        let timerId = null;
+        <!-- ====== ОСНОВНОЙ КОНТЕНТ ====== -->
+        <div id="mainContent" class="main-content">
+            <div class="header">
+                <div class="logo">
+                    <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img">
+                    <div>
+                        <span class="logo-text">Курилка Синьялы</span>
+                        <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
+                    <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
+                    <a href="news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
+                    <a href="roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
+                    <a href="invasion.html" class="nav-btn active"><i class="fas fa-biohazard"></i> Invasion</a>
+                    <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
+                </div>
+            </div>
 
-        function switchToNext() {
-            if (isTransitioning) return;
-            isTransitioning = true;
-            imgs[current].classList.remove('active');
-            current = (current + 1) % total;
-            imgs[current].classList.add('active');
-            setTimeout(() => { isTransitioning = false; }, 3500);
-        }
+            <!-- Заголовок -->
+            <div class="page-title">
+                <h1><i class="fas fa-biohazard"></i> Курилка Синьялы — Leaderboard</h1>
+                <div class="sub"><i class="fas fa-skull"></i> Рейтинг игроков · Invasion & Эскалация <i class="fas fa-skull"></i></div>
+            </div>
 
-        function startInterval() {
-            if (timerId) clearInterval(timerId);
-            timerId = setInterval(switchToNext, 10000);
-        }
+            <!-- ====== БОЛЬШАЯ КАРТИНКА ====== -->
+            <div class="big-banner">
+                <img src="images/баннер лидерборд.png" alt="Leaderboard Banner" onerror="this.style.display='none'">
+            </div>
 
-        function stopInterval() {
-            if (timerId) { clearInterval(timerId); timerId = null; }
-        }
+            <!-- ====== ALERT БЛОК ====== -->
+            <div class="alert-block">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>
+                    <span class="highlight">ВНИМАНИЕ!</span> Все данные лидерборда обновляются один раз в неделю — каждый <span class="highlight">Вторник в 21:00</span> по МСК.
+                </span>
+            </div>
 
-        startInterval();
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) { stopInterval(); } 
-            else { startInterval(); isTransitioning = false; }
-        });
-        window.addEventListener('beforeunload', function() { stopInterval(); });
-    })();
+            <!-- ====== БАННЕРЫ ЭСКАЛАЦИЯ / ВТОРЖЕНИЕ СВЕРХУ ====== -->
+            <div class="mode-banners" id="modeBanners">
+                <div class="mode-banner active" data-mode="escalation" onclick="switchMode('escalation')">
+                    <img src="images/эскалация баннер.webp" alt="Эскалация" onerror="this.src='https://placehold.co/600x338/1a1a2e/e25d32?text=Эскалация'">
+                    <div class="banner-label">ЭСКАЛАЦИЯ</div>
+                </div>
+                <div class="mode-banner" data-mode="invasion" onclick="switchMode('invasion')">
+                    <img src="images/вторжение баннер.png" alt="Вторжение" onerror="this.src='https://placehold.co/600x338/1a1a2e/e25d32?text=Вторжение'">
+                    <div class="banner-label">ВТОРЖЕНИЕ</div>
+                </div>
+            </div>
 
-    // Дымовые частицы
-    (function createParticles() {
-        for (let i = 0; i < 6; i++) {
-            const p = document.createElement('div');
-            p.className = 'smoke-particle';
-            p.style.left = (10 + Math.random() * 80) + '%';
-            p.style.width = (80 + Math.random() * 100) + 'px';
-            p.style.height = p.style.width;
-            p.style.animationDelay = (i * 2.5) + 's';
-            p.style.animationDuration = (14 + Math.random() * 8) + 's';
-            document.body.appendChild(p);
-        }
-    })();
+            <!-- ====== СЕКЦИЯ С ТАБЛИЦЕЙ ====== -->
+            <div class="leaderboard-section" id="leaderboardSection">
+                <div class="section-header">
+                    <div class="title">
+                        <i class="fas fa-crown"></i>
+                        <span id="sectionTitle">ЭСКАЛАЦИЯ</span>
+                    </div>
+                    <div class="sub-title">
+                        <i class="fas fa-clock"></i> Обновлено: 14.06.2026
+                    </div>
+                </div>
 
-    // ===== ЛОГИКА ВЫБОРА АУДИОФАЙЛА =====
-    window.addEventListener('load', function() {
-        const audio = document.getElementById('bgAudio');
-        if (!audio) return;
+                <!-- Подвкладки -->
+                <div class="sub-tabs" id="subTabs">
+                    <span class="sub-tab active" data-sub="weekly" onclick="switchSubTab('weekly')">Еженедельная</span>
+                    <span class="sub-tab" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
+                </div>
 
-        function selectAudioFile() {
-            let selected = 'loading 2.mp3';
-            if (navigator.connection) {
-                const conn = navigator.connection;
-                const isVerySlow = conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g';
-                const isHighLatency = conn.rtt && conn.rtt > 500;
-                const isVeryLowBandwidth = conn.downlink && conn.downlink < 0.3;
-                if (isVerySlow || isHighLatency || isVeryLowBandwidth) return 'loading 3.mp3';
-                if (conn.saveData) return 'loading 3.mp3';
-            }
+                <!-- Сортировочный бар (появляется только для Invasion) -->
+                <div class="sort-bar" id="sortBar" style="display:none;">
+                    <span class="sort-label"><i class="fas fa-arrow-up-wide-short"></i> Сортировка:</span>
+                    <button class="sort-btn active" data-sort="default" onclick="applySort('default')">По умолчанию</button>
+                    <button class="sort-btn" data-sort="name-asc" onclick="applySort('name-asc')">Имя А→Я</button>
+                    <button class="sort-btn" data-sort="name-desc" onclick="applySort('name-desc')">Имя Я→А</button>
+
+                    <!-- Выпадающий список для платформы -->
+                    <div class="platform-dropdown" id="platformDropdown">
+                        <button class="platform-dropdown-btn" id="platformDropdownBtn" onclick="togglePlatformDropdown(event)">
+                            <span id="platformDropdownLabel">Платформа</span>
+                            <span class="arrow" id="platformArrow">▾</span>
+                        </button>
+                        <div class="platform-dropdown-menu" id="platformDropdownMenu">
+                            <button class="platform-dropdown-item active" data-platform="all" onclick="selectPlatform('all', event)">
+                                <span class="item-label">Все платформы</span>
+                            </button>
+                            <button class="platform-dropdown-item" data-platform="steam" onclick="selectPlatform('steam', event)">
+                                <img src="images/иконка стим.webp" class="item-icon" alt="Steam" onerror="this.style.display='none'">
+                                <span class="item-label">Steam</span>
+                            </button>
+                            <button class="platform-dropdown-item" data-platform="xbox" onclick="selectPlatform('xbox', event)">
+                                <img src="images/иконка х-бокс.webp" class="item-icon" alt="Xbox" onerror="this.style.display='none'">
+                                <span class="item-label">Xbox</span>
+                            </button>
+                            <button class="platform-dropdown-item" data-platform="ps" onclick="selectPlatform('ps', event)">
+                                <img src="images/иконка пс.webp" class="item-icon" alt="PlayStation" onerror="this.style.display='none'">
+                                <span class="item-label">PlayStation</span>
+                            </button>
+                            <button class="platform-dropdown-item" data-platform="epic" onclick="selectPlatform('epic', event)">
+                                <img src="images/иконка эпик.webp" class="item-icon" alt="Epic Games" onerror="this.style.display='none'">
+                                <span class="item-label">Epic Games</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="sort-btn sort-match" data-sort="matches" onclick="applySort('matches')">Матчи ↑</button>
+                    <button class="sort-btn sort-match" data-sort="matches-desc" onclick="applySort('matches-desc')">Матчи ↓</button>
+                    <button class="sort-btn sort-points" data-sort="points" onclick="applySort('points')">Очки ↑</button>
+                    <button class="sort-btn sort-points" data-sort="points-desc" onclick="applySort('points-desc')">Очки ↓</button>
+                </div>
+
+                <!-- Таблица с фоновым изображением -->
+                <div class="table-wrapper bg-escalation" id="tableWrapper">
+                    <div class="table-bg-overlay"></div>
+                    <div id="tableContainer"></div>
+                </div>
+            </div>
+
+            <footer>
+                <img src="images/лого.png" alt="Курилка Синьялы" class="footer-logo">
+                <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
+                <p style="margin-top:8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
+                <p style="margin-top:4px; font-size:0.65rem;">© 2026 Курилка Синьялы | Все права защищены безумием</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Аудио для загрузки (дублируем для надежности) -->
+    <audio id="bgAudio2" loop preload="auto" style="display:none;"></audio>
+
+    <script>
+        // ===== УПРАВЛЕНИЕ СОСТОЯНИЕМ ПОДКЛЮЧЕНИЯ =====
+        var CONNECT_KEY = 'kurilka_connected';
+
+        function isConnected() {
             try {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                if (perfData) {
-                    const loadTime = perfData.loadEventEnd - perfData.fetchStart;
-                    if (loadTime > 5000) return 'loading 3.mp3';
+                return sessionStorage.getItem(CONNECT_KEY) === 'true';
+            } catch (e) { return false; }
+        }
+
+        function setConnected(value) {
+            try {
+                sessionStorage.setItem(CONNECT_KEY, value ? 'true' : 'false');
+            } catch (e) {}
+        }
+
+        // ===== ГЕНЕРАЦИЯ ФОНОВЫХ ИЗОБРАЖЕНИЙ =====
+        (function initBackgrounds() {
+            var bgSlider = document.getElementById('bgSlider');
+            if (!bgSlider) return;
+            var bgFiles = [
+                'фон-1.webp', 'фон-2.webp', 'фон-3.webp', 'фон-4.webp', 'фон-5.webp',
+                'фон-6.webp', 'фон-7.webp', 'фон-8.webp', 'фон-9.webp', 'фон-10.webp'
+            ];
+
+            bgFiles.forEach(function(file, index) {
+                var img = document.createElement('img');
+                img.src = 'images/' + file;
+                img.alt = 'фон ' + (index + 1);
+                if (index === 0) img.classList.add('active');
+                bgSlider.appendChild(img);
+            });
+
+            var imgs = bgSlider.querySelectorAll('img');
+            if (imgs.length === 0) return;
+            var current = 0;
+            var total = imgs.length;
+            var isTransitioning = false;
+            var timerId = null;
+
+            function switchToNext() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                imgs[current].classList.remove('active');
+                current = (current + 1) % total;
+                imgs[current].classList.add('active');
+                setTimeout(function() { isTransitioning = false; }, 3500);
+            }
+
+            function startInterval() {
+                if (timerId) clearInterval(timerId);
+                timerId = setInterval(switchToNext, 10000);
+            }
+
+            function stopInterval() {
+                if (timerId) { clearInterval(timerId);
+                    timerId = null; }
+            }
+
+            startInterval();
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) { stopInterval(); } else { startInterval();
+                    isTransitioning = false; }
+            });
+            window.addEventListener('beforeunload', function() { stopInterval(); });
+        })();
+
+        // Дымовые частицы
+        (function createParticles() {
+            for (var i = 0; i < 6; i++) {
+                var p = document.createElement('div');
+                p.className = 'smoke-particle';
+                p.style.left = (10 + Math.random() * 80) + '%';
+                p.style.width = (80 + Math.random() * 100) + 'px';
+                p.style.height = p.style.width;
+                p.style.animationDelay = (i * 2.5) + 's';
+                p.style.animationDuration = (14 + Math.random() * 8) + 's';
+                document.body.appendChild(p);
+            }
+        })();
+
+        // ===== ЛОГИКА ВЫБОРА АУДИОФАЙЛА =====
+        window.addEventListener('load', function() {
+            var audio = document.getElementById('bgAudio');
+            if (!audio) return;
+
+            function selectAudioFile() {
+                var selected = 'loading 2.mp3';
+                if (navigator.connection) {
+                    var conn = navigator.connection;
+                    var isVerySlow = conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g';
+                    var isHighLatency = conn.rtt && conn.rtt > 500;
+                    var isVeryLowBandwidth = conn.downlink && conn.downlink < 0.3;
+                    if (isVerySlow || isHighLatency || isVeryLowBandwidth) return 'loading 3.mp3';
+                    if (conn.saveData) return 'loading 3.mp3';
                 }
-            } catch(e) {}
-            const rand = Math.random();
-            return rand < 0.70 ? 'loading 2.mp3' : 'loading.mp3';
+                try {
+                    var perfData = performance.getEntriesByType('navigation')[0];
+                    if (perfData) {
+                        var loadTime = perfData.loadEventEnd - perfData.fetchStart;
+                        if (loadTime > 5000) return 'loading 3.mp3';
+                    }
+                } catch (e) {}
+                var rand = Math.random();
+                return rand < 0.70 ? 'loading 2.mp3' : 'loading.mp3';
+            }
+
+            var selectedFile = selectAudioFile();
+            window.normalAudioFile = selectedFile;
+            audio.src = 'images/' + selectedFile;
+            console.log('✅ Выбран аудиофайл:', selectedFile);
+            audio.load();
+        });
+
+        // ===== УПРАВЛЕНИЕ МУЗЫКОЙ =====
+        var pageAudioStarted = false;
+
+        function startPageMusic() {
+            var audio = document.getElementById('bgAudio');
+            if (!audio || pageAudioStarted) return;
+            audio.volume = 0.35;
+            audio.play().catch(function() {});
+            pageAudioStarted = true;
         }
 
-        const selectedFile = selectAudioFile();
-        window.normalAudioFile = selectedFile;
-        audio.src = 'images/' + selectedFile;
-        console.log('✅ Выбран аудиофайл:', selectedFile);
-        audio.load();
-    });
+        // ===== ЭКРАН ПОДКЛЮЧЕНИЯ =====
+        var connectScreen = document.getElementById('connectScreen');
+        var connectPrompt = document.getElementById('connectPrompt');
+        var connectStatus = document.getElementById('connectStatus');
+        var errorScreen = document.getElementById('errorScreen');
+        var mainContent = document.getElementById('mainContent');
+        var audio = document.getElementById('bgAudio');
+        var isProcessing = false;
+        var connectionTimer = null;
 
-    // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ТОЛЬКО НА ЭКРАНЕ ПОДКЛЮЧЕНИЯ) =====
-    let pageAudioStarted = false;
-
-    function startPageMusic() {
-        const audio = document.getElementById('bgAudio');
-        if (!audio || pageAudioStarted) return;
-        audio.volume = 0.35;
-        audio.play().catch(() => {});
-        pageAudioStarted = true;
-    }
-
-    // ===== ЭКРАН ПОДКЛЮЧЕНИЯ =====
-    const connectScreen = document.getElementById('connectScreen');
-    const connectPrompt = document.getElementById('connectPrompt');
-    const connectStatus = document.getElementById('connectStatus');
-    const errorScreen = document.getElementById('errorScreen');
-    const mainContent = document.getElementById('mainContent');
-    const audio = document.getElementById('bgAudio');
-    let isProcessing = false;
-    let connectionTimer = null;
-
-    document.addEventListener('DOMContentLoaded', function() {
-        connectScreen.classList.add('active');
-        setTimeout(startAudioOnConnect, 300);
-    });
-
-    function startAudioOnConnect() {
-        if (!audio) return;
-        if (!connectScreen.classList.contains('active')) return;
-        if (!audio.paused) return;
-        if (audio.readyState >= 2) {
-            audio.play().catch(() => {});
-        } else {
-            audio.addEventListener('canplaythrough', function onPlay() {
-                audio.play().catch(() => {});
-                audio.removeEventListener('canplaythrough', onPlay);
-            }, { once: true });
-        }
-    }
-
-    async function startConnectionProcess() {
-        if (isProcessing) return;
-        isProcessing = true;
-
-        if (audio && audio.paused) {
-            audio.play().catch(() => {});
+        function shouldShowConnectScreen() {
+            if (isConnected()) {
+                return false;
+            }
+            return true;
         }
 
-        connectPrompt.style.display = 'none';
-        connectStatus.classList.add('active');
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            if (shouldShowConnectScreen()) {
+                if (connectScreen) connectScreen.classList.add('active');
+                setTimeout(startAudioOnConnect, 300);
+                if (mainContent) mainContent.classList.remove('active');
+                document.body.classList.remove('scroll-enabled');
+            } else {
+                if (connectScreen) connectScreen.classList.remove('active');
+                if (mainContent) mainContent.classList.add('active');
+                document.body.classList.add('scroll-enabled');
+                setTimeout(startPageMusic, 500);
+                setTimeout(function() {
+                    updateTableContent();
+                }, 100);
+            }
+        });
 
-        const maintenanceStatus = await checkMaintenance();
-
-        if (maintenanceStatus === 1) {
-            if (audio && audio.src.indexOf('loading 3.mp3') === -1) {
-                audio.src = 'images/loading 3.mp3';
-                audio.volume = 0.35;
-                audio.currentTime = 0;
-                audio.load();
+        function startAudioOnConnect() {
+            if (!audio) return;
+            if (!connectScreen || !connectScreen.classList.contains('active')) return;
+            if (!audio.paused) return;
+            if (audio.readyState >= 2) {
+                audio.play().catch(function() {});
+            } else {
                 audio.addEventListener('canplaythrough', function onPlay() {
-                    audio.play().catch(() => {});
+                    audio.play().catch(function() {});
                     audio.removeEventListener('canplaythrough', onPlay);
                 }, { once: true });
-            } else if (audio && audio.paused) {
-                audio.play().catch(() => {});
             }
-            
-            const delay = Math.floor(Math.random() * (50000 - 30000 + 1)) + 30000;
-            console.log('⏳ Ошибка, ожидание:', delay / 1000, 'секунд');
-            
-            await new Promise(resolve => {
-                connectionTimer = setTimeout(resolve, delay);
-            });
+        }
 
-            connectScreen.classList.remove('active');
-            errorScreen.classList.add('active');
-            if (audio) audio.pause();
-            
-        } else {
-            if (audio && audio.src.indexOf('loading 3.mp3') !== -1) {
-                const normalFile = window.normalAudioFile || 'loading 2.mp3';
-                audio.src = 'images/' + normalFile;
-                audio.volume = 0.35;
-                audio.currentTime = 0;
-                audio.load();
-                audio.addEventListener('canplaythrough', function onPlay() {
-                    audio.play().catch(() => {});
-                    audio.removeEventListener('canplaythrough', onPlay);
-                }, { once: true });
-            } else if (audio && audio.paused) {
-                audio.play().catch(() => {});
+        async function startConnectionProcess() {
+            if (isProcessing) return;
+            isProcessing = true;
+
+            if (audio && audio.paused) {
+                audio.play().catch(function() {});
             }
-            
-            const delay = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
-            console.log('⏳ Штатный режим, ожидание:', delay / 1000, 'секунд');
-            
-            await new Promise(resolve => {
-                connectionTimer = setTimeout(resolve, delay);
-            });
 
-            const finalStatus = await checkMaintenance();
+            if (connectPrompt) connectPrompt.style.display = 'none';
+            if (connectStatus) connectStatus.classList.add('active');
 
-            if (finalStatus === 1) {
-                if (audio) {
+            var maintenanceStatus = await checkMaintenance();
+
+            if (maintenanceStatus === 1) {
+                if (audio && audio.src.indexOf('loading 3.mp3') === -1) {
                     audio.src = 'images/loading 3.mp3';
                     audio.volume = 0.35;
                     audio.currentTime = 0;
                     audio.load();
                     audio.addEventListener('canplaythrough', function onPlay() {
-                        audio.play().catch(() => {});
+                        audio.play().catch(function() {});
                         audio.removeEventListener('canplaythrough', onPlay);
                     }, { once: true });
+                } else if (audio && audio.paused) {
+                    audio.play().catch(function() {});
                 }
-                connectScreen.classList.remove('active');
-                errorScreen.classList.add('active');
+
+                var delay = Math.floor(Math.random() * (50000 - 30000 + 1)) + 30000;
+                console.log('⏳ Ошибка, ожидание:', delay / 1000, 'секунд');
+
+                await new Promise(function(resolve) {
+                    connectionTimer = setTimeout(resolve, delay);
+                });
+
+                if (connectScreen) connectScreen.classList.remove('active');
+                if (errorScreen) errorScreen.classList.add('active');
                 if (audio) audio.pause();
+
             } else {
-                connectScreen.classList.remove('active');
-                mainContent.classList.add('active');
-                document.body.classList.add('scroll-enabled');
-                
-                if (audio) {
-                    audio.pause();
+                if (audio && audio.src.indexOf('loading 3.mp3') !== -1) {
+                    var normalFile = window.normalAudioFile || 'loading 2.mp3';
+                    audio.src = 'images/' + normalFile;
+                    audio.volume = 0.35;
                     audio.currentTime = 0;
+                    audio.load();
+                    audio.addEventListener('canplaythrough', function onPlay() {
+                        audio.play().catch(function() {});
+                        audio.removeEventListener('canplaythrough', onPlay);
+                    }, { once: true });
+                } else if (audio && audio.paused) {
+                    audio.play().catch(function() {});
                 }
-                
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                var delay2 = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
+                console.log('⏳ Штатный режим, ожидание:', delay2 / 1000, 'секунд');
+
+                await new Promise(function(resolve) {
+                    connectionTimer = setTimeout(resolve, delay2);
+                });
+
+                var finalStatus = await checkMaintenance();
+
+                if (finalStatus === 1) {
+                    if (audio) {
+                        audio.src = 'images/loading 3.mp3';
+                        audio.volume = 0.35;
+                        audio.currentTime = 0;
+                        audio.load();
+                        audio.addEventListener('canplaythrough', function onPlay() {
+                            audio.play().catch(function() {});
+                            audio.removeEventListener('canplaythrough', onPlay);
+                        }, { once: true });
+                    }
+                    if (connectScreen) connectScreen.classList.remove('active');
+                    if (errorScreen) errorScreen.classList.add('active');
+                    if (audio) audio.pause();
+                } else {
+                    setConnected(true);
+
+                    if (connectScreen) connectScreen.classList.remove('active');
+                    if (mainContent) mainContent.classList.add('active');
+                    document.body.classList.add('scroll-enabled');
+
+                    if (audio) {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }
+
+                    updateTableContent();
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             }
-        }
-        
-        isProcessing = false;
-        connectionTimer = null;
-    }
 
-    async function checkMaintenance() {
-        try {
-            const response = await fetch('maintenance.txt?_=' + Date.now());
-            if (!response.ok) return 0;
-            const text = await response.text();
-            const status = parseInt(text.trim(), 10);
-            return isNaN(status) ? 0 : status;
-        } catch (error) { return 0; }
-    }
-
-    connectScreen.addEventListener('click', function(e) {
-        if (isProcessing) return;
-        if (connectPrompt.style.display !== 'none') {
-            startConnectionProcess();
-        }
-    });
-
-    connectPrompt.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (isProcessing) return;
-        startConnectionProcess();
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (!connectScreen.classList.contains('active')) return;
-        if (isProcessing) return;
-        if (connectPrompt.style.display === 'none') return;
-        startConnectionProcess();
-    });
-
-    document.getElementById('retryBtn').addEventListener('click', function() {
-        if (connectionTimer) {
-            clearTimeout(connectionTimer);
+            isProcessing = false;
             connectionTimer = null;
         }
-        isProcessing = false;
 
-        errorScreen.classList.remove('active');
-        connectScreen.classList.add('active');
-        connectPrompt.style.display = 'block';
-        connectStatus.classList.remove('active');
-
-        if (audio) {
-            const normalFile = window.normalAudioFile || 'loading 2.mp3';
-            if (audio.src.indexOf('loading 3.mp3') !== -1 || !audio.src) {
-                audio.src = 'images/' + normalFile;
-                audio.volume = 0.35;
-                audio.currentTime = 0;
-                audio.load();
-            }
-            setTimeout(startAudioOnConnect, 300);
+        async function checkMaintenance() {
+            try {
+                var response = await fetch('maintenance.txt?_=' + Date.now());
+                if (!response.ok) return 0;
+                var text = await response.text();
+                var status = parseInt(text.trim(), 10);
+                return isNaN(status) ? 0 : status;
+            } catch (error) { return 0; }
         }
 
-        setTimeout(() => {
-            if (connectScreen.classList.contains('active') && !isProcessing) {
+        if (connectScreen) {
+            connectScreen.addEventListener('click', function(e) {
+                if (isProcessing) return;
+                if (connectPrompt && connectPrompt.style.display !== 'none') {
+                    startConnectionProcess();
+                }
+            });
+        }
+
+        if (connectPrompt) {
+            connectPrompt.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isProcessing) return;
                 startConnectionProcess();
-            }
-        }, 800);
-    });
+            });
+        }
 
-    // ===== ДАННЫЕ С ФИКСИРОВАННЫМИ ПЛАТФОРМАМИ =====
-    const playerPlatforms = {
-        'DASCERA': 'xbox',
-        'TSUQUOIA': 'steam',
-        'BLUE F': 'ps',
-        '魔法桃心蛋 (证人BUG不修)': 'epic',
-        '绿猫大人': 'xbox',
-        'LEI_GE': 'steam',
-        '小虎阿': 'ps',
-        '冰': 'epic',
-        '封心': 'xbox',
-        '蓉蓉': 'steam',
-        '荔枝冻': 'ps',
-        '它的狗': 'epic',
-        'Legend_Player': 'steam',
-        'Infinity_Master': 'xbox',
-        'Endless_Runner': 'ps',
-        'Бесконечность': 'epic',
-        'Nightmare_Endless': 'xbox',
-        'Reagent_Master': 'steam',
-        'Survivor_King': 'ps',
-        'Reagent_Pro': 'xbox',
-        'Эксперимент_13': 'epic',
-        'Лабораторный': 'steam',
-        'Реагент_X': 'xbox',
-        'Подопытный_7': 'ps',
-        'Образец_09': 'epic',
-        'Тестовая_группа': 'steam',
-        'Реагент_001': 'xbox',
-        'Impostor_Elite': 'ps',
-        'The_Shadow': 'epic',
-        'Самозванец_Х': 'steam',
-        'Двойник_7': 'xbox',
-        'Маскировка': 'ps',
-        'Имитация': 'epic',
-        'Фальшивка': 'steam',
-        'Призрак': 'xbox',
-        'Копия': 'ps',
-        'Обман': 'epic'
-    };
+        document.addEventListener('keydown', function(e) {
+            if (!connectScreen || !connectScreen.classList.contains('active')) return;
+            if (isProcessing) return;
+            if (connectPrompt && connectPrompt.style.display === 'none') return;
+            startConnectionProcess();
+        });
 
-    const escalationData = {
-        weekly: [
-            { rank: 1, name: "DASCERA", level: "unranked", time: "unranked" },
-            { rank: 2, name: "TSUQUOIA", level: "unranked", time: "unranked" },
-            { rank: 3, name: "BLUE F", level: "unranked", time: "unranked" },
-            { rank: 4, name: "魔法桃心蛋 (证人BUG不修)", level: "unranked", time: "unranked" },
-            { rank: 5, name: "绿猫大人", level: "unranked", time: "unranked" },
-            { rank: 6, name: "LEI_GE", level: "unranked", time: "unranked" },
-            { rank: 7, name: "小虎阿", level: "unranked", time: "unranked" },
-            { rank: 8, name: "冰", level: "unranked", time: "unranked" },
-            { rank: 9, name: "封心", level: "unranked", time: "unranked" },
-            { rank: 10, name: "蓉蓉", level: "unranked", time: "unranked" },
-            { rank: 11, name: "荔枝冻", level: "unranked", time: "unranked" },
-            { rank: 12, name: "它的狗", level: "unranked", time: "unranked" }
-        ],
-        infinite: [
-            { rank: 1, name: "Legend_Player", level: "unranked", time: "unranked" },
-            { rank: 2, name: "Infinity_Master", level: "unranked", time: "unranked" },
-            { rank: 3, name: "Endless_Runner", level: "unranked", time: "unranked" },
-            { rank: 4, name: "Бесконечность", level: "unranked", time: "unranked" },
-            { rank: 5, name: "Nightmare_Endless", level: "unranked", time: "unranked" }
-        ]
-    };
+        var retryBtn = document.getElementById('retryBtn');
+        if (retryBtn) {
+            retryBtn.addEventListener('click', function() {
+                if (connectionTimer) {
+                    clearTimeout(connectionTimer);
+                    connectionTimer = null;
+                }
+                isProcessing = false;
 
-    const invasionGeneralData = [
-        { rank: 1, name: "Invasion_King", points: "unranked" },
-        { rank: 2, name: "Shadow_Hunter", points: "unranked" },
-        { rank: 3, name: "Nightmare_Stalker", points: "unranked" },
-        { rank: 4, name: "Darkness_Fury", points: "unranked" },
-        { rank: 5, name: "Silent_Death", points: "unranked" },
-        { rank: 6, name: "Fearless_Runner", points: "unranked" },
-        { rank: 7, name: "Ghost_Blade", points: "unranked" },
-        { rank: 8, name: "Crimson_Tide", points: "unranked" },
-        { rank: 9, name: "Eclipse_Warrior", points: "unranked" },
-        { rank: 10, name: "Void_Walker", points: "unranked" }
-    ];
+                if (errorScreen) errorScreen.classList.remove('active');
+                if (connectScreen) connectScreen.classList.add('active');
+                if (connectPrompt) connectPrompt.style.display = 'block';
+                if (connectStatus) connectStatus.classList.remove('active');
 
-    const invasionData = {
-        reagent: [
-            { rank: 1, name: "Reagent_Master", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 2, name: "Survivor_King", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 3, name: "Reagent_Pro", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 4, name: "Эксперимент_13", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 5, name: "Лабораторный", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 6, name: "Реагент_X", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 7, name: "Подопытный_7", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 8, name: "Образец_09", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 9, name: "Тестовая_группа", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 10, name: "Реагент_001", points: "unranked", wins: "unranked", losses: "unranked" }
-        ],
-        impostor: [
-            { rank: 1, name: "Impostor_Elite", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 2, name: "The_Shadow", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 3, name: "Самозванец_Х", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 4, name: "Двойник_7", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 5, name: "Маскировка", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 6, name: "Имитация", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 7, name: "Фальшивка", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 8, name: "Призрак", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 9, name: "Копия", points: "unranked", wins: "unranked", losses: "unranked" },
-            { rank: 10, name: "Обман", points: "unranked", wins: "unranked", losses: "unranked" }
-        ]
-    };
+                if (audio) {
+                    var normalFile = window.normalAudioFile || 'loading 2.mp3';
+                    if (audio.src.indexOf('loading 3.mp3') !== -1 || !audio.src) {
+                        audio.src = 'images/' + normalFile;
+                        audio.volume = 0.35;
+                        audio.currentTime = 0;
+                        audio.load();
+                    }
+                    setTimeout(startAudioOnConnect, 300);
+                }
 
-    // ===== ФУНКЦИИ =====
-    function getPlatformIcon(platform) {
-        const iconPaths = {
-            'xbox': 'images/иконка х-бокс.webp',
-            'steam': 'images/иконка стим.webp',
-            'ps': 'images/иконка пс.webp',
-            'epic': 'images/иконка эпик.webp'
+                setTimeout(function() {
+                    if (connectScreen && connectScreen.classList.contains('active') && !isProcessing) {
+                        startConnectionProcess();
+                    }
+                }, 800);
+            });
+        }
+
+        // ===== ДАННЫЕ С ФИКСИРОВАННЫМИ ПЛАТФОРМАМИ =====
+        var playerPlatforms = {
+            'DASCERA': 'xbox',
+            'TSUQUOIA': 'steam',
+            'BLUE F': 'ps',
+            '魔法桃心蛋 (证人BUG不修)': 'epic',
+            '绿猫大人': 'xbox',
+            'LEI_GE': 'steam',
+            '小虎阿': 'ps',
+            '冰': 'epic',
+            '封心': 'xbox',
+            '蓉蓉': 'steam',
+            '荔枝冻': 'ps',
+            '它的狗': 'epic',
+            'Legend_Player': 'steam',
+            'Infinity_Master': 'xbox',
+            'Endless_Runner': 'ps',
+            'Бесконечность': 'epic',
+            'Nightmare_Endless': 'xbox',
+            'Reagent_Master': 'steam',
+            'Survivor_King': 'ps',
+            'Reagent_Pro': 'xbox',
+            'Эксперимент_13': 'epic',
+            'Лабораторный': 'steam',
+            'Реагент_X': 'xbox',
+            'Подопытный_7': 'ps',
+            'Образец_09': 'epic',
+            'Тестовая_группа': 'steam',
+            'Реагент_001': 'xbox',
+            'Impostor_Elite': 'ps',
+            'The_Shadow': 'epic',
+            'Самозванец_Х': 'steam',
+            'Двойник_7': 'xbox',
+            'Маскировка': 'ps',
+            'Имитация': 'epic',
+            'Фальшивка': 'steam',
+            'Призрак': 'xbox',
+            'Копия': 'ps',
+            'Обман': 'epic',
+            'Invasion_King': 'steam',
+            'Shadow_Hunter': 'xbox',
+            'Nightmare_Stalker': 'ps',
+            'Darkness_Fury': 'epic',
+            'Silent_Death': 'steam',
+            'Fearless_Runner': 'xbox',
+            'Ghost_Blade': 'ps',
+            'Crimson_Tide': 'epic',
+            'Eclipse_Warrior': 'steam',
+            'Void_Walker': 'xbox'
         };
-        const iconPath = iconPaths[platform];
-        if (iconPath) {
-            return `<img src="${iconPath}" class="platform-icon" alt="${platform}" onerror="this.style.display='none'">`;
+
+        var escalationData = {
+            weekly: [
+                { rank: 1, name: "DASCERA", level: "unranked", time: "unranked" },
+                { rank: 2, name: "TSUQUOIA", level: "unranked", time: "unranked" },
+                { rank: 3, name: "BLUE F", level: "unranked", time: "unranked" },
+                { rank: 4, name: "魔法桃心蛋 (证人BUG不修)", level: "unranked", time: "unranked" },
+                { rank: 5, name: "绿猫大人", level: "unranked", time: "unranked" },
+                { rank: 6, name: "LEI_GE", level: "unranked", time: "unranked" },
+                { rank: 7, name: "小虎阿", level: "unranked", time: "unranked" },
+                { rank: 8, name: "冰", level: "unranked", time: "unranked" },
+                { rank: 9, name: "封心", level: "unranked", time: "unranked" },
+                { rank: 10, name: "蓉蓉", level: "unranked", time: "unranked" },
+                { rank: 11, name: "荔枝冻", level: "unranked", time: "unranked" },
+                { rank: 12, name: "它的狗", level: "unranked", time: "unranked" }
+            ],
+            infinite: [
+                { rank: 1, name: "Legend_Player", level: "unranked", time: "unranked" },
+                { rank: 2, name: "Infinity_Master", level: "unranked", time: "unranked" },
+                { rank: 3, name: "Endless_Runner", level: "unranked", time: "unranked" },
+                { rank: 4, name: "Бесконечность", level: "unranked", time: "unranked" },
+                { rank: 5, name: "Nightmare_Endless", level: "unranked", time: "unranked" }
+            ]
+        };
+
+        var invasionGeneralData = [
+            { rank: 1, name: "Invasion_King", points: "unranked" },
+            { rank: 2, name: "Shadow_Hunter", points: "unranked" },
+            { rank: 3, name: "Nightmare_Stalker", points: "unranked" },
+            { rank: 4, name: "Darkness_Fury", points: "unranked" },
+            { rank: 5, name: "Silent_Death", points: "unranked" },
+            { rank: 6, name: "Fearless_Runner", points: "unranked" },
+            { rank: 7, name: "Ghost_Blade", points: "unranked" },
+            { rank: 8, name: "Crimson_Tide", points: "unranked" },
+            { rank: 9, name: "Eclipse_Warrior", points: "unranked" },
+            { rank: 10, name: "Void_Walker", points: "unranked" }
+        ];
+
+        var invasionData = {
+            reagent: [
+                { rank: 1, name: "Reagent_Master", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 2, name: "Survivor_King", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 3, name: "Reagent_Pro", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 4, name: "Эксперимент_13", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 5, name: "Лабораторный", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 6, name: "Реагент_X", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 7, name: "Подопытный_7", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 8, name: "Образец_09", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 9, name: "Тестовая_группа", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 10, name: "Реагент_001", matches: "unranked", wins: "unranked", losses: "unranked" }
+            ],
+            impostor: [
+                { rank: 1, name: "Impostor_Elite", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 2, name: "The_Shadow", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 3, name: "Самозванец_Х", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 4, name: "Двойник_7", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 5, name: "Маскировка", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 6, name: "Имитация", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 7, name: "Фальшивка", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 8, name: "Призрак", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 9, name: "Копия", matches: "unranked", wins: "unranked", losses: "unranked" },
+                { rank: 10, name: "Обман", matches: "unranked", wins: "unranked", losses: "unranked" }
+            ]
+        };
+
+        function generateRandomData() {
+            var names = invasionData.reagent.map(function(p) { return p.name; });
+            var result = [];
+            names.forEach(function(name) {
+                var matches = Math.floor(Math.random() * 50) + 5;
+                var wins = Math.floor(Math.random() * matches);
+                var losses = matches - wins;
+                var points = wins * 10 + Math.floor(Math.random() * 20);
+                result.push({ name: name, matches: matches, wins: wins, losses: losses, points: points });
+            });
+            return result;
         }
-        return '';
-    }
 
-    function getPlatformForPlayer(name) {
-        return playerPlatforms[name] || 'steam';
-    }
+        var reagentDataExtended = generateRandomData();
+        var impostorDataExtended = generateRandomData();
 
-    function getRankClass(rank) {
-        if (rank === 1) return 'rank-1';
-        if (rank === 2) return 'rank-2';
-        if (rank === 3) return 'rank-3';
-        return '';
-    }
+        // Функции сортировки
+        var currentSort = 'default';
+        var currentPlatformFilter = 'all';
+        var currentDisplayData = [];
 
-    function getMedalIcon(rank) {
-        if (rank === 1) return '<span class="medal medal-gold"><i class="fas fa-crown"></i></span>';
-        if (rank === 2) return '<span class="medal medal-silver"><i class="fas fa-medal"></i></span>';
-        if (rank === 3) return '<span class="medal medal-bronze"><i class="fas fa-medal"></i></span>';
-        return `${rank}`;
-    }
-
-    function isUnranked(value) {
-        return value === 'unranked';
-    }
-
-    function formatCell(value) {
-        if (isUnranked(value)) {
-            return `<span class="unranked-text">unranked</span>`;
+        function getPlatformForPlayer(name) {
+            return playerPlatforms[name] || 'steam';
         }
-        return value;
-    }
 
-    // ===== ПЕРЕКЛЮЧЕНИЕ =====
-    let currentMode = 'escalation';
-    let currentSubTab = 'weekly';
-
-    function switchMode(mode) {
-        currentMode = mode;
-        
-        document.querySelectorAll('.mode-banner').forEach(banner => {
-            banner.classList.toggle('active', banner.dataset.mode === mode);
-        });
-        
-        if (mode === 'invasion') {
-            currentSubTab = 'general';
-        } else {
-            currentSubTab = 'weekly';
-        }
-        
-        updateTableContent();
-    }
-
-    function switchSubTab(sub) {
-        currentSubTab = sub;
-        document.querySelectorAll('.sub-tab').forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.sub === sub);
-        });
-        updateTableContent();
-    }
-
-    function updateTableContent() {
-        const container = document.getElementById('tableContainer');
-        const title = document.getElementById('sectionTitle');
-        const subTabs = document.getElementById('subTabs');
-        const tableWrapper = document.getElementById('tableWrapper');
-        
-        tableWrapper.classList.remove('bg-escalation', 'bg-general', 'bg-reagent', 'bg-impostor');
-        
-        if (currentMode === 'escalation') {
-            title.textContent = 'ЭСКАЛАЦИЯ';
-            tableWrapper.classList.add('bg-escalation');
-            
-            if (currentSubTab === 'weekly') {
-                subTabs.innerHTML = `
-                    <span class="sub-tab active" data-sub="weekly" onclick="switchSubTab('weekly')">Еженедельная</span>
-                    <span class="sub-tab" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
-                `;
-                
-                const data = escalationData.weekly;
-                
-                let html = `<table>
-                    <thead>
-                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ПРОЙДЕНО</th><th>ОЦЕНКА</th><th>ВРЕМЯ</th></tr>
-                    </thead>
-                    <tbody>`;
-                
-                data.forEach(player => {
-                    const platform = getPlatformForPlayer(player.name);
-                    const rankDisplay = player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ? '🥉' : '#' + player.rank;
-                    const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
-                    const levelDisplay = isUnranked(player.level) ? formatCell(player.level) : player.level;
-                    const timeDisplay = isUnranked(player.time) ? formatCell(player.time) : player.time;
-                    
-                    html += `
-                        <tr class="${getRankClass(player.rank)}">
-                            <td style="font-weight: bold; color: ${color};">${rankDisplay}</td>
-                            <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
-                                <span class="player-name">
-                                    ${getPlatformIcon(platform)}
-                                    ${player.name}
-                                </span>
-                            </td>
-                            <td>${levelDisplay}</td>
-                            <td>${levelDisplay}</td>
-                            <td>${timeDisplay}</td>
-                        </tr>
-                    `;
+        function sortData(data, sortType, platformFilter) {
+            var filtered = data.slice();
+            if (platformFilter !== 'all') {
+                filtered = filtered.filter(function(p) {
+                    return getPlatformForPlayer(p.name) === platformFilter;
                 });
-                
-                html += `</tbody></table>`;
-                container.innerHTML = html;
-                
+            }
+
+            var copy = filtered.slice();
+            switch (sortType) {
+                case 'default':
+                    return filtered.slice();
+                case 'name-asc':
+                    return copy.sort(function(a, b) { return a.name.localeCompare(b.name); });
+                case 'name-desc':
+                    return copy.sort(function(a, b) { return b.name.localeCompare(a.name); });
+                case 'matches':
+                    return copy.sort(function(a, b) {
+                        var ma = typeof a.matches === 'number' ? a.matches : 0;
+                        var mb = typeof b.matches === 'number' ? b.matches : 0;
+                        return ma - mb;
+                    });
+                case 'matches-desc':
+                    return copy.sort(function(a, b) {
+                        var ma = typeof a.matches === 'number' ? a.matches : 0;
+                        var mb = typeof b.matches === 'number' ? b.matches : 0;
+                        return mb - ma;
+                    });
+                case 'points':
+                    return copy.sort(function(a, b) {
+                        var pa = typeof a.points === 'number' ? a.points : 0;
+                        var pb = typeof b.points === 'number' ? b.points : 0;
+                        return pa - pb;
+                    });
+                case 'points-desc':
+                    return copy.sort(function(a, b) {
+                        var pa = typeof a.points === 'number' ? a.points : 0;
+                        var pb = typeof b.points === 'number' ? b.points : 0;
+                        return pb - pa;
+                    });
+                default:
+                    return filtered.slice();
+            }
+        }
+
+        function applySort(sortType) {
+            currentSort = sortType;
+            var btns = document.querySelectorAll('.sort-btn');
+            btns.forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.sort === sortType);
+            });
+            if (sortType !== 'default' && !sortType.startsWith('platform')) {
+                var platformBtn = document.querySelector('.platform-dropdown-btn');
+                if (platformBtn) platformBtn.classList.remove('active');
+            }
+            if (currentMode === 'invasion') {
+                updateTableContent();
+            }
+            closePlatformDropdown();
+        }
+
+        // ===== ВЫПАДАЮЩИЙ СПИСОК ПЛАТФОРМ =====
+        function togglePlatformDropdown(event) {
+            if (event) event.stopPropagation();
+            var menu = document.getElementById('platformDropdownMenu');
+            var arrow = document.getElementById('platformArrow');
+            if (!menu) return;
+            menu.classList.toggle('open');
+            if (arrow) arrow.classList.toggle('open');
+        }
+
+        function closePlatformDropdown() {
+            var menu = document.getElementById('platformDropdownMenu');
+            var arrow = document.getElementById('platformArrow');
+            if (menu) menu.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+        }
+
+        function selectPlatform(platform, event) {
+            if (event) event.stopPropagation();
+            currentPlatformFilter = platform;
+            closePlatformDropdown();
+
+            var items = document.querySelectorAll('.platform-dropdown-item');
+            items.forEach(function(item) {
+                item.classList.toggle('active', item.dataset.platform === platform);
+            });
+
+            var btn = document.getElementById('platformDropdownBtn');
+            var label = document.getElementById('platformDropdownLabel');
+            if (btn) btn.classList.add('active');
+            if (label) {
+                var platformNames = {
+                    'all': 'Платформа',
+                    'steam': 'Steam',
+                    'xbox': 'Xbox',
+                    'ps': 'PlayStation',
+                    'epic': 'Epic Games'
+                };
+                label.textContent = platformNames[platform] || 'Платформа';
+            }
+
+            currentSort = 'default';
+            var btns = document.querySelectorAll('.sort-btn');
+            btns.forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.sort === 'default');
+            });
+
+            if (currentMode === 'invasion') {
+                updateTableContent();
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            var dropdown = document.getElementById('platformDropdown');
+            if (dropdown && !dropdown.contains(event.target)) {
+                closePlatformDropdown();
+            }
+        });
+
+        // ===== ФУНКЦИИ =====
+        function getPlatformIcon(platform) {
+            var iconPaths = {
+                'xbox': 'images/иконка х-бокс.webp',
+                'steam': 'images/иконка стим.webp',
+                'ps': 'images/иконка пс.webp',
+                'epic': 'images/иконка эпик.webp'
+            };
+            var iconPath = iconPaths[platform];
+            if (iconPath) {
+                return '<img src="' + iconPath + '" class="platform-icon" alt="' + platform + '" onerror="this.style.display=\'none\'">';
+            }
+            return '';
+        }
+
+        function getRankClass(rank) {
+            if (rank === 1) return 'rank-1';
+            if (rank === 2) return 'rank-2';
+            if (rank === 3) return 'rank-3';
+            return '';
+        }
+
+        function getMedalIcon(rank) {
+            if (rank === 1) return '<span class="medal medal-gold"><i class="fas fa-crown"></i></span>';
+            if (rank === 2) return '<span class="medal medal-silver"><i class="fas fa-medal"></i></span>';
+            if (rank === 3) return '<span class="medal medal-bronze"><i class="fas fa-medal"></i></span>';
+            return rank;
+        }
+
+        function isUnranked(value) {
+            return value === 'unranked';
+        }
+
+        function formatCell(value) {
+            if (isUnranked(value)) {
+                return '<span class="unranked-text">unranked</span>';
+            }
+            return value;
+        }
+
+        // ===== ПЕРЕКЛЮЧЕНИЕ =====
+        var currentMode = 'escalation';
+        var currentSubTab = 'weekly';
+
+        function switchMode(mode) {
+            currentMode = mode;
+            currentSort = 'default';
+            currentPlatformFilter = 'all';
+
+            var banners = document.querySelectorAll('.mode-banner');
+            banners.forEach(function(banner) {
+                banner.classList.toggle('active', banner.dataset.mode === mode);
+            });
+
+            var sortBar = document.getElementById('sortBar');
+            if (mode === 'invasion') {
+                sortBar.style.display = 'flex';
+                updateSortButtonsVisibility();
+                var label = document.getElementById('platformDropdownLabel');
+                if (label) label.textContent = 'Платформа';
+                var items = document.querySelectorAll('.platform-dropdown-item');
+                items.forEach(function(item) {
+                    item.classList.toggle('active', item.dataset.platform === 'all');
+                });
             } else {
-                subTabs.innerHTML = `
-                    <span class="sub-tab" data-sub="weekly" onclick="switchSubTab('weekly')">Еженедельная</span>
-                    <span class="sub-tab active" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
-                `;
-                
-                const data = escalationData.infinite;
-                
-                let html = `<table>
-                    <thead>
-                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>МАКСИМУМ (ВРЕМЯ)</th></tr>
-                    </thead>
-                    <tbody>`;
-                
-                data.forEach(player => {
-                    const platform = getPlatformForPlayer(player.name);
-                    const rankDisplay = player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ? '🥉' : '#' + player.rank;
-                    const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
-                    const levelDisplay = isUnranked(player.level) ? formatCell(player.level) : player.level;
-                    const timeDisplay = isUnranked(player.time) ? formatCell(player.time) : player.time;
-                    
-                    html += `
-                        <tr class="${getRankClass(player.rank)}">
-                            <td style="font-weight: bold; color: ${color};">${rankDisplay}</td>
-                            <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
-                                <span class="player-name">
-                                    ${getPlatformIcon(platform)}
-                                    ${player.name}
-                                </span>
-                            </td>
-                            <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'};">
-                                ${levelDisplay} (${timeDisplay})
-                            </td>
-                        </tr>
-                    `;
-                });
-                
-                html += `</tbody></table>`;
-                container.innerHTML = html;
+                sortBar.style.display = 'none';
             }
-            
-        } else {
-            title.textContent = 'ВТОРЖЕНИЕ';
-            
-            if (currentSubTab === 'general') {
-                subTabs.innerHTML = `
-                    <span class="sub-tab active" data-sub="general" onclick="switchSubTab('general')">Общая</span>
-                    <span class="sub-tab" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
-                    <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
-                `;
-                
-                tableWrapper.classList.add('bg-general');
-                
-                const data = invasionGeneralData;
-                
-                let html = `<table>
-                    <thead>
-                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th></tr>
-                    </thead>
-                    <tbody>`;
-                
-                data.forEach(player => {
-                    const platform = getPlatformForPlayer(player.name);
-                    const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
-                    const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
-                    
-                    html += `
-                        <tr class="${getRankClass(player.rank)}">
-                            <td style="font-weight: bold; color: ${color};">${getMedalIcon(player.rank)}</td>
-                            <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
-                                <span class="player-name">
-                                    ${getPlatformIcon(platform)}
-                                    ${player.name}
-                                </span>
-                            </td>
-                            <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
-                                ${pointsDisplay}
-                            </td>
-                        </tr>
-                    `;
-                });
-                
-                html += `</tbody></table>`;
-                container.innerHTML = html;
-                
-            } else if (currentSubTab === 'reagent') {
-                subTabs.innerHTML = `
-                    <span class="sub-tab" data-sub="general" onclick="switchSubTab('general')">Общая</span>
-                    <span class="sub-tab active" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
-                    <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
-                `;
-                
-                tableWrapper.classList.add('bg-reagent');
-                
-                const data = invasionData.reagent;
-                
-                let html = `<table>
-                    <thead>
-                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th><th>ВЫИГРЫШНЫЕ МАТЧИ</th><th>ПРОИГРЫШНЫЕ МАТЧИ</th><th>РЕЙТИНГ</th></tr>
-                    </thead>
-                    <tbody>`;
-                
-                data.forEach(player => {
-                    const platform = getPlatformForPlayer(player.name);
-                    const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
-                    const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
-                    const winsDisplay = isUnranked(player.wins) ? formatCell(player.wins) : player.wins;
-                    const lossesDisplay = isUnranked(player.losses) ? formatCell(player.losses) : player.losses;
-                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.wins));
-                    
-                    html += `
-                        <tr class="${getRankClass(player.rank)}">
-                            <td style="font-weight: bold; color: ${color};">${getMedalIcon(player.rank)}</td>
-                            <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
-                                <span class="player-name">
-                                    ${getPlatformIcon(platform)}
-                                    ${player.name}
-                                </span>
-                            </td>
-                            <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
-                                ${pointsDisplay}
-                            </td>
-                            <td>${winsDisplay}</td>
-                            <td>${lossesDisplay}</td>
-                            <td>${ratingDisplay}</td>
-                        </tr>
-                    `;
-                });
-                
-                html += `</tbody></table>`;
-                container.innerHTML = html;
-                
+
+            if (mode === 'invasion') {
+                currentSubTab = 'general';
             } else {
-                subTabs.innerHTML = `
-                    <span class="sub-tab" data-sub="general" onclick="switchSubTab('general')">Общая</span>
-                    <span class="sub-tab" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
-                    <span class="sub-tab active" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
-                `;
-                
-                tableWrapper.classList.add('bg-impostor');
-                
-                const data = invasionData.impostor;
-                
-                let html = `<table>
-                    <thead>
-                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th><th>ВЫИГРЫШНЫЕ МАТЧИ</th><th>ПРОИГРЫШНЫЕ МАТЧИ</th><th>РЕЙТИНГ</th></tr>
-                    </thead>
-                    <tbody>`;
-                
-                data.forEach(player => {
-                    const platform = getPlatformForPlayer(player.name);
-                    const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
-                    const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
-                    const winsDisplay = isUnranked(player.wins) ? formatCell(player.wins) : player.wins;
-                    const lossesDisplay = isUnranked(player.losses) ? formatCell(player.losses) : player.losses;
-                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.wins));
-                    
-                    html += `
-                        <tr class="${getRankClass(player.rank)}">
-                            <td style="font-weight: bold; color: ${color};">${getMedalIcon(player.rank)}</td>
-                            <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
-                                <span class="player-name">
-                                    ${getPlatformIcon(platform)}
-                                    ${player.name}
-                                </span>
-                            </td>
-                            <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
-                                ${pointsDisplay}
-                            </td>
-                            <td>${winsDisplay}</td>
-                            <td>${lossesDisplay}</td>
-                            <td>${ratingDisplay}</td>
-                        </tr>
-                    `;
-                });
-                
-                html += `</tbody></table>`;
-                container.innerHTML = html;
+                currentSubTab = 'weekly';
+            }
+
+            var btns = document.querySelectorAll('.sort-btn');
+            btns.forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.sort === 'default');
+            });
+
+            updateTableContent();
+        }
+
+        function updateSortButtonsVisibility() {
+            var isGeneral = currentSubTab === 'general';
+            var matchBtns = document.querySelectorAll('.sort-match');
+            var pointBtns = document.querySelectorAll('.sort-points');
+
+            if (isGeneral) {
+                matchBtns.forEach(function(btn) { btn.style.display = 'none'; });
+                pointBtns.forEach(function(btn) { btn.style.display = 'inline-block'; });
+            } else {
+                matchBtns.forEach(function(btn) { btn.style.display = 'inline-block'; });
+                pointBtns.forEach(function(btn) { btn.style.display = 'inline-block'; });
             }
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        updateTableContent();
-    });
+        function switchSubTab(sub) {
+            currentSubTab = sub;
+            var tabs = document.querySelectorAll('.sub-tab');
+            tabs.forEach(function(tab) {
+                tab.classList.toggle('active', tab.dataset.sub === sub);
+            });
+            currentSort = 'default';
+            currentPlatformFilter = 'all';
+            var btns = document.querySelectorAll('.sort-btn');
+            btns.forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.sort === 'default');
+            });
+            var label = document.getElementById('platformDropdownLabel');
+            if (label) label.textContent = 'Платформа';
+            var items = document.querySelectorAll('.platform-dropdown-item');
+            items.forEach(function(item) {
+                item.classList.toggle('active', item.dataset.platform === 'all');
+            });
+            updateSortButtonsVisibility();
+            updateTableContent();
+        }
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
+        function updateTableContent() {
+            var container = document.getElementById('tableContainer');
+            var title = document.getElementById('sectionTitle');
+            var subTabs = document.getElementById('subTabs');
+            var tableWrapper = document.getElementById('tableWrapper');
+            var sortBar = document.getElementById('sortBar');
+
+            if (!container || !title || !subTabs || !tableWrapper) return;
+
+            tableWrapper.classList.remove('bg-escalation', 'bg-general', 'bg-reagent', 'bg-impostor');
+
+            if (currentMode === 'escalation') {
+                title.textContent = 'ЭСКАЛАЦИЯ';
+                tableWrapper.classList.add('bg-escalation');
+                if (sortBar) sortBar.style.display = 'none';
+
+                if (currentSubTab === 'weekly') {
+                    subTabs.innerHTML = `
+                            <span class="sub-tab active" data-sub="weekly" onclick="switchSubTab('weekly')">Еженедельная</span>
+                            <span class="sub-tab" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
+                        `;
+
+                    var data = escalationData.weekly;
+
+                    var html = `<table>
+                            <thead>
+                                <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ПРОЙДЕНО</th><th>ОЦЕНКА</th><th>ВРЕМЯ</th></tr>
+                            </thead>
+                            <tbody>`;
+
+                    data.forEach(function(player) {
+                        var platform = getPlatformForPlayer(player.name);
+                        var rankDisplay = player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ?
+                            '🥉' : '#' + player.rank;
+                        var color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank ===
+                            3 ? '#cd7f32' : '#e16d48';
+                        var levelDisplay = isUnranked(player.level) ? formatCell(player.level) : player.level;
+                        var timeDisplay = isUnranked(player.time) ? formatCell(player.time) : player.time;
+
+                        html += `
+                                <tr class="${getRankClass(player.rank)}">
+                                    <td style="font-weight: bold; color: ${color};">${rankDisplay}</td>
+                                    <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
+                                        <span class="player-name">
+                                            ${getPlatformIcon(platform)}
+                                            ${player.name}
+                                        </span>
+                                    </td>
+                                    <td>${levelDisplay}</td>
+                                    <td>${levelDisplay}</td>
+                                    <td>${timeDisplay}</td>
+                                </tr>
+                            `;
+                    });
+
+                    html += `</tbody></table>`;
+                    container.innerHTML = html;
+
+                } else {
+                    subTabs.innerHTML = `
+                            <span class="sub-tab" data-sub="weekly" onclick="switchSubTab('weekly')">Еженедельная</span>
+                            <span class="sub-tab active" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
+                        `;
+
+                    var data2 = escalationData.infinite;
+
+                    var html2 = `<table>
+                            <thead>
+                                <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>МАКСИМУМ (ВРЕМЯ)</th></tr>
+                            </thead>
+                            <tbody>`;
+
+                    data2.forEach(function(player) {
+                        var platform = getPlatformForPlayer(player.name);
+                        var rankDisplay = player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : player.rank === 3 ?
+                            '🥉' : '#' + player.rank;
+                        var color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank ===
+                            3 ? '#cd7f32' : '#e16d48';
+                        var levelDisplay = isUnranked(player.level) ? formatCell(player.level) : player.level;
+                        var timeDisplay = isUnranked(player.time) ? formatCell(player.time) : player.time;
+
+                        html2 += `
+                                <tr class="${getRankClass(player.rank)}">
+                                    <td style="font-weight: bold; color: ${color};">${rankDisplay}</td>
+                                    <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
+                                        <span class="player-name">
+                                            ${getPlatformIcon(platform)}
+                                            ${player.name}
+                                        </span>
+                                    </td>
+                                    <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'};">
+                                        ${levelDisplay} (${timeDisplay})
+                                    </td>
+                                </tr>
+                            `;
+                    });
+
+                    html2 += `</tbody></table>`;
+                    container.innerHTML = html2;
+                }
+
+            } else {
+                title.textContent = 'ВТОРЖЕНИЕ';
+                if (sortBar) sortBar.style.display = 'flex';
+
+                if (currentSubTab === 'general') {
+                    subTabs.innerHTML = `
+                            <span class="sub-tab active" data-sub="general" onclick="switchSubTab('general')">Общая</span>
+                            <span class="sub-tab" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
+                            <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
+                        `;
+
+                    tableWrapper.classList.add('bg-general');
+
+                    var data3 = invasionGeneralData;
+                    var filteredGeneral = data3;
+                    if (currentPlatformFilter !== 'all') {
+                        filteredGeneral = data3.filter(function(p) {
+                            return getPlatformForPlayer(p.name) === currentPlatformFilter;
+                        });
+                    }
+
+                    var html3 = `<table>
+                            <thead>
+                                <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th></tr>
+                            </thead>
+                            <tbody>`;
+
+                    filteredGeneral.forEach(function(player) {
+                        var platform = getPlatformForPlayer(player.name);
+                        var color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank ===
+                            3 ? '#cd7f32' : '#e16d48';
+                        var pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
+
+                        html3 += `
+                                <tr class="${getRankClass(player.rank)}">
+                                    <td style="font-weight: bold; color: ${color};">${getMedalIcon(player.rank)}</td>
+                                    <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
+                                        <span class="player-name">
+                                            ${getPlatformIcon(platform)}
+                                            ${player.name}
+                                        </span>
+                                    </td>
+                                    <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
+                                        ${pointsDisplay}
+                                    </td>
+                                </tr>
+                            `;
+                    });
+
+                    html3 += `</tbody></table>`;
+                    container.innerHTML = html3;
+
+                } else if (currentSubTab === 'reagent') {
+                    subTabs.innerHTML = `
+                            <span class="sub-tab" data-sub="general" onclick="switchSubTab('general')">Общая</span>
+                            <span class="sub-tab active" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
+                            <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
+                        `;
+
+                    tableWrapper.classList.add('bg-reagent');
+
+                    var baseData = invasionData.reagent;
+                    var data4 = baseData.map(function(item) {
+                        var ext = reagentDataExtended.find(function(e) { return e.name === item.name; });
+                        if (ext) {
+                            return {
+                                rank: item.rank,
+                                name: item.name,
+                                matches: ext.matches,
+                                wins: ext.wins,
+                                losses: ext.losses,
+                                points: ext.points
+                            };
+                        }
+                        return {
+                            rank: item.rank,
+                            name: item.name,
+                            matches: item.matches,
+                            wins: item.wins,
+                            losses: item.losses,
+                            points: 0
+                        };
+                    });
+
+                    var sortedData = sortData(data4, currentSort, currentPlatformFilter);
+
+                    var html4 = `<table>
+                            <thead>
+                                <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>МАТЧИ</th><th>ВЫИГРЫШНЫЕ МАТЧИ</th><th>ПРОИГРЫШНЫЕ МАТЧИ</th><th>РЕЙТИНГ</th></tr>
+                            </thead>
+                            <tbody>`;
+
+                    sortedData.forEach(function(player) {
+                        var platform = getPlatformForPlayer(player.name);
+                        var color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank ===
+                            3 ? '#cd7f32' : '#e16d48';
+                        var matchesDisplay = isUnranked(player.matches) ? formatCell(player.matches) : player
+                            .matches;
+                        var winsDisplay = isUnranked(player.wins) ? formatCell(player.wins) : player.wins;
+                        var lossesDisplay = isUnranked(player.losses) ? formatCell(player.losses) : player.losses;
+                        var ratingDisplay = (typeof player.matches === 'number' && typeof player.wins === 'number') ?
+                            Math.floor(player.wins / player.matches * 100) + '%' :
+                            formatCell('unranked');
+
+                        html4 += `
+                                <tr class="${getRankClass(player.rank)}">
+                                    <td style="font-weight: bold; color: ${color};">${getMedalIcon(player.rank)}</td>
+                                    <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
+                                        <span class="player-name">
+                                            ${getPlatformIcon(platform)}
+                                            ${player.name}
+                                        </span>
+                                    </td>
+                                    <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
+                                        ${matchesDisplay}
+                                    </td>
+                                    <td>${winsDisplay}</td>
+                                    <td>${lossesDisplay}</td>
+                                    <td>${ratingDisplay}</td>
+                                </tr>
+                            `;
+                    });
+
+                    html4 += `</tbody></table>`;
+                    container.innerHTML = html4;
+
+                } else {
+                    subTabs.innerHTML = `
+                            <span class="sub-tab" data-sub="general" onclick="switchSubTab('general')">Общая</span>
+                            <span class="sub-tab" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
+                            <span class="sub-tab active" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
+                        `;
+
+                    tableWrapper.classList.add('bg-impostor');
+
+                    var baseData2 = invasionData.impostor;
+                    var data5 = baseData2.map(function(item) {
+                        var ext = impostorDataExtended.find(function(e) { return e.name === item.name; });
+                        if (ext) {
+                            return {
+                                rank: item.rank,
+                                name: item.name,
+                                matches: ext.matches,
+                                wins: ext.wins,
+                                losses: ext.losses,
+                                points: ext.points
+                            };
+                        }
+                        return {
+                            rank: item.rank,
+                            name: item.name,
+                            matches: item.matches,
+                            wins: item.wins,
+                            losses: item.losses,
+                            points: 0
+                        };
+                    });
+
+                    var sortedData2 = sortData(data5, currentSort, currentPlatformFilter);
+
+                    var html5 = `<table>
+                            <thead>
+                                <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>МАТЧИ</th><th>ВЫИГРЫШНЫЕ МАТЧИ</th><th>ПРОИГРЫШНЫЕ МАТЧИ</th><th>РЕЙТИНГ</th></tr>
+                            </thead>
+                            <tbody>`;
+
+                    sortedData2.forEach(function(player) {
+                        var platform = getPlatformForPlayer(player.name);
+                        var color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank ===
+                            3 ? '#cd7f32' : '#e16d48';
+                        var matchesDisplay = isUnranked(player.matches) ? formatCell(player.matches) : player
+                            .matches;
+                        var winsDisplay = isUnranked(player.wins) ? formatCell(player.wins) : player.wins;
+                        var lossesDisplay = isUnranked(player.losses) ? formatCell(player.losses) : player.losses;
+                        var ratingDisplay = (typeof player.matches === 'number' && typeof player.wins === 'number') ?
+                            Math.floor(player.wins / player.matches * 100) + '%' :
+                            formatCell('unranked');
+
+                        html5 += `
+                                <tr class="${getRankClass(player.rank)}">
+                                    <td style="font-weight: bold; color: ${color};">${getMedalIcon(player.rank)}</td>
+                                    <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
+                                        <span class="player-name">
+                                            ${getPlatformIcon(platform)}
+                                            ${player.name}
+                                        </span>
+                                    </td>
+                                    <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
+                                        ${matchesDisplay}
+                                    </td>
+                                    <td>${winsDisplay}</td>
+                                    <td>${lossesDisplay}</td>
+                                    <td>${ratingDisplay}</td>
+                                </tr>
+                            `;
+                    });
+
+                    html5 += `</tbody></table>`;
+                    container.innerHTML = html5;
+                }
+            }
+        }
+
+        // Плавное появление
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.big-banner, .alert-block, .mode-banners, .leaderboard-section').forEach(function(
+            el) {
+            if (el) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.5s ease-out';
+                observer.observe(el);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    </script>
 
-    document.querySelectorAll('.big-banner, .alert-block, .mode-banners, .leaderboard-section').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.5s ease-out';
-        observer.observe(el);
-    });
-</script>
 </body>
 </html>
