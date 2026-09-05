@@ -29,6 +29,17 @@ let weeklyEscState = {
 };
 
 // ============================================================
+// КЛЮЧИ ДЛЯ LOCALSTORAGE
+// ============================================================
+
+var STORAGE_KEYS = {
+    WEEKLY_VARIATOR: 'weeklyEscVariator',
+    WEEK_NUMBER: 'weeklyEscWeekNumber',
+    LAST_RESET: 'weeklyEscLastReset',
+    WEEKLY_STATE: 'weeklyEscState'
+};
+
+// ============================================================
 // ФИКСИРОВАННЫЙ СПИСОК ВАРИАТОРОВ ДЛЯ ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ
 // ============================================================
 
@@ -49,70 +60,7 @@ function getVariatorByName(name) {
 }
 
 // ============================================================
-// ПОЛУЧЕНИЕ СЛУЧАЙНОГО ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
-// ============================================================
-
-function getWeeklyVariator() {
-    // Выбираем случайное имя из пула
-    var randomIndex = Math.floor(Math.random() * WEEKLY_VARIATOR_POOL.length);
-    var selectedName = WEEKLY_VARIATOR_POOL[randomIndex];
-    
-    // Получаем полный объект вариатора из allVariatorsData
-    var fullVariator = getVariatorByName(selectedName);
-    
-    if (!fullVariator) {
-        console.warn('⚠️ Вариатор "' + selectedName + '" не найден в allVariatorsData');
-        // Создаем заглушку, если вариатор не найден
-        return {
-            id: 'weekly_' + selectedName.replace(/\s/g, '_').toLowerCase(),
-            name: selectedName,
-            image: 'images/placeholder.png',
-            desc: 'Еженедельный вариатор'
-        };
-    }
-    
-    console.log('✅ Выбран еженедельный вариатор:', fullVariator.name);
-    return fullVariator;
-}
-
-// ============================================================
-// ПРОВЕРКА ЯВЛЯЕТСЯ ЛИ ВАРИАТОР ЕЖЕНЕДЕЛЬНЫМ
-// ============================================================
-
-function isWeeklyVariator(variator) {
-    if (!variator) return false;
-    if (!weeklyEscState.weeklyVariator) return false;
-    return variator.name === weeklyEscState.weeklyVariator.name;
-}
-
-// ============================================================
-// ПРОВЕРКА НУЖНО ЛИ СБРОСИТЬ ЕЖЕНЕДЕЛЬНУЮ ЭСКАЛАЦИЮ
-// ============================================================
-
-function isWeeklyResetNeeded() {
-    var now = new Date();
-    var day = now.getDay();
-    var hours = now.getHours();
-    var minutes = now.getMinutes();
-    
-    // Вторник после 21:00
-    if (day === 2 && hours >= 21 && minutes >= 0) {
-        var lastReset = localStorage.getItem('weeklyEscLastReset');
-        if (lastReset) {
-            var lastResetDate = new Date(lastReset);
-            var lastResetWeek = getWeekNumber(lastResetDate);
-            var currentWeek = getWeekNumber(now);
-            if (lastResetWeek === currentWeek) {
-                return false;
-            }
-        }
-        return true;
-    }
-    return false;
-}
-
-// ============================================================
-// НОМЕР НЕДЕЛИ
+// ПОЛУЧЕНИЕ НОМЕРА НЕДЕЛИ
 // ============================================================
 
 function getWeekNumber(date) {
@@ -124,11 +72,152 @@ function getWeekNumber(date) {
 }
 
 // ============================================================
+// ПРОВЕРКА НУЖНО ЛИ СБРОСИТЬ ЕЖЕНЕДЕЛЬНЫЙ ВАРИАТОР
+// (ВТОРНИК ПОСЛЕ 21:00)
+// ============================================================
+
+function isWeeklyResetNeeded() {
+    var now = new Date();
+    var day = now.getDay(); // 0=воскресенье, 1=понедельник, 2=вторник
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    
+    // Вторник после 21:00
+    if (day === 2 && hours >= 21 && minutes >= 0) {
+        var lastReset = localStorage.getItem(STORAGE_KEYS.LAST_RESET);
+        if (lastReset) {
+            var lastResetDate = new Date(lastReset);
+            var lastResetWeek = getWeekNumber(lastResetDate);
+            var currentWeek = getWeekNumber(now);
+            // Если номер недели совпадает - сброс уже был
+            if (lastResetWeek === currentWeek) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+// ============================================================
+// СОХРАНЕНИЕ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА В LOCALSTORAGE
+// ============================================================
+
+function saveWeeklyVariator(variator) {
+    if (!variator) return;
+    try {
+        var now = new Date();
+        localStorage.setItem(STORAGE_KEYS.WEEKLY_VARIATOR, JSON.stringify(variator));
+        localStorage.setItem(STORAGE_KEYS.WEEK_NUMBER, getWeekNumber(now).toString());
+        localStorage.setItem(STORAGE_KEYS.LAST_RESET, now.toISOString());
+        console.log('💾 Еженедельный вариатор сохранен:', variator.name);
+    } catch(e) {
+        console.error('Ошибка сохранения еженедельного вариатора:', e);
+    }
+}
+
+// ============================================================
+// ЗАГРУЗКА ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА ИЗ LOCALSTORAGE
+// ============================================================
+
+function loadWeeklyVariator() {
+    try {
+        var saved = localStorage.getItem(STORAGE_KEYS.WEEKLY_VARIATOR);
+        var savedWeek = localStorage.getItem(STORAGE_KEYS.WEEK_NUMBER);
+        var currentWeek = getWeekNumber(new Date());
+        
+        if (saved && savedWeek && parseInt(savedWeek) === currentWeek) {
+            var variator = JSON.parse(saved);
+            // Проверяем, что вариатор существует в allVariatorsData
+            if (variator && variator.name) {
+                var existing = getVariatorByName(variator.name);
+                if (existing) {
+                    console.log('📥 Загружен еженедельный вариатор из localStorage:', existing.name);
+                    return existing;
+                } else {
+                    console.warn('⚠️ Сохраненный вариатор не найден в данных:', variator.name);
+                }
+            }
+        } else {
+            console.log('📭 Нет сохраненного вариатора для текущей недели');
+        }
+    } catch(e) {
+        console.error('Ошибка загрузки еженедельного вариатора:', e);
+    }
+    return null;
+}
+
+// ============================================================
+// ПОЛУЧЕНИЕ СЛУЧАЙНОГО ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
+// ============================================================
+
+function getRandomWeeklyVariator() {
+    var randomIndex = Math.floor(Math.random() * WEEKLY_VARIATOR_POOL.length);
+    var selectedName = WEEKLY_VARIATOR_POOL[randomIndex];
+    var fullVariator = getVariatorByName(selectedName);
+    
+    if (fullVariator) {
+        console.log('✅ Выбран еженедельный вариатор:', fullVariator.name);
+        return fullVariator;
+    }
+    
+    // Если вариатор не найден, создаем заглушку
+    console.warn('⚠️ Создаем заглушку для вариатора:', selectedName);
+    return {
+        id: 'weekly_' + selectedName.replace(/\s/g, '_').toLowerCase(),
+        name: selectedName,
+        image: 'images/placeholder.png',
+        desc: 'Еженедельный вариатор'
+    };
+}
+
+// ============================================================
+// ПОЛУЧЕНИЕ ТЕКУЩЕГО ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
+// ============================================================
+
+function getCurrentWeeklyVariator() {
+    // Проверяем, нужно ли сбросить (новая неделя)
+    if (isWeeklyResetNeeded()) {
+        console.log('🔄 Наступила новая неделя, выбираем новый вариатор');
+        var newVariator = getRandomWeeklyVariator();
+        saveWeeklyVariator(newVariator);
+        return newVariator;
+    }
+    
+    // Пытаемся загрузить из localStorage
+    var loaded = loadWeeklyVariator();
+    if (loaded) {
+        return loaded;
+    }
+    
+    // Если ничего не загрузилось - генерируем новый
+    console.log('🆕 Генерируем новый еженедельный вариатор');
+    var newVariator = getRandomWeeklyVariator();
+    saveWeeklyVariator(newVariator);
+    return newVariator;
+}
+
+// ============================================================
+// ОБНОВЛЕНИЕ ОТОБРАЖЕНИЯ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
+// ============================================================
+
+function updateWeeklyVariatorDisplay() {
+    var nameEl = document.getElementById('weeklyVariatorName');
+    if (nameEl) {
+        if (weeklyEscState.weeklyVariator) {
+            nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
+        } else {
+            nameEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не выбран';
+        }
+    }
+}
+
+// ============================================================
 // СБРОС ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ
 // ============================================================
 
 function resetWeeklyEscalation() {
-    var newWeekly = getWeeklyVariator();
+    var newWeekly = getCurrentWeeklyVariator();
     
     weeklyEscState = {
         level: 1,
@@ -155,13 +244,18 @@ function resetWeeklyEscalation() {
         weeklyLastResetLevel: 1
     };
     
-    var weekNumber = getWeekNumber(new Date());
-    localStorage.setItem('weeklyEscWeekNumber', weekNumber.toString());
-    localStorage.setItem('weeklyEscLastReset', new Date().toISOString());
-    if (newWeekly) {
-        localStorage.setItem('weeklyEscVariator', JSON.stringify(newWeekly));
-    } else {
-        localStorage.removeItem('weeklyEscVariator');
+    // Сохраняем состояние в localStorage
+    try {
+        localStorage.setItem(STORAGE_KEYS.WEEKLY_STATE, JSON.stringify({
+            level: weeklyEscState.level,
+            weeklyVariator: weeklyEscState.weeklyVariator,
+            weeklyFixedVariators: weeklyEscState.weeklyFixedVariators,
+            weeklyAddedVariators: weeklyEscState.weeklyAddedVariators,
+            weeklyLevelCounter: weeklyEscState.weeklyLevelCounter,
+            weeklyLastResetLevel: weeklyEscState.weeklyLastResetLevel
+        }));
+    } catch(e) {
+        console.error('Ошибка сохранения состояния:', e);
     }
     
     console.log('🔄 Еженедельная эскалация сброшена!');
@@ -174,57 +268,49 @@ function resetWeeklyEscalation() {
 }
 
 // ============================================================
-// ОБНОВЛЕНИЕ ОТОБРАЖЕНИЯ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
-// ============================================================
-
-function updateWeeklyVariatorDisplay() {
-    var nameEl = document.getElementById('weeklyVariatorName');
-    if (nameEl) {
-        if (weeklyEscState.weeklyVariator) {
-            nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weeklyEscState.weeklyVariator.name;
-        } else {
-            nameEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не выбран';
-        }
-    }
-}
-
-// ============================================================
 // ВОССТАНОВЛЕНИЕ ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ ИЗ LOCALSTORAGE
 // ============================================================
 
 function restoreWeeklyEscalation() {
+    // Проверяем сброс по неделе
     if (isWeeklyResetNeeded()) {
         console.log('🔄 Наступила новая неделя, сбрасываем еженедельную эскалацию...');
         return resetWeeklyEscalation();
     }
     
-    var savedVariator = localStorage.getItem('weeklyEscVariator');
-    var savedWeek = localStorage.getItem('weeklyEscWeekNumber');
-    var currentWeek = getWeekNumber(new Date());
-    
-    if (savedVariator && savedWeek && parseInt(savedWeek) === currentWeek) {
-        try {
-            var variator = JSON.parse(savedVariator);
-            // Проверяем, что вариатор существует в allVariatorsData
-            if (variator && variator.name) {
-                var existing = getVariatorByName(variator.name);
-                if (existing) {
-                    weeklyEscState.weeklyVariator = existing;
-                    weeklyEscState.weeklyFixedVariators = [existing];
-                    console.log('📥 Восстановлен еженедельный вариатор:', existing.name);
-                    updateWeeklyVariatorDisplay();
-                    return existing;
-                } else {
-                    console.warn('⚠️ Сохраненный вариатор не найден в данных, выбираем новый');
-                }
-            }
-        } catch(e) {
-            console.error('Ошибка восстановления еженедельного вариатора:', e);
-        }
+    // Восстанавливаем еженедельный вариатор
+    var weeklyVariator = getCurrentWeeklyVariator();
+    weeklyEscState.weeklyVariator = weeklyVariator;
+    if (weeklyVariator) {
+        weeklyEscState.weeklyFixedVariators = [weeklyVariator];
     }
     
-    // Если ничего не восстановилось - сбрасываем
-    return resetWeeklyEscalation();
+    // Восстанавливаем остальное состояние
+    try {
+        var savedState = localStorage.getItem(STORAGE_KEYS.WEEKLY_STATE);
+        if (savedState) {
+            var parsed = JSON.parse(savedState);
+            // Проверяем, что сохраненный вариатор совпадает с текущим
+            if (parsed.weeklyVariator && parsed.weeklyVariator.name === weeklyVariator.name) {
+                weeklyEscState.level = parsed.level || 1;
+                weeklyEscState.weeklyAddedVariators = parsed.weeklyAddedVariators || [];
+                weeklyEscState.weeklyLevelCounter = parsed.weeklyLevelCounter || 1;
+                weeklyEscState.weeklyLastResetLevel = parsed.weeklyLastResetLevel || 1;
+                console.log('📥 Восстановлено состояние эскалации, уровень:', weeklyEscState.level);
+            } else {
+                console.log('📥 Вариатор изменился, сбрасываем прогресс');
+                weeklyEscState.level = 1;
+                weeklyEscState.weeklyAddedVariators = [];
+                weeklyEscState.weeklyLevelCounter = 1;
+                weeklyEscState.weeklyLastResetLevel = 1;
+            }
+        }
+    } catch(e) {
+        console.error('Ошибка восстановления состояния:', e);
+    }
+    
+    updateWeeklyVariatorDisplay();
+    return weeklyVariator;
 }
 
 // ============================================================
@@ -331,6 +417,20 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
     // Обновляем состояние
     weeklyEscState.variators = result;
     weeklyEscState.weeklyLevelCounter++;
+    
+    // Сохраняем состояние
+    try {
+        localStorage.setItem(STORAGE_KEYS.WEEKLY_STATE, JSON.stringify({
+            level: weeklyEscState.level,
+            weeklyVariator: weeklyEscState.weeklyVariator,
+            weeklyFixedVariators: weeklyEscState.weeklyFixedVariators,
+            weeklyAddedVariators: weeklyEscState.weeklyAddedVariators,
+            weeklyLevelCounter: weeklyEscState.weeklyLevelCounter,
+            weeklyLastResetLevel: weeklyEscState.weeklyLastResetLevel
+        }));
+    } catch(e) {
+        console.error('Ошибка сохранения состояния:', e);
+    }
     
     console.log('✅ ИТОГ (' + result.length + ' вариаторов):', result.map(function(v) { return v.name; }).join(', '));
     console.log('📌 Еженедельный:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
@@ -626,6 +726,7 @@ function initWeeklyEscalation() {
     
     console.log('✅ Еженедельная эскалация инициализирована!');
     console.log('📌 Еженедельный вариатор:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
+    console.log('📅 Сохраняется до следующего вторника 21:00');
 }
 
 // ============================================================
