@@ -29,38 +29,39 @@ let weeklyEscState = {
 };
 
 // ============================================================
-// ПОЛУЧЕНИЕ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА (СЛУЧАЙНЫЙ ИЗ ПУЛА)
+// ФИКСИРОВАННЫЙ СПИСОК ВАРИАТОРОВ ДЛЯ ЕЖЕНЕДЕЛЬНОЙ ЭСКАЛАЦИИ
+// (ЭТИ ВАРИАТОРЫ НЕ МЕНЯЮТСЯ В ТЕЧЕНИЕ НЕДЕЛИ)
+// ============================================================
+
+var WEEKLY_VARIATOR_POOL = [
+    { name: 'Таймер бомбы', image: 'images/таймер бомбы.webp', desc: 'На каждом уровне заложена бомба с таймером' },
+    { name: 'Вечная мерзлота', image: 'images/вечная мерзлота.webp', desc: 'Постоянный эффект замедления и холода' },
+    { name: 'Глубокий ожог', image: 'images/глубокий ожог.webp', desc: 'Огонь наносит увеличенный урон' },
+    { name: 'Кровотечение', image: 'images/кровотечение.webp', desc: 'Раны продолжают кровоточить, нанося урон со временем' }
+];
+
+// ============================================================
+// ПОЛУЧЕНИЕ СЛУЧАЙНОГО ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА ИЗ ФИКСИРОВАННОГО ПУЛА
 // ============================================================
 
 function getWeeklyVariator() {
+    // Берем случайный вариатор из фиксированного пула
+    var randomIndex = Math.floor(Math.random() * WEEKLY_VARIATOR_POOL.length);
+    var selected = WEEKLY_VARIATOR_POOL[randomIndex];
+    
+    // Добавляем id для совместимости с остальной логикой
+    selected.id = 'weekly_' + selected.name.replace(/\s/g, '_').toLowerCase();
+    
+    return selected;
+}
+
+// ============================================================
+// ПОЛУЧЕНИЕ ПОЛНОГО ВАРИАТОРА ПО ИМЕНИ (ДЛЯ СОВМЕСТИМОСТИ С allVariatorsData)
+// ============================================================
+
+function getFullVariatorByName(name) {
     if (typeof allVariatorsData === 'undefined') return null;
-    
-    // Исключаем вариаторы, которые не могут быть еженедельными
-    var excludedForWeekly = [
-        'Психохирургия',
-        'Двойные задания',
-        'Ностофобия',
-        'Низкая Плотность Врагов',
-        'Ворота С Детектором Звука',
-        'Дистанционные Ворота',
-        'Бесконтактные Ворота',
-        'Времянные Ворота',
-        'Закрытые Ворота',
-        'Экстракция Крови',
-        'Трофейное Снаряжение',
-        'Сильнее Вместе',
-        'Все На Выход',
-        'Таймер Бомбы'
-    ];
-    
-    var available = allVariatorsData.filter(function(v) {
-        return excludedForWeekly.indexOf(v.name) === -1;
-    });
-    
-    if (available.length === 0) return null;
-    
-    var randomIndex = Math.floor(Math.random() * available.length);
-    return available[randomIndex];
+    return allVariatorsData.find(function(v) { return v.name === name; }) || null;
 }
 
 // ============================================================
@@ -211,10 +212,10 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
     
     var result = [];
     
-    // 1. Еженедельный вариатор (всегда первый)
+    // 1. Еженедельный вариатор (всегда первый) - БЕРЁМ ИЗ ФИКСИРОВАННОГО ПУЛА
     if (weeklyEscState.weeklyVariator) {
         result.push(weeklyEscState.weeklyVariator);
-        console.log('✅ Еженедельный вариатор:', weeklyEscState.weeklyVariator.name);
+        console.log('✅ Еженедельный вариатор (из фиксированного пула):', weeklyEscState.weeklyVariator.name);
     }
     
     // 2. Психохирургия и Двойные задания (после 20 уровня)
@@ -255,11 +256,20 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
     // 5. Добавляем новые вариаторы, если есть место (до 8)
     if (maxAllowed > 0) {
         var usedNames = result.map(function(v) { return v.name; });
+        // Исключаем еженедельные вариаторы из пула для добавления
+        var weeklyNames = WEEKLY_VARIATOR_POOL.map(function(v) { return v.name; });
+        
         var available = allVariatorsData.filter(function(v) {
+            // Не добавляем вариаторы, которые уже есть
             if (usedNames.indexOf(v.name) !== -1) return false;
+            // Исключаем еженедельные вариаторы (они не должны добавляться как обычные)
+            if (weeklyNames.indexOf(v.name) !== -1) return false;
+            // Исключаем Ностофобию
             if (v.name === 'Ностофобия') return false;
+            // Психохирургия и Двойные задания только после 20 уровня
             if (v.name === 'Психохирургия' && level < 21) return false;
             if (v.name === 'Двойные задания' && level < 21) return false;
+            // Низкая Плотность Врагов только до 5 уровня
             if (v.name === 'Низкая Плотность Врагов' && level > 5) return false;
             return true;
         });
@@ -285,7 +295,7 @@ function getWeeklyVariatorsForLevel(level, mapName, playerCount) {
     weeklyEscState.weeklyLevelCounter++;
     
     console.log('✅ ИТОГ (' + result.length + ' вариаторов из 8 возможных):', result.map(function(v) { return v.name; }).join(', '));
-    console.log('📌 Еженедельный вариатор:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
+    console.log('📌 Еженедельный вариатор (из фиксированного пула):', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
     console.log('📌 Накопленные добавочные:', weeklyEscState.weeklyAddedVariators.map(function(v) { return v.name; }).join(', ') || 'нет');
     
     return result;
@@ -479,8 +489,8 @@ function prepareWeeklyFullResult(mapName, mapImage, trial, difficulty) {
                     <div class="map-name" style="font-size:1.2rem; color:#ffbc9a; font-weight:300; margin-bottom:0.3rem; letter-spacing:2px; text-transform:uppercase;">${mapNameUpper}</div>
                     <div class="trial-desc" style="color:#c2b9d4; font-size:0.85rem; line-height:1.5;">${trial.desc}</div>
                     <div style="display:flex; flex-wrap:wrap; gap:0.5rem 1rem; margin-top:0.5rem; padding:6px 12px; background:rgba(220,90,50,0.1); border-radius:8px; border:1px solid rgba(220,90,50,0.15);">
-                        <span style="font-size:0.75rem; color:#ffbc9a; font-weight:600;">
-                            <i class="fas fa-star" style="color:#f1c40f;"></i> Еженедельный: ${weeklyVariatorName}
+                        <span style="font-size:0.75rem; color:#f1c40f; font-weight:700;">
+                            <i class="fas fa-star" style="color:#f1c40f;"></i> Еженедельный вариатор: ${weeklyVariatorName}
                         </span>
                         <span style="font-size:0.75rem; color:#888;">
                             <i class="fas fa-layer-group"></i> Уровень: ${weeklyEscState.level}
@@ -513,9 +523,10 @@ function prepareWeeklyFullResult(mapName, mapImage, trial, difficulty) {
                 } else if (v.name.length > 10) {
                     fontSize = '0.65rem';
                 }
+                // Проверяем, является ли вариатор еженедельным (из фиксированного пула)
                 var isWeekly = weeklyEscState.weeklyVariator && v.name === weeklyEscState.weeklyVariator.name;
                 var borderColor = isWeekly ? '#f1c40f' : 'rgba(220,90,50,0.15)';
-                var bgColor = isWeekly ? 'rgba(241,196,15,0.1)' : 'rgba(0,0,0,0.3)';
+                var bgColor = isWeekly ? 'rgba(241,196,15,0.15)' : 'rgba(0,0,0,0.3)';
                 var weeklyBadge = isWeekly ? '<div style="font-size:0.5rem; color:#f1c40f; font-weight:700; letter-spacing:0.5px;"><i class="fas fa-star"></i> НЕДЕЛЯ</div>' : '';
                 
                 return `
@@ -719,6 +730,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('  - ampCategories:', ampCategories);
             console.log('  - trialsData:', Object.keys(trialsData).length, 'карт с испытаниями');
             console.log('  - allVariatorsData:', allVariatorsData.length, 'вариаторов');
+            console.log('  - WEEKLY_VARIATOR_POOL:', WEEKLY_VARIATOR_POOL.map(function(v) { return v.name; }).join(', '));
             
             initWeeklyEscalation();
             initAmpModal();
@@ -726,6 +738,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateLevelCounter();
             
             console.log('✅ Еженедельная эскалация инициализирована!');
+            console.log('📌 Еженедельный вариатор:', weeklyEscState.weeklyVariator ? weeklyEscState.weeklyVariator.name : 'Нет');
         }, 500);
     }
 });
