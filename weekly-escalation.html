@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -70,7 +69,6 @@
             z-index: 10;
         }
 
-        /* ===== НАВИГАЦИЯ ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -159,7 +157,6 @@
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
-        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
         .escalation-wrapper {
             max-width: 1100px;
             margin: 0 auto;
@@ -208,7 +205,6 @@
             color: #e16d48;
         }
 
-        /* ===== ИНФОРМАЦИЯ О ЕЖЕНЕДЕЛЬНОМ ВАРИАТОРЕ ===== */
         .weekly-info {
             text-align: center;
             padding: 10px 16px;
@@ -234,6 +230,7 @@
             color: #f1c40f;
             font-weight: 700;
             font-size: 1rem;
+            text-transform: uppercase;
         }
 
         .weekly-info .weekly-variator i {
@@ -246,7 +243,6 @@
             font-size: 0.7rem;
         }
 
-        /* ===== СЧЕТЧИК УРОВНЯ ===== */
         .level-counter {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -285,7 +281,6 @@
         .level-difficulty-intensive { background: rgba(46, 204, 113, 0.3); color: #2ecc71; }
         .level-difficulty-psycho { background: rgba(255, 51, 51, 0.3); color: #ff3333; }
 
-        /* ===== ШАГИ ===== */
         .step-container {
             background: rgba(0, 0, 0, 0.25);
             border-radius: 28px;
@@ -326,7 +321,6 @@
             text-align: center;
         }
 
-        /* ===== КНОПКИ ВЫБОРА ===== */
         .player-count-options {
             display: flex;
             gap: 1.2rem;
@@ -363,7 +357,6 @@
             box-shadow: 0 0 40px rgba(220, 90, 50, 0.15);
         }
 
-        /* ===== ПОЛЯ ВВОДА ===== */
         .player-name-inputs {
             display: flex;
             flex-direction: column;
@@ -410,7 +403,6 @@
             color: #555;
         }
 
-        /* ===== СЕТКА ВЫБОРА ===== */
         .selection-grid {
             display: grid;
             gap: 1.5rem;
@@ -545,7 +537,6 @@
             display: block;
         }
 
-        /* ===== КНОПКИ НАВИГАЦИИ ===== */
         .step-actions {
             display: flex;
             justify-content: center;
@@ -615,7 +606,6 @@
             color: #ff3333;
         }
 
-        /* ===== РЕЗУЛЬТАТ ===== */
         .escalation-result {
             display: none;
             animation: resultAppear 0.6s ease-out;
@@ -716,7 +706,6 @@
             font-weight: 600;
         }
 
-        /* ===== ВАРИАТОРЫ ===== */
         .variator-list {
             display: flex;
             gap: 1rem;
@@ -768,7 +757,6 @@
             margin-top: 0.1rem;
         }
 
-        /* ===== ИГРОКИ В РЕЗУЛЬТАТЕ ===== */
         .player-result {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 16px;
@@ -867,6 +855,27 @@
             letter-spacing: 0.5px;
         }
 
+        .amp-category-block .category-change-btn {
+            background: rgba(220, 90, 50, 0.2);
+            border: 1px solid rgba(220, 90, 50, 0.3);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            color: #c2b9d4;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .amp-category-block .category-change-btn:hover {
+            background: rgba(220, 90, 50, 0.4);
+            color: white;
+            transform: scale(1.1);
+        }
+
         .amp-category-block .category-amp-name {
             font-size: 0.8rem;
             color: #ffbc9a;
@@ -883,6 +892,12 @@
             font-style: italic;
         }
 
+        .amp-category-block .category-complete {
+            font-size: 0.6rem;
+            color: #2ecc71;
+            text-align: center;
+        }
+
         .result-actions {
             display: flex;
             justify-content: center;
@@ -895,29 +910,228 @@
             min-width: 200px;
         }
 
-        .back-to-roulette {
-            display: inline-flex;
+        .amp-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .amp-modal-overlay.active {
+            display: flex;
+        }
+
+        .amp-modal {
+            background: rgba(18, 12, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border-radius: 30px;
+            border: 2px solid rgba(220, 90, 50, 0.4);
+            padding: 2rem;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .amp-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(220, 90, 50, 0.2);
+        }
+
+        .amp-modal-header h2 {
+            font-size: 1.3rem;
+            color: #e16d48;
+            display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 2rem;
+        }
+
+        .amp-modal-close {
+            background: none;
+            border: none;
+            color: #c2b9d4;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .amp-modal-close:hover {
             color: #e16d48;
-            text-decoration: none;
+        }
+
+        .amp-modal-category-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .amp-modal-category-tabs button {
+            background: rgba(220, 90, 50, 0.15);
+            border: 1px solid rgba(220, 90, 50, 0.25);
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+            color: #c2b9d4;
+            font-size: 0.85rem;
             font-weight: 600;
-            font-size: 1rem;
+            cursor: pointer;
             transition: all 0.3s;
-            padding: 0.6rem 1.5rem;
+            font-family: inherit;
+        }
+
+        .amp-modal-category-tabs button:hover {
+            background: rgba(220, 90, 50, 0.25);
+            color: white;
+        }
+
+        .amp-modal-category-tabs button.active {
+            background: rgba(220, 90, 50, 0.3);
+            border-color: #e16d48;
+            color: #e16d48;
+        }
+
+        .amp-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .amp-modal-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(220, 90, 50, 0.2);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .amp-modal-item:hover:not(.locked) {
+            border-color: #e16d48;
+            transform: scale(1.05);
+        }
+
+        .amp-modal-item.selected {
+            border-color: #4c9aff;
+            background: rgba(76, 154, 255, 0.1);
+        }
+
+        .amp-modal-item.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .amp-modal-item.locked:hover {
+            transform: none;
+            border-color: rgba(220, 90, 50, 0.2);
+        }
+
+        .amp-modal-item img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px;
+        }
+
+        .amp-modal-item .amp-name {
+            font-size: 0.85rem;
+            color: #c2b9d4;
+            margin-top: 0.3rem;
+            font-weight: 500;
+        }
+
+        .amp-modal-item .amp-category-label {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 0.1rem;
+        }
+
+        .amp-modal-item .amp-status {
+            font-size: 0.6rem;
+            margin-top: 0.2rem;
+        }
+
+        .amp-modal-item .amp-status.available {
+            color: #4c9aff;
+        }
+
+        .amp-modal-item .amp-status.locked {
+            color: #888;
+        }
+
+        .amp-modal-item .amp-status.current {
+            color: #2ecc71;
+        }
+
+        .amp-modal-item .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 14px;
+        }
+
+        .amp-modal-item .lock-overlay i {
+            font-size: 2rem;
+            color: #888;
+        }
+
+        .amp-modal-item .lock-overlay span {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 0.3rem;
+        }
+
+        .amp-modal-confirm {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .amp-modal-confirm button {
+            background: linear-gradient(135deg, #bc4627, #e25d32);
+            border: none;
+            padding: 0.7rem 2.5rem;
             border-radius: 40px;
-            background: rgba(220, 90, 50, 0.1);
-            border: 1px solid rgba(220, 90, 50, 0.15);
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
         }
 
-        .back-to-roulette:hover {
-            color: #ffbc9a;
-            background: rgba(220, 90, 50, 0.2);
-            transform: translateX(-5px);
+        .amp-modal-confirm button:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(188, 74, 40, 0.4);
         }
 
-        /* ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== */
+        .amp-modal-confirm button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
         .confirm-modal-overlay {
             display: none;
             position: fixed;
@@ -1006,7 +1220,28 @@
             color: white;
         }
 
-        /* ===== ФУТЕР ===== */
+        .back-to-roulette {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 2rem;
+            color: #e16d48;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            background: rgba(220, 90, 50, 0.1);
+            border: 1px solid rgba(220, 90, 50, 0.15);
+        }
+
+        .back-to-roulette:hover {
+            color: #ffbc9a;
+            background: rgba(220, 90, 50, 0.2);
+            transform: translateX(-5px);
+        }
+
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -1024,7 +1259,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 992px) {
             .result-grid {
                 grid-template-columns: 1fr;
@@ -1092,6 +1326,11 @@
             
             .back-to-roulette { font-size: 0.85rem; padding: 0.5rem 1rem; }
             
+            .amp-modal { padding: 1rem; }
+            .amp-modal-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+            .amp-modal-item img { width: 50px; height: 50px; }
+            .amp-modal-item .amp-name { font-size: 0.7rem; }
+            
             .player-amps-categories {
                 grid-template-columns: 1fr;
                 gap: 0.4rem;
@@ -1108,7 +1347,6 @@
 </video>
 
 <div class="container">
-    <!-- ===== НАВИГАЦИЯ ===== -->
     <div class="header">
         <div class="logo">
             <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img" onerror="this.style.display='none'">
@@ -1129,25 +1367,21 @@
         </div>
     </div>
 
-    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <div class="escalation-wrapper" id="escalationWrapper">
         <h1><i class="fas fa-calendar-week"></i> Еженедельная эскалация</h1>
 
-        <!-- Информация о еженедельном вариаторе -->
         <div class="weekly-info" id="weeklyInfo">
             <span class="weekly-label"><i class="fas fa-star" style="color: #f1c40f;"></i> Еженедельный вариатор:</span>
             <span class="weekly-variator" id="weeklyVariatorName"><i class="fas fa-spinner fa-spin"></i> Загрузка...</span>
             <span class="weekly-hint">(действует до вторника 21:00 МСК)</span>
         </div>
 
-        <!-- СЧЕТЧИК УРОВНЯ -->
         <div class="level-counter" id="levelCounter">
             <span class="level-number" id="levelNumber">1</span>
             <span class="level-label">УРОВЕНЬ</span>
             <span class="level-difficulty level-difficulty-intro" id="levelDifficulty">Начальная</span>
         </div>
 
-        <!-- ШАГ 1 -->
         <div class="step-container" id="escStep1">
             <div class="step-title">
                 <span class="step-number">Шаг 1</span>
@@ -1165,7 +1399,6 @@
             </div>
         </div>
 
-        <!-- ШАГ 2 -->
         <div class="step-container hidden" id="escStep2">
             <div class="step-title">
                 <span class="step-number">Шаг 2</span>
@@ -1179,7 +1412,6 @@
             </div>
         </div>
 
-        <!-- ШАГ 3 -->
         <div class="step-container hidden" id="escStep3">
             <div class="step-title">
                 <span class="step-number">Шаг 3</span>
@@ -1193,7 +1425,6 @@
             </div>
         </div>
 
-        <!-- ШАГ 4 -->
         <div class="step-container hidden" id="escStep4">
             <div class="step-title">
                 <span class="step-number">Шаг 4</span>
@@ -1207,7 +1438,6 @@
             </div>
         </div>
 
-        <!-- РЕЗУЛЬТАТ -->
         <div class="escalation-result" id="escResult">
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <span style="background: rgba(220,90,50,0.2); padding: 0.3rem 1.5rem; border-radius: 30px; color: #e16d48; font-size: 0.85rem; font-weight: 600;">
@@ -1248,7 +1478,20 @@
     </footer>
 </div>
 
-<!-- ===== МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ВЫХОДА ===== -->
+<div class="amp-modal-overlay" id="ampModal">
+    <div class="amp-modal">
+        <div class="amp-modal-header">
+            <h2><i class="fas fa-capsules"></i> <span id="ampModalPlayerName">Игрок</span> — выбор ампы</h2>
+            <button class="amp-modal-close" id="ampModalClose">&times;</button>
+        </div>
+        <div class="amp-modal-category-tabs" id="ampCategoryTabs"></div>
+        <div class="amp-modal-grid" id="ampModalGrid"></div>
+        <div class="amp-modal-confirm">
+            <button id="ampModalConfirm">Выбрать</button>
+        </div>
+    </div>
+</div>
+
 <div class="confirm-modal-overlay" id="confirmModal">
     <div class="confirm-modal">
         <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
@@ -1261,7 +1504,6 @@
     </div>
 </div>
 
-<!-- ===== ПОДКЛЮЧЕНИЕ JS ФАЙЛОВ С ДАННЫМИ ===== -->
 <script src="maps.js"></script>
 <script src="variators.js"></script>
 <script src="variators-all.js"></script>
@@ -1269,19 +1511,8 @@
 <script src="equipment.js"></script>
 <script src="trials.js"></script>
 
-<!-- ===== ВСТРОЕННАЯ ЛОГИКА ===== -->
 <script>
-// ============================================================
-// ЕЖЕНЕДЕЛЬНЫЙ ВАРИАТОР (ЗАДАЁТСЯ ВРУЧНУЮ)
-// ============================================================
-// 🔧 ИЗМЕНИТЕ ЗДЕСЬ НАЗВАНИЕ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
-// Доступные варианты: 'Таймер бомбы', 'Вечная мерзлота', 'Глубокий ожог', 'Кровотечение'
-// ============================================================
 var WEEKLY_VARIATOR_NAME = 'Таймер бомбы';
-
-// ============================================================
-// СОСТОЯНИЕ ЭСКАЛАЦИИ
-// ============================================================
 
 let escState = {
     level: 1,
@@ -1304,69 +1535,37 @@ let escState = {
     weeklyVariator: null
 };
 
-// ============================================================
-// ПРОВЕРКА ЗАГРУЗКИ ДАННЫХ
-// ============================================================
-
 function checkDataLoaded() {
-    if (typeof mapsData === 'undefined') {
-        console.warn('⏳ mapsData не загружен');
-        return false;
-    }
-    if (typeof allVariatorsData === 'undefined') {
-        console.warn('⏳ allVariatorsData не загружен');
-        return false;
-    }
-    if (typeof equipmentData === 'undefined') {
-        console.warn('⏳ equipmentData не загружен');
-        return false;
-    }
-    if (typeof ampsData === 'undefined') {
-        console.warn('⏳ ampsData не загружен');
-        return false;
-    }
-    if (typeof trialsData === 'undefined') {
-        console.warn('⏳ trialsData не загружен');
-        return false;
-    }
+    if (typeof mapsData === 'undefined') return false;
+    if (typeof allVariatorsData === 'undefined') return false;
+    if (typeof equipmentData === 'undefined') return false;
+    if (typeof ampsData === 'undefined') return false;
+    if (typeof trialsData === 'undefined') return false;
+    if (typeof ampCategories === 'undefined') return false;
     return true;
 }
-
-// ============================================================
-// ПОЛУЧЕНИЕ ЕЖЕНЕДЕЛЬНОГО ВАРИАТОРА
-// ============================================================
 
 function getWeeklyVariator() {
     if (typeof allVariatorsData === 'undefined') return null;
     return allVariatorsData.find(function(v) { return v.name === WEEKLY_VARIATOR_NAME; }) || null;
 }
 
-function isWeeklyVariator(variator) {
-    if (!variator) return false;
-    if (!escState.weeklyVariator) return false;
-    return variator.name === escState.weeklyVariator.name;
-}
-
 function updateWeeklyVariatorDisplay() {
     var nameEl = document.getElementById('weeklyVariatorName');
     if (nameEl) {
         if (escState.weeklyVariator) {
-            nameEl.innerHTML = '<i class="fas fa-star"></i> ' + escState.weeklyVariator.name;
+            nameEl.innerHTML = '<i class="fas fa-star"></i> ' + escState.weeklyVariator.name.toUpperCase();
         } else {
             var weekly = getWeeklyVariator();
             if (weekly) {
                 escState.weeklyVariator = weekly;
-                nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weekly.name;
+                nameEl.innerHTML = '<i class="fas fa-star"></i> ' + weekly.name.toUpperCase();
             } else {
-                nameEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не найден: ' + WEEKLY_VARIATOR_NAME;
+                nameEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не найден';
             }
         }
     }
 }
-
-// ============================================================
-// ФУНКЦИИ ДЛЯ РАБОТЫ С АМФАМИ
-// ============================================================
 
 function getAmpsByCategory(category) {
     if (typeof ampsData === 'undefined') return [];
@@ -1408,43 +1607,22 @@ function unlockAmpForPlayer(playerIndex, ampName) {
     }
 }
 
-// ============================================================
-// ПРОВЕРКА СОВМЕСТИМОСТИ ВАРИАТОРОВ
-// ============================================================
-
 function isVariatorCompatible(variator, selectedVariators, trialName, playerCount, level) {
     var variatorName = variator.name;
     var selectedNames = selectedVariators.map(function(v) { return v.name; });
-    var mapName = escState.map ? escState.map.name : '';
     
     if (selectedNames.indexOf(variatorName) !== -1) return false;
-    
     if (playerCount === 1) {
         if (variatorName === 'Без Имён' || variatorName === 'Без Рации') return false;
     }
-    
     if (variatorName === 'Таймер бомбы' && trialName === 'Устранение устаревшего оборудования') return false;
-    
-    if (variatorName === 'Глубокий Ожог') {
-        if (selectedNames.indexOf('Вечная Мерзлота') !== -1 || selectedNames.indexOf('Резкое Похолодание') !== -1) return false;
-    }
-    if (selectedNames.indexOf('Глубокий Ожог') !== -1) {
-        if (variatorName === 'Вечная Мерзлота' || variatorName === 'Резкое Похолодание') return false;
-    }
-    
     if (variatorName === 'Сильнее Вместе' && playerCount === 1) return false;
     if (variatorName === 'Низкая Плотность Врагов' && level > 5) return false;
-    
     if (level < 21) {
         if (variatorName === 'Ностофобия' || variatorName === 'Психохирургия') return false;
     }
-    
     return true;
 }
-
-// ============================================================
-// ПОЛУЧЕНИЕ ВАРИАТОРОВ ДЛЯ УРОВНЯ (С УЧЁТОМ ЕЖЕНЕДЕЛЬНОГО)
-// ============================================================
 
 function getVariatorsForLevel(level, mapName, playerCount) {
     if (typeof allVariatorsData === 'undefined') return [];
@@ -1454,7 +1632,6 @@ function getVariatorsForLevel(level, mapName, playerCount) {
     var weeklyVar = getWeeklyVariator();
     if (weeklyVar) {
         escState.weeklyVariator = weeklyVar;
-        console.log('📌 Еженедельный вариатор:', weeklyVar.name);
     }
     updateWeeklyVariatorDisplay();
     
@@ -1480,14 +1657,11 @@ function getVariatorsForLevel(level, mapName, playerCount) {
     var result = [];
     var usedNames = [];
     
-    // 1. Еженедельный вариатор (всегда первый)
     if (weeklyVar && weeklyVar.name) {
         result.push(weeklyVar);
         usedNames.push(weeklyVar.name);
-        console.log('✅ Еженедельный:', weeklyVar.name);
     }
     
-    // 2. Определяем количество вариаторов
     var count;
     if (level === 1) count = 2;
     else if (level >= 2 && level <= 3) count = 3;
@@ -1497,11 +1671,9 @@ function getVariatorsForLevel(level, mapName, playerCount) {
     else if (level >= 16 && level <= 20) count = 7;
     else count = 2;
     
-    // 3. Добавляем остальные вариаторы
     var filtered = availableVariators.filter(function(v) {
         return usedNames.indexOf(v.name) === -1;
     });
-    
     var shuffled = filtered.slice().sort(function() { return Math.random() - 0.5; });
     
     for (var i = 0; i < shuffled.length && result.length < count; i++) {
@@ -1512,7 +1684,6 @@ function getVariatorsForLevel(level, mapName, playerCount) {
         }
     }
     
-    // Если не хватает, добираем принудительно
     if (result.length < count) {
         for (var j = 0; j < shuffled.length && result.length < count; j++) {
             var candidate2 = shuffled[j];
@@ -1523,13 +1694,8 @@ function getVariatorsForLevel(level, mapName, playerCount) {
         }
     }
     
-    console.log('✅ Итог (' + result.length + '):', result.map(function(v) { return v.name; }).join(', '));
     return result;
 }
-
-// ============================================================
-// ПОЛУЧЕНИЕ КАРТЫ И ИСПЫТАНИЯ
-// ============================================================
 
 function getMapAndTrial(level) {
     if (typeof trialsData === 'undefined') return null;
@@ -1603,10 +1769,6 @@ function getMapAndTrial(level) {
     return selected;
 }
 
-// ============================================================
-// ФУНКЦИИ НАВИГАЦИИ
-// ============================================================
-
 function getDifficultyByLevel(level) {
     if (level >= 1 && level <= 5) return { name: "Начальная", class: "level-difficulty-intro" };
     else if (level >= 6 && level <= 15) return { name: "Нормальная", class: "level-difficulty-standard" };
@@ -1641,10 +1803,6 @@ function updateLevelCounter() {
         levelDiff.className = 'level-difficulty ' + difficulty.class;
     }
 }
-
-// ============================================================
-// ОТРИСОВКА ШАГОВ
-// ============================================================
 
 function renderEscPlayerNames() {
     var container = document.getElementById('escPlayerNameInputs');
@@ -1692,7 +1850,6 @@ function renderEscPlayerNames() {
     }
     container.appendChild(grid);
     
-    // Активация кнопки "Далее" после ввода ников
     var inputs = container.querySelectorAll('input');
     var nextBtn = document.getElementById('escStep2Next');
     
@@ -1991,10 +2148,6 @@ function checkEscAmpsReady() {
     if (btn) btn.disabled = false;
 }
 
-// ============================================================
-// ПРЕВЬЮ И РЕЗУЛЬТАТ
-// ============================================================
-
 function showPreviewModal(trialName, mapName, variators, level) {
     var oldModal = document.getElementById('previewModal');
     if (oldModal) oldModal.remove();
@@ -2032,7 +2185,7 @@ function showPreviewModal(trialName, mapName, variators, level) {
         }
         .preview-variator-item.weekly .preview-variator-name { color: #f1c40f; }
         @keyframes variatorAppear { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        .preview-variator-name { font-weight: 700; color: #ffbc9a; text-align: center; max-width: 110px; line-height: 1.2; display: block; }
+        .preview-variator-name { font-weight: 700; color: #ffbc9a; text-align: center; max-width: 110px; line-height: 1.2; display: block; text-transform: uppercase; }
         .preview-variator-img { width: 70px; height: 70px; object-fit: contain; border-radius: 12px; background: rgba(0,0,0,0.3); padding: 6px; border: 1px solid rgba(220,90,50,0.15); }
         .preview-variators-container {
             display: flex; flex-wrap: nowrap; justify-content: center; align-items: flex-start;
@@ -2129,7 +2282,7 @@ function prepareFullResult(mapName, mapImage, trial, difficulty) {
     var resultMap = document.getElementById('escResultMap');
     if (resultMap) {
         var trialImage = trial.image || mapImage;
-        var weeklyVarName = escState.weeklyVariator ? escState.weeklyVariator.name : 'Нет';
+        var weeklyVarName = escState.weeklyVariator ? escState.weeklyVariator.name.toUpperCase() : 'Нет';
         
         resultMap.innerHTML = `
             <div class="result-map-row">
@@ -2164,7 +2317,7 @@ function prepareFullResult(mapName, mapImage, trial, difficulty) {
             return `
                 <div class="var-item" style="display:flex; flex-direction:column; align-items:center; gap:0.4rem; max-width:100px; border:2px solid ${borderColor}; border-radius:14px; padding:6px; background:${bgColor};">
                     <img src="${v.image}" alt="${v.name}" style="width:80px; height:80px; object-fit:contain; border-radius:14px; background:rgba(0,0,0,0.3); padding:6px; border:1px solid rgba(220,90,50,0.15);" onerror="this.src='https://placehold.co/80x80/1a1a2e/e16d48?text=?'">
-                    <span style="font-size:${fontSize}; color:#ffbc9a; text-align:center; max-width:90px; line-height:1.3; font-weight:600;">${v.name.toUpperCase()}</span>
+                    <span style="font-size:${fontSize}; color:#ffbc9a; text-align:center; max-width:90px; line-height:1.3; font-weight:600; text-transform:uppercase;">${v.name.toUpperCase()}</span>
                     ${weeklyBadge}
                 </div>
             `;
@@ -2276,14 +2429,9 @@ function renderEscResultPlayers() {
     });
 }
 
-// ============================================================
-// ИНИЦИАЛИЗАЦИЯ
-// ============================================================
-
 function initEscalation() {
     console.log('🚀 Запуск еженедельной эскалации...');
     
-    // Проверяем загрузку данных
     if (!checkDataLoaded()) {
         console.log('⏳ Ожидание загрузки данных...');
         var checkInterval = setInterval(function() {
@@ -2311,8 +2459,6 @@ function doInit() {
     if (weekly) {
         escState.weeklyVariator = weekly;
         console.log('📌 Еженедельный вариатор:', weekly.name);
-    } else {
-        console.warn('⚠️ Еженедельный вариатор "' + WEEKLY_VARIATOR_NAME + '" не найден в данных!');
     }
     updateWeeklyVariatorDisplay();
 
@@ -2327,7 +2473,6 @@ function doInit() {
     var nextLevelBtn = document.getElementById('escNextLevelBtn');
     var exitBtn = document.getElementById('escExitBtn');
 
-    // ШАГ 1
     if (options) {
         options.forEach(function(btn) {
             btn.addEventListener('click', function() {
@@ -2346,7 +2491,6 @@ function doInit() {
         });
     }
 
-    // ШАГ 2
     if (step2Back) {
         step2Back.addEventListener('click', function() { goToEscStep(1); });
     }
@@ -2369,7 +2513,6 @@ function doInit() {
         });
     }
 
-    // ШАГ 3
     if (step3Back) {
         step3Back.addEventListener('click', function() { goToEscStep(2); });
     }
@@ -2381,7 +2524,6 @@ function doInit() {
         });
     }
 
-    // ШАГ 4
     if (step4Back) {
         step4Back.addEventListener('click', function() { goToEscStep(3); });
     }
@@ -2405,12 +2547,24 @@ function doInit() {
         });
     }
 
-    // Кнопки в результатах
     if (nextLevelBtn) {
         nextLevelBtn.addEventListener('click', function() {
             escState.level++;
             updateLevelCounter();
-            generateEscResult();
+            
+            // Проверяем, есть ли у кого-то невыбранные ампы
+            var hasAvailable = false;
+            escState.players.forEach(function(_, idx) {
+                if (!areAllCategoriesComplete(idx)) {
+                    hasAvailable = true;
+                }
+            });
+            
+            if (hasAvailable) {
+                showBreakModal();
+            } else {
+                generateEscResult();
+            }
         });
     }
 
@@ -2448,15 +2602,466 @@ function doInit() {
     console.log('✅ Еженедельная эскалация инициализирована!');
 }
 
-// ============================================================
-// ЗАПУСК
-// ============================================================
+function initAmpModal() {
+    var modal = document.getElementById('ampModal');
+    var closeBtn = document.getElementById('ampModalClose');
+    var confirmBtn = document.getElementById('ampModalConfirm');
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', function() {
+            if (modalState.playerIndex !== null && modalState.selectedAmp && modalState.selectedCategory) {
+                var idx = modalState.playerIndex;
+                var category = modalState.selectedCategory;
+                
+                var currentAmps = escState.ampSelections[idx] || {};
+                var oldAmp = currentAmps[category];
+                
+                if (oldAmp === modalState.selectedAmp) {
+                    if (modal) {
+                        modal.classList.remove('active');
+                        modal.style.display = 'none';
+                    }
+                    return;
+                }
+                
+                if (oldAmp && escState.usedAmps[idx]) {
+                    escState.usedAmps[idx] = escState.usedAmps[idx].filter(function(a) { return a !== oldAmp; });
+                }
+                
+                if (!escState.ampSelections[idx]) escState.ampSelections[idx] = {};
+                escState.ampSelections[idx][category] = modalState.selectedAmp;
+                
+                if (!escState.usedAmps[idx]) escState.usedAmps[idx] = [];
+                if (escState.usedAmps[idx].indexOf(modalState.selectedAmp) === -1) {
+                    escState.usedAmps[idx].push(modalState.selectedAmp);
+                }
+                unlockAmpForPlayer(idx, modalState.selectedAmp);
+
+                renderEscResultPlayers();
+                
+                if (modal) {
+                    modal.classList.remove('active');
+                    modal.style.display = 'none';
+                }
+            }
+        });
+    }
+}
+
+var modalState = {
+    playerIndex: null,
+    selectedAmp: null,
+    selectedCategory: "Инструмент"
+};
+
+function openAmpModal(playerIndex, category) {
+    if (checkAllAmpsUsed(playerIndex)) {
+        alert('Все улучшения уже применены. Смена амф невозможна.');
+        return;
+    }
+
+    if (isCategoryComplete(playerIndex, category)) {
+        alert('Все амфы в этой категории уже использованы.');
+        return;
+    }
+
+    var playerName = escState.players[playerIndex];
+    var currentAmp = getAmpForCategory(playerIndex, category);
+    
+    modalState.playerIndex = playerIndex;
+    modalState.selectedCategory = category;
+    modalState.selectedAmp = currentAmp;
+
+    var playerNameEl = document.getElementById('ampModalPlayerName');
+    if (playerNameEl) {
+        playerNameEl.textContent = playerName + ' — ' + category;
+    }
+
+    var tabsContainer = document.getElementById('ampCategoryTabs');
+    if (tabsContainer) {
+        tabsContainer.innerHTML = '';
+        
+        var availableCategories = ampCategories.filter(function(cat) {
+            return !isCategoryComplete(playerIndex, cat);
+        });
+        
+        if (availableCategories.length === 0) {
+            var grid = document.getElementById('ampModalGrid');
+            if (grid) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; color: #2ecc71; padding: 2rem;">
+                        <i class="fas fa-check-circle" style="font-size: 2rem;"></i>
+                        <div style="margin-top: 0.5rem;">Все улучшения применены</div>
+                    </div>
+                `;
+            }
+            var confirmBtn = document.getElementById('ampModalConfirm');
+            if (confirmBtn) confirmBtn.disabled = true;
+            var modal = document.getElementById('ampModal');
+            if (modal) {
+                modal.classList.add('active');
+                modal.style.display = 'flex';
+            }
+            return;
+        }
+
+        availableCategories.forEach(function(cat) {
+            var tab = document.createElement('button');
+            tab.textContent = cat;
+            tab.dataset.category = cat;
+            if (cat === category) {
+                tab.classList.add('active');
+            }
+            tab.addEventListener('click', function() {
+                if (tabsContainer) {
+                    tabsContainer.querySelectorAll('button').forEach(function(t) {
+                        t.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    var newCategory = this.dataset.category;
+                    modalState.selectedCategory = newCategory;
+                    modalState.selectedAmp = getAmpForCategory(playerIndex, newCategory);
+                    renderAmpModalGrid(playerIndex, newCategory);
+                }
+            });
+            tabsContainer.appendChild(tab);
+        });
+    }
+
+    renderAmpModalGrid(playerIndex, category);
+    var modal = document.getElementById('ampModal');
+    if (modal) {
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+    }
+}
+
+function renderAmpModalGrid(playerIndex, category) {
+    var grid = document.getElementById('ampModalGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+
+    if (typeof ampsData === 'undefined' || ampsData.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #e16d48; padding: 2rem;">Ошибка: данные амф не загружены</div>';
+        return;
+    }
+
+    var categoryAmps = getAmpsByCategory(category);
+    var used = escState.usedAmps[playerIndex] || [];
+    var unlocked = escState.unlockedAmps[playerIndex] || [];
+    var currentAmp = getAmpForCategory(playerIndex, category);
+
+    var hasAvailable = false;
+
+    categoryAmps.forEach(function(amp) {
+        var isUsed = used.indexOf(amp.name) !== -1;
+        var isUnlocked = unlocked.indexOf(amp.name) !== -1;
+        var isCurrent = currentAmp === amp.name;
+        
+        var isAvailable = isUnlocked || isCurrent;
+
+        var item = document.createElement('div');
+        item.className = 'amp-modal-item';
+        
+        if (isCurrent) {
+            item.classList.add('selected');
+        }
+
+        if (!isAvailable) {
+            item.classList.add('locked');
+            item.innerHTML = `
+                <div class="lock-overlay">
+                    <i class="fas fa-lock"></i>
+                    <span>Засекречено</span>
+                </div>
+                <img src="${amp.image}" alt="${amp.name}" style="opacity: 0.3;" onerror="this.src='https://placehold.co/65x65/1a1a2e/e16d48?text=?'">
+                <div class="amp-name">${amp.name}</div>
+                <div class="amp-category-label">${amp.category}</div>
+                <div class="amp-status locked">🔒 Засекречено</div>
+            `;
+        } else {
+            hasAvailable = true;
+            item.innerHTML = `
+                <img src="${amp.image}" alt="${amp.name}" onerror="this.src='https://placehold.co/65x65/1a1a2e/e16d48?text=?'">
+                <div class="amp-name">${amp.name}</div>
+                <div class="amp-category-label">${amp.category}</div>
+                <div class="amp-status ${isCurrent ? 'current' : 'available'}">
+                    ${isCurrent ? '✓ Текущая' : 'Доступна'}
+                </div>
+            `;
+            item.addEventListener('click', function() {
+                if (this.classList.contains('locked')) return;
+                grid.querySelectorAll('.amp-modal-item').forEach(function(el) {
+                    el.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                modalState.selectedAmp = amp.name;
+                var confirmBtn = document.getElementById('ampModalConfirm');
+                if (confirmBtn) confirmBtn.disabled = false;
+            });
+        }
+        grid.appendChild(item);
+    });
+
+    if (!hasAvailable) {
+        var emptyMsg = document.createElement('div');
+        emptyMsg.style.cssText = 'grid-column: 1 / -1; text-align: center; color: #888; padding: 2rem;';
+        emptyMsg.textContent = 'В этой категории нет доступных амф. Выберите другую категорию.';
+        grid.appendChild(emptyMsg);
+    }
+
+    var confirmBtn = document.getElementById('ampModalConfirm');
+    if (confirmBtn) confirmBtn.disabled = true;
+}
+
+function showBreakModal() {
+    var hasAvailable = false;
+    escState.players.forEach(function(_, idx) {
+        if (!areAllCategoriesComplete(idx)) {
+            hasAvailable = true;
+        }
+    });
+
+    if (!hasAvailable) {
+        generateEscResult();
+        return;
+    }
+
+    var oldModal = document.getElementById('breakModal');
+    if (oldModal) {
+        oldModal.remove();
+    }
+
+    var overlay = document.createElement('div');
+    overlay.className = 'amp-modal-overlay active';
+    overlay.id = 'breakModal';
+    overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 1500; overflow-y: auto; padding: 20px;';
+
+    var modal = document.createElement('div');
+    modal.className = 'amp-modal';
+    modal.style.cssText = 'background: linear-gradient(145deg, #1a1a2e, #2a1a3e); border-radius: 24px; padding: 30px 35px; max-width: 900px; width: 100%; border: 1px solid rgba(220,90,50,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.8); max-height: 90vh; overflow-y: auto;';
+
+    modal.innerHTML = `
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="font-size: 0.8rem; color: #888; letter-spacing: 2px; text-transform: uppercase;"><i class="fas fa-coffee"></i> Перерыв</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: #ffbc9a; margin-top: 2px;">Выбор АМФ</div>
+            <div style="font-size: 0.85rem; color: #888; margin-top: 4px;">Каждому игроку нужно выбрать 1 амфу из доступной категории</div>
+        </div>
+        <div id="breakModalContent" style="display: grid; gap: 16px 24px; max-width: 700px; margin: 0 auto;"></div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="breakModalConfirm" disabled style="padding: 12px 40px; border-radius: 30px; border: none; background: rgba(220,90,50,0.2); color: #888; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; letter-spacing: 1px;">Продолжить →</button>
+        </div>
+    `;
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    var content = document.getElementById('breakModalContent');
+    var breakSelections = {};
+    
+    var playerCount = escState.players.length;
+    
+    if (playerCount === 1) {
+        content.style.gridTemplateColumns = '1fr';
+        content.style.maxWidth = '350px';
+    } else if (playerCount === 2) {
+        content.style.gridTemplateColumns = '1fr 1fr';
+        content.style.maxWidth = '550px';
+    } else if (playerCount === 3) {
+        content.style.gridTemplateColumns = '1fr 1fr';
+        content.style.maxWidth = '550px';
+    } else if (playerCount === 4) {
+        content.style.gridTemplateColumns = '1fr 1fr';
+        content.style.maxWidth = '600px';
+    }
+
+    escState.players.forEach(function(player, idx) {
+        var section = document.createElement('div');
+        section.className = 'player-block';
+        section.style.cssText = 'background: rgba(0,0,0,0.2); border-radius: 16px; padding: 16px; border: 1px solid rgba(220,90,50,0.08);';
+        
+        var title = document.createElement('div');
+        title.style.cssText = 'font-weight: 600; color: #ffbc9a; margin-bottom: 8px; text-align: center; font-size: 0.95rem; letter-spacing: 0.5px;';
+        title.innerHTML = '<i class="fas fa-user" style="color: #e16d48; margin-right: 6px;"></i> ' + player;
+        section.appendChild(title);
+
+        if (areAllCategoriesComplete(idx)) {
+            var completeMsg = document.createElement('div');
+            completeMsg.style.cssText = 'text-align: center; color: #2ecc71; padding: 0.5rem; font-size: 0.85rem;';
+            completeMsg.innerHTML = '<i class="fas fa-check-circle"></i> Все улучшения применены';
+            section.appendChild(completeMsg);
+            content.appendChild(section);
+            
+            if (playerCount === 3 && idx === 2) {
+                section.style.gridColumn = '1 / -1';
+                section.style.maxWidth = '60%';
+                section.style.justifySelf = 'center';
+                section.style.width = '100%';
+            }
+            
+            breakSelections[idx] = null;
+            return;
+        }
+
+        var availableCategories = ampCategories.filter(function(cat) {
+            return !isCategoryComplete(idx, cat);
+        });
+        var randomCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)];
+        
+        var availableAmps = getAvailableAmpsByCategory(idx, randomCategory);
+        var shuffled = availableAmps.slice().sort(function() { return Math.random() - 0.5; });
+        var displayAmps = shuffled.slice(0, 3);
+
+        var catLabel = document.createElement('div');
+        catLabel.style.cssText = 'text-align: center; color: #e16d48; font-size: 0.75rem; margin-bottom: 10px; font-weight: 500; letter-spacing: 0.5px;';
+        catLabel.innerHTML = '<i class="fas fa-tag"></i> ' + randomCategory;
+        section.appendChild(catLabel);
+
+        var wrapper = document.createElement('div');
+        wrapper.className = 'selection-wrapper';
+
+        var grid = document.createElement('div');
+        grid.className = 'selection-grid';
+        grid.style.cssText = 'display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;';
+
+        breakSelections[idx] = null;
+
+        if (displayAmps.length === 0) {
+            for (var i = 0; i < 3; i++) {
+                var emptyItem = document.createElement('div');
+                emptyItem.style.cssText = 'display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.05); opacity: 0.4;';
+                emptyItem.innerHTML = `
+                    <div style="font-size: 2rem; color: #555;">⛔</div>
+                    <div style="font-size:0.6rem; color:#555;">ПУСТО</div>
+                `;
+                grid.appendChild(emptyItem);
+            }
+            breakSelections[idx] = 'skip';
+        } else {
+            displayAmps.forEach(function(amp) {
+                var item = document.createElement('div');
+                item.className = 'selection-item';
+                item.style.cssText = 'display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.06); cursor: pointer; transition: all 0.3s ease; position: relative;';
+                item.innerHTML = `
+                    <img src="${amp.image}" alt="${amp.name}" onerror="this.src='https://placehold.co/80x80/1a1a2e/e16d48?text=?'" style="width:80px; height:80px; object-fit:contain; border-radius:10px; background:rgba(0,0,0,0.3); padding:4px;">
+                    <div style="font-size:0.65rem; color:#c2b9d4; text-align:center; font-weight:500; line-height:1.2;">${amp.name}</div>
+                    <div style="font-size:0.5rem; color:#666;">${amp.category}</div>
+                `;
+                item.addEventListener('click', function() {
+                    grid.querySelectorAll('.selection-item').forEach(function(el) {
+                        el.style.borderColor = 'rgba(255,255,255,0.06)';
+                        el.style.background = 'rgba(255,255,255,0.03)';
+                    });
+                    this.style.borderColor = '#e16d48';
+                    this.style.background = 'rgba(220,90,50,0.1)';
+                    breakSelections[idx] = amp.name;
+                    unlockAmpForPlayer(idx, amp.name);
+                    checkBreakReady();
+                });
+                grid.appendChild(item);
+            });
+            
+            if (displayAmps.length < 3) {
+                for (var j = displayAmps.length; j < 3; j++) {
+                    var emptyItem = document.createElement('div');
+                    emptyItem.style.cssText = 'display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.05); opacity: 0.4;';
+                    emptyItem.innerHTML = `
+                        <div style="font-size: 2rem; color: #555;">⛔</div>
+                        <div style="font-size:0.6rem; color:#555;">ПУСТО</div>
+                    `;
+                    grid.appendChild(emptyItem);
+                }
+            }
+        }
+
+        wrapper.appendChild(grid);
+        section.appendChild(wrapper);
+        content.appendChild(section);
+        
+        if (playerCount === 3 && idx === 2) {
+            section.style.gridColumn = '1 / -1';
+            section.style.maxWidth = '60%';
+            section.style.justifySelf = 'center';
+            section.style.width = '100%';
+        }
+    });
+
+    function checkBreakReady() {
+        var ready = true;
+        escState.players.forEach(function(_, idx) {
+            if (!areAllCategoriesComplete(idx) && !breakSelections[idx]) {
+                ready = false;
+            }
+        });
+        var confirmBtn = document.getElementById('breakModalConfirm');
+        if (confirmBtn) {
+            confirmBtn.disabled = !ready;
+            if (ready) {
+                confirmBtn.style.background = 'linear-gradient(135deg, #e16d48, #c0392b)';
+                confirmBtn.style.color = '#fff';
+                confirmBtn.style.cursor = 'pointer';
+            } else {
+                confirmBtn.style.background = 'rgba(220,90,50,0.2)';
+                confirmBtn.style.color = '#888';
+                confirmBtn.style.cursor = 'default';
+            }
+        }
+    }
+    checkBreakReady();
+
+    var confirmBtn = document.getElementById('breakModalConfirm');
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', function() {
+            if (this.disabled) return;
+            escState.players.forEach(function(_, idx) {
+                if (breakSelections[idx] && breakSelections[idx] !== 'skip') {
+                    var category = ampCategories.find(function(cat) {
+                        var amp = ampsData.find(function(a) { return a.name === breakSelections[idx]; });
+                        return amp && amp.category === cat;
+                    });
+                    if (category) {
+                        if (!escState.ampSelections[idx]) escState.ampSelections[idx] = {};
+                        escState.ampSelections[idx][category] = breakSelections[idx];
+                        
+                        if (!escState.usedAmps[idx]) escState.usedAmps[idx] = [];
+                        if (escState.usedAmps[idx].indexOf(breakSelections[idx]) === -1) {
+                            escState.usedAmps[idx].push(breakSelections[idx]);
+                        }
+                        unlockAmpForPlayer(idx, breakSelections[idx]);
+                    }
+                }
+            });
+            overlay.remove();
+            generateEscResult();
+        });
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 DOM загружен');
     if (document.getElementById('escalationWrapper')) {
         setTimeout(function() {
             initEscalation();
+            initAmpModal();
         }, 300);
     }
 });
