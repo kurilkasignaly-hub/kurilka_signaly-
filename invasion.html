@@ -453,51 +453,9 @@
             box-shadow: 0 3px 12px rgba(188, 70, 39, 0.25);
         }
 
+        /* ===== МУЗЫКА ТОЛЬКО НА ЭКРАНЕ ПОДКЛЮЧЕНИЯ ===== */
         .music-toggle {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px;
-            padding: 0.4rem 0.9rem;
-            color: #b5a8c8;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
-
-        .music-toggle:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(220, 90, 50, 0.3);
-            color: white;
-        }
-
-        .music-toggle.playing {
-            border-color: rgba(220, 90, 50, 0.3);
-            color: #e25d32;
-        }
-
-        .music-toggle .icon {
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .music-toggle .icon.pulse {
-            animation: musicPulse 1.2s ease-in-out infinite;
-        }
-
-        @keyframes musicPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
-        }
-
-        .music-toggle .label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            display: none !important;
         }
 
         /* ===== СТРАНИЦА LEADERBOARD ===== */
@@ -734,6 +692,9 @@
         /* Фоны для разных таблиц */
         .table-wrapper.bg-escalation {
             background-image: url('images/фон эскалация.webp');
+        }
+        .table-wrapper.bg-general {
+            background-image: url('images/фон-общая.webp');
         }
         .table-wrapper.bg-reagent {
             background-image: url('images/фон-реагент.webp');
@@ -1026,219 +987,18 @@
         audio.load();
     });
 
-    // ===== УПРАВЛЕНИЕ МУЗЫКОЙ =====
+    // ===== УПРАВЛЕНИЕ МУЗЫКОЙ (ТОЛЬКО НА ЭКРАНЕ ПОДКЛЮЧЕНИЯ) =====
     let pageAudioStarted = false;
 
     function startPageMusic() {
         const audio = document.getElementById('bgAudio');
         if (!audio || pageAudioStarted) return;
-        if (!document.getElementById('mainContent').classList.contains('active')) return;
         audio.volume = 0.35;
         audio.play().catch(() => {});
         pageAudioStarted = true;
-        updateMusicButton(true);
     }
 
-    function updateMusicButton(state) {
-        const btn = document.getElementById('musicToggleBtn');
-        if (!btn) return;
-        const icon = btn.querySelector('.icon');
-        const label = btn.querySelector('.label');
-        if (state) {
-            btn.classList.add('playing');
-            if (icon) { icon.classList.remove('fa-volume-xmark'); icon.classList.add('fa-volume-high', 'pulse'); }
-            if (label) label.textContent = 'Вкл';
-        } else {
-            btn.classList.remove('playing');
-            if (icon) { icon.classList.remove('fa-volume-high', 'pulse'); icon.classList.add('fa-volume-xmark'); }
-            if (label) label.textContent = 'Выкл';
-        }
-    }
-
-    function togglePageMusic() {
-        const audio = document.getElementById('bgAudio');
-        if (!audio) return;
-        if (audio.paused) {
-            audio.play().catch(() => {});
-            pageAudioStarted = true;
-            updateMusicButton(true);
-        } else {
-            audio.pause();
-            updateMusicButton(false);
-        }
-    }
-    window.togglePageMusic = togglePageMusic;
-
-    // Следим за появлением контента
-    const contentObserver = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                const mainContent = document.getElementById('mainContent');
-                if (mainContent && mainContent.classList.contains('active')) {
-                    setTimeout(startPageMusic, 500);
-                }
-            }
-        });
-    });
-
-    function observeContent() {
-        const mainContent = document.getElementById('mainContent');
-        if (mainContent) {
-            contentObserver.observe(mainContent, { attributes: true });
-            if (mainContent.classList.contains('active')) {
-                setTimeout(startPageMusic, 500);
-            }
-        } else {
-            setTimeout(observeContent, 200);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() { observeContent(); });
-    window.addEventListener('load', function() { setTimeout(observeContent, 100); });
-</script>
-
-<div class="main-wrapper">
-    <!-- ====== ЭКРАН ПОДКЛЮЧЕНИЯ ====== -->
-    <div id="connectScreen" class="connect-screen">
-        <div class="connect-content">
-            <div class="connect-logo">
-                <span class="line1">ДОБРО ПОЖАЛОВАТЬ В</span>
-                <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img">
-                <span class="line3">LEADERBOARD</span>
-            </div>
-            <div id="connectPrompt" class="connect-prompt">
-                <i class="fas fa-hand-pointer"></i> нажмите любую кнопку для подключения
-            </div>
-            <div id="connectStatus" class="connect-status">
-                <div class="spinner"></div>
-                <div class="label">ПОДОЖДИТЕ, ИДЕТ ЗАГРУЗКА ДАННЫХ...</div>
-            </div>
-        </div>
-        <div class="connect-hint"><i class="fas fa-shield-alt"></i> защищенный канал</div>
-    </div>
-
-    <!-- ====== ЭКРАН ОШИБКИ ====== -->
-    <div id="errorScreen" class="error-screen">
-        <div class="error-box">
-            <span class="error-icon"><i class="fas fa-exclamation-triangle"></i></span>
-            <h2>ОШИБКА СОЕДИНЕНИЯ!</h2>
-            <p class="error-sub">Не удалось установить соединение с сервером</p>
-            <p class="error-desc">
-                К сожалению, возникла непредвиденная ошибка.<br>
-                Попробуйте повторить операцию. Если ошибка повторится, попробуйте перезагрузить страницу или обратитесь к администратору.
-            </p>
-            <div class="error-code">ERR_CONNECTION_RESET</div>
-            <div class="error-actions">
-                <button class="error-btn error-btn-primary" id="retryBtn">
-                    <i class="fas fa-sync-alt"></i> Перезагрузить
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ====== ОСНОВНОЙ КОНТЕНТ ====== -->
-    <div id="mainContent" class="main-content">
-        <div class="header">
-            <div class="logo">
-                <img src="images/лого.png" alt="Курилка Синьялы" class="logo-img">
-                <div>
-                    <span class="logo-text">Курилка Синьялы</span>
-                    <p><i class="fab fa-discord"></i> неофициальное убежище · The Outlast Trials</p>
-                </div>
-            </div>
-            <div class="nav-links">
-                <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Главная</a>
-                <a href="roles.html" class="nav-btn"><i class="fas fa-tags"></i> Роли</a>
-                <a href="news.html" class="nav-btn"><i class="fas fa-newspaper"></i> Новости</a>
-                <a href="roulette.html" class="nav-btn"><i class="fas fa-dice-d6"></i> Рулетка</a>
-                <a href="invasion.html" class="nav-btn active"><i class="fas fa-biohazard"></i> Invasion</a>
-                <a href="about.html" class="nav-btn"><i class="fas fa-book-open"></i> Об игре</a>
-                
-                <button class="music-toggle" id="musicToggleBtn" onclick="togglePageMusic()" title="Включить/выключить музыку">
-                    <span class="icon fa-solid fa-volume-xmark"></span>
-                    <span class="label">Выкл</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Заголовок -->
-        <div class="page-title">
-            <h1><i class="fas fa-biohazard"></i> Курилка Синьялы — Leaderboard</h1>
-            <div class="sub"><i class="fas fa-skull"></i> Рейтинг игроков · Invasion & Эскалация <i class="fas fa-skull"></i></div>
-        </div>
-
-        <!-- ====== БОЛЬШАЯ КАРТИНКА ====== -->
-        <div class="big-banner">
-            <img src="images/баннер лидерборд.png" alt="Leaderboard Banner" onerror="this.style.display='none'">
-        </div>
-
-        <!-- ====== ALERT БЛОК ====== -->
-        <div class="alert-block">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>
-                <span class="highlight">ВНИМАНИЕ!</span> Все данные лидерборда обновляются один раз в неделю — каждый <span class="highlight">Вторник в 21:00</span> по МСК.
-            </span>
-        </div>
-
-        <!-- ====== БАННЕРЫ ЭСКАЛАЦИЯ / ВТОРЖЕНИЕ СВЕРХУ ====== -->
-        <div class="mode-banners" id="modeBanners">
-            <div class="mode-banner active" data-mode="escalation" onclick="switchMode('escalation')">
-                <img src="images/эскалация баннер.webp" alt="Эскалация" onerror="this.src='https://placehold.co/600x338/1a1a2e/e25d32?text=Эскалация'">
-                <div class="banner-label">ЭСКАЛАЦИЯ</div>
-            </div>
-            <div class="mode-banner" data-mode="invasion" onclick="switchMode('invasion')">
-                <img src="images/вторжение баннер.png" alt="Вторжение" onerror="this.src='https://placehold.co/600x338/1a1a2e/e25d32?text=Вторжение'">
-                <div class="banner-label">ВТОРЖЕНИЕ</div>
-            </div>
-        </div>
-
-        <!-- ====== СЕКЦИЯ С ТАБЛИЦЕЙ ====== -->
-        <div class="leaderboard-section" id="leaderboardSection">
-            <div class="section-header">
-                <div class="title">
-                    <i class="fas fa-crown"></i>
-                    <span id="sectionTitle">ЭСКАЛАЦИЯ</span>
-                </div>
-                <div class="sub-title">
-                    <i class="fas fa-clock"></i> Обновлено: 14.06.2026
-                </div>
-            </div>
-
-            <!-- Подвкладки -->
-            <div class="sub-tabs" id="subTabs">
-                <span class="sub-tab active" data-sub="weekly" onclick="switchSubTab('weekly')">Еженедельная</span>
-                <span class="sub-tab" data-sub="infinite" onclick="switchSubTab('infinite')">Бесконечная</span>
-            </div>
-
-            <!-- Таблица с фоновым изображением -->
-            <div class="table-wrapper bg-escalation" id="tableWrapper">
-                <div class="table-bg-overlay"></div>
-                <div id="tableContainer"></div>
-            </div>
-        </div>
-
-        <footer>
-            <img src="images/лого.png" alt="Курилка Синьялы" class="footer-logo">
-            <div><i class="fab fa-discord"></i> discord.gg/HFdReFSx7</div>
-            <p style="margin-top:8px;">«Курилка Синьялы» — неофициальное сообщество фанатов The Outlast Trials<br> Дым, ужас и папиросы ❤️‍🔥</p>
-            <p style="margin-top:4px; font-size:0.65rem;">© 2026 Курилка Синьялы | Все права защищены безумием</p>
-        </footer>
-    </div>
-</div>
-
-<script>
-    // ===== ПРОВЕРКА MAINTENANCE.TXT =====
-    async function checkMaintenance() {
-        try {
-            const response = await fetch('maintenance.txt?_=' + Date.now());
-            if (!response.ok) return 0;
-            const text = await response.text();
-            const status = parseInt(text.trim(), 10);
-            return isNaN(status) ? 0 : status;
-        } catch (error) { return 0; }
-    }
-
-    // ===== ЛОГИКА ЭКРАНА ПОДКЛЮЧЕНИЯ =====
+    // ===== ЭКРАН ПОДКЛЮЧЕНИЯ =====
     const connectScreen = document.getElementById('connectScreen');
     const connectPrompt = document.getElementById('connectPrompt');
     const connectStatus = document.getElementById('connectStatus');
@@ -1303,6 +1063,7 @@
 
             connectScreen.classList.remove('active');
             errorScreen.classList.add('active');
+            if (audio) audio.pause();
             
         } else {
             if (audio && audio.src.indexOf('loading 3.mp3') !== -1) {
@@ -1341,6 +1102,7 @@
                 }
                 connectScreen.classList.remove('active');
                 errorScreen.classList.add('active');
+                if (audio) audio.pause();
             } else {
                 connectScreen.classList.remove('active');
                 mainContent.classList.add('active');
@@ -1357,6 +1119,16 @@
         
         isProcessing = false;
         connectionTimer = null;
+    }
+
+    async function checkMaintenance() {
+        try {
+            const response = await fetch('maintenance.txt?_=' + Date.now());
+            if (!response.ok) return 0;
+            const text = await response.text();
+            const status = parseInt(text.trim(), 10);
+            return isNaN(status) ? 0 : status;
+        } catch (error) { return 0; }
     }
 
     connectScreen.addEventListener('click', function(e) {
@@ -1474,30 +1246,43 @@
         ]
     };
 
+    const invasionGeneralData = [
+        { rank: 1, name: "Invasion_King", points: "unranked" },
+        { rank: 2, name: "Shadow_Hunter", points: "unranked" },
+        { rank: 3, name: "Nightmare_Stalker", points: "unranked" },
+        { rank: 4, name: "Darkness_Fury", points: "unranked" },
+        { rank: 5, name: "Silent_Death", points: "unranked" },
+        { rank: 6, name: "Fearless_Runner", points: "unranked" },
+        { rank: 7, name: "Ghost_Blade", points: "unranked" },
+        { rank: 8, name: "Crimson_Tide", points: "unranked" },
+        { rank: 9, name: "Eclipse_Warrior", points: "unranked" },
+        { rank: 10, name: "Void_Walker", points: "unranked" }
+    ];
+
     const invasionData = {
         reagent: [
-            { rank: 1, name: "Reagent_Master", points: "unranked", matches: "unranked" },
-            { rank: 2, name: "Survivor_King", points: "unranked", matches: "unranked" },
-            { rank: 3, name: "Reagent_Pro", points: "unranked", matches: "unranked" },
-            { rank: 4, name: "Эксперимент_13", points: "unranked", matches: "unranked" },
-            { rank: 5, name: "Лабораторный", points: "unranked", matches: "unranked" },
-            { rank: 6, name: "Реагент_X", points: "unranked", matches: "unranked" },
-            { rank: 7, name: "Подопытный_7", points: "unranked", matches: "unranked" },
-            { rank: 8, name: "Образец_09", points: "unranked", matches: "unranked" },
-            { rank: 9, name: "Тестовая_группа", points: "unranked", matches: "unranked" },
-            { rank: 10, name: "Реагент_001", points: "unranked", matches: "unranked" }
+            { rank: 1, name: "Reagent_Master", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 2, name: "Survivor_King", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 3, name: "Reagent_Pro", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 4, name: "Эксперимент_13", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 5, name: "Лабораторный", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 6, name: "Реагент_X", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 7, name: "Подопытный_7", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 8, name: "Образец_09", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 9, name: "Тестовая_группа", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 10, name: "Реагент_001", points: "unranked", wins: "unranked", losses: "unranked" }
         ],
         impostor: [
-            { rank: 1, name: "Impostor_Elite", points: "unranked", matches: "unranked" },
-            { rank: 2, name: "The_Shadow", points: "unranked", matches: "unranked" },
-            { rank: 3, name: "Самозванец_Х", points: "unranked", matches: "unranked" },
-            { rank: 4, name: "Двойник_7", points: "unranked", matches: "unranked" },
-            { rank: 5, name: "Маскировка", points: "unranked", matches: "unranked" },
-            { rank: 6, name: "Имитация", points: "unranked", matches: "unranked" },
-            { rank: 7, name: "Фальшивка", points: "unranked", matches: "unranked" },
-            { rank: 8, name: "Призрак", points: "unranked", matches: "unranked" },
-            { rank: 9, name: "Копия", points: "unranked", matches: "unranked" },
-            { rank: 10, name: "Обман", points: "unranked", matches: "unranked" }
+            { rank: 1, name: "Impostor_Elite", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 2, name: "The_Shadow", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 3, name: "Самозванец_Х", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 4, name: "Двойник_7", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 5, name: "Маскировка", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 6, name: "Имитация", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 7, name: "Фальшивка", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 8, name: "Призрак", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 9, name: "Копия", points: "unranked", wins: "unranked", losses: "unranked" },
+            { rank: 10, name: "Обман", points: "unranked", wins: "unranked", losses: "unranked" }
         ]
     };
 
@@ -1556,6 +1341,12 @@
             banner.classList.toggle('active', banner.dataset.mode === mode);
         });
         
+        if (mode === 'invasion') {
+            currentSubTab = 'general';
+        } else {
+            currentSubTab = 'weekly';
+        }
+        
         updateTableContent();
     }
 
@@ -1573,8 +1364,7 @@
         const subTabs = document.getElementById('subTabs');
         const tableWrapper = document.getElementById('tableWrapper');
         
-        // Сбрасываем классы фона
-        tableWrapper.classList.remove('bg-escalation', 'bg-reagent', 'bg-impostor');
+        tableWrapper.classList.remove('bg-escalation', 'bg-general', 'bg-reagent', 'bg-impostor');
         
         if (currentMode === 'escalation') {
             title.textContent = 'ЭСКАЛАЦИЯ';
@@ -1664,20 +1454,20 @@
         } else {
             title.textContent = 'ВТОРЖЕНИЕ';
             
-            if (currentSubTab === 'reagent') {
+            if (currentSubTab === 'general') {
                 subTabs.innerHTML = `
-                    <span class="sub-tab active" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
+                    <span class="sub-tab active" data-sub="general" onclick="switchSubTab('general')">Общая</span>
+                    <span class="sub-tab" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
                     <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
                 `;
                 
-                // Фон для Реагента — bg-impostor (самозванец)
-                tableWrapper.classList.add('bg-impostor');
+                tableWrapper.classList.add('bg-general');
                 
-                const data = invasionData.reagent;
+                const data = invasionGeneralData;
                 
                 let html = `<table>
                     <thead>
-                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th><th>МАТЧЕЙ</th><th>РЕЙТИНГ</th></tr>
+                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th></tr>
                     </thead>
                     <tbody>`;
                 
@@ -1685,8 +1475,6 @@
                     const platform = getPlatformForPlayer(player.name);
                     const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
                     const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
-                    const matchesDisplay = isUnranked(player.matches) ? formatCell(player.matches) : player.matches;
-                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.matches));
                     
                     html += `
                         <tr class="${getRankClass(player.rank)}">
@@ -1700,7 +1488,52 @@
                             <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
                                 ${pointsDisplay}
                             </td>
-                            <td>${matchesDisplay}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `</tbody></table>`;
+                container.innerHTML = html;
+                
+            } else if (currentSubTab === 'reagent') {
+                subTabs.innerHTML = `
+                    <span class="sub-tab" data-sub="general" onclick="switchSubTab('general')">Общая</span>
+                    <span class="sub-tab active" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
+                    <span class="sub-tab" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
+                `;
+                
+                tableWrapper.classList.add('bg-reagent');
+                
+                const data = invasionData.reagent;
+                
+                let html = `<table>
+                    <thead>
+                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th><th>ВЫИГРЫШНЫЕ МАТЧИ</th><th>ПРОИГРЫШНЫЕ МАТЧИ</th><th>РЕЙТИНГ</th></tr>
+                    </thead>
+                    <tbody>`;
+                
+                data.forEach(player => {
+                    const platform = getPlatformForPlayer(player.name);
+                    const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
+                    const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
+                    const winsDisplay = isUnranked(player.wins) ? formatCell(player.wins) : player.wins;
+                    const lossesDisplay = isUnranked(player.losses) ? formatCell(player.losses) : player.losses;
+                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.wins));
+                    
+                    html += `
+                        <tr class="${getRankClass(player.rank)}">
+                            <td style="font-weight: bold; color: ${color};">${getMedalIcon(player.rank)}</td>
+                            <td style="font-weight: ${player.rank <= 3 ? '600' : 'normal'}; text-align: left;">
+                                <span class="player-name">
+                                    ${getPlatformIcon(platform)}
+                                    ${player.name}
+                                </span>
+                            </td>
+                            <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
+                                ${pointsDisplay}
+                            </td>
+                            <td>${winsDisplay}</td>
+                            <td>${lossesDisplay}</td>
                             <td>${ratingDisplay}</td>
                         </tr>
                     `;
@@ -1711,18 +1544,18 @@
                 
             } else {
                 subTabs.innerHTML = `
+                    <span class="sub-tab" data-sub="general" onclick="switchSubTab('general')">Общая</span>
                     <span class="sub-tab" data-sub="reagent" onclick="switchSubTab('reagent')">Реагент</span>
                     <span class="sub-tab active" data-sub="impostor" onclick="switchSubTab('impostor')">Самозванец</span>
                 `;
                 
-                // Фон для Самозванца — bg-reagent (реагент)
-                tableWrapper.classList.add('bg-reagent');
+                tableWrapper.classList.add('bg-impostor');
                 
                 const data = invasionData.impostor;
                 
                 let html = `<table>
                     <thead>
-                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th><th>МАТЧЕЙ</th><th>РЕЙТИНГ</th></tr>
+                        <tr><th>УРОВЕНЬ</th><th>ИДЕНТИФИКАТОР ИГРОКА</th><th>ОЧКИ</th><th>ВЫИГРЫШНЫЕ МАТЧИ</th><th>ПРОИГРЫШНЫЕ МАТЧИ</th><th>РЕЙТИНГ</th></tr>
                     </thead>
                     <tbody>`;
                 
@@ -1730,8 +1563,9 @@
                     const platform = getPlatformForPlayer(player.name);
                     const color = player.rank === 1 ? '#ffd700' : player.rank === 2 ? '#c0c0c0' : player.rank === 3 ? '#cd7f32' : '#e16d48';
                     const pointsDisplay = isUnranked(player.points) ? formatCell(player.points) : player.points;
-                    const matchesDisplay = isUnranked(player.matches) ? formatCell(player.matches) : player.matches;
-                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.matches));
+                    const winsDisplay = isUnranked(player.wins) ? formatCell(player.wins) : player.wins;
+                    const lossesDisplay = isUnranked(player.losses) ? formatCell(player.losses) : player.losses;
+                    const ratingDisplay = isUnranked(player.points) ? formatCell('unranked') : Math.floor(parseInt(player.points) / 10 + parseInt(player.wins));
                     
                     html += `
                         <tr class="${getRankClass(player.rank)}">
@@ -1745,7 +1579,8 @@
                             <td style="font-weight: ${player.rank <= 3 ? 'bold' : 'normal'}; color: ${color};">
                                 ${pointsDisplay}
                             </td>
-                            <td>${matchesDisplay}</td>
+                            <td>${winsDisplay}</td>
+                            <td>${lossesDisplay}</td>
                             <td>${ratingDisplay}</td>
                         </tr>
                     `;
@@ -1757,12 +1592,10 @@
         }
     }
 
-    // ===== ИНИЦИАЛИЗАЦИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
         updateTableContent();
     });
 
-    // Плавное появление
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
