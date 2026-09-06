@@ -706,6 +706,7 @@
             font-weight: 600;
         }
 
+        /* ===== ВАРИАТОРЫ С УМНЫМ РАЗМЕРОМ ТЕКСТА ===== */
         .variator-list {
             display: flex;
             gap: 1rem;
@@ -717,25 +718,47 @@
             flex-direction: column;
             align-items: center;
             gap: 0.4rem;
+            width: 80px;
+            min-width: 70px;
+            max-width: 100px;
+            flex-shrink: 0;
         }
 
         .variator-list .var-item img {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             object-fit: contain;
             border-radius: 12px;
             background: rgba(0, 0, 0, 0.3);
             padding: 6px;
             border: 1px solid rgba(220, 90, 50, 0.15);
+            flex-shrink: 0;
         }
 
         .variator-list .var-item .var-name {
-            font-size: 0.65rem;
             color: #c2b9d4;
             text-align: center;
-            max-width: 75px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
             line-height: 1.2;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.65rem;
         }
+
+        /* Умное уменьшение шрифта в зависимости от длины */
+        .variator-list .var-item .var-name[data-length="1"] { font-size: 0.85rem; }
+        .variator-list .var-item .var-name[data-length="2"] { font-size: 0.8rem; }
+        .variator-list .var-item .var-name[data-length="3"] { font-size: 0.75rem; }
+        .variator-list .var-item .var-name[data-length="4"] { font-size: 0.7rem; }
+        .variator-list .var-item .var-name[data-length="5"] { font-size: 0.65rem; }
+        .variator-list .var-item .var-name[data-length="6"] { font-size: 0.6rem; }
+        .variator-list .var-item .var-name[data-length="7"] { font-size: 0.55rem; }
+        .variator-list .var-item .var-name[data-length="8"] { font-size: 0.5rem; }
+        .variator-list .var-item .var-name[data-length="9"] { font-size: 0.45rem; }
+        .variator-list .var-item .var-name[data-length="10"] { font-size: 0.4rem; }
 
         .variator-list .var-item.weekly {
             border: 2px solid #f1c40f;
@@ -1298,6 +1321,15 @@
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
             }
+            
+            .variator-list .var-item {
+                width: 65px;
+                min-width: 55px;
+            }
+            .variator-list .var-item img {
+                width: 50px;
+                height: 50px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -1317,9 +1349,17 @@
             .selection-item .item-name { font-size: 0.7rem; }
             
             .result-map-row .map-image { width: 100px; height: 100px; }
+            
             .variator-list { gap: 0.5rem; }
-            .variator-list .var-item img { width: 50px; height: 50px; }
-            .variator-list .var-item .var-name { font-size: 0.55rem; max-width: 60px; }
+            .variator-list .var-item {
+                width: 55px;
+                min-width: 48px;
+            }
+            .variator-list .var-item img {
+                width: 42px;
+                height: 42px;
+                padding: 4px;
+            }
             
             .step-actions { flex-direction: column; align-items: center; }
             .next-btn, .back-btn, .exit-btn { width: 100%; justify-content: center; }
@@ -1827,7 +1867,23 @@ function getVariatorsForLevel(level, mapName, playerCount) {
 }
 
 // ============================================================
-// ОСТАЛЬНЫЕ ФУНКЦИИ (ОСТАВЛЕНЫ БЕЗ ИЗМЕНЕНИЙ)
+// ФУНКЦИЯ ДЛЯ ОПРЕДЕЛЕНИЯ РАЗМЕРА ШРИФТА В ЗАВИСИМОСТИ ОТ ДЛИНЫ ТЕКСТА
+// ============================================================
+function getVariatorFontSize(name) {
+    var length = name.length;
+    if (length <= 2) return '0.85rem';
+    if (length <= 3) return '0.8rem';
+    if (length <= 4) return '0.75rem';
+    if (length <= 5) return '0.7rem';
+    if (length <= 6) return '0.65rem';
+    if (length <= 7) return '0.6rem';
+    if (length <= 8) return '0.55rem';
+    if (length <= 9) return '0.5rem';
+    return '0.45rem';
+}
+
+// ============================================================
+// ОСТАЛЬНЫЕ ФУНКЦИИ
 // ============================================================
 function getMapAndTrial(level) {
     if (typeof trialsData === 'undefined') return null;
@@ -1937,7 +1993,7 @@ function updateLevelCounter() {
 }
 
 // ============================================================
-// ОТРИСОВКА ШАГОВ (СОКРАЩЕНА ДЛЯ ЭКОНОМИИ МЕСТА)
+// ОТРИСОВКА ШАГОВ (СОКРАЩЕНА)
 // ============================================================
 function renderEscPlayerNames() {
     var container = document.getElementById('escPlayerNameInputs');
@@ -2313,24 +2369,32 @@ function showPreviewModal(trialName, mapName, variators, level) {
         @keyframes slideUpPreview { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes slideDownPreview { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(40px) scale(0.95); } }
         .preview-variator-item {
-            display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+            display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
             animation: variatorAppear 0.4s ease forwards; opacity: 0; transform: scale(0.8);
-            margin: 0 5px; max-width: 110px; min-width: 70px; flex: 0 1 auto;
+            margin: 0 4px; max-width: 90px; min-width: 60px; flex: 0 1 auto;
         }
         .preview-variator-item.weekly {
-            border: 2px solid #f1c40f; border-radius: 14px; padding: 4px;
+            border: 2px solid #f1c40f; border-radius: 12px; padding: 4px;
             background: rgba(241, 196, 15, 0.1);
         }
         .preview-variator-item.weekly .preview-variator-name { color: #f1c40f; }
         @keyframes variatorAppear { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        .preview-variator-name { font-weight: 700; color: #ffbc9a; text-align: center; max-width: 110px; line-height: 1.2; display: block; text-transform: uppercase; }
-        .preview-variator-img { width: 70px; height: 70px; object-fit: contain; border-radius: 12px; background: rgba(0,0,0,0.3); padding: 6px; border: 1px solid rgba(220,90,50,0.15); }
+        .preview-variator-name { 
+            font-weight: 700; color: #ffbc9a; text-align: center; 
+            max-width: 90px; line-height: 1.2; display: block; 
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+        .preview-variator-img { width: 60px; height: 60px; object-fit: contain; border-radius: 10px; background: rgba(0,0,0,0.3); padding: 4px; border: 1px solid rgba(220,90,50,0.15); flex-shrink: 0; }
         .preview-variators-container {
-            display: flex; flex-wrap: nowrap; justify-content: center; align-items: flex-start;
-            gap: 8px 14px; padding: 16px 0 12px 0;
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+            gap: 6px 10px; padding: 12px 0 10px 0;
             border-top: 1px solid rgba(220,90,50,0.15);
             border-bottom: 1px solid rgba(220,90,50,0.15);
-            margin-bottom: 18px; min-height: 110px; overflow-x: auto;
+            margin-bottom: 18px; min-height: 90px;
         }
         .preview-level-number { font-size: 3rem; font-weight: 900; color: #e16d48; letter-spacing: 2px; margin-bottom: 8px; }
         .preview-trial-name { font-size: 2rem; font-weight: 900; color: #ffbc9a; letter-spacing: 2px; margin-bottom: 4px; }
@@ -2348,12 +2412,11 @@ function showPreviewModal(trialName, mapName, variators, level) {
         var isWeekly = weeklyVarName && v.name === weeklyVarName;
         var weeklyClass = isWeekly ? 'preview-variator-item weekly' : 'preview-variator-item';
         var weeklyBadge = isWeekly ? '<div style="font-size:0.45rem; color:#f1c40f; font-weight:700; letter-spacing:0.5px; margin-top:2px;"><i class="fas fa-star"></i> НЕДЕЛЯ</div>' : '';
-        
-        var fontSize = v.name.length > 14 ? '0.6rem' : '0.75rem';
+        var fontSize = getVariatorFontSize(v.name);
         
         return `
-            <div class="${weeklyClass}" style="animation-delay: ${delay}s; max-width: 110px;">
-                <img class="preview-variator-img" src="${v.image}" alt="${v.name}" onerror="this.src='https://placehold.co/70x70/1a1a2e/e16d48?text=?'">
+            <div class="${weeklyClass}" style="animation-delay: ${delay}s; max-width: 90px;">
+                <img class="preview-variator-img" src="${v.image}" alt="${v.name}" onerror="this.src='https://placehold.co/60x60/1a1a2e/e16d48?text=?'">
                 <span class="preview-variator-name" style="font-size:${fontSize};">${nameUpper}</span>
                 ${weeklyBadge}
             </div>
@@ -2450,12 +2513,12 @@ function prepareFullResult(mapName, mapImage, trial, difficulty) {
             var borderColor = isWeekly ? '#f1c40f' : 'rgba(220,90,50,0.15)';
             var bgColor = isWeekly ? 'rgba(241,196,15,0.1)' : 'rgba(0,0,0,0.3)';
             var weeklyBadge = isWeekly ? '<div style="font-size:0.5rem; color:#f1c40f; font-weight:700; letter-spacing:0.5px; margin-top:2px;"><i class="fas fa-star"></i> НЕДЕЛЯ</div>' : '';
-            var fontSize = v.name.length > 14 ? '0.55rem' : '0.75rem';
+            var fontSize = getVariatorFontSize(v.name);
             
             return `
-                <div class="var-item" style="display:flex; flex-direction:column; align-items:center; gap:0.4rem; max-width:100px; border:2px solid ${borderColor}; border-radius:14px; padding:6px; background:${bgColor};">
-                    <img src="${v.image}" alt="${v.name}" style="width:80px; height:80px; object-fit:contain; border-radius:14px; background:rgba(0,0,0,0.3); padding:6px; border:1px solid rgba(220,90,50,0.15);" onerror="this.src='https://placehold.co/80x80/1a1a2e/e16d48?text=?'">
-                    <span style="font-size:${fontSize}; color:#ffbc9a; text-align:center; max-width:90px; line-height:1.3; font-weight:600; text-transform:uppercase;">${v.name.toUpperCase()}</span>
+                <div class="var-item" style="border:2px solid ${borderColor}; border-radius:12px; padding:4px; background:${bgColor};">
+                    <img src="${v.image}" alt="${v.name}" style="width:64px; height:64px; object-fit:contain; border-radius:10px; background:rgba(0,0,0,0.3); padding:4px; border:1px solid rgba(220,90,50,0.15);" onerror="this.src='https://placehold.co/64x64/1a1a2e/e16d48?text=?'">
+                    <span class="var-name" style="font-size:${fontSize}; color:${isWeekly ? '#f1c40f' : '#c2b9d4'};">${v.name.toUpperCase()}</span>
                     ${weeklyBadge}
                 </div>
             `;
